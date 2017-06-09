@@ -13,6 +13,11 @@ alias du='du -h'
 alias ls='ls -FG'
 alias grep='grep --color'                     # show differences in colour
 
+# Make file transfers verbose
+alias mv='mv -v'
+alias cp='cp -v'
+alias mkdir='mkdir -v'
+
 # Get week number
 alias week='date +%V'
 
