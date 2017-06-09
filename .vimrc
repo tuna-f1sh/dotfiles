@@ -26,7 +26,21 @@ elseif has("gui_macvim")
   " dictionary on unix
   set dictionary=/usr/share/dict/words
 endif
-" useful commands for ctags - ]/[i next text under cursor, ]/[d difinition down/up, capital all in file in preview
+"
+"=================================
+" --- VUNDLE ---- "
+"=================================
+
+filetype off
+
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle..."
+    echo ""
+    silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    let iCanHazVundle=0
+endif
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -35,8 +49,6 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
         \ | wincmd p | diffthis
 endif
-
-filetype off
 
 " Vundle setup
 if has("win32")

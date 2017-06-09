@@ -10,18 +10,20 @@ function doIt() {
 		--exclude ".macos" \
 		--exclude "bootstrap.sh" \
 		--exclude "antigen" \
+		--exclude ".config" \
 		--exclude "support" \
 		--exclude "brew.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \
 		-avh --no-perms . "$1";
+	rsync -avh --no-perms .config/ "$1"/.config;
 	source ~/.bash_profile;
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
   doIt "~";
 elif [ "$1" == "--test" -o "$1" == "-t" ]; then
-  doIt "./test/";
+  doIt "./test";
 	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
 else
 	echo "";
