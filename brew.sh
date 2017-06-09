@@ -18,9 +18,8 @@ brew install moreutils
 brew install findutils
 # Install GNU `sed`, overwriting the built-in `sed`.
 brew install gnu-sed --with-default-names
-# Install Bash 4.
-# Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
-# running `chsh`. To do so, run `sudo chsh -s /usr/local/bin/bash`.
+
+# Install Bash 4
 brew install bash
 brew tap homebrew/versions
 brew install bash-completion2
@@ -34,72 +33,58 @@ fi;
 # Install `wget` with IRI support.
 brew install wget --with-iri
 
-# Install RingoJS and Narwhal.
-# Note that the order in which these are installed is important;
-# see http://git.io/brew-narwhal-ringo.
-brew install ringojs
-brew install narwhal
-
 # Install more recent versions of some macOS tools.
 brew install vim --with-override-system-vi
 brew install homebrew/dupes/grep
 brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
-brew install homebrew/php/php56 --with-gmp
 
-# Install font tools.
-brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
-
-# Install some CTF tools; see https://github.com/ctfs/write-ups.
+# Bins I use
 brew install aircrack-ng
-brew install bfg
-brew install binutils
-brew install binwalk
-brew install cifer
-brew install dex2jar
-brew install dns2tcp
-brew install fcrackzip
-brew install foremost
-brew install hashpump
-brew install hydra
-brew install john
-brew install knock
-brew install netpbm
-brew install nmap
-brew install pngcheck
-brew install socat
-brew install sqlmap
-brew install tcpflow
-brew install tcpreplay
-brew install tcptrace
-brew install ucspi-tcp # `tcpserver` etc.
-brew install xpdf
-brew install xz
-
-# Install other useful binaries.
 brew install ack
-brew install dark-mode
-#brew install exiv2
+brew install archey
+brew install arduino-mk
+brew install automake
+brew install avr-binutils
+brew install avr-gcc
+brew install avr-libc
+brew install avrdude
+brew install bash-completion
+brew install binwalk
+brew install cmake
+brew install ctags
+brew install dfu-util
+brew install dos2unix
+brew install ext2fuse
+brew install fish
+brew install gcc-arm-none-eabi
 brew install git
-brew install git-lfs
-brew install imagemagick --with-webp
-brew install lua
-brew install lynx
-brew install p7zip
-brew install pigz
+brew install htop-osx
+brew install iperf
+brew install libftdi
+brew install libftdi0
+brew install libusb
+brew install libusb-compat
+brew install markdown
+brew install minicom
+brew install nettle
+brew install ngrep
+brew install nmap
+brew install node
+brew install openssl
+brew install picocom
 brew install pv
+brew install python
+brew install python3
+brew install readline
 brew install rename
-brew install rhino
-brew install speedtest_cli
-brew install ssh-copy-id
-brew install testssl
-brew install tree
-brew install vbindiff
-brew install webkit2png
-brew install zopfli
+brew install ruby
+brew install the_silver_searcher
+brew install tcptrace
+brew install tmux
+brew install xz
+brew install zsh # homebrew zsh
+brew install opfli
 
 # Remove outdated versions from the cellar.
 brew cleanup
