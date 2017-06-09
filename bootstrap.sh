@@ -20,7 +20,7 @@ function doIt() {
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
   doIt "~";
-else if [ "$1" == "--test" -o "$1" == "-t" ]; then
+elif [ "$1" == "--test" -o "$1" == "-t" ]; then
   doIt "./test/";
 	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
 else
