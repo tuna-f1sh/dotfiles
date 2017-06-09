@@ -19,3 +19,4 @@ Thumbs.db
 
 # API keys etc.
 .secrets
+secrets
