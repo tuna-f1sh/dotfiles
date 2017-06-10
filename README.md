@@ -1,6 +1,6 @@
 # John’s dotfiles
 
-![Screenshot of my shell prompt](http://i.imgur.com/W0llLtH.png)
+![Screenshot of my shell prompt](http://i.imgur.com/klQaU1Z.png)
 
 ## Installation
 
