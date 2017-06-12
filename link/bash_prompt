@@ -112,4 +112,7 @@ prompt_git() {
 
 #Set Prompt
 #===========
-PS1="\[$Cyan\][\A \[$userStyle\]\u@\[$hostStyle\]\h \[$BCyan\]\w\[$BBlue\]\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")]\n>\[$White\] "
+# With Git status
+#PS1="\[$Cyan\][\A \[$userStyle\]\u@\[$hostStyle\]\h \[$BCyan\]\w\[$BBlue\]\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")]\n>\[$White\] "
+# Without Git status
+PS1="\[$Cyan\][\A \[$userStyle\]\u@\[$hostStyle\]\h \[$BCyan\]\w\[$BBlue\]]\n>\[$White\] "
