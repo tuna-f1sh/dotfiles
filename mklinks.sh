@@ -3,11 +3,14 @@
 # Get utility functions for script
 eval ". utils.sh"
 
+ARG1=${1:-link}
+
 create_symlinks() {
     local i=""
     local sourceFile=""
     local targetFile=""
     local skipQuestions=false
+
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
     # Create empty APIs file if none is present
@@ -16,11 +19,15 @@ create_symlinks() {
       execute "touch $HOME/.secrets"
     fi
     
-    for i in $DIR/link/*; do
+    for i in $DIR/$ARG1/*; do
         echo $i
 
         sourceFile="$i"
-        targetFile="$HOME/.$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
+        if [ $ARG1 == "link" ]; then
+          targetFile="$HOME/.$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
+        else
+          targetFile="$HOME/$ARG1/$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
+        fi
 
         echo $targetFile
 

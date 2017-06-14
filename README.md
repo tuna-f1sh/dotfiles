@@ -7,6 +7,8 @@
 ```bash
 git clone https://github.com/tuna-f1sh/dotfiles && cd dotfiles
 ./mklink.sh # Make symbolic links of dotfiles to home
+./mklink.sh .config # Make symbolic links of .config folders to .config (or
+other folder)
 ./misc.sh # Run other setup items
 ./macos # Configure MacOS if using
 ```
