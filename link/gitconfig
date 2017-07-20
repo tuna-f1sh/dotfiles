@@ -1,8 +1,9 @@
 [user]
 	name = John Whittington
-	email = john@jbrengineering.co.uk
+	email = john.whittington@cruxproductdesign.com
 [push]
 	default = simple
 [core]
 	excludesfile = /Users/John/.gitignore_global
 	editor = /usr/bin/vim
+	trustctime = false
