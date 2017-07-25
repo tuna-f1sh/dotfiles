@@ -26,7 +26,7 @@ create_symlinks() {
         if [ $ARG1 == "link" ]; then
           targetFile="$HOME/.$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
         else
-          targetFile="$HOME/$ARG1/$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
+          targetFile="$HOME/.$ARG1/$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
         fi
 
         echo $targetFile

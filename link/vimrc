@@ -54,7 +54,7 @@ endif
 if has("win32")
   set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
   set rtp+=~/.vim/bundle/Vundle.vim/
-  call vundle#begin('C:\cygwin64\home\JWhittington\.vim\bundle')
+  call vundle#begin('$HOME\.vim\bundle')
 else
   set rtp+=~/.vim/bundle/Vundle.vim/
   call vundle#begin()
@@ -141,9 +141,8 @@ if has("gui_running")
   if has("win32")
     try
       colorscheme molokai
-      set guifont=Consolas_for_Powerline_FixedD:h10
+      set guifont=DejaVu_Sans_Mono_for_Powerline:h10
     catch
-      set guifont=Consolas:h10
     endtry
   else
     try
@@ -197,7 +196,7 @@ set keywordprg=google
 set undolevels=1000 " 1000 undos
 set noundofile " no persistent undo
 
-if has("persistent_undo") && has("unix")
+if has("persistent_undo") " must 'mkdir ~/.vim/.vimundo'
   set undodir=~/.vim/.vimundo " where to keep it
   set undofile " persistent undo
   set undoreload=100 " number of lines to save for undo
