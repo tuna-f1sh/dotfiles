@@ -453,10 +453,10 @@ endif
 
 " Save backups to tmp and directory swap where I know
 if has("win32")
-  " let $TMP='C:\tmp'
+  let $TMP='C:\tmp'
   " " be explicit about vim/tmp for cygwin and windows crossover
-  " set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
-  " set directory^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
+  set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP
+  set directory^=$TMP,C:/cygwin64/tmp,$TEMP
 else
   set backupdir^=/tmp,~/.vim/tmp
   set directory^=/tmp,~/.vim/tmp
