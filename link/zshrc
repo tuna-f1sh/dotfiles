@@ -37,6 +37,7 @@ source ~/.aliases
 
 source ~/.exports
 source ~/.secrets
+export KEYTIMEOUT=1
 
 #========
 # FUNCTIONS
