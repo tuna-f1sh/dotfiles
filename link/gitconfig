@@ -7,6 +7,7 @@
 	excludesfile = /Users/John/.gitignore_global
 	editor = /usr/bin/vim
 	trustctime = false
+	createobject = rename
 [diff]
 	tool = vimdiff
 [merge]
