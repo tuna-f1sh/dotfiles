@@ -64,7 +64,7 @@ Plugin 'gmarik/vundle'
 
 " Plugins
 Plugin 'kien/ctrlp.vim'
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'davidhalter/jedi-vim'
 Plugin 'tmhedberg/matchit'
 Plugin 'ddollar/nerdcommenter'
 Plugin 'scrooloose/syntastic'
@@ -75,10 +75,10 @@ Plugin 'mbbill/undotree'
 Plugin 'dhruvasagar/vim-markify'
 Plugin 'bling/vim-airline'
 "Plugin 'itchyny/lightline.vim'
-Plugin 'tclem/vim-arduino.git'
+Plugin 'sudar/vim-arduino-syntax'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'tpope/vim-fugitive'
-Plugin 'ludovicchabant/vim-gutentags'
+" Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'vim-latex/vim-latex'
 Plugin 'tpope/vim-unimpaired'
@@ -175,13 +175,12 @@ set splitbelow        " split below current buffer
 set splitright        " split to right of current buffer
 set vb t_vb=          " set visual bell
 set lazyredraw        " improve performance, don't redraw while moving
-set shell=/bin/bash   " set shell Bash, helps with compatability with no POSIX
 
 "filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
 " CTAGS location search
-set tags=.tags,tags,./.git/tags,../tags,$HOME,./tags;
+set tags=.tags,tags,./.git/tags,../tags,./tags;
 " project path recursively
 set path+=**
 
@@ -499,7 +498,7 @@ nmap <F7> :w<CR>:silent make!<CR>:cw<CR>
 nmap <F5> :w<CR>:make! upload\|redraw!\|cw<CR>
 nmap <F4> :w<CR>:make! upload\|redraw!\|cw<CR>
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
-nmap <leader>mk :w<CR>:silent make!<CR>:cw<CR>
+nmap <leader>mk :w<CR>:silent make!<CR>:\|redraw!\|ccw<CR>
 nmap <leader>mu :w<CR>:make! upload\|redraw!\|cw<CR>
 nmap <leader>mi :w<CR>:make! ispload\|redraw!\|cw<CR>
 " remap the ctrl-a/x to inc/dec ints
