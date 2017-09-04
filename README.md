@@ -22,6 +22,10 @@ Edit ~/.secrets to add machine only stuff and API keys.
 * `mkdir ~/.vim/.vimundo` for vim undo to work
 * [Powerline Fonts](https://github.com/powerline/fonts)
 
+## Linux
+
+* usermod -a -G uucp _reguser_ - add user to USB serial devices
+
 ## Windows
 
 * [babun shell](http://babun.github.io/)
