@@ -500,7 +500,7 @@ nmap <F7> :w<CR>:silent make!<CR>:cw<CR>
 nmap <F5> :w<CR>:make! upload\|redraw!\|cw<CR>
 nmap <F4> :w<CR>:make! upload\|redraw!\|cw<CR>
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
-nmap <leader>mk :w<CR>:silent make!<CR>:cw<CR>
+nmap <leader>mk :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
 nmap <leader>mu :w<CR>:make! upload\|redraw!\|cw<CR>
 nmap <leader>mi :w<CR>:make! ispload\|redraw!\|cw<CR>
 " remap the ctrl-a/x to inc/dec ints

@@ -14,4 +14,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export ARDUINO_DIR=/Applications/Arduino.app/Contents/Java 
   export ARDMK_DIR=/usr/local/Cellar/arduino-mk/1.5.2
   export AVR_TOOLS_DIR=/usr/local
+else
+  # Arduino-mk
+  export ARDUINO_DIR=/usr/share/arduino
+  export ARDMK_DIR=/usr/share/arduino
+  #export AVR_TOOLS_DIR=/usr/bin/
 fi
