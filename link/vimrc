@@ -60,22 +60,23 @@ else
   call vundle#begin()
 end
 
-Plugin 'gmarik/vundle'
+" Let Vundle manage Vundle
+Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
 Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'tmhedberg/matchit'
+Plugin 'tmhedberg/matchit' " html tag matching
 Plugin 'ddollar/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'majutsushi/tagbar'
-Plugin 'mtth/scratch.vim'
+" Plugin 'mtth/scratch.vim'
 Plugin 'mbbill/undotree'
 " Plugin 'MarcWeber/vim-addon-signs'
-Plugin 'dhruvasagar/vim-markify'
+Plugin 'dhruvasagar/vim-markify' " signs for location and quickfix
 Plugin 'bling/vim-airline'
 "Plugin 'itchyny/lightline.vim'
-Plugin 'tclem/vim-arduino.git'
+Plugin 'sudar/vim-arduino-syntax'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ludovicchabant/vim-gutentags'
@@ -87,11 +88,11 @@ Plugin 'darfink/vim-plist'
 Plugin 'tpope/vim-surround'
 Plugin 'torrancew/vim-openscad'
 Plugin 'mileszs/ack.vim'
-" Plugin 'Valloric/YouCompleteMe'
-Plugin 'metakirby5/codi.vim'
+Plugin 'pangloss/vim-javascript'
+
+" Plugin 'metakirby5/codi.vim'
 Plugin 'junegunn/goyo.vim'
 Plugin 'junegunn/limelight.vim'
-Plugin 'pangloss/vim-javascript'
 
 " Colours
 Plugin 'NLKNguyen/papercolor-theme'
@@ -175,7 +176,9 @@ set splitbelow        " split below current buffer
 set splitright        " split to right of current buffer
 set vb t_vb=          " set visual bell
 set lazyredraw        " improve performance, don't redraw while moving
-set shell=/bin/bash   " set shell Bash, helps with compatability with no POSIX
+if !has("win32")
+  set shell=/bin/bash   " set shell Bash, helps with compatability with no POSIX
+endif
 
 "filetype plugin on
 set omnifunc=syntaxcomplete#Complete
@@ -593,7 +596,7 @@ else
   " swap to previous buffer, delete current
   nnoremap <C-c> :bp\|bd #<CR>
   " close split
-  nnoremap <C-x> <C-w>q
+  " nnoremap <C-x> <C-w>q " can cause issue over cygwin ssh?
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
   vmap <A-]> >gv
