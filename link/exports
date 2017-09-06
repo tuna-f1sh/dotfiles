@@ -17,4 +17,5 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 else
   export ARDUINO_DIR=C:/Arduino
   export ARDMK_DIR=C:/Arduino-Makefile
+  export ARDUINO_SKETCHBOOK=C:/Users/John.Whittington/Documents/Arduino
 fi
