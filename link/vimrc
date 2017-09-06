@@ -361,6 +361,43 @@ if has("win32")
   set encoding=utf-8
 endif
 
+" ---- TAGBAR ----
+"====================
+let g:tagbar_autoclose = 1
+let g:tagbar_width = 30
+let g:tagbar_type_arduino = {
+            \ 'ctagstype' : 'c++',
+            \ 'kinds'     : [
+                \ 'd:macros:1:0',
+                \ 'p:prototypes:1:0',
+                \ 'g:enums',
+                \ 'e:enumerators:0:0',
+                \ 't:typedefs:0:0',
+                \ 'n:namespaces',
+                \ 'c:classes',
+                \ 's:structs',
+                \ 'u:unions',
+                \ 'f:functions',
+                \ 'm:members:0:0',
+                \ 'v:variables:0:0'
+            \ ],
+            \ 'sro'        : '::',
+            \ 'kind2scope' : {
+                \ 'g' : 'enum',
+                \ 'n' : 'namespace',
+                \ 'c' : 'class',
+                \ 's' : 'struct',
+                \ 'u' : 'union'
+            \ },
+            \ 'scope2kind' : {
+                \ 'enum'      : 'g',
+                \ 'namespace' : 'n',
+                \ 'class'     : 'c',
+                \ 'struct'    : 's',
+                \ 'union'     : 'u'
+            \ }
+        \ }
+
 func! WordProcessorMode()
   setlocal formatoptions=1
   setlocal noexpandtab
@@ -499,7 +536,7 @@ nmap <leader>pf :CtrlP<CR>
 nmap <leader>pa :CtrlPMixed<CR>
 nmap <leader>pu :CtrlPUndo<CR>
 "make commands
-nmap <F7> :w<CR>:silent make!<CR>:cw<CR>
+nmap <F7> :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
 nmap <F5> :w<CR>:make! upload\|redraw!\|cw<CR>
 nmap <F4> :w<CR>:make! upload\|redraw!\|cw<CR>
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
