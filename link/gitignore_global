@@ -37,9 +37,17 @@ ehthumbs.db
 Thumbs.db
 
 # TAGS #
+########
 .tags
 tags
 
 # TMP FILES #
+#############
 *.~
 *.swp
+
+# IDE SUPPORT FOLDERS #
+#=======================
+Debug/
+__vm/
+.vs/
