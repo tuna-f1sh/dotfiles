@@ -343,11 +343,13 @@ endif
 
 " unicode symbols
 " let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
+"let g:airline_left_sep = '▶'
+let g:airline_left_sep = ''
 " let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
+"let g:airline_right_sep = '◀'
+let g:airline_right_sep = ''
 let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.branch = '⎇'
@@ -445,7 +447,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_auto_trigger = 99
 let g:ycm_filetype_blacklist = {'tex':1}
 " let g:ycm_key_invoke_completion = '<C-Space>'
-:let g:ycm_enable_diagnostic_highlighting = 0 
+:let g:ycm_enable_diagnostic_highlighting = 0
 :let g:ycm_show_diagnostics_ui = 0
 :let g:ycm_enable_diagnostic_signs = 0
 
