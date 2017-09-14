@@ -43,3 +43,7 @@ tags
 # TMP FILES #
 *.~
 *.swp
+.vscode/
+__vm/
+.vs/
+build-*

@@ -12,6 +12,7 @@ antigen bundle z
 antigen bundle vi-mode
 
 antigen theme $HOME/dotfiles/support john --no-local-clone
+#antigen theme agnoster
 
 antigen apply
 
