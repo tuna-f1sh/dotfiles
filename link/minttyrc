@@ -2,7 +2,7 @@ BoldAsFont=no
 Columns=140
 Rows=50
 Font=DejaVu Sans Mono for Powerline
-FontHeight=10
+FontHeight=9
 /*Transparency=low*/
  
 ForegroundColour=#A0A0A0

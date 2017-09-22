@@ -20,90 +20,62 @@ if has("win32")
   let g:gutentags_enabled = 0 " disable auto-update on windows to stop paths changing
 
 elseif has("gui_macvim")
-  " fix ctags on mac
-  " let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-  " let g:gutentags_ctags_executable = '/usr/local/bin/ctags'
-  " dictionary on unix
   set dictionary=/usr/share/dict/words
 endif
 "
 "=================================
-" --- VUNDLE ---- "
+" --- PLUG ---- "
 "=================================
 
 filetype off
 
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle..."
-    echo ""
-    silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    let iCanHazVundle=0
-endif
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-        \ | wincmd p | diffthis
-endif
-
-" Vundle setup
-if has("win32")
-  set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
-  set rtp+=~/.vim/bundle/Vundle.vim/
-  call vundle#begin('$HOME\.vim\bundle')
+if has("nvim")
+  call plug#begin('~/.config/nvim/plugged')
 else
-  set rtp+=~/.vim/bundle/Vundle.vim/
-  call vundle#begin()
-end
+  call plug#begin('~/.vim/plugged')
+endif
 
-" Let Vundle manage Vundle
-Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
-Plugin 'kien/ctrlp.vim'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'tmhedberg/matchit' " html tag matching
-Plugin 'ddollar/nerdcommenter'
-Plugin 'scrooloose/syntastic'
-Plugin 'majutsushi/tagbar'
+Plug 'kien/ctrlp.vim'
+"Plug 'davidhalter/jedi-vim'
+Plug 'tmhedberg/matchit' " html tag matching
+Plug 'ddollar/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'majutsushi/tagbar'
 " Plugin 'mtth/scratch.vim'
-Plugin 'mbbill/undotree'
+Plug 'mbbill/undotree'
 " Plugin 'MarcWeber/vim-addon-signs'
-Plugin 'dhruvasagar/vim-markify' " signs for location and quickfix
-Plugin 'bling/vim-airline'
+Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
+Plug 'bling/vim-airline'
 "Plugin 'itchyny/lightline.vim'
-Plugin 'sudar/vim-arduino-syntax'
-Plugin 'gorodinskiy/vim-coloresque'
-Plugin 'tpope/vim-fugitive'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'vim-latex/vim-latex'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'junegunn/vim-peekaboo'
-Plugin 'darfink/vim-plist'
-Plugin 'tpope/vim-surround'
-Plugin 'torrancew/vim-openscad'
-Plugin 'mileszs/ack.vim'
-Plugin 'pangloss/vim-javascript'
+Plug 'sudar/vim-arduino-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'tpope/vim-fugitive'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'vim-latex/vim-latex'
+Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/vim-peekaboo'
+Plug 'darfink/vim-plist'
+Plug 'tpope/vim-surround'
+Plug 'torrancew/vim-openscad'
+Plug 'mileszs/ack.vim'
+Plug 'pangloss/vim-javascript'
 
 " Plugin 'metakirby5/codi.vim'
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " Colours
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
-Plugin 'endel/vim-github-colorscheme'
-Plugin 'romainl/flattened'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
+Plug 'endel/vim-github-colorscheme'
+Plug 'romainl/flattened'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()            " required
 
 "=====================
 " ---- INTERFACE ----
@@ -154,7 +126,6 @@ if has("gui_running")
     endtry
   endif
 
-  " set relativenumber "with number and relative creates hybrid
 endif
 
 " --- GENERAL SETTINGS ---
@@ -178,6 +149,8 @@ set lazyredraw        " improve performance, don't redraw while moving
 if !has("win32")
   set shell=/bin/bash   " set shell Bash, helps with compatability with no POSIX
 endif
+set relativenumber "with number and relative creates hybrid
+set cursorline "highlight current line (slow in term)
 
 "filetype plugin on
 set omnifunc=syntaxcomplete#Complete
@@ -221,7 +194,6 @@ set expandtab
 set autoindent
 set copyindent " copy the previous indentation on autoindent
 let g:indent_guides_enable_on_vim_startup = 1
-set cursorline "highlight current line
 
 " another nice listchars configuration
 set list
@@ -335,7 +307,7 @@ let g:airline#extensions#tabline#show_buffers = 1
 " disable tagbar
 let g:airline#extensions#tagbar#enabled = 0
 " Show just the filename
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 " set timeoutlen=50
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -344,19 +316,19 @@ endif
 " unicode symbols
 " let g:airline_left_sep = '»'
 "let g:airline_left_sep = '▶'
-let g:airline_left_sep = ''
+"let g:airline_left_sep = ''
 " let g:airline_right_sep = '«'
 "let g:airline_right_sep = '◀'
-let g:airline_right_sep = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.crypt = '⚛'
-let g:airline_symbols.branch = 'ᚠ'
+"let g:airline_right_sep = ''
+"let g:airline_symbols.linenr = '☰'
+"let g:airline_symbols.maxlinenr = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.crypt = '⚛'
+"let g:airline_symbols.branch = 'ᚠ'
 let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.notexists = '∄'
-let g:airline_symbols.whitespace = 'Ξ'
-let g:airline_symbols.spell = '♿'
+"let g:airline_symbols.notexists = '∄'
+"let g:airline_symbols.whitespace = 'Ξ'
+"let g:airline_symbols.spell = '♿'
 
 " ---- TAGBAR ----
 "====================
