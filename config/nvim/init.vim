@@ -35,10 +35,9 @@ else
   call plug#begin('~/.vim/plugged')
 endif
 
-
 " Plugins
 Plug 'kien/ctrlp.vim'
-"Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 Plug 'tmhedberg/matchit' " html tag matching
 Plug 'ddollar/nerdcommenter'
 Plug 'scrooloose/syntastic'
@@ -47,7 +46,8 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 " Plugin 'MarcWeber/vim-addon-signs'
 Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 "Plugin 'itchyny/lightline.vim'
 Plug 'sudar/vim-arduino-syntax'
 Plug 'gorodinskiy/vim-coloresque'
@@ -304,10 +304,12 @@ set noshowmode " hide mode using airline
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 " disable tagbar
 let g:airline#extensions#tagbar#enabled = 0
 " Show just the filename
 let g:airline_powerline_fonts = 1
+let g:airline_theme = 'badwolf'
 " set timeoutlen=50
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}

@@ -74,7 +74,8 @@ Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
 " Plugin 'MarcWeber/vim-addon-signs'
 Plugin 'dhruvasagar/vim-markify' " signs for location and quickfix
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'itchyny/lightline.vim'
 Plugin 'sudar/vim-arduino-syntax'
 Plugin 'gorodinskiy/vim-coloresque'
@@ -336,6 +337,7 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tagbar#enabled = 0
 " Show just the filename
 let g:airline_powerline_fonts = 0
+let g:airline_theme = 'badwolf'
 " set timeoutlen=50
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
