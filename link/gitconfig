@@ -1,6 +1,6 @@
 [user]
 	name = John Whittington
-	email = john@jbrengineering.co.uk
+	email = git@jbrengineering.co.uk
 [push]
 	default = simple
 [core]

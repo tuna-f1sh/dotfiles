@@ -9,42 +9,50 @@ scrollback_lines = 10000
 cursor_blink = system
 
 [colors]
-# special
-foreground      = #d0d0d0
-foreground_bold = #d0d0d0
-cursor          = #d0d0d0
-background      = #151515
+# Base16 Monokai
+# Author: Wimer Hazenberg (http://www.monokai.nl)
 
-# black
-color0  = #151515
-color8  = #505050
+foreground      = #f8f8f2
+foreground_bold = #f5f4f1
+cursor          = #f5f4f1
+background      = #272822
 
-# red
-color1  = #ac4142
-color9  = #ac4142
+# 16 color space
 
-# green
-color2  = #90a959
-color10 = #90a959
+# Black, Gray, Silver, White
+color0  = #272822
+color8  = #75715e
+color7  = #f8f8f2
+color15 = #f9f8f5
 
-# yellow
+# Red
+color1  = #f92672
+color9  = #f92672
+
+# Green
+color2  = #a6e22e
+color10 = #a6e22e
+
+# Yellow
 color3  = #f4bf75
 color11 = #f4bf75
 
-# blue
-color4  = #6a9fb5
-color12 = #6a9fb5
+# Blue
+color4  = #66d9ef
+color12 = #66d9ef
 
-# magenta
-color5  = #aa759f
-color13 = #aa759f
+# Purple
+color5  = #ae81ff
+color13 = #ae81ff
 
-# cyan
-color6  = #75b5aa
-color14 = #75b5aa
+# Teal
+color6  = #a1efe4
+color14 = #a1efe4
 
-# white
-color7  = #d0d0d0
-color15 = #f5f5f5
-
-# vim: ft=dosini cms=#%s
+# Extra colors
+color16 = #fd971f
+color17 = #cc6633
+color18 = #383830
+color19 = #49483e
+color20 = #a59f85
+color21 = #f5f4f1
