@@ -40,7 +40,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'tmhedberg/matchit' " html tag matching
 Plug 'ddollar/nerdcommenter'
-Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale' " linter faster than syntastic
 Plug 'majutsushi/tagbar'
 " Plugin 'mtth/scratch.vim'
 Plug 'mbbill/undotree'
@@ -289,6 +289,17 @@ end
 " ---- PLUGINS ----
 "===================
 
+" ---- ALE ----
+"==============
+
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_open_list = 1
+
 " ---- GUTENTAGS ----
 "====================
 let g:gutentags_define_advanced_commands = 1
@@ -307,6 +318,7 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " disable tagbar
 let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#ale#enabled = 1
 " Show just the filename
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'badwolf'
@@ -413,36 +425,6 @@ func! CallCtrlP()
     CtrlPMRU
   endif
 endfunc
-
-" YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_c_conf.py'
-let g:ycm_collect_identifiers_from_tags_files = 1
-" let g:ycm_always_populate_location_list = 1
-let g:ycm_auto_trigger = 99
-let g:ycm_filetype_blacklist = {'tex':1}
-" let g:ycm_key_invoke_completion = '<C-Space>'
-:let g:ycm_enable_diagnostic_highlighting = 0
-:let g:ycm_show_diagnostics_ui = 0
-:let g:ycm_enable_diagnostic_signs = 0
-
-" Syntastic Options
-let g:syntastic_check_on_open = 0
-let g:syntastic_loc_list_height = 5
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_enable_signs = 1
-" let g:syntastic_c_no_include_search = 1
-let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_c_include_dirs = [ 'lib', 'libraries', 'inc', 'include','/usr/local/include/avr/include','/usr/local/include/avr/include/avr']
-let g:syntastic_cpp_include_dirs = [ 'lib', 'libraries', 'inc', 'include' ]
-" let g:syntastic_cpp_no_include_search = 1
-let g:syntastic_cpp_remove_include_errors = 1
-" let g:syntastic_debug = 1
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_mode_map = { "mode": "passive",
-      \ "active_filetypes": ['matlab','python','javascript'],
-      \ "passive_filetypes": ['html'] }
-let g:syntastic_javascript_checkers=['eslint']
 
 " The Silver Searcher
 if executable('ag') && !exists(":Ag")
