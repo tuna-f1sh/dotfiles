@@ -52,4 +52,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 
   # Open gvim from term
   alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
+
+  # load/unload ktext
+  alias ftx_load='sudo kextload -b com.apple.driver.AppleUSBFTDI'
+  alias ftx_unload='sudo kextunload -b com.apple.driver.AppleUSBFTDI'
 fi

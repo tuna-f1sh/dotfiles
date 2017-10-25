@@ -357,7 +357,7 @@ let g:airline_symbols.branch = 'ᚠ'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.notexists = '∄'
 let g:airline_symbols.whitespace = 'Ξ'
-let g:airline_symbols.spell = '♿'
+let g:airline_symbols.spell = 'S'
 
 " ---- TAGBAR ----
 "====================
@@ -414,7 +414,7 @@ func! WordProcessorMode()
     set guifont=Cousine:h12
   end
   let g:airline_theme = 'pencil'
-  let g:airline_powerline_fonts = 1
+  let g:airline_powerline_fonts = 0
 endfu
 "com! WP call WordProcessorMode()
 "set ffs=dos " set file system type (when on windows stops funky charactors
