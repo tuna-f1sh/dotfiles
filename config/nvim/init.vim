@@ -18,7 +18,6 @@ if has("win32")
   set shellxquote=\"
   set shellslash
   let g:gutentags_enabled = 0 " disable auto-update on windows to stop paths changing
-
 elseif has("gui_macvim")
   set dictionary=/usr/share/dict/words
 endif
@@ -30,10 +29,21 @@ endif
 filetype off
 
 if has("nvim")
-  call plug#begin('~/.config/nvim/plugged')
+  let plug_install='~/.local/share/nvim/site/autoload/plug.vim'
+  let plug_path='~/.config/nvim/plugged'
 else
-  call plug#begin('~/.vim/plugged')
+  let plug_install='~/.vim/autoload/plug.vim'
+  let plug_path='~/.vim/plugged'
 endif
+
+" auto download vim-plug
+if empty(glob(plug_install))
+  silent !curl -fLo plug_install --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin(plug_path)
 
 " Plugins
 Plug 'kien/ctrlp.vim'
@@ -45,10 +55,10 @@ Plug 'majutsushi/tagbar'
 " Plugin 'mtth/scratch.vim'
 Plug 'mbbill/undotree'
 " Plugin 'MarcWeber/vim-addon-signs'
-Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"Plugin 'itchyny/lightline.vim'
+" Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'sudar/vim-arduino-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-fugitive'
@@ -62,10 +72,8 @@ Plug 'tpope/vim-surround'
 Plug 'torrancew/vim-openscad'
 Plug 'mileszs/ack.vim'
 Plug 'pangloss/vim-javascript'
-
-" Plugin 'metakirby5/codi.vim'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
+" Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/limelight.vim'
 
 " Colours
 Plug 'NLKNguyen/papercolor-theme'
@@ -73,6 +81,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
 Plug 'endel/vim-github-colorscheme'
 Plug 'romainl/flattened'
+Plug 'chriskempson/base16-vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -96,6 +105,7 @@ if &t_Co >= 256 || has("gui_running")
   let g:solarized_termcolors=256
   let g:solarized_contrast="high"
   let g:solarized_visibility="high"
+  let base16colorspace=256  " Access colors present in 256 colorspace
 endif
 " Otherwise just put syntax highlighting on it some colour
 if &t_Co > 2 || has("gui_running")
@@ -298,7 +308,7 @@ let g:ale_lint_on_text_changed = 'never'
 " if you don't want linters to run on opening a file
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
-let g:ale_open_list = 1
+let g:ale_open_list = 0
 
 " ---- GUTENTAGS ----
 "====================
@@ -320,7 +330,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#ale#enabled = 1
 " Show just the filename
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline_theme = 'badwolf'
 " set timeoutlen=50
 if !exists('g:airline_symbols')

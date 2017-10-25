@@ -18,7 +18,6 @@ if has("win32")
   set shellxquote=\"
   set shellslash
   let g:gutentags_enabled = 0 " disable auto-update on windows to stop paths changing
-
 elseif has("gui_macvim")
   " fix ctags on mac
   " let g:tagbar_ctags_bin = '/usr/local/bin/ctags'

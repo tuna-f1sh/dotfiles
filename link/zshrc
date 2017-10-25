@@ -24,6 +24,15 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 #========
+# OPTS
+#========
+
+# don't save duplicate commands
+setopt HIST_SAVE_NO_DUPS
+# don't verify history expansions (can just do it with tab)
+setopt NO_HIST_VERIFY
+
+#========
 # ALIASES
 #========
 
