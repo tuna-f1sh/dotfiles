@@ -47,13 +47,13 @@ call plug#begin(plug_path)
 
 " Plugins
 Plug 'kien/ctrlp.vim'
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim' " Python syntax checker
 Plug 'tmhedberg/matchit' " html tag matching
-Plug 'ddollar/nerdcommenter'
+Plug 'ddollar/nerdcommenter' " easy comment stuff
 Plug 'w0rp/ale' " linter faster than syntastic
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar' " Function preview window
 " Plugin 'mtth/scratch.vim'
-Plug 'mbbill/undotree'
+Plug 'mbbill/undotree' " See undo history like commit history
 " Plugin 'MarcWeber/vim-addon-signs'
 " Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
 " Plug 'vim-airline/vim-airline'
@@ -61,19 +61,21 @@ Plug 'mbbill/undotree'
 Plug 'itchyny/lightline.vim'
 Plug 'sudar/vim-arduino-syntax'
 Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive' " Git plugin
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-latex/vim-latex'
-Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/vim-peekaboo'
+Plug 'tpope/vim-unimpaired' " Shortcuts etc.
+Plug 'junegunn/vim-peekaboo' " Register viewer
 Plug 'darfink/vim-plist'
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround' " Surround stuff
 Plug 'torrancew/vim-openscad'
-Plug 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim' " Ack/ag support if available rather than grep
 Plug 'pangloss/vim-javascript'
-" Plug 'junegunn/goyo.vim'
-" Plug 'junegunn/limelight.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
+Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
+Plug 'junegunn/goyo.vim' " Frame window for writting
+Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
 
 " Colours
 Plug 'NLKNguyen/papercolor-theme'
@@ -493,10 +495,11 @@ nmap <leader>bd :bd<CR>
 nmap <leader>sc <C-w>q
 nmap <leader>ww :w<CR>
 " control-p
-nmap <leader>pb :CtrlPBuffer<CR>
-nmap <leader>pm :CtrlPMRU<CR>
-nmap <leader>pf :CtrlP<CR>
-nmap <leader>pa :CtrlPMixed<CR>
+nmap <leader>pb :Buffers<CR>
+nmap <leader>pm :History<CR>
+nmap <leader>pf :Files<CR>
+nmap <leader>pg :GFiles<CR>
+nmap <leader>pa :Ag <cword><CR>
 nmap <leader>pu :CtrlPUndo<CR>
 "make commands
 nmap <F7> :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
