@@ -64,7 +64,7 @@ Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-fugitive' " Git plugin
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'vim-latex/vim-latex'
+Plug 'lervag/vimtex'
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'junegunn/vim-peekaboo' " Register viewer
 Plug 'darfink/vim-plist'
@@ -76,6 +76,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporti
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
 Plug 'junegunn/goyo.vim' " Frame window for writting
 Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
+Plug 'metakirby5/codi.vim' " Interactive scratchpad
 
 " Colours
 Plug 'NLKNguyen/papercolor-theme'

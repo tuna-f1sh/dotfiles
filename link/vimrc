@@ -90,7 +90,7 @@ Plugin 'torrancew/vim-openscad'
 Plugin 'mileszs/ack.vim'
 Plugin 'pangloss/vim-javascript'
 
-" Plugin 'metakirby5/codi.vim'
+Plugin 'metakirby5/codi.vim'
 Plugin 'junegunn/goyo.vim'
 Plugin 'junegunn/limelight.vim'
 
