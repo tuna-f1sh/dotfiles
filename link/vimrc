@@ -19,91 +19,76 @@ if has("win32")
   set shellslash
   let g:gutentags_enabled = 0 " disable auto-update on windows to stop paths changing
 elseif has("gui_macvim")
-  " fix ctags on mac
-  " let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-  " let g:gutentags_ctags_executable = '/usr/local/bin/ctags'
-  " dictionary on unix
   set dictionary=/usr/share/dict/words
 endif
 "
 "=================================
-" --- VUNDLE ---- "
+" --- PLUG ---- "
 "=================================
 
 filetype off
 
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle..."
-    echo ""
-    silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    let iCanHazVundle=0
-endif
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-        \ | wincmd p | diffthis
-endif
-
-" Vundle setup
-if has("win32")
-  set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
-  set rtp+=~/.vim/bundle/Vundle.vim/
-  call vundle#begin('$HOME\.vim\bundle')
+" Neovim and Vim have different base installs to prevent conflict
+if has("nvim")
+  let plug_install='~/.local/share/nvim/site/autoload/plug.vim'
+  let plug_path='~/.config/nvim/plugged'
 else
-  set rtp+=~/.vim/bundle/Vundle.vim/
-  call vundle#begin()
-end
+  let plug_install='~/.vim/autoload/plug.vim'
+  let plug_path='~/.vim/plugged'
+endif
 
-" Let Vundle manage Vundle
-Plugin 'VundleVim/Vundle.vim'
+" auto download vim-plug
+if empty(glob(plug_install))
+  execute "!curl -fLo " . plug_install . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin(plug_path)
 
 " Plugins
-Plugin 'kien/ctrlp.vim'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'tmhedberg/matchit' " html tag matching
-Plugin 'ddollar/nerdcommenter'
-Plugin 'scrooloose/syntastic'
-Plugin 'majutsushi/tagbar'
+Plug 'kien/ctrlp.vim'
+Plug 'davidhalter/jedi-vim' " Python syntax checker
+Plug 'tmhedberg/matchit' " html tag matching
+Plug 'ddollar/nerdcommenter' " easy comment stuff
+Plug 'w0rp/ale' " linter faster than syntastic
+Plug 'majutsushi/tagbar' " Function preview window
 " Plugin 'mtth/scratch.vim'
-Plugin 'mbbill/undotree'
+Plug 'mbbill/undotree' " See undo history like commit history
 " Plugin 'MarcWeber/vim-addon-signs'
-Plugin 'dhruvasagar/vim-markify' " signs for location and quickfix
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'itchyny/lightline.vim'
-Plugin 'sudar/vim-arduino-syntax'
-Plugin 'gorodinskiy/vim-coloresque'
-Plugin 'tpope/vim-fugitive'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'vim-latex/vim-latex'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'junegunn/vim-peekaboo'
-Plugin 'darfink/vim-plist'
-Plugin 'tpope/vim-surround'
-Plugin 'torrancew/vim-openscad'
-Plugin 'mileszs/ack.vim'
-Plugin 'pangloss/vim-javascript'
-
-Plugin 'metakirby5/codi.vim'
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
+" Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'sudar/vim-arduino-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'tpope/vim-fugitive' " Git plugin
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'lervag/vimtex'
+Plug 'tpope/vim-unimpaired' " Shortcuts etc.
+Plug 'junegunn/vim-peekaboo' " Register viewer
+Plug 'darfink/vim-plist'
+Plug 'tpope/vim-surround' " Surround stuff
+Plug 'torrancew/vim-openscad'
+Plug 'mileszs/ack.vim' " Ack/ag support if available rather than grep
+Plug 'pangloss/vim-javascript'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
+Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
+Plug 'junegunn/goyo.vim' " Frame window for writting
+Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
+Plug 'metakirby5/codi.vim' " Interactive scratchpad
+Plug 'mhinz/vim-startify' " Fancy startup screen
 
 " Colours
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
-Plugin 'endel/vim-github-colorscheme'
-Plugin 'romainl/flattened'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
+Plug 'endel/vim-github-colorscheme'
+Plug 'romainl/flattened'
+Plug 'chriskempson/base16-vim'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()            " required
 
 "=====================
 " ---- INTERFACE ----
@@ -124,6 +109,7 @@ if &t_Co >= 256 || has("gui_running")
   let g:solarized_termcolors=256
   let g:solarized_contrast="high"
   let g:solarized_visibility="high"
+  let base16colorspace=256  " Access colors present in 256 colorspace
 endif
 " Otherwise just put syntax highlighting on it some colour
 if &t_Co > 2 || has("gui_running")
@@ -154,7 +140,6 @@ if has("gui_running")
     endtry
   endif
 
-  " set relativenumber "with number and relative creates hybrid
 endif
 
 " --- GENERAL SETTINGS ---
@@ -178,6 +163,8 @@ set lazyredraw        " improve performance, don't redraw while moving
 if !has("win32")
   set shell=/bin/bash   " set shell Bash, helps with compatability with no POSIX
 endif
+set relativenumber "with number and relative creates hybrid
+set cursorline "highlight current line (slow in term)
 
 "filetype plugin on
 set omnifunc=syntaxcomplete#Complete
@@ -221,7 +208,6 @@ set expandtab
 set autoindent
 set copyindent " copy the previous indentation on autoindent
 let g:indent_guides_enable_on_vim_startup = 1
-set cursorline "highlight current line
 
 " another nice listchars configuration
 set list
@@ -317,6 +303,17 @@ end
 " ---- PLUGINS ----
 "===================
 
+" ---- ALE ----
+"==============
+
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_open_list = 0
+
 " ---- GUTENTAGS ----
 "====================
 let g:gutentags_define_advanced_commands = 1
@@ -332,8 +329,10 @@ set noshowmode " hide mode using airline
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 " disable tagbar
 let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#ale#enabled = 1
 " Show just the filename
 let g:airline_powerline_fonts = 0
 let g:airline_theme = 'badwolf'
@@ -345,19 +344,19 @@ endif
 " unicode symbols
 " let g:airline_left_sep = '»'
 "let g:airline_left_sep = '▶'
-let g:airline_left_sep = ''
+"let g:airline_left_sep = ''
 " let g:airline_right_sep = '«'
 "let g:airline_right_sep = '◀'
-let g:airline_right_sep = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.crypt = '⚛'
-let g:airline_symbols.branch = 'ᚠ'
+"let g:airline_right_sep = ''
+"let g:airline_symbols.linenr = '☰'
+"let g:airline_symbols.maxlinenr = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.crypt = '⚛'
+"let g:airline_symbols.branch = 'ᚠ'
 let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.notexists = '∄'
-let g:airline_symbols.whitespace = 'Ξ'
-let g:airline_symbols.spell = 'S'
+"let g:airline_symbols.notexists = '∄'
+"let g:airline_symbols.whitespace = 'Ξ'
+"let g:airline_symbols.spell = '♿'
 
 " ---- TAGBAR ----
 "====================
@@ -414,7 +413,7 @@ func! WordProcessorMode()
     set guifont=Cousine:h12
   end
   let g:airline_theme = 'pencil'
-  let g:airline_powerline_fonts = 0
+  let g:airline_powerline_fonts = 1
 endfu
 "com! WP call WordProcessorMode()
 "set ffs=dos " set file system type (when on windows stops funky charactors
@@ -440,36 +439,6 @@ func! CallCtrlP()
     CtrlPMRU
   endif
 endfunc
-
-" YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_c_conf.py'
-let g:ycm_collect_identifiers_from_tags_files = 1
-" let g:ycm_always_populate_location_list = 1
-let g:ycm_auto_trigger = 99
-let g:ycm_filetype_blacklist = {'tex':1}
-" let g:ycm_key_invoke_completion = '<C-Space>'
-:let g:ycm_enable_diagnostic_highlighting = 0
-:let g:ycm_show_diagnostics_ui = 0
-:let g:ycm_enable_diagnostic_signs = 0
-
-" Syntastic Options
-let g:syntastic_check_on_open = 0
-let g:syntastic_loc_list_height = 5
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_enable_signs = 1
-" let g:syntastic_c_no_include_search = 1
-let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_c_include_dirs = [ 'lib', 'libraries', 'inc', 'include','/usr/local/include/avr/include','/usr/local/include/avr/include/avr']
-let g:syntastic_cpp_include_dirs = [ 'lib', 'libraries', 'inc', 'include' ]
-" let g:syntastic_cpp_no_include_search = 1
-let g:syntastic_cpp_remove_include_errors = 1
-" let g:syntastic_debug = 1
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_mode_map = { "mode": "passive",
-      \ "active_filetypes": ['matlab','python','javascript'],
-      \ "passive_filetypes": ['html'] }
-let g:syntastic_javascript_checkers=['eslint']
 
 " The Silver Searcher
 if executable('ag') && !exists(":Ag")
@@ -528,10 +497,11 @@ nmap <leader>bd :bd<CR>
 nmap <leader>sc <C-w>q
 nmap <leader>ww :w<CR>
 " control-p
-nmap <leader>pb :CtrlPBuffer<CR>
-nmap <leader>pm :CtrlPMRU<CR>
-nmap <leader>pf :CtrlP<CR>
-nmap <leader>pa :CtrlPMixed<CR>
+nmap <leader>pb :Buffers<CR>
+nmap <leader>pm :History<CR>
+nmap <leader>pf :Files<CR>
+nmap <leader>pg :GFiles<CR>
+nmap <leader>pa :Ag <cword><CR>
 nmap <leader>pu :CtrlPUndo<CR>
 "make commands
 nmap <F7> :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>

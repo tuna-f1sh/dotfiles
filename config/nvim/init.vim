@@ -28,6 +28,7 @@ endif
 
 filetype off
 
+" Neovim and Vim have different base installs to prevent conflict
 if has("nvim")
   let plug_install='~/.local/share/nvim/site/autoload/plug.vim'
   let plug_path='~/.config/nvim/plugged'
@@ -38,8 +39,7 @@ endif
 
 " auto download vim-plug
 if empty(glob(plug_install))
-  silent !curl -fLo plug_install --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  execute "!curl -fLo " . plug_install . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
