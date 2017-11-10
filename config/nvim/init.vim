@@ -77,6 +77,7 @@ Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
 Plug 'junegunn/goyo.vim' " Frame window for writting
 Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
 Plug 'metakirby5/codi.vim' " Interactive scratchpad
+Plug 'mhinz/vim-startify' " Fancy startup screen
 
 " Colours
 Plug 'NLKNguyen/papercolor-theme'

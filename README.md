@@ -25,6 +25,9 @@ Edit ~/.secrets to add machine only stuff and API keys.
 ## Linux
 
 * usermod -a -G uucp _reguser_ - add user to USB serial devices
+* `pacman -Qqe | grep -vx "$(pacman -Qqm)" > Packages` # backup pacman non-AUR
+* `pacman -Qqm > Packages.aur` # backup AUR packages
+* `pacman -S - < pkglist.txt` # re-install from list
 
 ## Windows
 
