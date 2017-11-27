@@ -20,6 +20,7 @@ else
   # Arduino-mk
   export ARDUINO_DIR=/usr/share/arduino
   export ARDMK_DIR=/home/john/Arduino-Makefile
+  export USER_LIB_PATH=/home/john/libraries
   #export AVR_TOOLS_DIR=/usr/bin/
   export LC_COLLATE=C # fixes sort with ctags vim error
 fi
