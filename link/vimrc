@@ -79,6 +79,15 @@ Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
 Plug 'metakirby5/codi.vim' " Interactive scratchpad
 Plug 'mhinz/vim-startify' " Fancy startup screen
 
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+"let g:deoplete#enable_at_startup = 1
+
 " Colours
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'altercation/vim-colors-solarized'
@@ -170,7 +179,7 @@ set cursorline "highlight current line (slow in term)
 set omnifunc=syntaxcomplete#Complete
 
 " CTAGS location search
-set tags=.tags,tags,./.git/tags,../tags,$HOME,./tags;
+set tags=.tags,tags,./.git/tags,../tags,../.tags,./.tags;
 " project path recursively
 set path+=**
 

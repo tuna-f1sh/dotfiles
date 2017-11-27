@@ -129,9 +129,13 @@ fzstash() {
 # Ag for term to edit in nvim with preview
 agvim() {
   local file
-  file="$(ag -il $argv | fzf -0 -1 --ansi --preview "cat {} | ag $argv")"
+
+  #file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print "+" $2 " " $1}')"
+  file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1}')"
+
   if [[ -n $file ]]
   then
+    echo $file
     $EDITOR $file
   fi
 }
