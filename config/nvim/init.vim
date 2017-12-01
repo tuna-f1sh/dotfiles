@@ -70,7 +70,7 @@ Plug 'junegunn/vim-peekaboo' " Register viewer
 Plug 'darfink/vim-plist'
 Plug 'tpope/vim-surround' " Surround stuff
 Plug 'torrancew/vim-openscad'
-Plug 'mileszs/ack.vim' " Ack/ag support if available rather than grep
+"Plug 'mileszs/ack.vim' " Ack/ag support if available rather than grep
 Plug 'pangloss/vim-javascript'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
@@ -95,6 +95,7 @@ Plug 'tomasr/molokai'
 Plug 'endel/vim-github-colorscheme'
 Plug 'romainl/flattened'
 Plug 'chriskempson/base16-vim'
+Plug 'yuttie/hydrangea-vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -323,15 +324,21 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_open_list = 0
 
+" Disable linters for C/C++ and specify others
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8'],
+\   'cpp': [],
+\   'c': [],
+\}
+
 " ---- GUTENTAGS ----
 "====================
 let g:gutentags_define_advanced_commands = 1
 let g:gutentags_trace = 0 " debug
 let g:gutentags_ctags_tagfile = '.tags'
 
-" let g:GeeknoteNotebooks=['General', 'Fraser', 'JBR-Engineering', 'Ideas', '!Notebook']
-
-" ---- AIRLINE ----
+" ---- AIRLINE / LIGHTLINE ----
 " =================
 " Airline Options
 set noshowmode " hide mode using airline
@@ -349,6 +356,10 @@ let g:airline_theme = 'badwolf'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+
+let g:lightline = {
+\ 'colorscheme': 'molokai', 
+\}
 
 " unicode symbols
 " let g:airline_left_sep = '»'
