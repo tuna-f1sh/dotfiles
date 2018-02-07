@@ -49,36 +49,32 @@ call plug#begin(plug_path)
 Plug 'kien/ctrlp.vim'
 Plug 'davidhalter/jedi-vim' " Python syntax checker
 Plug 'tmhedberg/matchit' " html tag matching
-Plug 'ddollar/nerdcommenter' " easy comment stuff
+"Plug 'ddollar/nerdcommenter' " easy comment stuff
+Plug 'tpope/vim-commentary' " easy comment stuff
 Plug 'w0rp/ale' " linter faster than syntastic
 Plug 'majutsushi/tagbar' " Function preview window
 " Plugin 'mtth/scratch.vim'
 Plug 'mbbill/undotree' " See undo history like commit history
 " Plugin 'MarcWeber/vim-addon-signs'
 " Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
-Plug 'sudar/vim-arduino-syntax'
-Plug 'gorodinskiy/vim-coloresque'
+"Plug 'gorodinskiy/vim-coloresque' " show hex colours - intensive, slows scrolling
 Plug 'tpope/vim-fugitive' " Git plugin
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'lervag/vimtex'
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'junegunn/vim-peekaboo' " Register viewer
 Plug 'darfink/vim-plist'
 Plug 'tpope/vim-surround' " Surround stuff
-Plug 'torrancew/vim-openscad'
 "Plug 'mileszs/ack.vim' " Ack/ag support if available rather than grep
-Plug 'pangloss/vim-javascript'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
 Plug 'junegunn/goyo.vim' " Frame window for writting
 Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
 Plug 'metakirby5/codi.vim' " Interactive scratchpad
 Plug 'mhinz/vim-startify' " Fancy startup screen
-
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -87,6 +83,12 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 "let g:deoplete#enable_at_startup = 1
+
+" Syntax/Filetypes
+Plug 'lervag/vimtex'
+Plug 'pangloss/vim-javascript'
+Plug 'torrancew/vim-openscad'
+Plug 'sudar/vim-arduino-syntax'
 
 " Colours
 Plug 'NLKNguyen/papercolor-theme'
@@ -357,9 +359,9 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-let g:lightline = {
-\ 'colorscheme': 'molokai', 
-\}
+"let g:lightline = {
+"\ 'colorscheme': 'molokai', 
+"\}
 
 " unicode symbols
 " let g:airline_left_sep = '»'
@@ -495,8 +497,6 @@ endif
 
 "" LEADERS
 nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
-" Underline the current line with '=' and comment
-nmap <silent> <leader>ul :t.<CR>Vr=<leader>cc
 nnoremap <C-j> i<CR><ESC> " create a cut to new line
 " map leader to ,
 " map , <leader>
@@ -561,8 +561,8 @@ cmap w!! w !sudo tee > /dev/null %
 
 if has("gui_macvim") && has("gui_running")
   " Comment toggle mapping
-  nmap <D-/> <leader>c<Space>
-  vmap <D-/> <leader>c<Space>gv
+  nmap <D-/> gcc
+  vmap <D-/> gc
   " swap to previous buffer, delete current
   nnoremap <C-c> :bp\|bd #<CR>
   " close split
