@@ -48,7 +48,7 @@ call plug#begin(plug_path)
 " Plugins
 Plug 'kien/ctrlp.vim'
 Plug 'davidhalter/jedi-vim' " Python syntax checker
-Plug 'tmhedberg/matchit' " html tag matching
+Plug 'andymass/vim-matchup'
 "Plug 'ddollar/nerdcommenter' " easy comment stuff
 Plug 'tpope/vim-commentary' " easy comment stuff
 Plug 'w0rp/ale' " linter faster than syntastic
