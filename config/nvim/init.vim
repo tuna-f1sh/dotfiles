@@ -48,7 +48,7 @@ call plug#begin(plug_path)
 " Plugins
 Plug 'kien/ctrlp.vim'
 Plug 'davidhalter/jedi-vim' " Python syntax checker
-Plug 'tmhedberg/matchit' " html tag matching
+Plug 'andymass/vim-matchup'
 "Plug 'ddollar/nerdcommenter' " easy comment stuff
 Plug 'tpope/vim-commentary' " easy comment stuff
 Plug 'w0rp/ale' " linter faster than syntastic
@@ -528,9 +528,9 @@ nmap <F7> :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
 nmap <F5> :w<CR>:make! upload\|redraw!\|cw<CR>
 nmap <F4> :w<CR>:make! upload\|redraw!\|cw<CR>
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
-nmap <leader>mk :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
-nmap <leader>mu :w<CR>:make! upload\|redraw!\|cw<CR>
-nmap <leader>mi :w<CR>:make! ispload\|redraw!\|cw<CR>
+nmap <leader>mk :w<CR>:silent make! DIAGNOSTICS_COLOR_WHEN=never<CR>:\|redraw!\|cw<CR>
+nmap <leader>mu :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never upload\|redraw!\|cw<CR>
+nmap <leader>mi :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never ispload\|redraw!\|cw<CR>
 " remap the ctrl-a/x to inc/dec ints
 nnoremap <C-a> <C-a>
 nnoremap <C-x> <C-x>
