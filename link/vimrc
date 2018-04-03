@@ -529,8 +529,8 @@ nmap <leader>bd :bd<CR>
 nmap <leader>sc <C-w>q
 nmap <leader>ww :w<CR>
 " control-p
-nmap <leader>; :BLines<CR>
-nmap <leader>pb :Buffers<CR>
+nmap <leader>; :Buffers<CR>
+nmap <leader>pb :BLines<CR>
 nmap <leader>pm :History<CR>
 nmap <leader>pf :Files<CR>
 nmap <leader>pg :GFiles<CR>
