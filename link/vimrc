@@ -191,7 +191,23 @@ set hlsearch    " highlight matches
 set incsearch   " incremental searching
 set ignorecase  " searches are case insensitive...
 set smartcase   " ... unless they contain at least one capital letter
-set keywordprg=google
+imap <C-x><C-l> <plug>(fzf-complete-line)
+
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
 
 "" undo
 set undolevels=1000 " 1000 undos
@@ -474,8 +490,6 @@ if executable('ag') && !exists(":Ag")
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
   command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  " bind K to grep word under cursor
-  nnoremap <Leader>ss :Ag <cword> .<CR>
 endif
 
 " Quickfix
@@ -502,8 +516,6 @@ nnoremap <C-j> i<CR><ESC> " create a cut to new line
 " map , <leader>
 nmap <space> <leader>
 " search
-nnoremap <leader>ag :Ack<CR>
-vnoremap <Leader>ag y:Ack <C-r>"<CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 " buffers
 nnoremap <C-Tab> :bnext<CR>
@@ -517,11 +529,13 @@ nmap <leader>bd :bd<CR>
 nmap <leader>sc <C-w>q
 nmap <leader>ww :w<CR>
 " control-p
+nmap <leader>; :BLines<CR>
 nmap <leader>pb :Buffers<CR>
 nmap <leader>pm :History<CR>
 nmap <leader>pf :Files<CR>
 nmap <leader>pg :GFiles<CR>
-nmap <leader>pa :Ag <cword><CR>
+nnoremap <silent> K :call SearchWordWithAg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
 nmap <leader>pu :CtrlPUndo<CR>
 "make commands
 nmap <F7> :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
