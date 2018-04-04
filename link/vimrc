@@ -1,3 +1,11 @@
+"        _
+" __   _(_)_ __ ___  _ __ ___
+" \ \ / / | '_ ` _ \| '__/ __|
+"  \ V /| | | | | | | | | (__
+"   \_/ |_|_| |_| |_|_|  \___|
+"
+" John's .vimrc file
+
 set nocompatible "Use vim rather than vi settings
 
 "=================================
@@ -75,6 +83,9 @@ Plug 'junegunn/goyo.vim' " Frame window for writting
 Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
 Plug 'metakirby5/codi.vim' " Interactive scratchpad
 Plug 'mhinz/vim-startify' " Fancy startup screen
+Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
+Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
+
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -506,8 +517,31 @@ else
   set directory^=/tmp,~/.vim/tmp
 endif
 
+" ---------- TMUX -------------------"
+"======================================
+
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 1
+
 " ---------- KEY BINDINGS -----------"
 "======================================
+
+" i always, ALWAYS hit ":W" instead of ":w"
+command! Q q
+command! W w
+
+" Macros
+nmap \q :nohlsearch<CR>
+nmap \l :setlocal number!<CR>:setlocal number?<CR>
+nmap \z :w<CR>:!open %<CR><CR>
+nmap \g :Gstatus<CR>
+
+" having Ex mode start or showing me the command history
+" is a complete pain in the ass if i mistype
+" map Q  <silent>
+" map q: <silent>
+" map K  <silent>
+"map q <silent>
 
 "" LEADERS
 nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
@@ -519,20 +553,19 @@ nmap <space> <leader>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 " buffers
 nnoremap <C-Tab> :bnext<CR>
-nnoremap <C-l> :bnext<CR>
+" nnoremap <C-l> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-nnoremap <C-h> :bprevious<CR>
+" nnoremap <C-h> :bprevious<CR>
 nnoremap <leader>] :bnext<CR>
 nnoremap <leader>[ :bprevious<CR>
-nnoremap <Tab> <C-^> " last used buffer
-nmap <leader>bd :bd<CR>
-nmap <leader>sc <C-w>q
+nnoremap <Tab> :e#<CR> " last used buffer
 nmap <leader>ww :w<CR>
 " control-p
 nmap <leader>; :Buffers<CR>
 nmap <leader>pb :BLines<CR>
 nmap <leader>pm :History<CR>
 nmap <leader>pf :Files<CR>
+nmap <leader>pt :Tags<CR>
 nmap <leader>pg :GFiles<CR>
 nnoremap <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
@@ -555,6 +588,11 @@ vnoremap . :normal .<CR> " last command
 vnoremap ` :normal @a<CR> " last register
 " UndoTree
 nmap <leader>tt :UndotreeToggle<cr>
+" Window manipulation
+" swap to previous buffer, delete current
+nnoremap <C-c> :BD<cr>
+" close split
+nnoremap <C-x> <C-w>q
 
 function! InsertTabWrapper()
   let col = col('.') - 1
@@ -577,10 +615,6 @@ if has("gui_macvim") && has("gui_running")
   " Comment toggle mapping
   nmap <D-/> gcc
   vmap <D-/> gc
-  " swap to previous buffer, delete current
-  nnoremap <C-c> :bp\|bd #<CR>
-  " close split
-  nnoremap <C-x> <C-w>q
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
   vmap <D-]> >gv
@@ -632,10 +666,6 @@ else
   " Comment toggle mapping
   nmap <A-/> <leader>c<Space>
   vmap <A-/> <leader>c<Space>gv
-  " swap to previous buffer, delete current
-  nnoremap <C-c> :bp\|bd #<CR>
-  " close split
-  " nnoremap <C-x> <C-w>q " can cause issue over cygwin ssh?
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
   vmap <A-]> >gv
