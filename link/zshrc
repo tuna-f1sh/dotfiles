@@ -53,3 +53,5 @@ export KEYTIMEOUT=1
 #========
 
 source ~/.functions
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -10,7 +10,7 @@ export TERM='xterm-256color'
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   # Use homebrew python : homebrew bin : MATLAB syntax checker
-  export PATH="/usr/local/opt/python/libexec/bin:/usr/local/bin:$PATH:/usr/local/sbin:/Applications/MATLAB_R2014b.app/bin/maci64"
+  export PATH="$HOME/.cargo/bin:/usr/local/opt/python/libexec/bin:/usr/local/bin:$PATH:/usr/local/sbin:/Applications/MATLAB_R2014b.app/bin/maci64" 
 
   # Arduino-mk
   export ARDUINO_DIR=/Applications/Arduino.app/Contents/Java 
