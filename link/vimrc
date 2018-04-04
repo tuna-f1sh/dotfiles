@@ -18,91 +18,92 @@ if has("win32")
   set shellxquote=\"
   set shellslash
   let g:gutentags_enabled = 0 " disable auto-update on windows to stop paths changing
-
 elseif has("gui_macvim")
-  " fix ctags on mac
-  " let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-  " let g:gutentags_ctags_executable = '/usr/local/bin/ctags'
-  " dictionary on unix
   set dictionary=/usr/share/dict/words
 endif
 "
 "=================================
-" --- VUNDLE ---- "
+" --- PLUG ---- "
 "=================================
 
 filetype off
 
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle..."
-    echo ""
-    silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    let iCanHazVundle=0
-endif
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-        \ | wincmd p | diffthis
-endif
-
-" Vundle setup
-if has("win32")
-  set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
-  set rtp+=~/.vim/bundle/Vundle.vim/
-  call vundle#begin('$HOME\.vim\bundle')
+" Neovim and Vim have different base installs to prevent conflict
+if has("nvim")
+  let plug_install='~/.local/share/nvim/site/autoload/plug.vim'
+  let plug_path='~/.config/nvim/plugged'
+elseif has("win32")
+  let plug_install='$USERPROFILE/vimfiles/autoload/plug.vim'
+  let plug_path='$USERPROFILE/.vim/plugged'
 else
-  set rtp+=~/.vim/bundle/Vundle.vim/
-  call vundle#begin()
-end
+  let plug_install='~/.vim/autoload/plug.vim'
+  let plug_path='~/.vim/plugged'
+endif
 
-Plugin 'gmarik/vundle'
+" auto download vim-plug
+if empty(glob(plug_install))
+  execute "!curl -fLo " . plug_install . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin(plug_path)
 
 " Plugins
-Plugin 'kien/ctrlp.vim'
-"Plugin 'davidhalter/jedi-vim'
-Plugin 'tmhedberg/matchit'
-Plugin 'ddollar/nerdcommenter'
-Plugin 'scrooloose/syntastic'
-Plugin 'majutsushi/tagbar'
-Plugin 'mtth/scratch.vim'
-Plugin 'mbbill/undotree'
+Plug 'kien/ctrlp.vim'
+Plug 'davidhalter/jedi-vim' " Python syntax checker
+Plug 'tmhedberg/matchit' " html tag matching
+"Plug 'ddollar/nerdcommenter' " easy comment stuff
+Plug 'tpope/vim-commentary' " easy comment stuff
+Plug 'w0rp/ale' " linter faster than syntastic
+Plug 'majutsushi/tagbar' " Function preview window
+" Plugin 'mtth/scratch.vim'
+Plug 'mbbill/undotree' " See undo history like commit history
 " Plugin 'MarcWeber/vim-addon-signs'
-Plugin 'dhruvasagar/vim-markify'
-Plugin 'bling/vim-airline'
-"Plugin 'itchyny/lightline.vim'
-Plugin 'sudar/vim-arduino-syntax'
-Plugin 'gorodinskiy/vim-coloresque'
-Plugin 'tpope/vim-fugitive'
-" Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'vim-latex/vim-latex'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'junegunn/vim-peekaboo'
-Plugin 'darfink/vim-plist'
-Plugin 'tpope/vim-surround'
-Plugin 'torrancew/vim-openscad'
-Plugin 'mileszs/ack.vim'
-" Plugin 'Valloric/YouCompleteMe'
-Plugin 'metakirby5/codi.vim'
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
-Plugin 'pangloss/vim-javascript'
+" Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+"Plug 'gorodinskiy/vim-coloresque' " show hex colours - intensive, slows scrolling
+Plug 'tpope/vim-fugitive' " Git plugin
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/vim-unimpaired' " Shortcuts etc.
+Plug 'junegunn/vim-peekaboo' " Register viewer
+Plug 'darfink/vim-plist'
+Plug 'tpope/vim-surround' " Surround stuff
+"Plug 'mileszs/ack.vim' " Ack/ag support if available rather than grep
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
+Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
+Plug 'junegunn/goyo.vim' " Frame window for writting
+Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
+Plug 'metakirby5/codi.vim' " Interactive scratchpad
+Plug 'mhinz/vim-startify' " Fancy startup screen
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+"let g:deoplete#enable_at_startup = 1
+
+" Syntax/Filetypes
+Plug 'lervag/vimtex'
+Plug 'pangloss/vim-javascript'
+Plug 'torrancew/vim-openscad'
+Plug 'sudar/vim-arduino-syntax'
 
 " Colours
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
-Plugin 'endel/vim-github-colorscheme'
-Plugin 'romainl/flattened'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
+Plug 'endel/vim-github-colorscheme'
+Plug 'romainl/flattened'
+Plug 'chriskempson/base16-vim'
+Plug 'yuttie/hydrangea-vim'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()            " required
 
 "=====================
 " ---- INTERFACE ----
@@ -123,6 +124,7 @@ if &t_Co >= 256 || has("gui_running")
   let g:solarized_termcolors=256
   let g:solarized_contrast="high"
   let g:solarized_visibility="high"
+  let base16colorspace=256  " Access colors present in 256 colorspace
 endif
 " Otherwise just put syntax highlighting on it some colour
 if &t_Co > 2 || has("gui_running")
@@ -153,8 +155,6 @@ if has("gui_running")
     endtry
   endif
 
-  " set relativenumber "with number and relative creates hybrid
-  set cursorline "highlight current line (slow in term)
 endif
 
 " --- GENERAL SETTINGS ---
@@ -175,12 +175,17 @@ set splitbelow        " split below current buffer
 set splitright        " split to right of current buffer
 set vb t_vb=          " set visual bell
 set lazyredraw        " improve performance, don't redraw while moving
+if !has("win32")
+  set shell=/bin/bash   " set shell Bash, helps with compatability with no POSIX
+endif
+set relativenumber "with number and relative creates hybrid
+set cursorline "highlight current line (slow in term)
 
 "filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
 " CTAGS location search
-set tags=.tags,tags,./.git/tags,../tags,./tags;
+set tags=.tags,tags,./.git/tags,../tags,../.tags,./.tags;
 " project path recursively
 set path+=**
 
@@ -313,11 +318,70 @@ end
 " ---- PLUGINS ----
 "===================
 
+" ---- ALE ----
+"==============
+
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_open_list = 0
+
+" Disable linters for C/C++ and specify others
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8'],
+\   'cpp': [],
+\   'c': [],
+\}
+
 " ---- GUTENTAGS ----
 "====================
 let g:gutentags_define_advanced_commands = 1
 let g:gutentags_trace = 0 " debug
 let g:gutentags_ctags_tagfile = '.tags'
+
+" ---- AIRLINE / LIGHTLINE ----
+" =================
+" Airline Options
+set noshowmode " hide mode using airline
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" disable tagbar
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#ale#enabled = 1
+" Show just the filename
+let g:airline_powerline_fonts = 0
+let g:airline_theme = 'badwolf'
+" set timeoutlen=50
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+"let g:lightline = {
+"\ 'colorscheme': 'molokai', 
+"\}
+
+" unicode symbols
+" let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_left_sep = ''
+" let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
+"let g:airline_right_sep = ''
+"let g:airline_symbols.linenr = '☰'
+"let g:airline_symbols.maxlinenr = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.crypt = '⚛'
+"let g:airline_symbols.branch = 'ᚠ'
+let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.notexists = '∄'
+"let g:airline_symbols.whitespace = 'Ξ'
+"let g:airline_symbols.spell = '♿'
 
 " ---- TAGBAR ----
 "====================
@@ -355,34 +419,6 @@ let g:tagbar_type_arduino = {
                 \ 'union'     : 'u'
             \ }
         \ }
-
-" let g:GeeknoteNotebooks=['General', 'Fraser', 'JBR-Engineering', 'Ideas', '!Notebook']
-
-" ---- AIRLINE ----
-" =================
-" Airline Options
-set noshowmode " hide mode using airline
-set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
-" disable tagbar
-let g:airline#extensions#tagbar#enabled = 0
-" Show just the filename
-let g:airline_powerline_fonts = 1
-" set timeoutlen=50
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-if has("win32")
-  let g:airline_symbols.linenr = '☰'
-  let g:airline_symbols.paste = 'ρ'
-  let g:airline_symbols.notexists = '∄'
-  let g:airline_symbols.whitespace = 'Ξ'
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.readonly = ''
-  set encoding=utf-8
-endif
 
 func! WordProcessorMode()
   setlocal formatoptions=1
@@ -429,35 +465,6 @@ func! CallCtrlP()
   endif
 endfunc
 
-" YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_c_conf.py'
-let g:ycm_collect_identifiers_from_tags_files = 1
-" let g:ycm_always_populate_location_list = 1
-let g:ycm_auto_trigger = 99
-let g:ycm_filetype_blacklist = {'tex':1}
-" let g:ycm_key_invoke_completion = '<C-Space>'
-:let g:ycm_enable_diagnostic_highlighting = 0 
-:let g:ycm_show_diagnostics_ui = 0
-:let g:ycm_enable_diagnostic_signs = 0
-
-" Syntastic Options
-let g:syntastic_check_on_open = 0
-let g:syntastic_loc_list_height = 5
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_enable_signs = 1
-" let g:syntastic_c_no_include_search = 1
-let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_c_include_dirs = [ 'lib', 'libraries', 'inc', 'include','/usr/local/include/avr/include','/usr/local/include/avr/include/avr']
-let g:syntastic_cpp_include_dirs = [ 'lib', 'libraries', 'inc', 'include' ]
-" let g:syntastic_cpp_no_include_search = 1
-let g:syntastic_cpp_remove_include_errors = 1
-" let g:syntastic_debug = 1
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_mode_map = { "mode": "passive",
-      \ "active_filetypes": ['matlab','python','javascript'],
-      \ "passive_filetypes": ['html'] }
-
 " The Silver Searcher
 if executable('ag') && !exists(":Ag")
   " Use ag over grep
@@ -479,10 +486,10 @@ endif
 
 " Save backups to tmp and directory swap where I know
 if has("win32")
-  let $TMP='C:\tmp'
+  " let $TMP='C:\tmp'
   " " be explicit about vim/tmp for cygwin and windows crossover
-  set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP
-  set directory^=$TMP,C:/cygwin64/tmp,$TEMP
+  " set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
+  " set directory^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
 else
   set backupdir^=/tmp,~/.vim/tmp
   set directory^=/tmp,~/.vim/tmp
@@ -493,8 +500,6 @@ endif
 
 "" LEADERS
 nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
-" Underline the current line with '=' and comment
-nmap <silent> <leader>ul :t.<CR>Vr=<leader>cc
 nnoremap <C-j> i<CR><ESC> " create a cut to new line
 " map leader to ,
 " map , <leader>
@@ -515,13 +520,14 @@ nmap <leader>bd :bd<CR>
 nmap <leader>sc <C-w>q
 nmap <leader>ww :w<CR>
 " control-p
+" control-p
 nmap <leader>pb :CtrlPBuffer<CR>
 nmap <leader>pm :CtrlPMRU<CR>
 nmap <leader>pf :CtrlP<CR>
 nmap <leader>pa :CtrlPMixed<CR>
 nmap <leader>pu :CtrlPUndo<CR>
 "make commands
-nmap <F7> :w<CR>:silent make!<CR>:cw<CR>
+nmap <F7> :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
 nmap <F5> :w<CR>:make! upload\|redraw!\|cw<CR>
 nmap <F4> :w<CR>:make! upload\|redraw!\|cw<CR>
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
@@ -558,8 +564,8 @@ cmap w!! w !sudo tee > /dev/null %
 
 if has("gui_macvim") && has("gui_running")
   " Comment toggle mapping
-  nmap <D-/> <leader>c<Space>
-  vmap <D-/> <leader>c<Space>gv
+  nmap <D-/> gcc
+  vmap <D-/> gc
   " swap to previous buffer, delete current
   nnoremap <C-c> :bp\|bd #<CR>
   " close split
@@ -618,7 +624,7 @@ else
   " swap to previous buffer, delete current
   nnoremap <C-c> :bp\|bd #<CR>
   " close split
-  nnoremap <C-x> <C-w>q
+  " nnoremap <C-x> <C-w>q " can cause issue over cygwin ssh?
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
   vmap <A-]> >gv
