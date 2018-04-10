@@ -93,7 +93,7 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-"let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " Syntax/Filetypes
 Plug 'lervag/vimtex'
@@ -357,8 +357,8 @@ let g:ale_open_list = 0
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['flake8'],
-\   'cpp': [],
-\   'c': [],
+\   'cpp': ['cppcheck'],
+\   'c': ['cppcheck'],
 \}
 
 " ---- GUTENTAGS ----
@@ -522,6 +522,11 @@ endif
 
 " Write all buffers before navigating from Vim to tmux pane
 let g:tmux_navigator_save_on_switch = 1
+
+" ---- GIT ----
+"==============
+
+command! -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
 
 " ---------- KEY BINDINGS -----------"
 "======================================
