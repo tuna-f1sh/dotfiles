@@ -556,14 +556,6 @@ vnoremap ` :normal @a<CR> " last register
 " UndoTree
 nmap <leader>tt :UndotreeToggle<cr>
 
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 " imap <Tab> <C-p>
 " select last pasted
