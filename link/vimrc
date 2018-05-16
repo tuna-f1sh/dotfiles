@@ -40,6 +40,9 @@ filetype off
 if has("nvim")
   let plug_install='~/.local/share/nvim/site/autoload/plug.vim'
   let plug_path='~/.config/nvim/plugged'
+elseif has("win32")
+  let plug_install='$USERPROFILE/vimfiles/autoload/plug.vim'
+  let plug_path='$USERPROFILE/.vim/plugged'
 else
   let plug_install='~/.vim/autoload/plug.vim'
   let plug_path='~/.vim/plugged'
@@ -508,10 +511,10 @@ endif
 
 " Save backups to tmp and directory swap where I know
 if has("win32")
-  " let $TMP='C:\tmp'
-  " " be explicit about vim/tmp for cygwin and windows crossover
-  " set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
-  " set directory^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
+  let $TMP='C:\tmp'
+  " be explicit about vim/tmp for cygwin and windows crossover
+  set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
+  set directory^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
 else
   set backupdir^=/tmp,~/.vim/tmp
   set directory^=/tmp,~/.vim/tmp
