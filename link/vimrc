@@ -105,6 +105,7 @@ Plug 'endel/vim-github-colorscheme'
 Plug 'romainl/flattened'
 Plug 'chriskempson/base16-vim'
 Plug 'yuttie/hydrangea-vim'
+Plug 'Lokaltog/vim-monotone'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -561,7 +562,7 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 nnoremap <leader>] :bnext<CR>
 nnoremap <leader>[ :bprevious<CR>
 nnoremap <Tab> :e#<CR> " last used buffer
-nmap <leader>ww :w<CR>
+" nmap <leader>ww :w<CR>
 " control-p / FZF
 nmap <leader>; :Buffers<CR>
 nmap <leader>pb :BLines<CR>

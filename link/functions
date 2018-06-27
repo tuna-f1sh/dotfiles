@@ -126,6 +126,13 @@ fzstash() {
   done
 }
 
+# cdf - cd into the directory of the selected file
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
 # Ag for term to edit in nvim with preview
 agvim() {
   local file
@@ -149,4 +156,128 @@ fkill() {
   then
     echo $pid | xargs kill -${1:-9}
   fi
+}
+
+# Note taking function and command completion
+_n() {
+  local lis cur
+  lis=$(find "${NOTE_DIR}" -name "*.md" | \
+    sed -e "s|${NOTE_DIR}/||" | \
+    sed -e 's/\.md$//')
+  cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "$lis" -- "$cur") )
+}
+note() {
+  : "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
+  if [ $# -eq 0 ]; then
+    local file
+    file=$(find "${NOTE_DIR}" -name "*.md" | \
+      sed -e "s|${NOTE_DIR}/||" | \
+      sed -e 's/\.md$//' | \
+      fzf \
+        --multi \
+        --select-1 \
+        --exit-0 \
+        --preview="cat ${NOTE_DIR}/{}.md" \
+        --preview-window=right:70%:wrap)
+    [[ -n $file ]] && \
+      ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+  else
+    case "$1" in
+      "-d")
+        rm "${NOTE_DIR}"/"$2".md
+        ;;
+      *)
+        ${EDITOR:-vim} "${NOTE_DIR}"/"$*".md
+        ;;
+    esac
+  fi
+}
+#complete -F _n n
+
+# Override Z for use with fzf
+unalias z 2> /dev/null
+z() {
+  if [[ -z "$*" ]]; then
+    cd "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+  else
+    _z "$@"
+  fi
+}
+
+# Todo List & Completion
+_todo() {
+  local iter use cur
+  cur=${COMP_WORDS[COMP_CWORD]}
+  use=$( awk '{gsub(/ /,"\\ ")}8' "$TODOFILE" )
+  use="${use//\\ /___}"
+  for iter in $use; do
+    if [[ $iter =~ ^$cur ]]; then
+      COMPREPLY+=( "${iter//___/ }" )
+    fi
+  done
+}
+todo() {
+  : "${TODO:?'TODO ENV Var not set. Please set to path of default todo file.'}"
+  # If we are in a tmux session, name the file with the session name
+  # If not in tmux, use the full $TODO env var for path/file
+  if echo "$TERM" | grep -Fq screen && test "$TMUX" ; then
+    sessname=$(tmux display -p '#S')
+    todopath=$(dirname "$TODO")
+    TODOFILE=$todopath/$sessname".txt"
+    TODOARCHIVEFILE=$todopath/$sessname".archive.txt"
+  else
+    TODOFILE=$TODO
+    TODOARCHIVEFILE=${TODO%.*}.archive.txt
+  fi
+
+  if [ $# -eq 0 ]; then
+    if [ -f "$TODOFILE" ] ; then
+      awk '{ print NR, "-", $0 }' "$TODOFILE"
+    fi
+  else
+    case "$1" in
+      -h|--help)
+        echo "todo - Command Line Todo List Manager"
+        echo " "
+        echo "Creates a text-based todo list and provides basic operations to add and remove elements from the list. If using TMUX, the todo list is session based, using the name of your active session."
+        echo " "
+        echo "usage: todo                                 # display todo list"
+        echo "usage: todo (--help or -h)                  # show this help"
+        echo "usage: todo (--add or -a) [activity name]   # add a new activity to list"
+        echo "usage: todo (--archive)                     # show completed tasks in archive list"
+        echo "usage: todo (--done or -d) [name or #]      # complete and archive activity"
+        ;;
+      -a|--add)
+        echo "${*:2}" >> "$TODOFILE"
+        ;;
+      --archive)
+        if [ -f "$TODOARCHIVEFILE" ] ; then
+          # ca:W "$TODOARCHIVEFILE"
+        fi
+        ;;
+      -d|--done)
+        re='^[0-9]+$'
+        if ! [[ "$2" =~ $re ]] ; then
+          match=$(sed -n "/$2/p" "$TODOFILE" 2> /dev/null)
+          sed -i "" -e "/$2/d" "$TODOFILE" 2> /dev/null
+        else
+          match=$(sed -n "$2p" "$TODOFILE" 2> /dev/null)
+          sed -i "" -e "$2d" "$TODOFILE" 2> /dev/null
+        fi
+        if [ ! -z "$match" ]; then
+          echo "$(date +"%Y-%m-%d %H:%M:%S") - $match" >> "$TODOARCHIVEFILE"
+        fi
+        ;;
+    esac
+  fi
+
+}
+
+# find todo notes in current project
+function todos {
+	#local m=$(trimspace $(git diff --numstat 2> /dev/null | wc -l))
+	LOCAL_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
+	LOCAL_DIR=${LOCAL_DIR:-.}
+	find "${LOCAL_DIR}" -type f -exec grep -H -n '(TODO|FIX(ME)?):' {} \; 2> /dev/null
 }
