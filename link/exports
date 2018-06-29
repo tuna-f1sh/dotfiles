@@ -4,6 +4,8 @@
 export VISUAL=vim
 export EDITOR=vim
 #export PAGER=vimpager
+export NOTE_DIR=~/Dropbox/Documents/notes
+export TODO=~/Dropbox/Documents/todo.md
 
 # Colourful vim
 export TERM='xterm-256color'
