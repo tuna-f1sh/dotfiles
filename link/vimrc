@@ -562,7 +562,7 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 nnoremap <leader>] :bnext<CR>
 nnoremap <leader>[ :bprevious<CR>
 nnoremap <Tab> :e#<CR> " last used buffer
-" nmap <leader>ww :w<CR>
+nmap <leader>ww :w<CR>
 " control-p / FZF
 nmap <leader>; :Buffers<CR>
 nmap <leader>pb :BLines<CR>
