@@ -4,8 +4,6 @@
 export VISUAL=vim
 export EDITOR=vim
 #export PAGER=vimpager
-export NOTE_DIR=~/Dropbox/Documents/notes
-export TODO=~/Dropbox/Documents/todo.md
 
 # Colourful vim
 export TERM='xterm-256color'
@@ -14,11 +12,14 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # Use homebrew python : homebrew bin : MATLAB syntax checker
   export PATH="$HOME/.cargo/bin:/usr/local/opt/python/libexec/bin:/usr/local/bin:$PATH:/usr/local/sbin:/Applications/MATLAB_R2014b.app/bin/maci64" 
 
+  export NOTE_DIR=~/Documents/Dropbox/notes
+
   # Arduino-mk
   export ARDUINO_DIR=/Applications/Arduino.app/Contents/Java 
   export ARDMK_DIR=/usr/local/Arduino-Makefile
   export AVR_TOOLS_DIR=/usr/local
 else
+  export NOTE_DIR=~/.notes
   # Arduino-mk
   export ARDUINO_DIR=/usr/share/arduino
   export ARDMK_DIR=/home/john/Arduino-Makefile
@@ -26,3 +27,5 @@ else
   #export AVR_TOOLS_DIR=/usr/bin/
   export LC_COLLATE=C # fixes sort with ctags vim error
 fi
+
+export TODO=$NOTE_DIR/todo.md
