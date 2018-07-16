@@ -11,7 +11,8 @@ antigen bundle wd
 antigen bundle z
 antigen bundle vi-mode
 
-antigen theme $HOME/dotfiles/support john --no-local-clone
+antigen theme $HOME/dotfiles/support john
+# antigen theme bira
 
 antigen apply
 
