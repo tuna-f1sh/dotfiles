@@ -81,7 +81,6 @@ Plug 'metakirby5/codi.vim' " Interactive scratchpad
 Plug 'mhinz/vim-startify' " Fancy startup screen
 Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
 Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
-"Plug 'plasticboy/vim-markdown'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -402,7 +401,7 @@ let g:ale_open_list = 0
 " Disable linters for C/C++ and specify others
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'python': ['flake8'],
+\   'python': ['pylint'],
 \   'cpp': ['cppcheck'],
 \   'c': ['cppcheck'],
 \}

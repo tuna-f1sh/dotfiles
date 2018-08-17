@@ -1,3 +1,11 @@
+"        _
+" __   _(_)_ __ ___  _ __ ___
+" \ \ / / | '_ ` _ \| '__/ __|
+"  \ V /| | | | | | | | | (__
+"   \_/ |_|_| |_| |_|_|  \___|
+"
+" John's .vimrc file
+
 set nocompatible "Use vim rather than vi settings
 
 "=================================
@@ -10,7 +18,8 @@ if has("win32")
   behave mswin
 
   "Set Shell Cgywin
-  set shell=C:\\cygwin64\\bin\\bash.exe
+  set shell=/bin/bash   " set shell Bash, helps with compatability with no POSIX
+  " set shell=C:\\cygwin64\\bin\\bash.exe
   let &shellcmdflag='-c'
   set shellxescape="\"&|<>()@^"
   set shellpipe=2>&1\|tee
@@ -32,6 +41,9 @@ filetype off
 if has("nvim")
   let plug_install='~/.local/share/nvim/site/autoload/plug.vim'
   let plug_path='~/.config/nvim/plugged'
+elseif has("win32")
+  let plug_install='$USERPROFILE/vimfiles/autoload/plug.vim'
+  let plug_path='$USERPROFILE/.vim/plugged'
 else
   let plug_install='~/.vim/autoload/plug.vim'
   let plug_path='~/.vim/plugged'
@@ -49,18 +61,11 @@ call plug#begin(plug_path)
 Plug 'kien/ctrlp.vim'
 Plug 'davidhalter/jedi-vim' " Python syntax checker
 Plug 'andymass/vim-matchup'
-"Plug 'ddollar/nerdcommenter' " easy comment stuff
 Plug 'tpope/vim-commentary' " easy comment stuff
 Plug 'w0rp/ale' " linter faster than syntastic
 Plug 'majutsushi/tagbar' " Function preview window
-" Plugin 'mtth/scratch.vim'
 Plug 'mbbill/undotree' " See undo history like commit history
-" Plugin 'MarcWeber/vim-addon-signs'
-" Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
-"Plug 'gorodinskiy/vim-coloresque' " show hex colours - intensive, slows scrolling
 Plug 'tpope/vim-fugitive' " Git plugin
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -68,13 +73,16 @@ Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'junegunn/vim-peekaboo' " Register viewer
 Plug 'darfink/vim-plist'
 Plug 'tpope/vim-surround' " Surround stuff
-"Plug 'mileszs/ack.vim' " Ack/ag support if available rather than grep
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
 Plug 'junegunn/goyo.vim' " Frame window for writting
 Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
 Plug 'metakirby5/codi.vim' " Interactive scratchpad
 Plug 'mhinz/vim-startify' " Fancy startup screen
+Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
+Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
+"Plug 'plasticboy/vim-markdown'
+
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -82,7 +90,7 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-"let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " Syntax/Filetypes
 Plug 'lervag/vimtex'
@@ -98,9 +106,67 @@ Plug 'endel/vim-github-colorscheme'
 Plug 'romainl/flattened'
 Plug 'chriskempson/base16-vim'
 Plug 'yuttie/hydrangea-vim'
+Plug 'Lokaltog/vim-monotone'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
+
+"===================
+" ---- FUNCTIONS ----
+"===================
+
+" Removes trailing spaces
+function! TrimWhiteSpace()
+  %s/\s*$//
+  ''
+endfunction
+
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
+
+func! WordProcessorMode()
+  setlocal formatoptions=1
+  setlocal noexpandtab
+  map j gj
+  map k gk
+  set thesaurus+=~/.vim/mthesaur.txt
+  set complete+=sk
+  set formatprg=par
+  setlocal wrap
+  setlocal linebreak
+  set background=dark
+  colorscheme pencil
+  if has("win32")
+    set guifont=Cousine:h10
+  else
+    set guifont=Cousine:h12
+  end
+  let g:airline_theme = 'pencil'
+  let g:airline_powerline_fonts = 1
+endfu
+"com! WP call WordProcessorMode()
+
+function! InsertTabWrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
+endfunction
 
 "=====================
 " ---- INTERFACE ----
@@ -160,7 +226,6 @@ set background=dark   " Dark background
 set ruler             " Show line and column number
 set encoding=utf-8    " Set default encoding to UTF-8
 set number            " Line Numbering
-" set clipboard+=unnamed " use system clipboard
 set autoread          " autoload external file changes
 set history=100       " keep 100 lines of command line history
 set backspace=indent,eol,start    " backspace through everything in insert mode
@@ -172,13 +237,9 @@ set splitbelow        " split below current buffer
 set splitright        " split to right of current buffer
 set vb t_vb=          " set visual bell
 set lazyredraw        " improve performance, don't redraw while moving
-if !has("win32")
-  set shell=/bin/bash   " set shell Bash, helps with compatability with no POSIX
-endif
 set relativenumber "with number and relative creates hybrid
 set cursorline "highlight current line (slow in term)
 
-"filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
 " CTAGS location search
@@ -192,22 +253,6 @@ set incsearch   " incremental searching
 set ignorecase  " searches are case insensitive...
 set smartcase   " ... unless they contain at least one capital letter
 imap <C-x><C-l> <plug>(fzf-complete-line)
-
-function! SearchWordWithAg()
-  execute 'Ag' expand('<cword>')
-endfunction
-
-function! SearchVisualSelectionWithAg() range
-  let old_reg = getreg('"')
-  let old_regtype = getregtype('"')
-  let old_clipboard = &clipboard
-  set clipboard&
-  normal! ""gvy
-  let selection = getreg('"')
-  call setreg('"', old_reg, old_regtype)
-  let &clipboard = old_clipboard
-  execute 'Ag' selection
-endfunction
 
 "" undo
 set undolevels=1000 " 1000 undos
@@ -239,9 +284,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 
 " another nice listchars configuration
 set list
-" set listchars=tab:\|\ ,eol:¬
 set listchars=tab:>-,eol:¬,trail:-,extends:»,precedes:«,nbsp:+
-" set listchars=tab:\|\ ,eol:¬,trail:-,extends:>,precedes:<,nbsp:+
 
 " Set region to British English
 set spelllang=en_gb
@@ -265,6 +308,20 @@ if has("gui_running")
       au GUIEnter * simalt ~x
     endif
   endif
+endif
+
+" Quickfix
+:botright cwindow "open full window width
+
+" Save backups to tmp and directory swap where I know
+if has("win32")
+  let $TMP='C:\tmp'
+  " be explicit about vim/tmp for cygwin and windows crossover
+  set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
+  set directory^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
+else
+  set backupdir^=/tmp,~/.vim/tmp
+  set directory^=/tmp,~/.vim/tmp
 endif
 
 " ---- AUTOCMD ----
@@ -345,9 +402,9 @@ let g:ale_open_list = 0
 " Disable linters for C/C++ and specify others
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'python': ['flake8'],
-\   'cpp': [],
-\   'c': [],
+\   'python': ['pylint'],
+\   'cpp': ['cppcheck'],
+\   'c': ['cppcheck'],
 \}
 
 " ---- GUTENTAGS ----
@@ -433,34 +490,6 @@ let g:tagbar_type_arduino = {
             \ }
         \ }
 
-func! WordProcessorMode()
-  setlocal formatoptions=1
-  setlocal noexpandtab
-  map j gj
-  map k gk
-  set thesaurus+=~/.vim/mthesaur.txt
-  set complete+=sk
-  set formatprg=par
-  setlocal wrap
-  setlocal linebreak
-  set background=dark
-  colorscheme pencil
-  if has("win32")
-    set guifont=Cousine:h10
-  else
-    set guifont=Cousine:h12
-  end
-  let g:airline_theme = 'pencil'
-  let g:airline_powerline_fonts = 1
-endfu
-"com! WP call WordProcessorMode()
-"set ffs=dos " set file system type (when on windows stops funky charactors
-" Removes trailing spaces
-function! TrimWhiteSpace()
-  %s/\s*$//
-  ''
-endfunction
-
 " ---- CTRL P ----
 "==================
 
@@ -492,55 +521,60 @@ if executable('ag') && !exists(":Ag")
   command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 endif
 
-" Quickfix
-:botright cwindow "open full window width
-
-" Save backups to tmp and directory swap where I know
-if has("win32")
-  " let $TMP='C:\tmp'
-  " " be explicit about vim/tmp for cygwin and windows crossover
-  " set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
-  " set directory^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
-else
-  set backupdir^=/tmp,~/.vim/tmp
-  set directory^=/tmp,~/.vim/tmp
-endif
-
-" ---------- KEY BINDINGS -----------"
+" ---------- TMUX -------------------"
 "======================================
+
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 1
+
+" ---- GIT ----
+"==============
+
+command! -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
+
+"======================================
+" ---------- MAPPING -----------"
+"======================================
+
+" i always, ALWAYS hit ":W" instead of ":w"
+command! Q q
+command! W w
+
+" Macros
+nmap \q :nohlsearch<CR>
+nmap \l :setlocal number!<CR>:setlocal number?<CR>
+nmap \z :w<CR>:!open %<CR><CR>
+nmap \g :Gstatus<CR>
+
+" having Ex mode start or showing me the command history
+" is a complete pain in the ass if i mistype
+" map Q  <silent>
+" map q: <silent>
+" map K  <silent>
+"map q <silent>
 
 "" LEADERS
 nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 nnoremap <C-j> i<CR><ESC> " create a cut to new line
-" map leader to ,
-" map , <leader>
 nmap <space> <leader>
 " search
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 " buffers
-nnoremap <C-Tab> :bnext<CR>
-nnoremap <C-l> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
-nnoremap <C-h> :bprevious<CR>
 nnoremap <leader>] :bnext<CR>
 nnoremap <leader>[ :bprevious<CR>
-nnoremap <Tab> <C-^> " last used buffer
-nmap <leader>bd :bd<CR>
-nmap <leader>sc <C-w>q
+nnoremap <Tab> :e#<CR> " last used buffer
 nmap <leader>ww :w<CR>
-" control-p
+" control-p / FZF
 nmap <leader>; :Buffers<CR>
 nmap <leader>pb :BLines<CR>
 nmap <leader>pm :History<CR>
 nmap <leader>pf :Files<CR>
+nmap <leader>pt :Tags<CR>
 nmap <leader>pg :GFiles<CR>
 nnoremap <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
 nmap <leader>pu :CtrlPUndo<CR>
 "make commands
-nmap <F7> :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
-nmap <F5> :w<CR>:make! upload\|redraw!\|cw<CR>
-nmap <F4> :w<CR>:make! upload\|redraw!\|cw<CR>
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
 nmap <leader>mk :w<CR>:silent make! DIAGNOSTICS_COLOR_WHEN=never<CR>:\|redraw!\|cw<CR>
 nmap <leader>mu :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never upload\|redraw!\|cw<CR>
@@ -555,6 +589,11 @@ vnoremap . :normal .<CR> " last command
 vnoremap ` :normal @a<CR> " last register
 " UndoTree
 nmap <leader>tt :UndotreeToggle<cr>
+" Window manipulation
+" swap to previous buffer, delete current
+nnoremap <C-c> :BD<cr>
+" close split
+nnoremap <C-x> <C-w>q
 
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 " imap <Tab> <C-p>
@@ -569,10 +608,6 @@ if has("gui_macvim") && has("gui_running")
   " Comment toggle mapping
   nmap <D-/> gcc
   vmap <D-/> gc
-  " swap to previous buffer, delete current
-  nnoremap <C-c> :bp\|bd #<CR>
-  " close split
-  nnoremap <C-x> <C-w>q
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
   vmap <D-]> >gv
@@ -624,10 +659,6 @@ else
   " Comment toggle mapping
   nmap <A-/> <leader>c<Space>
   vmap <A-/> <leader>c<Space>gv
-  " swap to previous buffer, delete current
-  nnoremap <C-c> :bp\|bd #<CR>
-  " close split
-  " nnoremap <C-x> <C-w>q " can cause issue over cygwin ssh?
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
   vmap <A-]> >gv
