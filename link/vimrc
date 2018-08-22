@@ -193,6 +193,12 @@ if &t_Co > 2 || has("gui_running")
   syntax on
 endif
 
+" Use base16 theme if set in shell
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 let g:pencil_higher_contrast_ui = 1
 
 if has("gui_running")
@@ -576,8 +582,8 @@ nmap <leader>pu :CtrlPUndo<CR>
 "make commands
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
 nmap <leader>mk :w<CR>:silent make! DIAGNOSTICS_COLOR_WHEN=never<CR>:\|redraw!\|cw<CR>
-nmap <leader>mu :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never upload\|redraw!\|cw<CR>
-nmap <leader>mi :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never ispload\|redraw!\|cw<CR>
+nmap <leader>mu :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never upload\|redraw!\|<CR>
+nmap <leader>mi :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never ispload\|redraw!\|<CR>
 " remap the ctrl-a/x to inc/dec ints
 nnoremap <C-a> <C-a>
 nnoremap <C-x> <C-x>
