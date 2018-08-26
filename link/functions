@@ -276,8 +276,11 @@ todo() {
 
 # find todo notes in current project
 function todos {
-	#local m=$(trimspace $(git diff --numstat 2> /dev/null | wc -l))
-	LOCAL_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
-	LOCAL_DIR=${LOCAL_DIR:-.}
-	find "${LOCAL_DIR}" -type f -exec grep -H -n '(TODO|FIX(ME)?):' {} \; 2> /dev/null
+  LOCAL_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
+  LOCAL_DIR=${LOCAL_DIR:-.}
+  if [ $# -eq 0 ]; then
+    ag '(\bTODO\b|\bFIX(ME)?\b|\bREFACTOR\b)' ${LOCAL_DIR}
+  else
+    ag ${*:1} '(\bTODO\b|\bFIX(ME)?\b|\bREFACTOR\b)' ${LOCAL_DIR}
+  fi
 }
