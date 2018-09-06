@@ -49,11 +49,11 @@ function git_prompt_info() {
 }
 
 PROMPT='
-╭─[${user_host} %{$fg_bold[cyan]%}${PWD/#$HOME/~}%{$reset_color%} $(git_prompt_info)]
-╰─[%{$fg_bold[blue]%}%*%{$reset_color%}]$PR_PROMPT'
+╭─[${user_host} %{$fg_bold[cyan]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)]
+╰─[%{$fg_bold[blue]%}%*%{$reset_color%}]%{$fg_bold[yellow]%}$(virtualenv_prompt_info)%{$reset_color%}$PR_PROMPT'
 
 # Must use Powerline font, for \uE0A0 to render.
-ZSH_THEME_GIT_PROMPT_PREFIX=""
+ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[yellow]%}?"
