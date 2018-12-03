@@ -26,7 +26,6 @@ if has("win32")
   set shellredir=>%s\ 2>&1
   set shellxquote=\"
   set shellslash
-  let g:gutentags_enabled = 0 " disable auto-update on windows to stop paths changing
 elseif has("gui_macvim")
   set dictionary=/usr/share/dict/words
 endif
@@ -67,7 +66,6 @@ Plug 'majutsushi/tagbar' " Function preview window
 Plug 'mbbill/undotree' " See undo history like commit history
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive' " Git plugin
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'junegunn/vim-peekaboo' " Register viewer
@@ -81,7 +79,7 @@ Plug 'metakirby5/codi.vim' " Interactive scratchpad
 Plug 'mhinz/vim-startify' " Fancy startup screen
 Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
 Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
-"Plug 'plasticboy/vim-markdown'
+Plug 'chrisbra/csv.vim'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -173,10 +171,8 @@ endfunction
 "=====================
 
 set title " set terminal title as file
-let g:gutentags_enabled = 0 "disabled by default
 " Set 256 colours for terminals that have it
 if &t_Co >= 256 || has("gui_running")
-  let g:gutentags_enabled = 1
   try
     colorscheme molokai
   endtry
@@ -192,6 +188,12 @@ endif
 " Otherwise just put syntax highlighting on it some colour
 if &t_Co > 2 || has("gui_running")
   syntax on
+endif
+
+" Use base16 theme if set in shell
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
 endif
 
 let g:pencil_higher_contrast_ui = 1
@@ -407,11 +409,19 @@ let g:ale_linters = {
 \   'c': ['cppcheck'],
 \}
 
-" ---- GUTENTAGS ----
-"====================
-let g:gutentags_define_advanced_commands = 1
-let g:gutentags_trace = 0 " debug
-let g:gutentags_ctags_tagfile = '.tags'
+let g:ale_javascript_eslint_options = '--quiet'
+
+" Vanilla linting using makeprg https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
+" autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
+" autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
+
+" augroup Linting
+"   autocmd!
+"   autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
+"   autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
+"   autocmd BufWritePost *.py,*.js silent make! <afile> | silent redraw!
+"   autocmd QuickFixCmdPost [^l]* cwindow
+" augroup END
 
 " ---- AIRLINE / LIGHTLINE ----
 " =================
@@ -577,8 +587,8 @@ nmap <leader>pu :CtrlPUndo<CR>
 "make commands
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
 nmap <leader>mk :w<CR>:silent make! DIAGNOSTICS_COLOR_WHEN=never<CR>:\|redraw!\|cw<CR>
-nmap <leader>mu :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never upload\|redraw!\|cw<CR>
-nmap <leader>mi :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never ispload\|redraw!\|cw<CR>
+nmap <leader>mu :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never upload\|redraw!\|<CR>
+nmap <leader>mi :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never ispload\|redraw!\|<CR>
 " remap the ctrl-a/x to inc/dec ints
 nnoremap <C-a> <C-a>
 nnoremap <C-x> <C-x>
@@ -593,7 +603,7 @@ nmap <leader>tt :UndotreeToggle<cr>
 " swap to previous buffer, delete current
 nnoremap <C-c> :BD<cr>
 " close split
-nnoremap <C-x> <C-w>q
+" nnoremap <C-x> <C-w>q
 
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 " imap <Tab> <C-p>
