@@ -94,11 +94,13 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # workspace assignments
-set $ws1 "1:gen"
+set $ws1 "1:term"
 set $ws2 "2:web"
-set $ws3 "3:term"
+set $ws3 "3:aux"
 
 assign [class="Chromium"] $ws2
+assign [class="Firefox"] $ws2
+assign [class="gtkwave"] $ws3
 for_window [class="Chromium"] fullscreen enable
 
 # switch to workspace
