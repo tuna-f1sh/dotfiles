@@ -245,7 +245,8 @@ set cursorline "highlight current line (slow in term)
 set omnifunc=syntaxcomplete#Complete
 
 " CTAGS location search
-set tags=.tags,tags,./.git/tags,../tags,../.tags,./.tags;
+set tags=.tags,tags,./.git/tags,../tags,../.tags,./.tags;,./tags;
+
 " project path recursively
 set path+=**
 

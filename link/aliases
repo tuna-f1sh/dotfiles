@@ -58,3 +58,6 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias ftx_load='sudo kextload -b com.apple.driver.AppleUSBFTDI'
   alias ftx_unload='sudo kextunload -b com.apple.driver.AppleUSBFTDI'
 fi
+
+# ESP32
+alias get_esp32='export PATH="/opt/esp/xtensa-esp32-elf/bin:$PATH"'

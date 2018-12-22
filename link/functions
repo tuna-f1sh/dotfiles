@@ -284,3 +284,6 @@ function todos {
     ag ${*:1} '(\bTODO\b|\bFIX(ME)?\b|\bREFACTOR\b)' ${LOCAL_DIR}
   fi
 }
+
+# git ignore
+function gi() { curl -L -s https://www.gitignore.io/api/\$@ ;}

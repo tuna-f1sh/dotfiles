@@ -20,11 +20,16 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export AVR_TOOLS_DIR=/usr/local
 else
   export NOTE_DIR=~/.notes
+
   # Arduino-mk
   export ARDUINO_DIR=/usr/share/arduino
   export ARDMK_DIR=/home/john/Arduino-Makefile
   export USER_LIB_PATH=/home/john/libraries
-  #export AVR_TOOLS_DIR=/usr/bin/
+
+  # ESP32
+  export IDF_PATH=/opt/esp/esp-idf
+  # export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH" # set using get_esp32 alias
+
   export LC_COLLATE=C # fixes sort with ctags vim error
 fi
 
