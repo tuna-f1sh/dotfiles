@@ -227,7 +227,6 @@ endif
 set background=dark   " Dark background
 set ruler             " Show line and column number
 set encoding=utf-8    " Set default encoding to UTF-8
-set number            " Line Numbering
 set autoread          " autoload external file changes
 set history=100       " keep 100 lines of command line history
 set backspace=indent,eol,start    " backspace through everything in insert mode
@@ -240,6 +239,7 @@ set splitright        " split to right of current buffer
 set vb t_vb=          " set visual bell
 set lazyredraw        " improve performance, don't redraw while moving
 set relativenumber "with number and relative creates hybrid
+set number            " Line Numbering
 set cursorline "highlight current line (slow in term)
 
 set omnifunc=syntaxcomplete#Complete
