@@ -27,6 +27,7 @@ Edit ~/.secrets to add machine only stuff and API keys.
 * `fd` - easy to use `find`
 * `ncdu` - visual `du`
 * `bat` - nicer `cat`
+* `up` - interactively view pipes
 
 ## Linux
 
