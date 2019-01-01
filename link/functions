@@ -161,7 +161,7 @@ fkill() {
 # Note taking function and command completion
 _n() {
   local lis cur
-  lis=$(find "${NOTE_DIR}" -name "*.md" | \
+  lis=$(fd . "${NOTE_DIR}" -e md | \
     sed -e "s|${NOTE_DIR}/||" | \
     sed -e 's/\.md$//')
   cur=${COMP_WORDS[COMP_CWORD]}
@@ -171,7 +171,7 @@ note() {
   : "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
   if [ $# -eq 0 ]; then
     local file
-    file=$(find "${NOTE_DIR}" -name "*.md" | \
+    file=$(fd . "${NOTE_DIR}" -e md | \
       sed -e "s|${NOTE_DIR}/||" | \
       sed -e 's/\.md$//' | \
       fzf \
@@ -179,13 +179,39 @@ note() {
         --select-1 \
         --exit-0 \
         --preview="cat ${NOTE_DIR}/{}.md" \
-        --preview-window=right:70%:wrap)
+        --preview-window=right:60%:wrap)
     [[ -n $file ]] && \
       ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
   else
-    case "$1" in
+    case "$1" in 
       "-d")
         rm "${NOTE_DIR}"/"$2".md
+        ;;
+      "-s")
+        local file
+        if [ -z "$2" ]; then
+          file=$(rg . --type markdown ${NOTE_DIR} | \
+            fzf \
+              -i \
+              --exact \
+              --multi \
+              --select-1 \
+              --exit-0)
+        else
+          file=$(ag --nobreak --nonumbers --noheading --markdown -l "$2" ${NOTE_DIR} | \
+            sed -e "s|${NOTE_DIR}/||" | \
+            sed -e 's/\.md$//' | \
+            fzf \
+              -i \
+              --exact \
+              --multi \
+              --select-1 \
+              --exit-0 \
+              --preview="cat ${NOTE_DIR}/{}.md" \
+              --preview-window=right:60%:wrap)
+        fi
+        [[ -n $file ]] && \
+          ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
         ;;
       *)
         ${EDITOR:-vim} "${NOTE_DIR}"/"$*".md
@@ -193,7 +219,7 @@ note() {
     esac
   fi
 }
-#complete -F _n n
+complete -F _n note
 
 # Override Z for use with fzf
 unalias z 2> /dev/null
@@ -287,3 +313,9 @@ function todos {
 
 # git ignore
 function gi() { curl -L -s https://www.gitignore.io/api/\$@ ;}
+
+# create html from markdown in GitHub CSS
+function mdhtml {
+  FILE="$1"
+  pandoc "$1" --to=html5 --css=${HOME}/dotfiles/support/github.css --highlight-style=haddock  --self-contained --output "${FILE%%.*}".html
+}
