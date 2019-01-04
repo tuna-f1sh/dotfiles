@@ -136,14 +136,13 @@ cdf() {
 # Ag for term to edit in nvim with preview
 agvim() {
   local file
+  local line
 
-  #file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print "+" $2 " " $1}')"
-  file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1}')"
+  read -r file line <<<"$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
 
   if [[ -n $file ]]
   then
-    echo $file
-    $EDITOR $file
+     $EDITOR $file +$line
   fi
 }
 
@@ -187,16 +186,31 @@ note() {
       "-d")
         rm "${NOTE_DIR}"/"$2".md
         ;;
+      "-cd")
+        cd ${NOTE_DIR}
+        ;;
+      "-a")
+        local file="$(date +%Y-%m-%d-%H-%M)"
+        ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+        ;;
+      "-j")
+        local file="journal-$(date +%Y-%m).md"
+        echo "## $(date +%m-%d-%H-%M)" >> ${file}
+        ${EDITOR:-vim} "${NOTE_DIR}/${file}"
+        ;;
       "-s")
         local file
         if [ -z "$2" ]; then
           file=$(rg . --type markdown ${NOTE_DIR} | \
+            sed -e "s|${NOTE_DIR}/||" | \
+            sed -e 's/\.md//' | \
             fzf \
               -i \
               --exact \
               --multi \
               --select-1 \
-              --exit-0)
+              --exit-0 | \
+              awk -F: '{print $1}')
         else
           file=$(ag --nobreak --nonumbers --noheading --markdown -l "$2" ${NOTE_DIR} | \
             sed -e "s|${NOTE_DIR}/||" | \
@@ -208,10 +222,11 @@ note() {
               --select-1 \
               --exit-0 \
               --preview="cat ${NOTE_DIR}/{}.md" \
-              --preview-window=right:60%:wrap)
+              --preview-window=right:60%:wrap | \
+              awk -F: '{print $1}')
         fi
         [[ -n $file ]] && \
-          ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+          ${EDITOR:-vim} "${NOTE_DIR}"/"${file}".md
         ;;
       *)
         ${EDITOR:-vim} "${NOTE_DIR}"/"$*".md
