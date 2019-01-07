@@ -53,3 +53,6 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # Open gvim from term
   alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 fi
+
+# Docker
+alias docker-start='eval $(docker-machine env default)'

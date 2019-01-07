@@ -51,27 +51,19 @@ call plug#begin(plug_path)
 " Plugins
 Plug 'kien/ctrlp.vim'
 Plug 'davidhalter/jedi-vim' " Python syntax checker
-Plug 'tmhedberg/matchit' " html tag matching
-"Plug 'ddollar/nerdcommenter' " easy comment stuff
+" Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-commentary' " easy comment stuff
 Plug 'w0rp/ale' " linter faster than syntastic
 Plug 'majutsushi/tagbar' " Function preview window
-" Plugin 'mtth/scratch.vim'
+
 Plug 'mbbill/undotree' " See undo history like commit history
-" Plugin 'MarcWeber/vim-addon-signs'
-" Plug 'dhruvasagar/vim-markify' " signs for location and quickfix
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
-"Plug 'gorodinskiy/vim-coloresque' " show hex colours - intensive, slows scrolling
 Plug 'tpope/vim-fugitive' " Git plugin
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'junegunn/vim-peekaboo' " Register viewer
 Plug 'darfink/vim-plist'
 Plug 'tpope/vim-surround' " Surround stuff
-"Plug 'mileszs/ack.vim' " Ack/ag support if available rather than grep
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
 Plug 'junegunn/goyo.vim' " Frame window for writting
@@ -185,7 +177,7 @@ set cursorline "highlight current line (slow in term)
 set omnifunc=syntaxcomplete#Complete
 
 " CTAGS location search
-set tags=.tags,tags,./.git/tags,../tags,../.tags,./.tags;
+set tags=.tags,tags,./.git/tags,../tags,../.tags,./.tags;,./tags;
 " project path recursively
 set path+=**
 
@@ -486,14 +478,31 @@ endif
 
 " Save backups to tmp and directory swap where I know
 if has("win32")
-  " let $TMP='C:\tmp'
-  " " be explicit about vim/tmp for cygwin and windows crossover
-  " set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
-  " set directory^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
+  let $TMP='C:\tmp'
+  " be explicit about vim/tmp for cygwin and windows crossover
+  set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
+  set directory^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
 else
   set backupdir^=/tmp,~/.vim/tmp
   set directory^=/tmp,~/.vim/tmp
 endif
+
+" i always, ALWAYS hit ":W" instead of ":w"
+command! Q q
+command! W w
+
+" Macros
+nmap \q :nohlsearch<CR>
+nmap \l :setlocal number!<CR>:setlocal number?<CR>
+nmap \z :w<CR>:!open %<CR><CR>
+nmap \g :Gstatus<CR>
+
+" having Ex mode start or showing me the command history
+" is a complete pain in the ass if i mistype
+map Q  <silent>
+map q: <silent>
+map K  <silent>
+map q <silent>
 
 " ---------- KEY BINDINGS -----------"
 "======================================
