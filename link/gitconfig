@@ -15,3 +15,9 @@
 	templatedir = ~/dotfiles/support/git_template
 [alias]
 	ctags = !.git/hooks/ctags
+[difftool "vimdiff-raw"]
+  cmd = vim -d $LOCAL $REMOTE
+[difftool "vimdiff-fugitive"]
+  cmd = vim -f -c "Gdiff" $LOCAL $REMOTE
+[mergetool "vimmerge-fugitive"]
+  cmd = vim -f -c "Gdiff" "$MERGED"
