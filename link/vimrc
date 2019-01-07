@@ -228,7 +228,6 @@ endif
 set background=dark   " Dark background
 set ruler             " Show line and column number
 set encoding=utf-8    " Set default encoding to UTF-8
-set number            " Line Numbering
 set autoread          " autoload external file changes
 set history=100       " keep 100 lines of command line history
 set backspace=indent,eol,start    " backspace through everything in insert mode
@@ -241,12 +240,13 @@ set splitright        " split to right of current buffer
 set vb t_vb=          " set visual bell
 set lazyredraw        " improve performance, don't redraw while moving
 set relativenumber "with number and relative creates hybrid
+set number            " Line Numbering
 set cursorline "highlight current line (slow in term)
 
 set omnifunc=syntaxcomplete#Complete
 
 " CTAGS location search
-set tags=.tags,tags,./.git/tags,../tags,../.tags,./.tags;,./tags;
+set tags=./.git/tags,.tags,tags,./.tags;,./tags;
 
 " project path recursively
 set path+=**
@@ -345,7 +345,7 @@ if has("autocmd")
   " Make sure all mardown files have the correct filetype set and setup
   " wrapping
   au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt,text} setlocal ft=markdown
-  let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html', 'c', 'python']
+  " let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html', 'c', 'python']
   if !exists("g:disable_markdown_autostyle")
     au FileType markdown setlocal wrap linebreak textwidth=78 nolist complete+=sk colorcolumn=78
   endif
