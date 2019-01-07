@@ -105,6 +105,7 @@ Plug 'romainl/flattened'
 Plug 'chriskempson/base16-vim'
 Plug 'yuttie/hydrangea-vim'
 Plug 'Lokaltog/vim-monotone'
+Plug 'patstockwell/vim-monokai-tasty'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -174,7 +175,7 @@ set title " set terminal title as file
 " Set 256 colours for terminals that have it
 if &t_Co >= 256 || has("gui_running")
   try
-    colorscheme molokai
+    colorscheme vim-monokai-tasty
   endtry
   let g:solarized_termcolors=256
   set t_Co=256
@@ -207,13 +208,13 @@ if has("gui_running")
   set noshowmode " hide mode using airline
   if has("win32")
     try
-      colorscheme molokai
+      colorscheme vim-monokai-tasty
       set guifont=DejaVu_Sans_Mono_for_Powerline:h10
     catch
     endtry
   else
     try
-      colorscheme molokai
+      colorscheme vim-monokai-tasty
       set guifont=DejaVu_Sans_Mono_for_Powerline:h11
     catch
       set guifont=Menlo:h11
@@ -443,9 +444,9 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-"let g:lightline = {
-"\ 'colorscheme': 'molokai', 
-"\}
+let g:lightline = {
+\ 'colorscheme': 'monokai_tasty', 
+\}
 
 " unicode symbols
 " let g:airline_left_sep = '»'
