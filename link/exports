@@ -3,14 +3,16 @@
 # User settings
 export VISUAL=vim
 export EDITOR=vim
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #export PAGER=vimpager
 
 # Colourful vim
 export TERM='xterm-256color'
 
 if [[ $OSTYPE =~ "darwin" ]]; then
-  # Use homebrew python : homebrew bin : MATLAB syntax checker
-  export PATH="$HOME/.cargo/bin:/usr/local/opt/python/libexec/bin:/usr/local/bin:$PATH:/usr/local/sbin:/Applications/MATLAB_R2014b.app/bin/maci64:/Applications/Visual Studio Code.app/Contents/Resources/app/bin" 
+  # Use homebrew python : homebrew bin : ruby : Visual Code
+  export PATH="$HOME/.cargo/bin:/usr/local/opt/python/libexec/bin:/usr/local/bin:/usr/local/Cellar/ruby/2.6.0/bin/:/usr/local/sbin:$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin" 
 
   export NOTE_DIR=~/Dropbox/Documents/notes
 
