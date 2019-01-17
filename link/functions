@@ -200,7 +200,7 @@ note() {
         ;;
       "-j")
         local file="journal-$(date +%Y-%m).md"
-        echo "## $(date +%m-%d-%H-%M)" >> ${file}
+        echo "\n## $(date +%c)" >> "${NOTE_DIR}/${file}"
         ${EDITOR:-vim} "${NOTE_DIR}/${file}"
         ;;
       "-s")

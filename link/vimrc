@@ -120,10 +120,6 @@ function! TrimWhiteSpace()
   ''
 endfunction
 
-function! SearchWordWithAg()
-  execute 'Ag' expand('<cword>')
-endfunction
-
 function! SearchVisualSelectionWithAg() range
   let old_reg = getreg('"')
   let old_regtype = getregtype('"')
@@ -133,7 +129,7 @@ function! SearchVisualSelectionWithAg() range
   let selection = getreg('"')
   call setreg('"', old_reg, old_regtype)
   let &clipboard = old_clipboard
-  execute 'Ag' selection
+  :Ag selection
 endfunction
 
 func! WordProcessorMode()
@@ -587,8 +583,8 @@ nmap <leader>pm :History<CR>
 nmap <leader>pf :Files<CR>
 nmap <leader>pt :Tags<CR>
 nmap <leader>pg :GFiles<CR>
-nnoremap <silent> K :call SearchWordWithAg()<CR>
-vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+nmap <leader>ag :Ag <cword><CR>
+vmap <leader>ag :Ag <C-R><CR>
 nmap <leader>pu :CtrlPUndo<CR>
 "make commands
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
