@@ -12,7 +12,20 @@ set nocompatible "Use vim rather than vi settings
 " --- OS SPECIFIC SETTINGS ---- "
 "=================================
 
-if has("win32")
+function! Config_setEnv() abort
+    if exists('g:env')
+        return
+    endif
+    if has('win64') || has('win32') || has('win16')
+        let g:env = 'WINDOWS'
+    else
+       let g:env = toupper(substitute(system('uname'), '\n', '', ''))
+    endif
+endfunction
+call Config_setEnv()
+
+if (g:env =~# 'WINDOWS')
+  " Enable Windows specific settings/plugins
   source $VIMRUNTIME/vimrc_example.vim
   source $VIMRUNTIME/mswin.vim
   behave mswin
@@ -26,10 +39,15 @@ if has("win32")
   set shellredir=>%s\ 2>&1
   set shellxquote=\"
   set shellslash
-elseif has("gui_macvim")
+elseif (g:env =~# 'LINUX')
+  " Enable Linux specific settings/plugins
+elseif (g:env =~# 'DARWIN')
+  " Enable MacOS specific settings/plugins
   set dictionary=/usr/share/dict/words
+else
+  " Other cases I can't think of like MINGW
 endif
-"
+
 "=================================
 " --- PLUG ---- "
 "=================================
@@ -40,7 +58,8 @@ filetype off
 if has("nvim")
   let plug_install='~/.local/share/nvim/site/autoload/plug.vim'
   let plug_path='~/.config/nvim/plugged'
-elseif has("win32")
+elseif (g:env =~# 'WINDOWS')
+  " Enable Windows specific settings/plugins
   let plug_install='$USERPROFILE/vimfiles/autoload/plug.vim'
   let plug_path='$USERPROFILE/.vim/plugged'
 else
@@ -57,9 +76,8 @@ endif
 call plug#begin(plug_path)
 
 " Plugins
-Plug 'kien/ctrlp.vim'
 Plug 'davidhalter/jedi-vim' " Python syntax checker
-Plug 'andymass/vim-matchup'
+" Plug 'andymass/vim-matchup' " parathensis matching, adds > 100 ms, maybe I can live without?
 Plug 'tpope/vim-commentary' " easy comment stuff
 Plug 'w0rp/ale' " linter faster than syntastic
 Plug 'majutsushi/tagbar' " Function preview window
@@ -75,11 +93,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporti
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
 Plug 'junegunn/goyo.vim' " Frame window for writting
 Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
-Plug 'metakirby5/codi.vim' " Interactive scratchpad
 Plug 'mhinz/vim-startify' " Fancy startup screen
 Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
 Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
 Plug 'chrisbra/csv.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'reedes/vim-pencil'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -106,62 +125,13 @@ Plug 'chriskempson/base16-vim'
 Plug 'yuttie/hydrangea-vim'
 Plug 'Lokaltog/vim-monotone'
 Plug 'patstockwell/vim-monokai-tasty'
+Plug 'reedes/vim-colors-pencil'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
-"===================
-" ---- FUNCTIONS ----
-"===================
-
-" Removes trailing spaces
-function! TrimWhiteSpace()
-  %s/\s*$//
-  ''
-endfunction
-
-function! SearchVisualSelectionWithAg() range
-  let old_reg = getreg('"')
-  let old_regtype = getregtype('"')
-  let old_clipboard = &clipboard
-  set clipboard&
-  normal! ""gvy
-  let selection = getreg('"')
-  call setreg('"', old_reg, old_regtype)
-  let &clipboard = old_clipboard
-  :Ag selection
-endfunction
-
-func! WordProcessorMode()
-  setlocal formatoptions=1
-  setlocal noexpandtab
-  map j gj
-  map k gk
-  set thesaurus+=~/.vim/mthesaur.txt
-  set complete+=sk
-  set formatprg=par
-  setlocal wrap
-  setlocal linebreak
-  set background=dark
-  colorscheme pencil
-  if has("win32")
-    set guifont=Cousine:h10
-  else
-    set guifont=Cousine:h12
-  end
-  let g:airline_theme = 'pencil'
-  let g:airline_powerline_fonts = 1
-endfu
-"com! WP call WordProcessorMode()
-
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
+" My vim runtimes are in dotfiles managed by git
+set runtimepath+=~/dotfiles/vim/,~/dotfiles/vim/after
 
 "=====================
 " ---- INTERFACE ----
@@ -206,17 +176,15 @@ if has("gui_running")
   set guioptions -=r  "scrollbar
   set guioptions -=L  "left scrollbar
   set noshowmode " hide mode using airline
-  if has("win32")
+  if (g:env =~# 'WINDOWS')
     try
       colorscheme vim-monokai-tasty
-      set guifont=DejaVu_Sans_Mono_for_Powerline:h10
+      set guifont=Consolas:h10
     catch
     endtry
   else
     try
       colorscheme vim-monokai-tasty
-      set guifont=DejaVu_Sans_Mono_for_Powerline:h11
-    catch
       set guifont=Menlo:h11
     endtry
   endif
@@ -301,24 +269,8 @@ nmap <leader>fs :set foldmethod=syntax<CR>
 " set foldlevelstart=10 " start folding at > 10
 set foldnestmax=1 "only 1 fold per syntax
 
-"" Sizing
-" set go+=a "copy visual line to clipboard
-if has("gui_running")
-  if has("autocmd")
-    " Automatically resize splits when resizing MacVim window
-    autocmd VimResized * wincmd =
-    " Use ~x on an English Windows version or ~n for French.
-    if has("win32")
-      au GUIEnter * simalt ~x
-    endif
-  endif
-endif
-
-" Quickfix
-:botright cwindow "open full window width
-
 " Save backups to tmp and directory swap where I know
-if has("win32")
+if (g:env =~# 'WINDOWS')
   let $TMP='C:\tmp'
   " be explicit about vim/tmp for cygwin and windows crossover
   set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
@@ -332,65 +284,29 @@ endif
 
 if has("autocmd")
   "Auto change to current directory on open
-  autocmd BufEnter * silent! lcd %:p:h
-
-  " autosource config on exit
-  " au BufLeave $MYVIMRC :source $MYVIMRC
-  " --- FILETYPES ----
-  " ===============
-  autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
-  autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-  " Make sure all mardown files have the correct filetype set and setup
-  " wrapping
-  au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt,text} setlocal ft=markdown
-  " let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html', 'c', 'python']
-  if !exists("g:disable_markdown_autostyle")
-    au FileType markdown setlocal wrap linebreak textwidth=78 nolist complete+=sk colorcolumn=78
-  endif
-  " Remove smartindent on python to stop comments going SOL
-  autocmd BufRead *.py set nosmartindent
-
-  "" Cursor Stuff
-  function! MyCursor()
-  hi! Cursor guibg=lightgreen
-  hi! Cursor guifg=black
-  hi! CursorInsert guibg=#00CCFF
-  hi! CursorVisual guibg=#ff5000
-  hi! CursorReplace guibg=red
-  " set guicursor=
-  "           \n-v-c:block-Cursor/lCursor-blinkon0,
-  "           \ve:ver35-CursorVisual,
-  "           \o:hor50-Cursor,
-  "           \i-ci:ver25-Cursor/lCursor-CursorInsert-blinkwait200-blinkoff150-blinkon200,
-  "           \r-cr:hor20-Cursor/lCursor-CursorReplace,
-  "           \sm:block-Cursor
-  set guicursor=
-        \a:block-blinkon0,
-        \i-ci:ver25-CursorInsert,
-        \r-cr:hor20-CursorReplace,
-        \ve:ver35-CursorVisual,
-        \o:hor50-Cursor,
-        \c:ver30-blinkon300-CursorInsert
-  " --- Auto change using autobuffer instead
-  " au Insert-blinkwait175-blinkoff150-blinkon175",Leave * hi Cursor guibg=orange
-  " au InsertEnter * hi Cursor guibg=#00CCFF
-  endfunc
-  call MyCursor()
+  autocmd! BufEnter * silent! lcd %:p:h
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
   " Also don't do it when the mark is in the first line, that is the default
   " position when opening a file.
-  au BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
+  au! BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal! g`\"" | endif
 end
 
 "===================
 " ---- PLUGINS ----
 "===================
+
+" The Silver Searcher
+if executable('rg')
+  " Use rg over ag
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+elseif executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
 
 " ---- ALE ----
 "==============
@@ -427,43 +343,12 @@ let g:ale_javascript_eslint_options = '--quiet'
 
 " ---- AIRLINE / LIGHTLINE ----
 " =================
-" Airline Options
-set noshowmode " hide mode using airline
+
+" set noshowmode " hide mode using airline
 set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-" disable tagbar
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#ale#enabled = 1
-" Show just the filename
-let g:airline_powerline_fonts = 0
-let g:airline_theme = 'badwolf'
-" set timeoutlen=50
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
 let g:lightline = {
-\ 'colorscheme': 'monokai_tasty', 
+\ 'colorscheme': 'monokai_tasty',
 \}
-
-" unicode symbols
-" let g:airline_left_sep = '»'
-"let g:airline_left_sep = '▶'
-"let g:airline_left_sep = ''
-" let g:airline_right_sep = '«'
-"let g:airline_right_sep = '◀'
-"let g:airline_right_sep = ''
-"let g:airline_symbols.linenr = '☰'
-"let g:airline_symbols.maxlinenr = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.crypt = '⚛'
-"let g:airline_symbols.branch = 'ᚠ'
-let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.notexists = '∄'
-"let g:airline_symbols.whitespace = 'Ξ'
-"let g:airline_symbols.spell = '♿'
 
 " ---- TAGBAR ----
 "====================
@@ -501,37 +386,6 @@ let g:tagbar_type_arduino = {
                 \ 'union'     : 'u'
             \ }
         \ }
-
-" ---- CTRL P ----
-"==================
-
-let g:ctrlp_cmd = 'call CallCtrlP()'
-" let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_max_files = 1000 " stops freezeing if started in root
-
-" function defaults to MRU mode but after invoke uses last called state
-func! CallCtrlP()
-  if exists('s:called_ctrlp')
-    CtrlPLastMode
-  else
-    let s:called_ctrlp = 1
-    CtrlPMRU
-  endif
-endfunc
-
-" The Silver Searcher
-if executable('ag') && !exists(":Ag")
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ackprg = 'ag --vimgrep'
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-endif
 
 " ---------- TMUX -------------------"
 "======================================
