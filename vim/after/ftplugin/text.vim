@@ -1,3 +1,4 @@
-" setlocal textwidth=80
+setlocal colorcolumn=80
+setlocal textwidth=80
 let g:pencil#textwidth = 80
-call pencil#init({'wrap': 'hard'})
+" call pencil#init({'wrap': 'hard'})

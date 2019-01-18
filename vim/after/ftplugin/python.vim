@@ -1,1 +1,2 @@
 setlocal nosmartindent
+compiler pylint

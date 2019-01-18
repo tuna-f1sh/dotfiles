@@ -329,14 +329,7 @@ let g:ale_linters = {
 
 let g:ale_javascript_eslint_options = '--quiet'
 
-" Vanilla linting using makeprg https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
-" autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
-" autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
-
 " augroup Linting
-"   autocmd!
-"   autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
-"   autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
 "   autocmd BufWritePost *.py,*.js silent make! <afile> | silent redraw!
 "   autocmd QuickFixCmdPost [^l]* cwindow
 " augroup END
