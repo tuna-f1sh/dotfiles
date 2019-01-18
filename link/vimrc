@@ -12,19 +12,14 @@ set nocompatible "Use vim rather than vi settings
 " --- OS SPECIFIC SETTINGS ---- "
 "=================================
 
-function! Config_setEnv() abort
-    if exists('g:env')
-        return
-    endif
-    if has('win64') || has('win32') || has('win16')
-        let g:env = 'WINDOWS'
-    else
-       let g:env = toupper(substitute(system('uname'), '\n', '', ''))
-    endif
-endfunction
-call Config_setEnv()
+if has('win64') || has('win32') || has('win16')
+    let g:ENV = 'WINDOWS'
+else
+   let g:ENV = toupper(substitute(system('uname'), '\n', '', ''))
+endif
+let g:HOST = hostname()
 
-if (g:env =~# 'WINDOWS')
+if (g:ENV =~# 'WINDOWS')
   " Enable Windows specific settings/plugins
   source $VIMRUNTIME/vimrc_example.vim
   source $VIMRUNTIME/mswin.vim
@@ -39,9 +34,9 @@ if (g:env =~# 'WINDOWS')
   set shellredir=>%s\ 2>&1
   set shellxquote=\"
   set shellslash
-elseif (g:env =~# 'LINUX')
+elseif (g:ENV =~# 'LINUX')
   " Enable Linux specific settings/plugins
-elseif (g:env =~# 'DARWIN')
+elseif (g:ENV =~# 'DARWIN')
   " Enable MacOS specific settings/plugins
   set dictionary=/usr/share/dict/words
 else
@@ -58,7 +53,7 @@ filetype off
 if has("nvim")
   let plug_install='~/.local/share/nvim/site/autoload/plug.vim'
   let plug_path='~/.config/nvim/plugged'
-elseif (g:env =~# 'WINDOWS')
+elseif (g:ENV =~# 'WINDOWS')
   " Enable Windows specific settings/plugins
   let plug_install='$USERPROFILE/vimfiles/autoload/plug.vim'
   let plug_path='$USERPROFILE/.vim/plugged'
@@ -98,7 +93,7 @@ Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
 Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
 Plug 'chrisbra/csv.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-Plug 'reedes/vim-pencil'
+" Plug 'reedes/vim-pencil' " writing (markdown) utilites, think I've covered most manually
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -139,10 +134,8 @@ set runtimepath+=~/dotfiles/vim/,~/dotfiles/vim/after
 
 set title " set terminal title as file
 " Set 256 colours for terminals that have it
-if &t_Co >= 256 || has("gui_running")
-  try
-    colorscheme vim-monokai-tasty
-  endtry
+if &t_Co >= 256
+  colorscheme vim-monokai-tasty
   let g:solarized_termcolors=256
   set t_Co=256
   let g:rehash256 = 1
@@ -150,10 +143,11 @@ if &t_Co >= 256 || has("gui_running")
   let g:solarized_termcolors=256
   let g:solarized_contrast="high"
   let g:solarized_visibility="high"
+  let g:pencil_higher_contrast_ui = 1
   let base16colorspace=256  " Access colors present in 256 colorspace
 endif
 " Otherwise just put syntax highlighting on it some colour
-if &t_Co > 2 || has("gui_running")
+if &t_Co > 2
   syntax on
 endif
 
@@ -167,8 +161,6 @@ if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
 
-let g:pencil_higher_contrast_ui = 1
-
 if has("gui_running")
   set guioptions -=T  "remove toolbar
   set guioptions -=m  "menu bar
@@ -176,7 +168,7 @@ if has("gui_running")
   set guioptions -=r  "scrollbar
   set guioptions -=L  "left scrollbar
   set noshowmode " hide mode using airline
-  if (g:env =~# 'WINDOWS')
+  if (g:ENV =~# 'WINDOWS')
     try
       colorscheme vim-monokai-tasty
       set guifont=Consolas:h10
@@ -270,7 +262,7 @@ nmap <leader>fs :set foldmethod=syntax<CR>
 set foldnestmax=1 "only 1 fold per syntax
 
 " Save backups to tmp and directory swap where I know
-if (g:env =~# 'WINDOWS')
+if (g:ENV =~# 'WINDOWS')
   let $TMP='C:\tmp'
   " be explicit about vim/tmp for cygwin and windows crossover
   set backupdir^=$TMP,C:/cygwin64/tmp,$TEMP,C:/cygwin64/home/John\ Whittington/.vim/tmp
@@ -432,7 +424,6 @@ nmap <leader>pt :Tags<CR>
 nmap <leader>pg :GFiles<CR>
 nmap <leader>ag :Ag <cword><CR>
 vmap <leader>ag :Ag <C-R><CR>
-nmap <leader>pu :CtrlPUndo<CR>
 "make commands
 nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
 nmap <leader>mk :w<CR>:silent make! DIAGNOSTICS_COLOR_WHEN=never<CR>:\|redraw!\|cw<CR>
@@ -571,10 +562,8 @@ else
   imap <C-9> <Esc>9gt
 endif
 
-" ---- ARROW KEYS ----
+" ---- MOVEMENT ----
 " Map the arrow keys to be based on display lines, not physical lines
-" imap <Down> gj
-" imap <Up> gk
 map <C-j> gj
 map <C-k> gk
 " Disable arrow keys
@@ -586,7 +575,7 @@ nnoremap <Down> <C-w>j
 " nmap <down> <nop>
 " nmap <left> <nop>
 " nmap <right> <nop>
-" imap <up> <nop>
-" imap <down> <nop>
+imap <up> <nop>
+imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>

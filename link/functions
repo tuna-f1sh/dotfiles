@@ -178,6 +178,7 @@ note() {
     file=$(fd . "${NOTE_DIR}" -e md | \
       sed -e "s|${NOTE_DIR}/||" | \
       sed -e 's/\.md$//' | \
+      sort -k 1 -n -r | \
       fzf \
         --multi \
         --select-1 \
