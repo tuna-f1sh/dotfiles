@@ -82,7 +82,6 @@ Plug 'tpope/vim-fugitive' " Git plugin
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'junegunn/vim-peekaboo' " Register viewer
-Plug 'darfink/vim-plist'
 Plug 'tpope/vim-surround' " Surround stuff
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
@@ -91,9 +90,10 @@ Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
 Plug 'mhinz/vim-startify' " Fancy startup screen
 Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
 Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
-Plug 'chrisbra/csv.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " Plug 'reedes/vim-pencil' " writing (markdown) utilites, think I've covered most manually
+Plug 'tpope/vim-dispatch'
+
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -109,6 +109,8 @@ Plug 'lervag/vimtex'
 Plug 'pangloss/vim-javascript'
 Plug 'torrancew/vim-openscad'
 Plug 'sudar/vim-arduino-syntax'
+Plug 'chrisbra/csv.vim'
+Plug 'darfink/vim-plist'
 
 " Colours
 Plug 'NLKNguyen/papercolor-theme'
@@ -425,10 +427,10 @@ nmap <leader>pg :GFiles<CR>
 nmap <leader>ag :Ag <cword><CR>
 vmap <leader>ag :Ag <C-R><CR>
 "make commands
-nnoremap <silent> <F9> :w<CR>:!clear;python %<CR>
-nmap <leader>mk :w<CR>:silent make! DIAGNOSTICS_COLOR_WHEN=never<CR>:\|redraw!\|cw<CR>
-nmap <leader>mu :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never upload\|redraw!\|<CR>
-nmap <leader>mi :w<CR>:make! DIAGNOSTICS_COLOR_WHEN=never ispload\|redraw!\|<CR>
+nmap <leader>mr :w<CR>:!clear;python %<CR>
+nmap <leader>mk :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
+nmap <leader>mu :w<CR>:make! upload\|redraw!\|<CR>
+nmap <leader>mi :w<CR>:make! ispload\|redraw!\|<CR>
 " remap the ctrl-a/x to inc/dec ints
 nnoremap <C-a> <C-a>
 nnoremap <C-x> <C-x>
@@ -443,9 +445,9 @@ nmap <leader>tt :UndotreeToggle<cr>
 " swap to previous buffer, delete current
 nnoremap <C-c> :BD<cr>
 " close split
-" nnoremap <C-x> <C-w>q
+nnoremap <C-x> <C-w>q
 
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 " imap <Tab> <C-p>
 " select last pasted
 noremap gV `[v`]
@@ -507,8 +509,8 @@ if has("gui_macvim") && has("gui_running")
   imap <D-9> <Esc>9gt
 else
   " Comment toggle mapping
-  nmap <A-/> <leader>c<Space>
-  vmap <A-/> <leader>c<Space>gv
+  nmap <A-/> gcc
+  vmap <A-/> gc
   " Map command-[ and command-] to indenting or outdenting
   " while keeping the original selection in visual mode
   vmap <A-]> >gv
