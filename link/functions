@@ -266,17 +266,8 @@ _todo() {
 }
 todo() {
   : "${TODO:?'TODO ENV Var not set. Please set to path of default todo file.'}"
-  # If we are in a tmux session, name the file with the session name
-  # If not in tmux, use the full $TODO env var for path/file
-  if echo "$TERM" | grep -Fq screen && test "$TMUX" ; then
-    sessname=$(tmux display -p '#S')
-    todopath=$(dirname "$TODO")
-    TODOFILE=$todopath/$sessname".txt"
-    TODOARCHIVEFILE=$todopath/$sessname".archive.txt"
-  else
-    TODOFILE=$TODO
-    TODOARCHIVEFILE=${TODO%.*}.archive.txt
-  fi
+  TODOFILE=$TODO
+  TODOARCHIVEFILE=${TODO%.*}.archive.md
 
   if [ $# -eq 0 ]; then
     if [ -f "$TODOFILE" ] ; then
@@ -297,11 +288,6 @@ todo() {
         ;;
       -a|--add)
         echo "${*:2}" >> "$TODOFILE"
-        ;;
-      --archive)
-        if [ -f "$TODOARCHIVEFILE" ] ; then
-          # ca:W "$TODOARCHIVEFILE"
-        fi
         ;;
       -d|--done)
         re='^[0-9]+$'
