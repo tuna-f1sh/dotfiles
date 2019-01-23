@@ -60,4 +60,4 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 fi
 
 # ESP32
-alias get_esp32='export PATH="/opt/esp/xtensa-esp32-elf/bin:$PATH"'
+alias get_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'

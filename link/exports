@@ -21,6 +21,10 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export ARDMK_DIR=/usr/local/opt/arduino-mk
   export AVR_TOOLS_DIR=/usr/local
   export USER_LIB_PATH=~/Programming/Arduino/libraries
+
+  # ESP32
+  export ESP_TOOLCHAIN_PATH=~/esp/xtensa-esp32-elf/bin
+  export IDF_PATH=~/esp/esp-idf
 else
   export NOTE_DIR=~/.notes
 
@@ -30,6 +34,7 @@ else
   export USER_LIB_PATH=/home/john/libraries
 
   # ESP32
+  export ESP_TOOLCHAIN_PATH=/opt/esp/xtensa-esp32-elf/bin
   export IDF_PATH=/opt/esp/esp-idf
   # export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH" # set using get_esp32 alias
 

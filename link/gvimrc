@@ -1,0 +1,43 @@
+set guioptions -=T  "remove toolbar
+set guioptions -=m  "menu bar
+set guioptions +=t "buffer bar
+set guioptions -=r  "scrollbar
+set guioptions -=L  "left scrollbar
+set noshowmode " hide mode using airline
+if (g:env =~# 'WINDOWS')
+  try
+    colorscheme vim-monokai-tasty
+    set guifont=Consolas:h10
+  catch
+  endtry
+else
+  try
+    colorscheme vim-monokai-tasty
+    set guifont=Menlo:h11
+  endtry
+endif
+
+"" Cursor Stuff
+function! MyCursor()
+  hi! Cursor guibg=lightgreen
+  hi! Cursor guifg=black
+  hi! CursorInsert guibg=#00CCFF
+  hi! CursorVisual guibg=#ff5000
+  hi! CursorReplace guibg=red
+  " set guicursor=
+  "           \n-v-c:block-Cursor/lCursor-blinkon0,
+  "           \ve:ver35-CursorVisual,
+  "           \o:hor50-Cursor,
+  "           \i-ci:ver25-Cursor/lCursor-CursorInsert-blinkwait200-blinkoff150-blinkon200,
+  "           \r-cr:hor20-Cursor/lCursor-CursorReplace,
+  "           \sm:block-Cursor
+  set guicursor=
+        \a:block-blinkon0,
+        \i-ci:ver25-CursorInsert,
+        \r-cr:hor20-CursorReplace,
+        \ve:ver35-CursorVisual,
+        \o:hor50-Cursor,
+        \c:ver30-blinkon300-CursorInsert
+endfunc
+
+call MyCursor()

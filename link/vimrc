@@ -93,6 +93,7 @@ Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loo
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " Plug 'reedes/vim-pencil' " writing (markdown) utilites, think I've covered most manually
 Plug 'tpope/vim-dispatch'
+Plug 'michaeljsmith/vim-indent-object'
 
 
 if has('nvim')
@@ -409,7 +410,7 @@ nmap \g :Gstatus<CR>
 nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 nnoremap <C-j> i<CR><ESC> " create a cut to new line
 nmap <space> <leader>
-" search
+" search replace
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 " buffers
 nnoremap <leader>] :bnext<CR>
@@ -419,7 +420,8 @@ nmap <leader>ww :w<CR>
 " control-p / FZF
 nmap <leader>; :Buffers<CR>
 nmap <leader>pb :BLines<CR>
-nmap <leader>pm :History<CR>
+nmap <leader>pm :Marks<CR>
+nmap <leader>pl :History<CR>
 nmap <leader>pf :Files<CR>
 nmap <leader>pt :Tags<CR>
 nmap <leader>pg :GFiles<CR>
