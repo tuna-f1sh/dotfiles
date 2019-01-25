@@ -204,6 +204,20 @@ note() {
         echo "\n## $(date +%c)" >> "${NOTE_DIR}/${file}"
         ${EDITOR:-vim} "${NOTE_DIR}/${file}"
         ;;
+      "-p")
+        local file
+        file=$(fd . "${NOTE_DIR}/pocket" -e md -e txt | \
+          sed -e "s|${NOTE_DIR}/pocket||" | \
+          sort -k 1 -n -r | \
+          fzf \
+            --multi \
+            --select-1 \
+            --exit-0 \
+            --preview="cat ${NOTE_DIR}/pocket{}" \
+            --preview-window=right:60%:wrap)
+        [[ -n $file ]] && \
+          ${EDITOR:-vim} "${NOTE_DIR}/${file}"
+        ;;
       "-s")
         local file
         if [ -z "$2" ]; then
