@@ -4,7 +4,7 @@ set guioptions +=t "buffer bar
 set guioptions -=r  "scrollbar
 set guioptions -=L  "left scrollbar
 set noshowmode " hide mode using airline
-if (g:env =~# 'WINDOWS')
+if has('win32') || has('win64')
   try
     colorscheme vim-monokai-tasty
     set guifont=Consolas:h10
@@ -13,7 +13,7 @@ if (g:env =~# 'WINDOWS')
 else
   try
     colorscheme vim-monokai-tasty
-    set guifont=Menlo:h11
+    set guifont=Hack:h12
   endtry
 endif
 
@@ -42,7 +42,7 @@ endfunc
 
 call MyCursor()
 
-if (g:env =~# 'DARWIN')
+if has("gui_macvim")
   " Comment toggle mapping
   nmap <D-/> gcc
   vmap <D-/> gc
