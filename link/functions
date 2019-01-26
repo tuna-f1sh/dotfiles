@@ -175,10 +175,9 @@ note() {
   : "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
   if [ $# -eq 0 ]; then
     local file
-    file=$(fd . "${NOTE_DIR}" -e md | \
+    file=$(ls -td $(fd . "${NOTE_DIR}" -e md) | \
       sed -e "s|${NOTE_DIR}/||" | \
       sed -e 's/\.md$//' | \
-      sort -k 1 -n -r | \
       fzf \
         --multi \
         --select-1 \
@@ -206,9 +205,8 @@ note() {
         ;;
       "-p")
         local file
-        file=$(fd . "${NOTE_DIR}/pocket" -e md -e txt | \
+        file=$(ls -td $(fd . "${NOTE_DIR}/pocket" -e md -e txt) | \
           sed -e "s|${NOTE_DIR}/pocket||" | \
-          sort -k 1 -n -r | \
           fzf \
             --multi \
             --select-1 \
@@ -221,7 +219,7 @@ note() {
       "-s")
         local file
         if [ -z "$2" ]; then
-          file=$(rg . --type markdown ${NOTE_DIR} | \
+          file=$(ls -td $(rg . --type markdown ${NOTE_DIR}) | \
             sed -e "s|${NOTE_DIR}/||" | \
             sed -e 's/\.md//' | \
             fzf \
@@ -232,7 +230,7 @@ note() {
               --exit-0 | \
               awk -F: '{print $1}')
         else
-          file=$(ag --nobreak --nonumbers --noheading --markdown -l "$2" ${NOTE_DIR} | \
+          file=$(ls -td $(ag --nobreak --nonumbers --noheading --markdown -l "$2" ${NOTE_DIR}) | \
             sed -e "s|${NOTE_DIR}/||" | \
             sed -e 's/\.md$//' | \
             fzf \
