@@ -6,22 +6,8 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-antigen use oh-my-zsh
-
-antigen bundle git
-antigen bundle zsh-users/zsh-history-substring-search
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle colored-man-pages
-antigen bundle wd
-antigen bundle z
-antigen bundle vi-mode
-antigen bundle virtualenv
-
-antigen theme $HOME/dotfiles/support john
-# antigen theme bira
-
-antigen apply
+source ~/.antigenrc
+antigen init ~/.antigenrc
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
@@ -48,7 +34,7 @@ setopt NO_HIST_VERIFY
 # ALIASES
 #========
 
-alias reload=". ~/.zshrc"
+alias reload="~/.zshrc"
 
 source ~/.aliases
 
