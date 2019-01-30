@@ -1,4 +1,4 @@
-function StripTrailingWhitespace()
+function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
     normal mz
     normal Hmy
@@ -7,3 +7,5 @@ function StripTrailingWhitespace()
     normal `z
   endif
 endfunction
+
+command! -nargs=0 -complete=command StripTrailingWhitespace :call StripTrailingWhitespace()

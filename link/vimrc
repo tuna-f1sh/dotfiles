@@ -104,6 +104,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " Plug 'reedes/vim-pencil' " writing (markdown) utilites, think I've covered most manually
 Plug 'tpope/vim-dispatch'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'dbakker/vim-projectroot'
 
 
 if has('nvim')
@@ -408,8 +409,8 @@ nmap <leader>ww :w<CR>
 " control-p / FZF
 nmap <leader>; :Buffers<CR>
 nmap <leader>pb :BLines<CR>
-nmap <leader>pm :Marks<CR>
-nmap <leader>pl :History<CR>
+nmap <leader>pl :Marks<CR>
+nmap <leader>pm :History<CR>
 nmap <leader>pf :Files<CR>
 nmap <leader>pt :Tags<CR>
 nmap <leader>pg :GFiles<CR>

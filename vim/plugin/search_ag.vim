@@ -1,8 +1,9 @@
-function SearchWordWithAg()
+function! SearchWordWithAg()
+    echom s:file
   execute 'Ag' expand('<cword>')
 endfunction
 
-function SearchVisualSelectionWithAg() range
+function! SearchVisualSelectionWithAg() range
   let old_reg = getreg('"')
   let old_regtype = getregtype('"')
   let old_clipboard = &clipboard
