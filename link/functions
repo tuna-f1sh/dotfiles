@@ -162,6 +162,20 @@ fkill() {
   fi
 }
 
+fzpdf () {
+    local open
+    open=open   # on OSX, "open" opens a pdf in preview
+    fd -e pdf \
+    | fast-p \
+    | fzf --read0 --reverse -e -d $'\t'  \
+        --preview-window down:80% --preview '
+            v=$(echo {q} | gtr " " "|");
+            echo -e {1}"\n"{2} | ggrep -E "^|$v" -i --color=always;
+        ' \
+    | gcut -z -f 1 -d $'\t' | gtr -d '\n' | gxargs -r --null $open > /dev/null 2> /dev/null
+}
+
+
 # Note taking function and command completion
 _n() {
   local lis cur
@@ -182,7 +196,7 @@ note() {
         --multi \
         --select-1 \
         --exit-0 \
-        --preview="cat ${NOTE_DIR}/{}.md" \
+        --preview="bat --color=always ${NOTE_DIR}/{}.md" \
         --preview-window=right:60%:wrap)
     [[ -n $file ]] && \
       ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
