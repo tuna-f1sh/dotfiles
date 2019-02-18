@@ -11,9 +11,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export TERM='xterm-256color'
 
 if [[ $OSTYPE =~ "darwin" ]]; then
-  # Use homebrew python : homebrew bin : ruby : Visual Code
-  export PATH="$HOME/.cargo/bin:/usr/local/opt/python/libexec/bin:/usr/local/bin:/usr/local/lib/ruby/gems/2.6.0/bin/:/usr/local/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
-
   export NOTE_DIR=~/Dropbox/Documents/notes
 
   # Arduino-mk

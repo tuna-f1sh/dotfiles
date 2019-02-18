@@ -1,13 +1,11 @@
-# Add `~/bin` to the `$PATH`
-export PATH="$HOME/bin:$PATH";
-
 source ~/.bash_prompt
 
 #========
 # EXPORT
 #========
 
-source ~/.exports
+source ~/.zshenv # PATH and non-interactive exports
+source ~/.exports # interactive exports after env
 source ~/.secrets
 
 #========

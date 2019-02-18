@@ -175,7 +175,6 @@ fzpdf () {
     | gcut -z -f 1 -d $'\t' | gtr -d '\n' | gxargs -r --null $open > /dev/null 2> /dev/null
 }
 
-
 # Note taking function and command completion
 _n() {
   local lis cur
@@ -351,4 +350,17 @@ function gi() { curl -L -s https://www.gitignore.io/api/\$@ ;}
 function mdhtml {
   FILE="$1"
   pandoc "$1" --to=html5 --css=${HOME}/dotfiles/support/github.css --highlight-style=haddock  --self-contained --output "${FILE%%.*}".html
+}
+
+fix_mosh_server() {
+  local fw='/usr/libexec/ApplicationFirewall/socketfilterfw'
+  local mosh_sym="$(which mosh-server)"
+  local mosh_abs="$(greadlink -f $mosh_sym)"
+
+  sudo "$fw" --setglobalstate off
+  sudo "$fw" --add "$mosh_sym"
+  sudo "$fw" --unblockapp "$mosh_sym"
+  sudo "$fw" --add "$mosh_abs"
+  sudo "$fw" --unblockapp "$mosh_abs"
+  sudo "$fw" --setglobalstate on
 }
