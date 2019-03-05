@@ -12,6 +12,7 @@ export TERM='xterm-256color'
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   export NOTE_DIR=~/Dropbox/Documents/notes
+  export JOURNAL_DIR=~/Dropbox/Documents/blogs/memoirs-of-a-john/_posts/
 
   # Arduino-mk
   export ARDUINO_DIR=/Applications/Arduino.app/Contents/Java 

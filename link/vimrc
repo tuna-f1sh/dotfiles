@@ -105,6 +105,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'tpope/vim-dispatch'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'dbakker/vim-projectroot'
+Plug 'SirVer/ultisnips' " Track the engine.
+Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
 
 
 if has('nvim')
@@ -169,10 +171,10 @@ if has("patch-8.1.0360")
 endif
 
 " Use base16 theme if set in shell
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
+" if filereadable(expand("~/.vimrc_background"))
+"   let base16colorspace=256
+"   source ~/.vimrc_background
+" endif
 
 " --- GENERAL SETTINGS ---
 
@@ -373,6 +375,12 @@ let g:tmux_navigator_save_on_switch = 1
 "==============
 
 command! -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
+
+" ---- ULTISNIP ----
+"==============
+let g:UltiSnipsExpandTrigger="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "======================================
 " ---------- MAPPING -----------"

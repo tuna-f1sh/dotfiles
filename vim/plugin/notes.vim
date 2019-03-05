@@ -17,7 +17,7 @@ function! Note(...)
   endif
 endfunction
 
-function! NoteSplit()
+function! NoteSplit(...)
   if (a:0)
     let s:file = $NOTE_DIR.'/'.a:1.'.md'
     exec 'vsplit '.s:file
@@ -40,6 +40,12 @@ function! AgNote(search)
   call fzf#run(fzf#wrap(l:fzf_opts))
 endfunction
 
+function! Journal(name)
+  let s:file = $JOURNAL_DIR.'/'.a:name.'.md'
+  exec 'edit '.s:file
+endfunction
+
 command! -nargs=? -complete=command Note :call Note(<f-args>)
 command! -nargs=? -complete=command SNote :call NoteSplit(<f-args>)
 command! -nargs=1 -complete=command ANote :call AgNote(<f-args>)
+command! -nargs=1 -complete=command Journal :call Journal(<f-args>)
