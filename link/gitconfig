@@ -5,7 +5,7 @@
 	default = simple
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = /usr/bin/vim
+	editor = vim
 	trustctime = false
 [diff]
 	tool = vimdiff
