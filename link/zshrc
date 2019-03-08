@@ -31,10 +31,19 @@ setopt HIST_SAVE_NO_DUPS
 setopt NO_HIST_VERIFY
 
 #========
+# PROMPT
+#========
+
+PURE_PROMPT_SYMBOL='»'
+PURE_GIT_DOWN_ARROW='↓'
+PURE_GIT_UP_ARROW='↑'
+PROMPT='%F{white}%* '$PROMPT
+
+#========
 # ALIASES
 #========
 
-alias reload="~/.zshrc"
+alias reload="source ~/.zshrc"
 
 source ~/.aliases
 
