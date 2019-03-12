@@ -204,6 +204,13 @@ note() {
       "-d")
         rm "${NOTE_DIR}"/"$2".md
         ;;
+      "-w")
+        ${EDITOR:-vim} "${WORK_NOTE_DIR}"/"$2".md
+        ;;
+      "-wa")
+        local file="$(date +%Y-%m-%d-%H-%M)"
+        ${EDITOR:-vim} "${WORK_NOTE_DIR}/${file}.md"
+        ;;
       "-cd")
         cd ${NOTE_DIR}
         ;;
@@ -260,7 +267,7 @@ note() {
           ${EDITOR:-vim} "${NOTE_DIR}"/"${file}".md
         ;;
       *)
-        ${EDITOR:-vim} "${NOTE_DIR}"/"$*".md
+        ${EDITOR:-vim} "${NOTE_DIR}"/"$1".md
         ;;
     esac
   fi
