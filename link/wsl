@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+function cmd {
+  cmd.exe /c "$@" 
+}
+
+function cdwsl {
+  local win_path
+  win_path=$(wslpath "$@")
+  cd $win_path;
+}

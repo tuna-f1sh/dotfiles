@@ -81,59 +81,26 @@ endif
 call plug#begin(plug_path)
 
 " Plugins
-Plug 'davidhalter/jedi-vim' " Python syntax checker
-" Plug 'andymass/vim-matchup' " parathensis matching, adds > 100 ms, maybe I can live without?
 Plug 'tpope/vim-commentary' " easy comment stuff
-Plug 'w0rp/ale' " linter faster than syntastic
-Plug 'majutsushi/tagbar' " Function preview window
 Plug 'mbbill/undotree' " See undo history like commit history
 Plug 'itchyny/lightline.vim'
-Plug 'tpope/vim-fugitive' " Git plugin
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'junegunn/vim-peekaboo' " Register viewer
 Plug 'tpope/vim-surround' " Surround stuff
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
-Plug 'junegunn/goyo.vim' " Frame window for writting
-Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
-Plug 'mhinz/vim-startify' " Fancy startup screen
 Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
 Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-" Plug 'reedes/vim-pencil' " writing (markdown) utilites, think I've covered most manually
-Plug 'tpope/vim-dispatch'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'dbakker/vim-projectroot'
-Plug 'SirVer/ultisnips' " Track the engine.
-Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
-
-
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-" let g:deoplete#enable_at_startup = 1
 
 " Syntax/Filetypes
 Plug 'lervag/vimtex'
-Plug 'pangloss/vim-javascript'
 Plug 'torrancew/vim-openscad'
 Plug 'chrisbra/csv.vim'
-Plug 'darfink/vim-plist'
 
 " Colours
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
-Plug 'endel/vim-github-colorscheme'
-Plug 'romainl/flattened'
 Plug 'chriskempson/base16-vim'
-Plug 'yuttie/hydrangea-vim'
-Plug 'Lokaltog/vim-monotone'
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'reedes/vim-colors-pencil'
 
