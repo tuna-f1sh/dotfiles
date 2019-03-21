@@ -208,18 +208,36 @@ note() {
         ${EDITOR:-vim} "${WORK_NOTE_DIR}"/"$2".md
         ;;
       "-wa")
-        local file="$(date +%Y-%m-%d-%H-%M)"
-        ${EDITOR:-vim} "${WORK_NOTE_DIR}/${file}.md"
+        local file="$(date +%Y-%m-%d)"
+        if [ -e "${WORK_NOTE_DIR}/$file.md" ]; then
+          echo "\n## $(date +%H:%M:%S)" >> "${WORK_NOTE_DIR}/${file}.md"
+        # else
+        #   echo "## $(date +%H:%M:%S)" >> "${WORK_NOTE_DIR}/${file}.md"
+        fi
+        if [ ! -z "$2" ]; then
+          echo "$2" >> "${WORK_NOTE_DIR}/${file}.md"
+        else
+          ${EDITOR:-vim} "${WORK_NOTE_DIR}/${file}.md"
+        fi
         ;;
       "-cd")
         cd ${NOTE_DIR}
         ;;
       "-a")
-        local file="$(date +%Y-%m-%d-%H-%M)"
-        ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+        local file="$(date +%Y-%m-%d)"
+        if [ -e "${NOTE_DIR}/$file.md" ]; then
+          echo "\n## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
+        # else
+        #   echo "## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
+        fi
+        if [ ! -z "$2" ]; then
+          echo "$2" >> "${NOTE_DIR}/${file}.md"
+        else
+          ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+        fi
         ;;
       "-j")
-        local file="journal-$(date +%Y-%m).md"
+        local file="journal-$(date +%Y).md"
         echo "\n## $(date +%c)" >> "${NOTE_DIR}/${file}"
         ${EDITOR:-vim} "${NOTE_DIR}/${file}"
         ;;

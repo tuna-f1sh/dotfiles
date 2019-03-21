@@ -205,9 +205,9 @@ set undolevels=1000 " 1000 undos
 set noundofile " no persistent undo
 
 if has("persistent_undo")
-  if !isdirectory("~/.vim/.vimundo")
-    call mkdir("~/.vim/.vimundo", "p")
-  endif
+  " if !isdirectory('~/.vim/.vimundo')
+  "   call mkdir('~/.vim/.vimundo')
+  " endif
   set undodir=~/.vim/.vimundo " where to keep it
   set undofile " persistent undo
   set undoreload=100 " number of lines to save for undo
