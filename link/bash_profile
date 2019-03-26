@@ -20,6 +20,14 @@ source ~/.secrets
 
 source ~/.aliases
 
+#========
+# FUNCTIONS
+#========
+
+source ~/.functions
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # b) function cd_func
 # This function defines a 'cd' replacement function capable of keeping, 
 # displaying and accessing history of visited directories, up to 10 entries.
