@@ -61,3 +61,5 @@ fi
 
 # ESP32
 alias get_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'
+
+alias fzpass='lpass show -c --password $(lpass ls  | fzf | awk "{print $(NF)}" | sed "s/\]//g")'

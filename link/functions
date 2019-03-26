@@ -239,16 +239,7 @@ note() {
       "-s")
         local file
         if [ -z "$2" ]; then
-          file=$(ls -td $(rg . --type markdown ${NOTE_DIR}) | \
-            sed -e "s|${NOTE_DIR}/||" | \
-            sed -e 's/\.md//' | \
-            fzf \
-              -i \
-              --exact \
-              --multi \
-              --select-1 \
-              --exit-0 | \
-              awk -F: '{print $1}')
+          echo "no search string supplied"
         else
           file=$(ls -td $(ag --nobreak --nonumbers --noheading --markdown -l "$2" ${NOTE_DIR}) | \
             sed -e "s|${NOTE_DIR}/||" | \

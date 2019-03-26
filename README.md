@@ -30,6 +30,9 @@ Edit ~/.secrets to add machine only stuff and API keys.
 * `ncdu` - visual `du`
 * `bat` - nicer `cat`
 * `up` - pipe tester
+* `crex` - regex test [crex](https://octobanana.com/software/crex)
+* `peaclock` - binary clock for CLI
+  [peaclock](https://octobanana.com/software/peaclock)
 
 ## macOS
 
