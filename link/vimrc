@@ -459,7 +459,6 @@ map! <S-Insert> <MiddleMouse>
 
 " ---- MOVEMENT ----
 " Map the arrow keys to be based on display lines, not physical lines
-imap jk <Esc>
 map <C-j> gj
 map <C-k> gk
 " Disable arrow keys
