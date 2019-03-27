@@ -1,4 +1,3 @@
-"        _
 " __   _(_)_ __ ___  _ __ ___
 " \ \ / / | '_ ` _ \| '__/ __|
 "  \ V /| | | | | | | | | (__
@@ -362,6 +361,13 @@ let g:tagbar_type_arduino = {
 
 " Write all buffers before navigating from Vim to tmux pane
 let g:tmux_navigator_save_on_switch = 1
+let g:tmux_navigator_no_mappings = 1
+
+" nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
+" nnoremap <silent> <M-k> :TmuxNavigateDown<cr>
+" nnoremap <silent> <M-j> :TmuxNavigateUp<cr>
+" nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 " ---- GIT ----
 "==============
@@ -421,6 +427,7 @@ nmap <leader>mr :w<CR>:!clear;python %<CR>
 nmap <leader>mk :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
 nmap <leader>mu :w<CR>:make! upload\|redraw!\|<CR>
 nmap <leader>mi :w<CR>:make! ispload\|redraw!\|<CR>
+
 " remap the ctrl-a/x to inc/dec ints
 nnoremap <C-a> <C-a>
 nnoremap <C-x> <C-x>
