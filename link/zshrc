@@ -39,7 +39,7 @@ PURE_VICMD_SYMBOL='«'
 PURE_GIT_DOWN_ARROW='↓'
 PURE_GIT_UP_ARROW='↑'
 # PROMPT='%F{white}%* '$PROMPT
-source ~/dotfiles/support/purepower
+# source ~/dotfiles/support/purepower
 
 #========
 # ALIASES
