@@ -363,11 +363,10 @@ let g:tagbar_type_arduino = {
 let g:tmux_navigator_save_on_switch = 1
 let g:tmux_navigator_no_mappings = 1
 
-" nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
-" nnoremap <silent> <M-k> :TmuxNavigateDown<cr>
-" nnoremap <silent> <M-j> :TmuxNavigateUp<cr>
-" nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
-" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+nnoremap <silent> <c-a><c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-a><c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-a><c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-a><c-l> :TmuxNavigateRight<cr>
 
 " ---- GIT ----
 "==============
@@ -459,7 +458,6 @@ map! <S-Insert> <MiddleMouse>
 
 " ---- MOVEMENT ----
 " Map the arrow keys to be based on display lines, not physical lines
-imap jk <Esc>
 map <C-j> gj
 map <C-k> gk
 " Disable arrow keys
