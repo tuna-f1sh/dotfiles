@@ -8,11 +8,11 @@ antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle colored-man-pages
 antigen bundle wd
 antigen bundle z
-antigen bundle vi-mode
 antigen bundle virtualenv
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
+antigen bundle vi-mode
+#antigen bundle mafredri/zsh-async
+#antigen bundle sindresorhus/pure
 
-#antigen theme romkatv/powerlevel10k
+antigen theme romkatv/powerlevel10k
 
 antigen apply
