@@ -1,2 +1,2 @@
 compiler eslint " defined by vim-javascript plugin
-let b:dispatch='eslint %'
+let b:dispatch='node %'
