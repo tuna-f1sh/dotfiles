@@ -360,7 +360,7 @@ function todos {
 }
 
 # git ignore
-function gi() { curl -L -s https://www.gitignore.io/api/\$@ ;}
+function gi() { curl -sLw "\n" https://www.gitignore.io/api/$@ ;}
 
 # create html from markdown in GitHub CSS
 function mdhtml {

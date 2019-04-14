@@ -5,8 +5,6 @@
 "
 " John's .vimrc file
 
-set nocompatible "Use vim rather than vi settings
-
 " Notes
 " ]e move line
 "
@@ -131,6 +129,9 @@ call plug#end()            " required
 " My vim runtimes are in dotfiles managed by git
 set runtimepath+=~/dotfiles/vim/,~/dotfiles/vim/after
 
+" Vim built-in packages
+runtime macros/matchit.vim
+
 "=====================
 " ---- INTERFACE ----
 "=====================
@@ -140,7 +141,6 @@ set title " set terminal title as file
 if &t_Co >= 256
   colorscheme vim-monokai-tasty
   let g:solarized_termcolors=256
-  set t_Co=256
   let g:rehash256 = 1
   let g:solarized_termtrans=1
   let g:solarized_termcolors=256
