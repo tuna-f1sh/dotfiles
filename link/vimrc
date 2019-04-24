@@ -78,10 +78,8 @@ endif
 call plug#begin(plug_path)
 
 " Plugins
-Plug 'davidhalter/jedi-vim' " Python syntax checker
-" Plug 'andymass/vim-matchup' " parathensis matching, adds > 100 ms, maybe I can live without?
 Plug 'tpope/vim-commentary' " easy comment stuff
-" Plug 'w0rp/ale' " linter faster than syntastic
+Plug 'w0rp/ale' " linter faster than syntastic
 Plug 'majutsushi/tagbar' " Function preview window
 Plug 'mbbill/undotree' " See undo history like commit history
 Plug 'itchyny/lightline.vim'
@@ -93,7 +91,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporti
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
 Plug 'junegunn/goyo.vim' " Frame window for writting
 Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
-Plug 'mhinz/vim-startify' " Fancy startup screen
 Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
 Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
@@ -102,7 +99,6 @@ Plug 'tpope/vim-dispatch' " async dispatch commands
 Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
 Plug 'SirVer/ultisnips' " Track the engine.
 Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 " Syntax/Filetypes
 Plug 'lervag/vimtex'
@@ -287,72 +283,6 @@ elseif executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-" ---- COC ----
-"==============
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[c` and `]c` for navigate diagnostics
-" nmap <silent> [c <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
 " ---- ALE ----
 "==============
 
@@ -361,6 +291,7 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " " You can disable this option too
 " " if you don't want linters to run on opening a file
 " let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_save = 1
 " let g:ale_open_list = 0
 
@@ -373,11 +304,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " \}
 
 " let g:ale_javascript_eslint_options = '--quiet'
-
-" augroup Linting
-"   autocmd BufWritePost *.py,*.js silent make! <afile> | silent redraw!
-"   autocmd QuickFixCmdPost [^l]* cwindow
-" augroup END
 
 " ---- AIRLINE / LIGHTLINE ----
 " =================
