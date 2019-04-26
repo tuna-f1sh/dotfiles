@@ -79,9 +79,11 @@ call plug#begin(plug_path)
 
 " Plugins
 Plug 'tpope/vim-commentary' " easy comment stuff
-Plug 'w0rp/ale' " linter faster than syntastic
+" Plug 'w0rp/ale' " linter faster than syntastic
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+let g:coc_start_at_startup = 0
 Plug 'majutsushi/tagbar' " Function preview window
-Plug 'mbbill/undotree' " See undo history like commit history
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive' " Git plugin
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
@@ -95,14 +97,14 @@ Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
 Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
 " Plug 'reedes/vim-pencil' " writing (markdown) utilites, think I've covered most manually
-Plug 'tpope/vim-dispatch' " async dispatch commands
 Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
-Plug 'SirVer/ultisnips' " Track the engine.
-Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
+" Plug 'SirVer/ultisnips' " Track the engine.
+" Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
 
 " Syntax/Filetypes
 Plug 'lervag/vimtex'
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 Plug 'torrancew/vim-openscad'
 Plug 'chrisbra/csv.vim'
 Plug 'darfink/vim-plist'
@@ -113,7 +115,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
 Plug 'endel/vim-github-colorscheme'
 Plug 'romainl/flattened'
-Plug 'chriskempson/base16-vim'
+Plug 'danielwe/base16-vim'
 Plug 'yuttie/hydrangea-vim'
 Plug 'Lokaltog/vim-monotone'
 Plug 'patstockwell/vim-monokai-tasty'
@@ -155,10 +157,10 @@ if has("patch-8.1.0360")
 endif
 
 " Use base16 theme if set in shell
-" if filereadable(expand("~/.vimrc_background"))
-"   let base16colorspace=256
-"   source ~/.vimrc_background
-" endif
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 
 " --- GENERAL SETTINGS ---
 
@@ -283,27 +285,28 @@ elseif executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
+" ---- COC ----
+"==============
+
+" coc disabled by default and will be loaded on ftdetect for file types I want
+" using my plugin/coc_control.vim
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-prettier', 'coc-python', 'coc-tag', 'coc-emoji']
+
 " ---- ALE ----
 "==============
 
-" Write this in your vimrc file
-" let g:ale_lint_on_text_changed = 'never'
-" " You can disable this option too
-" " if you don't want linters to run on opening a file
 " let g:ale_lint_on_enter = 0
 " let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_save = 1
 " let g:ale_open_list = 0
 
 " " Disable linters for C/C++ and specify others
-" let g:ale_linters = {
-" \   'javascript': ['eslint'],
-" \   'python': ['pylint'],
-" \   'cpp': ['cppcheck'],
-" \   'c': ['cppcheck'],
-" \}
-
-" let g:ale_javascript_eslint_options = '--quiet'
+let g:ale_linters = {
+\   'javascript': ['eslint', 'tsserver'],
+\   'python': ['pylint'],
+\   'cpp': ['cppcheck'],
+\   'c': ['cppcheck'],
+\}
 
 " ---- AIRLINE / LIGHTLINE ----
 " =================
@@ -370,9 +373,9 @@ command! -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%a
 
 " ---- ULTISNIP ----
 "==============
-let g:UltiSnipsExpandTrigger="<s-tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<s-tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "======================================
 " ---------- MAPPING -----------"
