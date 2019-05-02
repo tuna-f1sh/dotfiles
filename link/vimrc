@@ -439,11 +439,10 @@ vnoremap . :normal .<CR> " last command
 vnoremap ` :normal @a<CR> " last register
 " UndoTree
 nmap <leader>tt :UndotreeToggle<cr>
+
 " Window manipulation
 " swap to previous buffer, delete current
 nnoremap <C-c> :BD<cr>
-" close split
-nnoremap <C-x> <C-w>q
 
 " inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 " imap <Tab> <C-p>
