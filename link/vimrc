@@ -96,8 +96,8 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-MacBook-Epic-Pro') || (g:HOST =
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
   " Plug 'reedes/vim-pencil' " writing (markdown) utilites, think I've covered most manually
   Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
-  " Plug 'SirVer/ultisnips' " Track the engine.
-  " Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
+  Plug 'SirVer/ultisnips' " Track the engine.
+  Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
   
   " Colours
   Plug 'NLKNguyen/papercolor-theme'

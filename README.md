@@ -33,7 +33,7 @@ Edit ~/.secrets to add machine only stuff and API keys.
 * `crex` - regex test [crex](https://octobanana.com/software/crex)
 * `peaclock` - binary clock for CLI
   [peaclock](https://octobanana.com/software/peaclock)
-` `=` - perform python calculations inline 'support/scripts/='
+* `=` - perform python calculations inline 'support/scripts/='
 
 ## macOS
 
