@@ -79,10 +79,10 @@ call plug#begin(plug_path)
 
 " host specific allow lightweight deployment by default
 if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-MacBook-Epic-Pro') || (g:HOST =~# 'Waffer')
-  " Plug 'w0rp/ale' " linter faster than syntastic
+  Plug 'w0rp/ale', { 'on':  'ALEEnable' }
   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
-  Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+  Plug 'neoclide/coc.nvim', {'do': './install.sh nightly', 'on': 'CocStart'}
   Plug 'majutsushi/tagbar' " Function preview window
   Plug 'itchyny/lightline.vim'
   Plug 'tpope/vim-fugitive' " Git plugin
@@ -186,7 +186,7 @@ set lazyredraw        " improve performance, don't redraw while moving
 set relativenumber "with number and relative creates hybrid
 set number            " Line Numbering
 set cursorline "highlight current line (slow in term)
-set cursorcolumn
+" set cursorcolumn " slow performance
 " always show signcolumns
 set signcolumn=yes
 
