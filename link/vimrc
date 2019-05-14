@@ -142,6 +142,7 @@ runtime macros/matchit.vim
 set title " set terminal title as file
 " Set 256 colours for terminals that have it
 if &t_Co >= 256
+  let &t_ut=''
   colorscheme vim-monokai-tasty
   let g:solarized_termcolors=256
   let g:rehash256 = 1
