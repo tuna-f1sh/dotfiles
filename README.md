@@ -37,7 +37,7 @@ Edit ~/.secrets to add machine only stuff and API keys.
 
 ## macOS
 
-* `trash-cli` - in brew provides Trash control
+* `trash` - in brew provides Trash control
 
 ## Linux
 
