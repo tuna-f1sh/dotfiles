@@ -1,3 +1,12 @@
+LANG="en_GB.UTF-8"
+LC_COLLATE="C"
+LC_CTYPE="UTF-8"
+LC_MESSAGES="C"
+LC_MONETARY="C"
+LC_NUMERIC="C"
+LC_TIME="C"
+LC_ALL=$LANG
+
 source $HOME/dotfiles/antigen/antigen.zsh
 
 # Base16 Shell

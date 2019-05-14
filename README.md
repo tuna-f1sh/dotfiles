@@ -37,8 +37,7 @@ Edit ~/.secrets to add machine only stuff and API keys.
 
 ## macOS
 
-* base16-shell won't work in terminal because it's not full colour. Use
-  profile in './support'.
+* `trash-cli` - in brew provides Trash control
 
 ## Linux
 
