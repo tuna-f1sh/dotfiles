@@ -296,7 +296,15 @@ endif
 
 " coc disabled by default and will be loaded on ftdetect for file types I want
 " using my plugin/coc_control.vim
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-prettier', 'coc-python', 'coc-tag', 'coc-emoji']
+let g:coc_global_extensions = [
+\   'coc-json', 
+\   'coc-tsserver',
+\   'coc-prettier', 
+\   'coc-python', 
+\   'coc-tag', 
+\   'coc-emoji', 
+\   'coc-css', 
+\   'coc-snippets']
 
 " ---- ALE ----
 "==============
