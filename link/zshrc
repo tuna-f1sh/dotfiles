@@ -1,11 +1,11 @@
-LANG="en_GB.UTF-8"
-LC_COLLATE="C"
-LC_CTYPE="UTF-8"
-LC_MESSAGES="C"
-LC_MONETARY="C"
-LC_NUMERIC="C"
-LC_TIME="C"
-LC_ALL=
+export LANG="en_GB.UTF-8"
+export LC_COLLATE="C"
+export LC_CTYPE="UTF-8"
+export LC_MESSAGES="C"
+export LC_MONETARY="C"
+export LC_NUMERIC="C"
+export LC_TIME="C"
+export LC_ALL=$LANG
 
 source $HOME/dotfiles/antigen/antigen.zsh
 
