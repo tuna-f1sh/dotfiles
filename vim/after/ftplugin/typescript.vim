@@ -1,3 +1,5 @@
+setlocal path+=$PWD/node_modules
+
 if exists(':CocStart')
   call CocSetup()
 elseif exists(':ALEInfo')
