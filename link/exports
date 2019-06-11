@@ -23,6 +23,8 @@ fi
 # Colourful vim
 export TERM='xterm-256color'
 
+export GOPATH="$HOME/go"
+
 if [[ $OSTYPE =~ "darwin" ]]; then
   export NOTE_DIR=~/Dropbox/Documents/notes
   export WORK_NOTE_DIR=$NOTE_DIR

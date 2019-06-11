@@ -5,7 +5,7 @@ setlocal shiftwidth=4
 setlocal tabstop=4
 setlocal complete+=sk
 setlocal colorcolumn=78
-setlocal textwidth=78
+" setlocal textwidth=78
 " setlocal makeprg=markdown\ %\ >\ %<.html
 setlocal makeprg=pandoc\ %\ --to=html5\ --css=${HOME}/dotfiles/support/github.css\ --highlight-style=haddock\ --self-contained\ --output\ %<.html
 let g:pencil#textwidth = 78
