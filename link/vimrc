@@ -113,6 +113,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-MacBook-Epic-Pro') || (g:HOST =
   Plug 'lervag/vimtex'
   Plug 'pangloss/vim-javascript'
   Plug 'leafgarland/typescript-vim'
+  Plug 'mxw/vim-jsx'
   Plug 'torrancew/vim-openscad'
   Plug 'chrisbra/csv.vim'
   Plug 'darfink/vim-plist'
