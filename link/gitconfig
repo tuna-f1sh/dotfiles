@@ -15,6 +15,7 @@
 	templatedir = ~/dotfiles/support/git_template
 [alias]
 	ctags = !.git/hooks/ctags
+	root = rev-parse --show-toplevel
 [difftool "vimdiff-raw"]
   cmd = vim -d $LOCAL $REMOTE
 [difftool "vimdiff-fugitive"]
