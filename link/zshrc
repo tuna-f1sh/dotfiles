@@ -44,17 +44,6 @@ setopt HIST_SAVE_NO_DUPS
 setopt NO_HIST_VERIFY
 
 #========
-# PROMPT
-#========
-
-PURE_PROMPT_SYMBOL='»'
-PURE_VICMD_SYMBOL='«'
-PURE_GIT_DOWN_ARROW='↓'
-PURE_GIT_UP_ARROW='↑'
-# PROMPT='%F{white}%* '$PROMPT
-source ~/dotfiles/support/purepower
-
-#========
 # ALIASES
 #========
 
@@ -69,6 +58,18 @@ source ~/.aliases
 source ~/.exports
 source ~/.secrets
 export KEYTIMEOUT=1
+
+#========
+# PROMPT
+#========
+
+# PURE_PROMPT_SYMBOL='»'
+# PURE_VICMD_SYMBOL='«'
+# PURE_GIT_DOWN_ARROW='↓'
+# PURE_GIT_UP_ARROW='↑'
+# PROMPT='%F{white}%* '$PROMPT
+[[ $TERM == *256color || $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}
+source ~/dotfiles/support/purepower
 
 #========
 # FUNCTIONS
