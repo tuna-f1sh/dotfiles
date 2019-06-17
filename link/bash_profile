@@ -112,3 +112,12 @@ shopt -s histappend;
 
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
+
+# boot console options
+if [ "$(tty)" == "/dev/tty1" ]; then
+  # start i3, which will boot cool-retro-term
+  printf "\- BOOTED
+\- Aranging CRT electrons..."
+  startx > /dev/null 2>&1
+  clear
+fi

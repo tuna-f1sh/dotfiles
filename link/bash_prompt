@@ -41,19 +41,20 @@ On_White='\e[47m'       # White
 NC="\e[m"               # Color Reset
 
 ALERT=${BWhite}${On_Red} # Bold White on red background
+IP=$(hostname -I)
 
 #Prompt Styling
 #===============
 printf "${BGreen}
- __      _______   ___ ___ __  
- \ \    / |_   ___|_  |_  /  \ 
-  \ \/\/ /  | ||___/ / / | () |
-   \_/\_/   |_|   /___/___\__/ 
-                               
-${Green}2016 - JBR Engineering Research Ltd
+    __      _______   ___ ___ __  
+    \ \    / |_   ___|_  |_  /  \ 
+     \ \/\/ /  | ||___/ / / | () |
+      \_/\_/   |_|   /___/___\__/ 
+-- JBR Engineering Research Ltd 2019 --
+-- Terminal Local IP: ${IP}
+
 "
 
 #Set Prompt
 #===========
-PS1="\[$Green\][\A \[$BGreen\]\h \[$Green\]\w\[$Green\]]$\[$White\] "
-
+PS1="\[$Green\][\A \[$BGreen\]\h \[$Green\]\w\[$Green\]]\n>\[$White\] "
