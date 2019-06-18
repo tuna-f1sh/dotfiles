@@ -78,7 +78,7 @@ endif
 call plug#begin(plug_path)
 
 " host specific allow lightweight deployment by default
-if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-MacBook-Epic-Pro') || (g:HOST =~# 'Waffer')
+if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'Waffer')
   Plug 'w0rp/ale', { 'on':  'ALEEnable' }
   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
@@ -87,8 +87,6 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-MacBook-Epic-Pro') || (g:HOST =
   Plug 'itchyny/lightline.vim'
   Plug 'tpope/vim-fugitive' " Git plugin
   Plug 'junegunn/vim-peekaboo' " Register viewer
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
-  Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
   Plug 'junegunn/goyo.vim' " Frame window for writting
   Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
   Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
@@ -106,7 +104,6 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-MacBook-Epic-Pro') || (g:HOST =
   Plug 'romainl/flattened'
   Plug 'yuttie/hydrangea-vim'
   Plug 'Lokaltog/vim-monotone'
-  Plug 'patstockwell/vim-monokai-tasty'
   Plug 'reedes/vim-colors-pencil'
 
   " Syntax/Filetypes
@@ -119,12 +116,15 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-MacBook-Epic-Pro') || (g:HOST =
   Plug 'darfink/vim-plist'
 endif
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
+Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
 Plug 'tpope/vim-commentary' " easy comment stuff
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'tpope/vim-surround' " Surround stuff
 
 " Colours
 Plug 'tomasr/molokai'
+Plug 'patstockwell/vim-monokai-tasty'
 Plug 'danielwe/base16-vim'
 
 " All of your Plugins must be added before the following line
