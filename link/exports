@@ -3,13 +3,35 @@
 # User settings
 export VISUAL=vim
 export EDITOR=vim
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #export PAGER=vimpager
 
+# Language
+if [ -z $LANG ]; then
+  export LANG="en_GB.UTF-8"
+  export LC_COLLATE="C"
+  export LC_CTYPE="UTF-8"
+  export LC_MESSAGES="C"
+  export LC_MONETARY="C"
+  export LC_NUMERIC="C"
+  export LC_TIME="C"
+  export LC_ALL=$LANG
+  export ITRAN=true
+fi
+
 # Colourful vim
+if [[ $TERM == xterm-kitty ]]; then
+  export TERM=xterm-256color
+fi
+
 export TERM='xterm-256color'
+
+export GOPATH="$HOME/go"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   export NOTE_DIR=~/Dropbox/Documents/notes
+  export WORK_NOTE_DIR=$NOTE_DIR
   export JOURNAL_DIR=~/Dropbox/Documents/blogs/memoirs-of-a-john/_posts/
 
   # Arduino-mk
@@ -23,6 +45,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export IDF_PATH=~/esp/esp-idf
 else
   export NOTE_DIR=~/.notes
+  export WORK_NOTE_DIR=$NOTE_DIR
 
   # Arduino-mk
   export ARDUINO_DIR=/usr/share/arduino
@@ -33,8 +56,6 @@ else
   export ESP_TOOLCHAIN_PATH=/opt/esp/xtensa-esp32-elf/bin
   export IDF_PATH=/opt/esp/esp-idf
   # export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH" # set using get_esp32 alias
-
-  export LC_COLLATE=C # fixes sort with ctags vim error
 fi
 
 export TODO=$NOTE_DIR/todo.md

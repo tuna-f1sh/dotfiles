@@ -1,12 +1,9 @@
-"        _
 " __   _(_)_ __ ___  _ __ ___
 " \ \ / / | '_ ` _ \| '__/ __|
 "  \ V /| | | | | | | | | (__
 "   \_/ |_|_| |_| |_|_|  \___|
 "
 " John's .vimrc file
-
-set nocompatible "Use vim rather than vi settings
 
 " Notes
 " ]e move line
@@ -80,35 +77,64 @@ endif
 
 call plug#begin(plug_path)
 
-" Plugins
-Plug 'tpope/vim-commentary' " easy comment stuff
-Plug 'mbbill/undotree' " See undo history like commit history
-Plug 'itchyny/lightline.vim'
-Plug 'tpope/vim-unimpaired' " Shortcuts etc.
-Plug 'junegunn/vim-peekaboo' " Register viewer
-Plug 'tpope/vim-surround' " Surround stuff
+" host specific allow lightweight deployment by default
+if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'Waffer')
+  Plug 'w0rp/ale', { 'on':  'ALEEnable' }
+  " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+  let g:coc_start_at_startup = 0
+  Plug 'neoclide/coc.nvim', {'do': './install.sh nightly', 'on': 'CocStart'}
+  Plug 'majutsushi/tagbar' " Function preview window
+  Plug 'itchyny/lightline.vim'
+  Plug 'tpope/vim-fugitive' " Git plugin
+  Plug 'junegunn/vim-peekaboo' " Register viewer
+  Plug 'junegunn/goyo.vim' " Frame window for writting
+  Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
+  Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
+  Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
+  " Plug 'reedes/vim-pencil' " writing (markdown) utilites, think I've covered most manually
+  Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
+  Plug 'SirVer/ultisnips' " Track the engine.
+  Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
+  
+  " Colours
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'endel/vim-github-colorscheme'
+  Plug 'romainl/flattened'
+  Plug 'yuttie/hydrangea-vim'
+  Plug 'Lokaltog/vim-monotone'
+  Plug 'reedes/vim-colors-pencil'
+
+  " Syntax/Filetypes
+  Plug 'lervag/vimtex'
+  Plug 'pangloss/vim-javascript'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'mxw/vim-jsx'
+  Plug 'torrancew/vim-openscad'
+  Plug 'chrisbra/csv.vim'
+  Plug 'darfink/vim-plist'
+endif
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } " FZF supporting functions install for vim
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
-Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
-Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
-Plug 'michaeljsmith/vim-indent-object'
-
-" Syntax/Filetypes
-Plug 'lervag/vimtex'
-Plug 'torrancew/vim-openscad'
-Plug 'chrisbra/csv.vim'
+Plug 'tpope/vim-commentary' " easy comment stuff
+Plug 'tpope/vim-unimpaired' " Shortcuts etc.
+Plug 'tpope/vim-surround' " Surround stuff
 
 " Colours
 Plug 'tomasr/molokai'
-Plug 'chriskempson/base16-vim'
 Plug 'patstockwell/vim-monokai-tasty'
-Plug 'reedes/vim-colors-pencil'
+Plug 'danielwe/base16-vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
 " My vim runtimes are in dotfiles managed by git
 set runtimepath+=~/dotfiles/vim/,~/dotfiles/vim/after
+
+" Vim built-in packages
+runtime macros/matchit.vim
 
 "=====================
 " ---- INTERFACE ----
@@ -117,9 +143,9 @@ set runtimepath+=~/dotfiles/vim/,~/dotfiles/vim/after
 set title " set terminal title as file
 " Set 256 colours for terminals that have it
 if &t_Co >= 256
+  let &t_ut=''
   colorscheme vim-monokai-tasty
   let g:solarized_termcolors=256
-  set t_Co=256
   let g:rehash256 = 1
   let g:solarized_termtrans=1
   let g:solarized_termcolors=256
@@ -138,10 +164,10 @@ if has("patch-8.1.0360")
 endif
 
 " Use base16 theme if set in shell
-" if filereadable(expand("~/.vimrc_background"))
-"   let base16colorspace=256
-"   source ~/.vimrc_background
-" endif
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 
 " --- GENERAL SETTINGS ---
 
@@ -154,7 +180,7 @@ set backspace=indent,eol,start    " backspace through everything in insert mode
 set autochdir         " autochange directory
 set scrolloff=1000    " center the cursor in window
 set wildmenu          " make command autocomplete easier
-set shortmess +=I     " remove the start up message
+set shortmess +=Ic    " remove the start up message and short messages for complete
 set splitbelow        " split below current buffer
 set splitright        " split to right of current buffer
 set vb t_vb=          " set visual bell
@@ -162,6 +188,9 @@ set lazyredraw        " improve performance, don't redraw while moving
 set relativenumber "with number and relative creates hybrid
 set number            " Line Numbering
 set cursorline "highlight current line (slow in term)
+" set cursorcolumn " slow performance
+" always show signcolumns
+set signcolumn=yes
 
 set omnifunc=syntaxcomplete#Complete
 
@@ -182,7 +211,10 @@ imap <C-x><C-l> <plug>(fzf-complete-line)
 set undolevels=1000 " 1000 undos
 set noundofile " no persistent undo
 
-if has("persistent_undo") " must 'mkdir ~/.vim/.vimundo'
+if has("persistent_undo")
+  " if !isdirectory('~/.vim/.vimundo')
+  "   call mkdir('~/.vim/.vimundo')
+  " endif
   set undodir=~/.vim/.vimundo " where to keep it
   set undofile " persistent undo
   set undoreload=100 " number of lines to save for undo
@@ -260,31 +292,36 @@ elseif executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
+" ---- COC ----
+"==============
+
+" coc disabled by default and will be loaded on ftdetect for file types I want
+" using my plugin/coc_control.vim
+let g:coc_global_extensions = [
+\   'coc-json', 
+\   'coc-tsserver',
+\   'coc-prettier', 
+\   'coc-python', 
+\   'coc-tag', 
+\   'coc-emoji', 
+\   'coc-css', 
+\   'coc-snippets']
+
 " ---- ALE ----
 "==============
 
-" Write this in your vimrc file
-let g:ale_lint_on_text_changed = 'never'
-" You can disable this option too
-" if you don't want linters to run on opening a file
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-let g:ale_open_list = 0
+" let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_save = 1
+" let g:ale_open_list = 0
 
-" Disable linters for C/C++ and specify others
+" " Disable linters for C/C++ and specify others
 let g:ale_linters = {
-\   'javascript': ['eslint'],
+\   'javascript': ['eslint', 'tsserver'],
 \   'python': ['pylint'],
 \   'cpp': ['cppcheck'],
 \   'c': ['cppcheck'],
 \}
-
-let g:ale_javascript_eslint_options = '--quiet'
-
-" augroup Linting
-"   autocmd BufWritePost *.py,*.js silent make! <afile> | silent redraw!
-"   autocmd QuickFixCmdPost [^l]* cwindow
-" augroup END
 
 " ---- AIRLINE / LIGHTLINE ----
 " =================
@@ -293,7 +330,7 @@ let g:ale_javascript_eslint_options = '--quiet'
 set laststatus=2
 let g:lightline = {
 \ 'colorscheme': 'monokai_tasty',
-\}
+\ }
 
 " ---- TAGBAR ----
 "====================
@@ -337,6 +374,13 @@ let g:tagbar_type_arduino = {
 
 " Write all buffers before navigating from Vim to tmux pane
 let g:tmux_navigator_save_on_switch = 1
+let g:tmux_navigator_no_mappings = 1
+let g:tmux_navigator_disable_when_zoomed = 1
+
+nnoremap <silent> <c-a><c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-a><c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-a><c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-a><c-l> :TmuxNavigateRight<cr>
 
 " ---- GIT ----
 "==============
@@ -345,9 +389,9 @@ command! -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%a
 
 " ---- ULTISNIP ----
 "==============
-let g:UltiSnipsExpandTrigger="<s-tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<s-tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "======================================
 " ---------- MAPPING -----------"
@@ -379,7 +423,6 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 " buffers
 nnoremap <leader>] :bnext<CR>
 nnoremap <leader>[ :bprevious<CR>
-nnoremap <Tab> :e#<CR> " last used buffer
 nmap <leader>ww :w<CR>
 " control-p / FZF
 nmap <leader>; :Buffers<CR>
@@ -396,6 +439,7 @@ nmap <leader>mr :w<CR>:!clear;python %<CR>
 nmap <leader>mk :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
 nmap <leader>mu :w<CR>:make! upload\|redraw!\|<CR>
 nmap <leader>mi :w<CR>:make! ispload\|redraw!\|<CR>
+
 " remap the ctrl-a/x to inc/dec ints
 nnoremap <C-a> <C-a>
 nnoremap <C-x> <C-x>
@@ -406,13 +450,12 @@ vnoremap . :normal .<CR> " last command
 vnoremap ` :normal @a<CR> " last register
 " UndoTree
 nmap <leader>tt :UndotreeToggle<cr>
+
 " Window manipulation
 " swap to previous buffer, delete current
 nnoremap <C-c> :BD<cr>
-" close split
-nnoremap <C-x> <C-w>q
 
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 " imap <Tab> <C-p>
 " select last pasted
 noremap gV `[v`]
@@ -427,7 +470,6 @@ map! <S-Insert> <MiddleMouse>
 
 " ---- MOVEMENT ----
 " Map the arrow keys to be based on display lines, not physical lines
-imap jk <Esc>
 map <C-j> gj
 map <C-k> gk
 " Disable arrow keys

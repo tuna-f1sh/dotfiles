@@ -5,3 +5,13 @@ if [ ! -e "$HOME/.vim/.vimundo" ]; then
   echo "Creating .vim/.vimundo"
   mkdir $HOME/.vim/.vimundo
 fi
+
+if [ ! -e "$HOME/.tmux" ]; then
+  mkdir $HOME/.tmux
+fi
+
+if [ ! -e "$HOME/.tmux/plugins" ]; then
+  mkdir $HOME/.tmux/plugins
+fi
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

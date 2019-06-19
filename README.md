@@ -1,7 +1,5 @@
 # John’s dotfiles
 
-![Screenshot of my shell prompt](http://i.imgur.com/klQaU1Z.png)
-
 ## Installation
 
 ```bash
@@ -30,11 +28,14 @@ Edit ~/.secrets to add machine only stuff and API keys.
 * `ncdu` - visual `du`
 * `bat` - nicer `cat`
 * `up` - pipe tester
+* `crex` - regex test [crex](https://octobanana.com/software/crex)
+* `peaclock` - binary clock for CLI
+  [peaclock](https://octobanana.com/software/peaclock)
+* `=` - perform python calculations inline 'support/scripts/='
 
 ## macOS
 
-* base16-shell won't work in terminal because it's not full colour. Use
-  profile in './support'.
+* `trash` - in brew provides Trash control
 
 ## Linux
 
@@ -50,3 +51,7 @@ Edit ~/.secrets to add machine only stuff and API keys.
 * Make `$HOME` windows user profile directory
 * `CYGWIN=winsymlinks:nativestrict` env variable before running link script
   but then remove for proper operation of ZSH.
+
+### WSL
+
+* link/wsl contains functions and defines, must export `WSL=true` in .secrets to source

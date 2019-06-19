@@ -13,7 +13,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 source ~/.zshenv # PATH and non-interactive exports
 source ~/.exports # interactive exports after env
 source ~/.secrets
-source ~/.wsl
+if [[ $WSL ]]; then
+  source ~/.wsl
+fi
 
 #========
 # ALIASES
@@ -100,18 +102,16 @@ alias cd=cd_func
 set -o vi
 
 if [[ $OSTYPE =~ "darwin" ]]; then
-  # {{{
-  # Node Completion - Auto-generated, do not touch.
-  shopt -s progcomp
-  for f in $(command ls ~/.node-completion); do
-    f="$HOME/.node-completion/$f"
-    test -f "$f" && . "$f"
-  done
-  # }}}
-
-  # Homebrew auto-complete
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
+  HOMEBREW_PREFIX=$(brew --prefix)
+  if type brew &>/dev/null; then
+    for COMPLETION in "$HOMEBREW_PREFIX"/etc/bash_completion.d/*
+    do
+      [[ -f $COMPLETION ]] && source "$COMPLETION"
+    done
+    if [[ -f ${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh ]];
+    then
+      source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+    fi
   fi
 
   test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

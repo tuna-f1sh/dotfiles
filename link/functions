@@ -204,15 +204,40 @@ note() {
       "-d")
         rm "${NOTE_DIR}"/"$2".md
         ;;
+      "-w")
+        ${EDITOR:-vim} "${WORK_NOTE_DIR}"/"$2".md
+        ;;
+      "-wa")
+        local file="$(date +%Y-%m-%d)"
+        if [ -e "${WORK_NOTE_DIR}/$file.md" ]; then
+          echo "\n## $(date +%H:%M:%S)" >> "${WORK_NOTE_DIR}/${file}.md"
+        # else
+        #   echo "## $(date +%H:%M:%S)" >> "${WORK_NOTE_DIR}/${file}.md"
+        fi
+        if [ ! -z "$2" ]; then
+          echo "$2" >> "${WORK_NOTE_DIR}/${file}.md"
+        else
+          ${EDITOR:-vim} "${WORK_NOTE_DIR}/${file}.md"
+        fi
+        ;;
       "-cd")
         cd ${NOTE_DIR}
         ;;
       "-a")
-        local file="$(date +%Y-%m-%d-%H-%M)"
-        ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+        local file="$(date +%Y-%m-%d)"
+        if [ -e "${NOTE_DIR}/$file.md" ]; then
+          echo "\n## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
+        # else
+        #   echo "## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
+        fi
+        if [ ! -z "$2" ]; then
+          echo "$2" >> "${NOTE_DIR}/${file}.md"
+        else
+          ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+        fi
         ;;
       "-j")
-        local file="journal-$(date +%Y-%m).md"
+        local file="journal-$(date +%Y).md"
         echo "\n## $(date +%c)" >> "${NOTE_DIR}/${file}"
         ${EDITOR:-vim} "${NOTE_DIR}/${file}"
         ;;
@@ -232,16 +257,7 @@ note() {
       "-s")
         local file
         if [ -z "$2" ]; then
-          file=$(ls -td $(rg . --type markdown ${NOTE_DIR}) | \
-            sed -e "s|${NOTE_DIR}/||" | \
-            sed -e 's/\.md//' | \
-            fzf \
-              -i \
-              --exact \
-              --multi \
-              --select-1 \
-              --exit-0 | \
-              awk -F: '{print $1}')
+          echo "no search string supplied"
         else
           file=$(ls -td $(ag --nobreak --nonumbers --noheading --markdown -l "$2" ${NOTE_DIR}) | \
             sed -e "s|${NOTE_DIR}/||" | \
@@ -260,7 +276,7 @@ note() {
           ${EDITOR:-vim} "${NOTE_DIR}"/"${file}".md
         ;;
       *)
-        ${EDITOR:-vim} "${NOTE_DIR}"/"$*".md
+        ${EDITOR:-vim} "${NOTE_DIR}"/"$1".md
         ;;
     esac
   fi
@@ -344,7 +360,7 @@ function todos {
 }
 
 # git ignore
-function gi() { curl -L -s https://www.gitignore.io/api/\$@ ;}
+function gi() { curl -sLw "\n" https://www.gitignore.io/api/$@ ;}
 
 # create html from markdown in GitHub CSS
 function mdhtml {

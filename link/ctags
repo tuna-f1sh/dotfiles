@@ -104,3 +104,6 @@
 --exclude=test
 --exclude=tests
 
+--langdef=markdown
+--langmap=markdown:.md
+--regex-markdown=/^#[ \t](.*$)/\1/h,heading,headings/

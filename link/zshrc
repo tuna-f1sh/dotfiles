@@ -1,3 +1,12 @@
+export LANG="en_GB.UTF-8"
+export LC_COLLATE="C"
+export LC_CTYPE="UTF-8"
+export LC_MESSAGES="C"
+export LC_MONETARY="C"
+export LC_NUMERIC="C"
+export LC_TIME="C"
+export LC_ALL=$LANG
+
 source $HOME/dotfiles/antigen/antigen.zsh
 
 # Base16 Shell
@@ -17,6 +26,10 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 # bash complete
 autoload bashcompinit
 bashcompinit
@@ -31,20 +44,8 @@ setopt HIST_SAVE_NO_DUPS
 setopt NO_HIST_VERIFY
 
 #========
-# PROMPT
-#========
-
-# PURE_PROMPT_SYMBOL='»'
-# PURE_VICMD_SYMBOL='«'
-# PURE_GIT_DOWN_ARROW='↓'
-# PURE_GIT_UP_ARROW='↑'
-# PROMPT='%F{white}%* '$PROMPT
-
-#========
 # ALIASES
 #========
-
-alias reload="source ~/.zshrc"
 
 source ~/.aliases
 
@@ -55,7 +56,21 @@ source ~/.aliases
 source ~/.exports
 source ~/.secrets
 export KEYTIMEOUT=1
-source ~/.wsl
+if [[ $WSL ]]; then
+  source ~/.wsl
+fi
+
+#========
+# PROMPT
+#========
+
+# PURE_PROMPT_SYMBOL='»'
+# PURE_VICMD_SYMBOL='«'
+# PURE_GIT_DOWN_ARROW='↓'
+# PURE_GIT_UP_ARROW='↑'
+# PROMPT='%F{white}%* '$PROMPT
+[[ $TERM == *256color || $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}
+source ~/dotfiles/support/purepower
 
 #========
 # FUNCTIONS
