@@ -8,6 +8,7 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle colored-man-pages
 antigen bundle wd
 antigen bundle z
+antigen bundle virtualenv
 antigen bundle vi-mode
 
 antigen theme romkatv/powerlevel10k
