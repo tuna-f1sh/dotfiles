@@ -47,6 +47,8 @@ setopt NO_HIST_VERIFY
 # ALIASES
 #========
 
+alias reload="source ~/.zshrc"
+
 source ~/.aliases
 
 #========
