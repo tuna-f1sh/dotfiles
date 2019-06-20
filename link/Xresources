@@ -1,97 +1,44 @@
 ! Base16 Monokai
 ! Scheme: Wimer Hazenberg (http://www.monokai.nl)
 
-/* #define base00 #272822 */
-/* #define base01 #383830 */
-/* #define base02 #49483e */
-/* #define base03 #75715e */
-/* #define base04 #a59f85 */
-/* #define base05 #f8f8f2 */
-/* #define base06 #f5f4f1 */
-/* #define base07 #f9f8f5 */
-/* #define base08 #f92672 */
-/* #define base09 #fd971f */
-/* #define base0A #f4bf75 */
-/* #define base0B #a6e22e */
-/* #define base0C #a1efe4 */
-/* #define base0D #66d9ef */
-/* #define base0E #ae81ff */
-/* #define base0F #cc6633 */
+#define base00 #272822
+#define base01 #383830
+#define base02 #49483e
+#define base03 #75715e
+#define base04 #a59f85
+#define base05 #f8f8f2
+#define base06 #f5f4f1
+#define base07 #f9f8f5
+#define base08 #f92672
+#define base09 #fd971f
+#define base0A #f4bf75
+#define base0B #a6e22e
+#define base0C #a1efe4
+#define base0D #66d9ef
+#define base0E #ae81ff
+#define base0F #cc6633
 
-/* *foreground:   base05 */
-/* *background:   base00 */
-/* *cursorColor:  base05 */
+*foreground:   base05
+*background:   base00
+*cursorColor:  base05
 
-/* *color0:       base00 */
-/* *color1:       base08 */
-/* *color2:       base0B */
-/* *color3:       base0A */
-/* *color4:       base0D */
-/* *color5:       base0E */
-/* *color6:       base0C */
-/* *color7:       base05 */
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
 
-/* *color8:       base03 */
-/* *color9:       base08 */
-/* *color10:      base0B */
-/* *color11:      base0A */
-/* *color12:      base0D */
-/* *color13:      base0E */
-/* *color14:      base0C */
-/* *color15:      base07 */
-
-/* ! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt), */
-/* ! use 'shell' template to set these if necessary */
-/* *color16:      base09 */
-/* *color17:      base0F */
-/* *color18:      base01 */
-/* *color19:      base02 */
-/* *color20:      base04 */
-/* *color21:      base06 */
-
-! Molokai theme
-! ! See: https://gist.github.com/vreon/845878
-xterm*background: #101010
-xterm*foreground: #d0d0d0
-xterm*cursorColor: #d0d0d0
-xterm*color0: #101010
-xterm*color1: #960050
-xterm*color2: #66aa11
-xterm*color3: #c47f2c
-xterm*color4: #30309b
-xterm*color5: #7e40a5
-xterm*color6: #3579a8
-xterm*color7: #9999aa
-xterm*color8: #303030
-xterm*color9: #ff0090
-xterm*color10: #80ff00
-xterm*color11: #ffba68
-xterm*color12: #5f5fee
-xterm*color13: #bb88dd
-xterm*color14: #4eb4fa
-xterm*color15: #d0d0d0
-
-! Molokai theme
-! See: https://gist.github.com/vreon/845878
-urxvt*background: #101010
-urxvt*foreground: #d0d0d0
-urxvt*cursorColor: #d0d0d0
-urxvt*color0: #101010
-urxvt*color1: #960050
-urxvt*color2: #66aa11
-urxvt*color3: #c47f2c
-urxvt*color4: #30309b
-urxvt*color5: #7e40a5
-urxvt*color6: #3579a8
-urxvt*color7: #9999aa
-urxvt*color8: #303030
-urxvt*color9: #ff0090
-urxvt*color10: #80ff00
-urxvt*color11: #ffba68
-urxvt*color12: #5f5fee
-urxvt*color13: #bb88dd
-urxvt*color14: #4eb4fa
-urxvt*color15: #d0d0d0
+*color8:       base03
+*color9:       base08
+*color10:      base0B
+*color11:      base0A
+*color12:      base0D
+*color13:      base0E
+*color14:      base0C
+*color15:      base07
 
 !! URxvt Appearance
 URxvt.font:         xft:Hack-Regular:pixelsize=12,xft:Symbola
@@ -100,8 +47,8 @@ URxvt.italicFont:   xft:Hack-RegularOblique:pixelsize=12:slant=italic,xft:Symbol
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 !URxvt.geometry: 92x24
-URxvt.externalBorder: 0
-!URxvt.internalBorder: 24
+!URxvt.externalBorder: 0
+!URxvt.internalBorder: 0
 URxvt.cursorBlink: true
 !URxvt.cursorUnderline: false
 !URxvt.saveline: 2048
