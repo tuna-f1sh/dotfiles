@@ -10,6 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 # launch straight into cool-retro-term hiding mouse
+exec nitrogen --set-centered ~/wt220-background.jpg
 exec xdotool mousemove 0 500
 exec xset s off # no dim display
 exec xset -dpms
