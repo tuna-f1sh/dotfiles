@@ -1,0 +1,13 @@
+# Python
+export PYTHONSTARTUP=~/.pystartup
+export PYENV_ROOT="$HOME/.pyenv"
+
+# zlib for pyenv
+# export LDFLAGS="-L/usr/local/opt/zlib/lib"
+# export CPPFLAGS="-I/usr/local/opt/zlib/include"
+# export PKG_CONFIG_PATH="/usr/local/opt/zlib/lib/pkgconfig"
+
+if [[ $OSTYPE =~ "darwin" ]]; then
+  # Use homebrew python : homebrew bin : ruby : Visual Code : go
+  export PATH="$HOME/.cargo/bin:/usr/local/opt/python/libexec/bin:/usr/local/bin:/usr/local/lib/ruby/gems/2.6.0/bin/:/usr/local/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$HOME/go/bin:$PATH"
+fi

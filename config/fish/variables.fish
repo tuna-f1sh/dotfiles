@@ -7,7 +7,7 @@ set -gx EDITOR vim
 
 # Arduino-mk
 set -gx ARDUINO_DIR /Applications/Arduino.app/Contents/Java
-set -gx ARDMK_DIR /usr/local/Cellar/arduino-mk/1.5.2
+set -gx ARDMK_DIR /usr/local/Arduino-Makefile
 set -gx AVR_TOOLS_DIR /usr/local
 
 # Python

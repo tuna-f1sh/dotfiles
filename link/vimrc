@@ -163,10 +163,15 @@ if has("patch-8.1.0360")
     set diffopt+=internal,algorithm:patience
 endif
 
-" if filereadable(expand("~/.vimrc_background"))
-"   let base16colorspace=256
-"   source ~/.vimrc_background
-" endif
+" Use base16 theme if set in shell
+if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'Waffer')
+  set relativenumber "with number and relative creates hybrid
+  set cursorline "highlight current line (slow in term)
+  if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+  endif
+endif
 
 " --- GENERAL SETTINGS ---
 
@@ -184,9 +189,7 @@ set splitbelow        " split below current buffer
 set splitright        " split to right of current buffer
 set vb t_vb=          " set visual bell
 set lazyredraw        " improve performance, don't redraw while moving
-" set relativenumber "with number and relative creates hybrid
 set number            " Line Numbering
-" set cursorline "highlight current line (slow in term)
 " set cursorcolumn " slow performance
 " always show signcolumns
 set signcolumn=yes

@@ -5,9 +5,20 @@
 	default = simple
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = /usr/bin/vim
+	editor = vim
 	trustctime = false
 [diff]
 	tool = vimdiff
 [merge]
 	tool = vimdiff
+[init]
+	templatedir = ~/dotfiles/support/git_template
+[alias]
+	ctags = !.git/hooks/ctags
+	root = rev-parse --show-toplevel
+[difftool "vimdiff-raw"]
+  cmd = vim -d $LOCAL $REMOTE
+[difftool "vimdiff-fugitive"]
+  cmd = vim -f -c "Gdiff" $LOCAL $REMOTE
+[mergetool "vimmerge-fugitive"]
+  cmd = vim -f -c "Gdiff" "$MERGED"

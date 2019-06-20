@@ -1,0 +1,16 @@
+antigen use oh-my-zsh
+
+antigen bundle git
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle zsh-users/zsh-completions
+antigen bundle colored-man-pages
+antigen bundle wd
+antigen bundle z
+antigen bundle virtualenv
+antigen bundle vi-mode
+
+antigen theme romkatv/powerlevel10k
+
+antigen apply
