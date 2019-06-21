@@ -51,3 +51,7 @@ Edit ~/.secrets to add machine only stuff and API keys.
 * Make `$HOME` windows user profile directory
 * `CYGWIN=winsymlinks:nativestrict` env variable before running link script
   but then remove for proper operation of ZSH.
+
+### WSL
+
+* link/wsl contains functions and defines, must export `WSL=true` in .secrets to source

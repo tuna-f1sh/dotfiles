@@ -58,6 +58,9 @@ source ~/.aliases
 source ~/.exports
 source ~/.secrets
 export KEYTIMEOUT=1
+if [[ $WSL ]]; then
+  source ~/.wsl
+fi
 
 #========
 # PROMPT

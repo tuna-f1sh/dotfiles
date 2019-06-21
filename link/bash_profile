@@ -13,6 +13,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 source ~/.zshenv # PATH and non-interactive exports
 source ~/.exports # interactive exports after env
 source ~/.secrets
+if [[ $WSL ]]; then
+  source ~/.wsl
+fi
 
 #========
 # ALIASES

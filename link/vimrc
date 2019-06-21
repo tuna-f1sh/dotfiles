@@ -167,9 +167,11 @@ if has("patch-8.1.0360")
 endif
 
 " Use base16 theme if set in shell
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
+if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'Waffer')
+  if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+  endif
 endif
 
 " --- GENERAL SETTINGS ---
@@ -325,7 +327,6 @@ let g:ale_linters = {
 \   'cpp': ['cppcheck'],
 \   'c': ['cppcheck'],
 \}
-[
 
 " ---- SLIME ----
 "==============
