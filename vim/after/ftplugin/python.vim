@@ -6,7 +6,7 @@ setlocal errorformat=%A%f:%l:%c:%t:\ %m,%A%f:%l:\ %m,%A%f:(%l):\ %m,%-Z%p^%.%#,%
 let b:dispatch='pylint &'
 
 if exists(':CocStart')
-  call CocSetup()
+  " call CocSetup()
 elseif exists(':ALEInfo')
   let g:ale_sign_column_always = 1
   " always show signcolumns

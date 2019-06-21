@@ -16,5 +16,5 @@ let g:pencil#wrapModeDefault = 'soft' " will auto to hard if detected
 
 " display the rendered markdown in your browser
 if executable('grip')
-  nnoremap <buffer><space>m :Dispatch grip -b %<cr>
+  nnoremap <buffer><space>m :term grip -b %<cr>
 endif

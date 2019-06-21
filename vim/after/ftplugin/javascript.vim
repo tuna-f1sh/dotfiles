@@ -10,7 +10,7 @@ setlocal path+=$PWD/node_modules
 let b:ale_fixers = ['prettier', 'eslint']
 
 if exists(':CocStart')
-  call CocSetup()
+  " call CocSetup()
 elseif exists(':ALEInfo')
   let g:ale_sign_column_always = 1
   " always show signcolumns
