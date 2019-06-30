@@ -14,6 +14,9 @@ let g:pencil#textwidth = 78
 let g:pencil#wrapModeDefault = 'soft' " will auto to hard if detected
 " call pencil#init()
 
+onoremap <buffer><silent> j gj
+onoremap <buffer><silent> k gk
+
 " display the rendered markdown in your browser
 if executable('grip')
   nnoremap <buffer><space>m :term grip -b %<cr>
