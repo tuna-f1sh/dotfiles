@@ -50,6 +50,9 @@ else
   " Other cases I can't think of like MINGW
 endif
 
+" My vim runtimes are in dotfiles managed by git
+set runtimepath+=~/dotfiles/vim/,~/dotfiles/vim/after
+
 "=================================
 " --- PLUG ---- "
 "=================================
@@ -132,8 +135,7 @@ Plug 'danielwe/base16-vim'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
-" My vim runtimes are in dotfiles managed by git
-set runtimepath+=~/dotfiles/vim/,~/dotfiles/vim/after
+filetype plugin indent on
 
 " Vim built-in packages
 runtime macros/matchit.vim
