@@ -32,6 +32,7 @@ Edit ~/.secrets to add machine only stuff and API keys.
 * `peaclock` - binary clock for CLI
   [peaclock](https://octobanana.com/software/peaclock)
 * `=` - perform python calculations inline 'support/scripts/='
+* [`flocki`](https://github.com/denisidoro/floki) - json drilldown
 
 ## macOS
 
