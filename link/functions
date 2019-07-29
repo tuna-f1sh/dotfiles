@@ -202,7 +202,19 @@ note() {
   else
     case "$1" in 
       "-d")
-        rm "${NOTE_DIR}"/"$2".md
+        local file
+        file=$(ls -td $(fd . "${NOTE_DIR}" -e md) | \
+          sed -e "s|${NOTE_DIR}/||" | \
+          sed -e 's/\.md$//' | \
+          fzf \
+            --multi \
+            --select-1 \
+            --exit-0 \
+            --preview="bat --color=always ${NOTE_DIR}/{}.md" \
+            --preview-window=right:60%:wrap)
+        [[ -n $file ]] && \
+          echo "! Deleteing ${file}.md"
+          trash -v "${NOTE_DIR}/${file}.md"
         ;;
       "-w")
         ${EDITOR:-vim} "${WORK_NOTE_DIR}"/"$2".md
