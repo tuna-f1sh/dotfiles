@@ -19,9 +19,7 @@ endfunction
 augroup mail_filetype
     autocmd!
     autocmd VimEnter /tmp/mutt* :call IsReply()
-    autocmd VimEnter /tmp/mutt* :exe 'startinsert'
     autocmd VimEnter /private/tmp/mutt* :call IsReply()
-    autocmd VimEnter /private/tmp/mutt* :exe 'startinsert'
 augroup END
 
 " Mark trailing spaces, so we know we are doing flowed format right
