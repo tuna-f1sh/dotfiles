@@ -164,10 +164,10 @@ fi
   fi
 
   typeset -ga POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-      dir context vcs virtualenv)
+      dir context vcs)
 
   typeset -ga POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-      status command_execution_time background_jobs custom_rprompt)
+      status command_execution_time background_jobs custom_rprompt newline virtualenv)
 
   local ins=$(_pp_s '>' '❯')
   local cmd=$(_pp_s '<' '❮')
@@ -195,7 +195,7 @@ fi
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=
   typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%(?.$ok.$err) "
 
-  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=
+  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=' '
   typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SUBSEGMENT_SEPARATOR=' '
   typeset -g POWERLEVEL9K_WHITESPACE_BETWEEN_{LEFT,RIGHT}_SEGMENTS=
 
