@@ -188,7 +188,7 @@ note() {
   : "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
   if [ $# -eq 0 ]; then
     local file
-    file=$(ls -td $(fd . "${NOTE_DIR}" -e md) | \
+    file=$(ls -td $(fd . "${NOTE_DIR}" -e md --exclude 'archive') | \
       sed -e "s|${NOTE_DIR}/||" | \
       sed -e 's/\.md$//' | \
       fzf \
@@ -217,19 +217,19 @@ note() {
           trash -v "${NOTE_DIR}/${file}.md"
         ;;
       "-w")
-        ${EDITOR:-vim} "${WORK_NOTE_DIR}"/"$2".md
+        ${EDITOR:-vim} "${NOTE_DIR}/w-$2.md"
         ;;
       "-wa")
         local file="$(date +%Y-%m-%d)"
-        if [ -e "${WORK_NOTE_DIR}/$file.md" ]; then
-          echo "\n## $(date +%H:%M:%S)" >> "${WORK_NOTE_DIR}/${file}.md"
+        if [ -e "${NOTE_DIR}/w-$file.md" ]; then
+          echo "\n## $(date +%H:%M:%S)" >> "${NOTE_DIR}/w-${file}.md"
         # else
-        #   echo "## $(date +%H:%M:%S)" >> "${WORK_NOTE_DIR}/${file}.md"
+        #   echo "## $(date +%H:%M:%S)" >> "${NOTE_DIR}/w-${file}.md"
         fi
         if [ ! -z "$2" ]; then
-          echo "$2" >> "${WORK_NOTE_DIR}/${file}.md"
+          echo "$2" >> "${NOTE_DIR}/w-${file}.md"
         else
-          ${EDITOR:-vim} "${WORK_NOTE_DIR}/${file}.md"
+          ${EDITOR:-vim} "${NOTE_DIR}/w-${file}.md"
         fi
         ;;
       "-cd")
@@ -265,6 +265,20 @@ note() {
             --preview-window=right:60%:wrap)
         [[ -n $file ]] && \
           ${EDITOR:-vim} "${NOTE_DIR}/${file}"
+        ;;
+      "--archive")
+        local file
+        file=$(ls -td $(fd . "${NOTE_DIR}" -e md) | \
+          sed -e "s|${NOTE_DIR}/||" | \
+          sed -e 's/\.md$//' | \
+          fzf \
+            --multi \
+            --select-1 \
+            --exit-0 \
+            --preview="bat --color=always ${NOTE_DIR}/{}.md" \
+            --preview-window=right:60%:wrap)
+        [[ -n $file ]] && \
+          ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
         ;;
       "-s")
         local file
@@ -391,4 +405,10 @@ fix_mosh_server() {
   sudo "$fw" --add "$mosh_abs"
   sudo "$fw" --unblockapp "$mosh_abs"
   sudo "$fw" --setglobalstate on
+}
+
+bwcopy() {
+  if hash bw 2>/dev/null; then
+    bw get item "$(bw list items | jq '.[] | "\(.name) | username: \(.login.username) | id: \(.id)" ' | fzf-tmux | awk '{print $(NF -0)}' | sed 's/\"//g')" | jq '.login.password' | sed 's/\"//g' | pbcopy
+  fi
 }
