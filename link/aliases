@@ -1,17 +1,22 @@
 #!/usr/bin/env bash
+ls_bin=ls
+if [ -x "$(command -v exa)" ]; then
+  ls_bin=exa
+fi
+
 
 # Some shortcuts for different directory listings
-alias dir='ls -lhcF'                 # classify files in colour
-alias ll='exa -l'                              # long list
-alias la='exa -la'                              # all but . and ..
-alias l='exa -l'                              #
+alias dir=$ls_bin' -lhcF'                 # classify files in colour
+alias ll=$ls_bin' -l'                              # long list
+alias la=$ls_bin' -la'                              # all but . and ..
+alias l=$ls_bin' -lGF'                              #
 alias cdls='dirs -v'
 alias glg='git log --date-order --all --graph --format="%C(green)%h%Creset %C(yellow)%an%Creset %C(blue bold)%ar%Creset %C(red bold)%d%Creset%s"'
 
 # Default to human readable figures
 alias df='df -h'
 alias du='du -h'
-alias ls='ls -FG'
+alias ls=$ls_bin
 alias grep='grep --color'                     # show differences in colour
 
 # Make file transfers verbose
