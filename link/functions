@@ -407,8 +407,12 @@ fix_mosh_server() {
   sudo "$fw" --setglobalstate on
 }
 
-bwcopy() {
+bwget() {
   if hash bw 2>/dev/null; then
     bw get item "$(bw list items | jq '.[] | "\(.name) | username: \(.login.username) | id: \(.id)" ' | fzf-tmux | awk '{print $(NF -0)}' | sed 's/\"//g')" | jq '.login.password' | sed 's/\"//g' | pbcopy
   fi
+}
+
+bwcopy() {
+        bw get password "$1" | pbcopy
 }

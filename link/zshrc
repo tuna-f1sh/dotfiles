@@ -7,6 +7,10 @@ export LC_NUMERIC="C"
 export LC_TIME="C"
 export LC_ALL=$LANG
 
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 source $HOME/dotfiles/antigen/antigen.zsh
 
 # Base16 Shell
