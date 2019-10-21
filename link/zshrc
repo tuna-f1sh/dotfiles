@@ -7,9 +7,10 @@ export LC_NUMERIC="C"
 export LC_TIME="C"
 export LC_ALL=$LANG
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# p10k instant prompt
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 source $HOME/dotfiles/antigen/antigen.zsh
 
@@ -19,8 +20,11 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-source ~/.antigenrc
-antigen init ~/.antigenrc
+if [[ -z $ANTIGENRC_LOADED ]]; then
+  source ~/.antigenrc
+  antigen init ~/.antigenrc
+  export ANTIGENRC_LOADED=true
+fi
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
