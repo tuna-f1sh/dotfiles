@@ -90,7 +90,7 @@ fi
 # PROMPT='%F{white}%* '$PROMPT
 [[ $TERM == *256color || $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}
 # source machine prompt if there is one, otherwise use my default
-[ -f ~/.prompt.zsh ] && source ~/.prompt.zsh || source $HOME/dotfiles/support/purepower
+[ -f ~/.prompt.zsh ] && source ~/.prompt.zsh || source $HOME/dotfiles/support/prompt.zsh
 
 #========
 # FUNCTIONS
