@@ -8,9 +8,9 @@ export LC_TIME="C"
 export LC_ALL=$LANG
 
 # p10k instant prompt
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 source $HOME/dotfiles/antigen/antigen.zsh
 
@@ -89,7 +89,8 @@ fi
 # PURE_GIT_UP_ARROW='↑'
 # PROMPT='%F{white}%* '$PROMPT
 [[ $TERM == *256color || $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}
-source ~/dotfiles/support/purepower
+# source machine prompt if there is one, otherwise use my default
+[ -f ~/.prompt.zsh ] && source ~/.prompt.zsh || source $HOME/dotfiles/support/purepower
 
 #========
 # FUNCTIONS
@@ -99,6 +100,6 @@ source ~/.functions
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
