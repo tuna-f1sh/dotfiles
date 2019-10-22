@@ -10,6 +10,7 @@ antigen bundle wd
 antigen bundle z
 antigen bundle vi-mode
 antigen bundle virtualenv
+antigen bundle nvm
 
 antigen theme romkatv/powerlevel10k
 
