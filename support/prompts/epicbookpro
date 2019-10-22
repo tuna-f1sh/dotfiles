@@ -34,6 +34,7 @@
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
       # =========================[ Line #1 ]=========================
       # os_icon                 # os identifier
+      example
       dir                     # current directory
       vcs                     # git status
       context
@@ -815,7 +816,7 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
-    p10k segment -f 208 -i '⭐' -t 'hello, %n'
+    p10k segment -f 208 -i '🚴'
   }
 
   # User-defined prompt segments can be customized the same way as built-in segments.
