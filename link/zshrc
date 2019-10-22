@@ -12,15 +12,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source $HOME/dotfiles/antigen/antigen.zsh
-
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-if [[ -z $ANTIGENRC_LOADED ]]; then
+if [[ -z $RELOADING ]]; then
+  source $HOME/dotfiles/antigen/antigen.zsh
   source ~/.antigenrc
   antigen init ~/.antigenrc
   export ANTIGENRC_LOADED=true
@@ -64,7 +63,7 @@ setopt NO_HIST_VERIFY
 # ALIASES
 #========
 
-alias reload="source ~/.zshrc"
+alias reload="RELOADING=true source ~/.zshrc"
 
 source ~/.aliases
 
@@ -100,6 +99,6 @@ source ~/.functions
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
