@@ -61,8 +61,8 @@
 					<key>COMMAND_STRING</key>
 					<string># !/bin/bash
 export LC_CTYPE=UTF-8
-hex=`/usr/local/bin/pandoc -t html -s --highlight-style pygments -H ~/dotfiles/support/pandoc/templates/rtf.html | hexdump -ve '1/1 "%.2x"'`
-osascript -e "set the clipboard to «data HTML${hex}»"</string>
+pandoc=`/usr/local/bin/pandoc -t html -s --highlight-style pygments | textutil -font helvetica -convert rtf -format html -stdin -stdout`
+osascript -e "set the clipboard to «data HTML${pandoc}»"</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
@@ -172,8 +172,6 @@ osascript -e "set the clipboard to «data HTML${hex}»"</string>
 						<string>4</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
@@ -251,14 +249,12 @@ osascript -e "set the clipboard to «data HTML${hex}»"</string>
 				</array>
 				<key>arguments</key>
 				<dict/>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 			</dict>
 		</dict>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>6B37C50C-DEEB-4021-B4F5-2305C4CAAB5D</key>
+		<key>63366609-7C63-40E9-A2AD-4CEE626FFEF6</key>
 		<dict>
 			<key>from</key>
 			<string>537B736C-8036-4650-9925-6A0E6A823DDF - 537B736C-8036-4650-9925-6A0E6A823DDF</string>
