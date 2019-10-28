@@ -188,7 +188,7 @@ note() {
   : "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
   if [ $# -eq 0 ]; then
     local file
-    file=$(ls -td $(fd . "${NOTE_DIR}" -e md --exclude 'archive') | \
+    file=$(ls -td $(ls -ld -sold $(fd . "${NOTE_DIR}" -e md --exclude 'archive') | awk -F':[0-9]* ' '/:/{print $2}') | \
       sed -e "s|${NOTE_DIR}/||" | \
       sed -e 's/\.md$//' | \
       fzf \
@@ -223,8 +223,6 @@ note() {
         local file="$(date +%Y-%m-%d)"
         if [ -e "${NOTE_DIR}/w-$file.md" ]; then
           echo "\n## $(date +%H:%M:%S)" >> "${NOTE_DIR}/w-${file}.md"
-        # else
-        #   echo "## $(date +%H:%M:%S)" >> "${NOTE_DIR}/w-${file}.md"
         fi
         if [ ! -z "$2" ]; then
           echo "$2" >> "${NOTE_DIR}/w-${file}.md"
@@ -239,8 +237,6 @@ note() {
         local file="$(date +%Y-%m-%d)"
         if [ -e "${NOTE_DIR}/$file.md" ]; then
           echo "\n## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
-        # else
-        #   echo "## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
         fi
         if [ ! -z "$2" ]; then
           echo "$2" >> "${NOTE_DIR}/${file}.md"
