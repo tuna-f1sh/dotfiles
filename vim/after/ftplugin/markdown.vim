@@ -30,5 +30,5 @@ function! PandocGeorgia()
 endfunction
 
 function! PandocKultiad()
-  setlocal makeprg=pandoc\ %\ --to=html5\ --template=${HOME}/dotfiles/support/pandoc/templates/html.template --css=${HOME}/dotfiles/support/pandoc/css/kultiad-serif.css\ --highlight-style=pygments\ --self-contained\ --output\ %<.html
+  setlocal makeprg=pandoc\ %\ --to=html5\ --template=${HOME}/dotfiles/support/pandoc/templates/html.template\ --css=${HOME}/dotfiles/support/pandoc/css/kultiad-serif.css\ --highlight-style=pygments\ --self-contained\ --output\ %<.html
 endfunction
