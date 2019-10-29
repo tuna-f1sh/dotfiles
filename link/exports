@@ -30,6 +30,10 @@ export TERM='xterm-256color'
 export GOPATH="$HOME/go"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
+  export XDG_CONFIG_HOME=~/Library/Preferences/
+  export XDG_DATA_HOME=~/Library/
+  export XDG_CACHE_HOME=~/Library/Caches/
+
   export NOTE_DIR=~/Dropbox/Documents/notes
   export WORK_NOTE_DIR=$NOTE_DIR
   export JOURNAL_DIR=~/Dropbox/Documents/blogs/memoirs-of-a-john/_posts/

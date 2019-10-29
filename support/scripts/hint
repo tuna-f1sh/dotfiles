@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+type wget >/dev/null 2>&1 || { echo >&2 "I require wget but it's not installed."; exit 1; }
+type mdless >/dev/null 2>&1 || { echo >&2 "I require mdless but it's not installed."; exit 1; }
+
+TOOL=${1:?Usage: hint.sh <toolname> [--refresh]}
+REFRESH=${2:-no}
+
+RAW_MD_URL="https://raw.github.com/hazeorid/devhints.io/gh-pages/${TOOL}.md"
+
+CACHE_DIR=$XDG_CACHE_HOME/hint/
+LOCAL_CACHE_FILE=$CACHE_DIR/${TOOL}.md
+
+if [ ! -d $CACHE_DIR ]; then
+  mkdir -p $CACHE_DIR
+fi
+
+if [ "$REFRESH" == "--refresh" ] || [ ! -e $LOCAL_CACHE_FILE ]; then
+  wget -q -O - $RAW_MD_URL | sed -e '/^{: /d' > $LOCAL_CACHE_FILE
+fi
+
+if [ -s $LOCAL_CACHE_FILE ]; then
+  mdless $LOCAL_CACHE_FILE 2>/dev/null
+else
+  echo No cheat sheet found!
+fi
