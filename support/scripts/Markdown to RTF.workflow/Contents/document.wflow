@@ -61,8 +61,7 @@
 					<key>COMMAND_STRING</key>
 					<string># !/bin/bash
 export LC_CTYPE=UTF-8
-pandoc=`/usr/local/bin/pandoc -t html -s --highlight-style pygments | textutil -font helvetica -convert rtf -format html -stdin -stdout`
-osascript -e "set the clipboard to «data HTML${pandoc}»"</string>
+/usr/local/bin/pandoc -t html5 -s --highlight-style pygments -H ${HOME}/dotfiles/support/pandoc/templates/rtf.html --quiet | textutil -stdin -font Helvetica -convert rtf -format html -stdout | pbcopy</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
@@ -98,6 +97,8 @@ osascript -e "set the clipboard to «data HTML${pandoc}»"</string>
 				</array>
 				<key>OutputUUID</key>
 				<string>E68A1522-B9BF-4B7E-AEB2-EB90796B6464</string>
+				<key>ShowWhenRun</key>
+				<false/>
 				<key>UUID</key>
 				<string>537B736C-8036-4650-9925-6A0E6A823DDF</string>
 				<key>UnlocalizedApplications</key>
@@ -175,7 +176,7 @@ osascript -e "set the clipboard to «data HTML${pandoc}»"</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:305.000000</string>
+				<string>386.000000:305.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -254,7 +255,7 @@ osascript -e "set the clipboard to «data HTML${pandoc}»"</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>63366609-7C63-40E9-A2AD-4CEE626FFEF6</key>
+		<key>5DE3647E-5125-4CA1-B49D-DAB9131DA86D</key>
 		<dict>
 			<key>from</key>
 			<string>537B736C-8036-4650-9925-6A0E6A823DDF - 537B736C-8036-4650-9925-6A0E6A823DDF</string>

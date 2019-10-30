@@ -198,7 +198,7 @@ note() {
         --preview="bat --color=always ${NOTE_DIR}/{}.md" \
         --preview-window=right:60%:wrap)
     [[ -n $file ]] && \
-      ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+      ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
   else
     case "$1" in 
       "-d")
@@ -217,7 +217,7 @@ note() {
           trash -v "${NOTE_DIR}/${file}.md"
         ;;
       "-w")
-        ${EDITOR:-vim} "${NOTE_DIR}/w-$2.md"
+        ${EDITOR:-vim} + "${NOTE_DIR}/w-$2.md"
         ;;
       "-wa")
         local file="$(date +%Y-%m-%d)"
@@ -227,7 +227,7 @@ note() {
         if [ ! -z "$2" ]; then
           echo "$2" >> "${NOTE_DIR}/w-${file}.md"
         else
-          ${EDITOR:-vim} "${NOTE_DIR}/w-${file}.md"
+          ${EDITOR:-vim} + "${NOTE_DIR}/w-${file}.md"
         fi
         ;;
       "-cd")
@@ -241,13 +241,13 @@ note() {
         if [ ! -z "$2" ]; then
           echo "$2" >> "${NOTE_DIR}/${file}.md"
         else
-          ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+          ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
         fi
         ;;
       "-j")
         local file="journal-$(date +%Y).md"
         echo "\n## $(date +%c)" >> "${NOTE_DIR}/${file}"
-        ${EDITOR:-vim} "${NOTE_DIR}/${file}"
+        ${EDITOR:-vim} + "${NOTE_DIR}/${file}"
         ;;
       "-p")
         local file
@@ -260,7 +260,7 @@ note() {
             --preview="cat ${NOTE_DIR}/pocket{}" \
             --preview-window=right:60%:wrap)
         [[ -n $file ]] && \
-          ${EDITOR:-vim} "${NOTE_DIR}/${file}"
+          ${EDITOR:-vim} + "${NOTE_DIR}/${file}"
         ;;
       "--archive")
         local file
@@ -274,7 +274,7 @@ note() {
             --preview="bat --color=always ${NOTE_DIR}/{}.md" \
             --preview-window=right:60%:wrap)
         [[ -n $file ]] && \
-          ${EDITOR:-vim} "${NOTE_DIR}/${file}.md"
+          ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
         ;;
       "-s")
         local file
@@ -295,10 +295,10 @@ note() {
               awk -F: '{print $1}')
         fi
         [[ -n $file ]] && \
-          ${EDITOR:-vim} "${NOTE_DIR}"/"${file}".md
+          ${EDITOR:-vim} + "${NOTE_DIR}"/"${file}".md
         ;;
       *)
-        ${EDITOR:-vim} "${NOTE_DIR}"/"$1".md
+        ${EDITOR:-vim} + "${NOTE_DIR}"/"$1".md
         ;;
     esac
   fi
