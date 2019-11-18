@@ -32,6 +32,8 @@ function! s:CopyRTF(bufnr, line1, line2, type)
       silent exe '%!'.s:textutil_cmd.' | pbcopy'
       " delete the html buffer from tohtml command
       silent bd!
+    elseif a:type == 'html'
+      silent exe '%!'.s:pandoc_cmd.' | pbcopy'
     else
       silent exe '%!'.s:pandoc_cmd.' | '.s:textutil_cmd.' | pbcopy'
     endif
@@ -68,6 +70,8 @@ function! s:CopyRTF(bufnr, line1, line2, type)
       silent exe '%!'.s:textutil_cmd.' | pbcopy'
       " delete the html buffer from tohtml command
       silent bd!
+    elseif a:type == 'html'
+      silent exe '%!'.s:pandoc_cmd.' | pbcopy'
     else
       silent exe '%!'.s:pandoc_cmd.' | '.s:textutil_cmd.' | pbcopy'
     endif
@@ -81,3 +85,4 @@ endfunction
 
 command! -range=% CopyRTF :call s:CopyRTF(bufnr('%'),<line1>,<line2>, 'raw')
 command! -range=% PandocCopyRTF :call s:CopyRTF(bufnr('%'),<line1>,<line2>, 'pandoc')
+command! -range=% PandocCopyHTML :call s:CopyRTF(bufnr('%'),<line1>,<line2>, 'html')

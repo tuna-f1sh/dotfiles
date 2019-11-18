@@ -16,6 +16,7 @@
 [alias]
 	ctags = !.git/hooks/ctags
 	root = rev-parse --show-toplevel
+	ignore = "!gi() { curl -sL https://www.gitignore.io/api/$@ ;}; gi"
 [difftool "vimdiff-raw"]
   cmd = vim -d $LOCAL $REMOTE
 [difftool "vimdiff-fugitive"]

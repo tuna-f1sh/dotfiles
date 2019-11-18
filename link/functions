@@ -295,7 +295,7 @@ note() {
               awk -F: '{print $1}')
         fi
         [[ -n $file ]] && \
-          ${EDITOR:-vim} + "${NOTE_DIR}"/"${file}".md
+          ${EDITOR:-vim} "${NOTE_DIR}"/"${file}".md
         ;;
       *)
         ${EDITOR:-vim} + "${NOTE_DIR}"/"$1".md

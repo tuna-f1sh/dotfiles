@@ -23,6 +23,10 @@ alias grep='grep --color'                     # show differences in colour
 alias mv='mv -v'
 alias cp='cp -v'
 alias mkdir='mkdir -v'
+alias rm='rm -v'
+
+# Remove directory
+alias rmd='rm -r'
 
 # Get week number
 alias week='date +%V'
