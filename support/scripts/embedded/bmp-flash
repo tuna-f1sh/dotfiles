@@ -1,0 +1,3 @@
+#!/bin/bash
+
+arm-none-eabi-gdb -nx --batch -ex 'target extended-remote /dev/ttyACM0' -x $HOME/dotfiles/support/scripts/embedded/bmp_flash.scr $1
