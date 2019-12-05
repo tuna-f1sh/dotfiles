@@ -86,7 +86,6 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
   Plug 'neoclide/coc.nvim', {'do': './install.sh nightly', 'on': 'CocStart'}
-  Plug 'majutsushi/tagbar' " Function preview window
   Plug 'itchyny/lightline.vim'
   Plug 'tpope/vim-fugitive' " Git plugin
   Plug 'junegunn/vim-peekaboo' " Register viewer
@@ -355,43 +354,6 @@ let g:lightline = {
 \ 'colorscheme': 'monokai_tasty',
 \ }
 
-" ---- TAGBAR ----
-"====================
-let g:tagbar_autoclose = 1
-let g:tagbar_width = 30
-let g:tagbar_type_arduino = {
-            \ 'ctagstype' : 'c++',
-            \ 'kinds'     : [
-                \ 'd:macros:1:0',
-                \ 'p:prototypes:1:0',
-                \ 'g:enums',
-                \ 'e:enumerators:0:0',
-                \ 't:typedefs:0:0',
-                \ 'n:namespaces',
-                \ 'c:classes',
-                \ 's:structs',
-                \ 'u:unions',
-                \ 'f:functions',
-                \ 'm:members:0:0',
-                \ 'v:variables:0:0'
-            \ ],
-            \ 'sro'        : '::',
-            \ 'kind2scope' : {
-                \ 'g' : 'enum',
-                \ 'n' : 'namespace',
-                \ 'c' : 'class',
-                \ 's' : 'struct',
-                \ 'u' : 'union'
-            \ },
-            \ 'scope2kind' : {
-                \ 'enum'      : 'g',
-                \ 'namespace' : 'n',
-                \ 'class'     : 'c',
-                \ 'struct'    : 's',
-                \ 'union'     : 'u'
-            \ }
-        \ }
-
 " ---------- TMUX -------------------"
 "======================================
 
@@ -464,8 +426,6 @@ nmap <leader>mi :w<CR>:make! ispload\|redraw!\|<CR>
 " remap the ctrl-a/x to inc/dec ints
 nnoremap <C-a> <C-a>
 nnoremap <C-x> <C-x>
-" Tagbar
-nnoremap <leader>tb :TagbarToggle<CR>
 " Command repeating
 vnoremap . :normal .<CR> " last command
 vnoremap ` :normal @a<CR> " last register

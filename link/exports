@@ -27,7 +27,10 @@ fi
 
 export TERM='xterm-256color'
 
+# Toolchain patha
 export GOPATH="$HOME/go"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   export XDG_CONFIG_HOME=~/Library/Preferences/
