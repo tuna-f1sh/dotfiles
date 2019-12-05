@@ -42,7 +42,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export ARDUINO_DIR=/Applications/Arduino.app/Contents/Java 
   export ARDMK_DIR=/usr/local/opt/arduino-mk
   export AVR_TOOLS_DIR=/usr/local
-  export USER_LIB_PATH=~/Programming/Arduino/libraries
+  export USER_LIB_PATH=~/Dropbox/Programming/Arduino/libraries
 
   # ESP32
   export ESP_TOOLCHAIN_PATH=~/esp/xtensa-esp32-elf/bin
