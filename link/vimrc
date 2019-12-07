@@ -86,6 +86,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
   Plug 'neoclide/coc.nvim', {'do': './install.sh nightly', 'on': 'CocStart'}
+  Plug 'kkoomen/vim-doge'
   Plug 'itchyny/lightline.vim'
   Plug 'tpope/vim-fugitive' " Git plugin
   Plug 'junegunn/vim-peekaboo' " Register viewer
@@ -99,7 +100,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   " Plug 'ivanov/vim-ipython', { 'for' : 'python' }
   Plug 'jpalardy/vim-slime', { 'for': 'python' }
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
-  
+
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'altercation/vim-colors-solarized'
@@ -305,13 +306,13 @@ endif
 " coc disabled by default and will be loaded on ftdetect for file types I want
 " using my plugin/coc_control.vim
 let g:coc_global_extensions = [
-\   'coc-json', 
+\   'coc-json',
 \   'coc-tsserver',
-\   'coc-prettier', 
-\   'coc-python', 
-\   'coc-tag', 
-\   'coc-emoji', 
-\   'coc-css', 
+\   'coc-prettier',
+\   'coc-python',
+\   'coc-tag',
+\   'coc-emoji',
+\   'coc-css',
 \   'coc-snippets']
 
 " ---- ALE ----

@@ -1,7 +1,7 @@
 setlocal path+=$PWD/node_modules
 
 if exists(':CocStart')
-  " call CocSetup()
+  call CocSetup()
 elseif exists(':ALEInfo')
   let g:ale_sign_column_always = 1
   " always show signcolumns
