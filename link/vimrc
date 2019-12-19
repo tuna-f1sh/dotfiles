@@ -87,7 +87,9 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   let g:coc_start_at_startup = 0
   Plug 'neoclide/coc.nvim', {'do': './install.sh nightly', 'on': 'CocStart'}
   Plug 'kkoomen/vim-doge'
+  Plug 'mpjuers/showcontext'
   Plug 'itchyny/lightline.vim'
+  Plug 'majutsushi/tagbar' " Function preview window
   Plug 'tpope/vim-fugitive' " Git plugin
   Plug 'junegunn/vim-peekaboo' " Register viewer
   Plug 'junegunn/goyo.vim' " Frame window for writting
@@ -100,6 +102,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   " Plug 'ivanov/vim-ipython', { 'for' : 'python' }
   Plug 'jpalardy/vim-slime', { 'for': 'python' }
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+  Plug 'mtth/scratch.vim'
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
@@ -228,6 +231,8 @@ if has("persistent_undo")
   set undoreload=100 " number of lines to save for undo
 endif
 
+let g:scratch_persistence_file = '$NOTE_DIR/scratch.vim'
+
 " command complete settings
 set wildmenu " make command autocomplete easier
 set wildmode=longest,full
@@ -339,7 +344,7 @@ let g:slime_target = "tmux"
 let g:slime_python_ipython = 1
 
 " always send text to the top-right pane in the current tmux tab without asking
-" " Use '##' to define cells instead of using marks
+" Use '##' to define cells instead of using marks
 let g:ipython_cell_delimit_cells_by = 'tags'
 let g:slime_default_config = {
             \ 'socket_name': get(split($TMUX, ','), 0),
@@ -354,6 +359,43 @@ set laststatus=2
 let g:lightline = {
 \ 'colorscheme': 'monokai_tasty',
 \ }
+
+" ---- TAGBAR ----
+"====================
+let g:tagbar_autoclose = 1
+let g:tagbar_width = 30
+let g:tagbar_type_arduino = {
+            \ 'ctagstype' : 'c++',
+            \ 'kinds'     : [
+                \ 'd:macros:1:0',
+                \ 'p:prototypes:1:0',
+                \ 'g:enums',
+                \ 'e:enumerators:0:0',
+                \ 't:typedefs:0:0',
+                \ 'n:namespaces',
+                \ 'c:classes',
+                \ 's:structs',
+                \ 'u:unions',
+                \ 'f:functions',
+                \ 'm:members:0:0',
+                \ 'v:variables:0:0'
+            \ ],
+            \ 'sro'        : '::',
+            \ 'kind2scope' : {
+                \ 'g' : 'enum',
+                \ 'n' : 'namespace',
+                \ 'c' : 'class',
+                \ 's' : 'struct',
+                \ 'u' : 'union'
+            \ },
+            \ 'scope2kind' : {
+                \ 'enum'      : 'g',
+                \ 'namespace' : 'n',
+                \ 'class'     : 'c',
+                \ 'struct'    : 's',
+                \ 'union'     : 'u'
+            \ }
+        \ }
 
 " ---------- TMUX -------------------"
 "======================================

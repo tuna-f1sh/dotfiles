@@ -33,9 +33,12 @@ function! CocSetup()
     " always show signcolumns
     set signcolumn=yes
 
+    " show status line information
+    set statusline^=%{coc#status()}
+
     " Use `[c` and `]c` to navigate diagnostics
-    nmap <silent> [c <Plug>(coc-diagnostic-prev)
-    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+    nmap <silent> [w <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]w <Plug>(coc-diagnostic-next)
 
     " Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
@@ -59,6 +62,10 @@ function! CocSetup()
 
     " Remap for rename current word
     nmap <leader>rn <Plug>(coc-rename)
+    " Remap for do codeAction of current line
+    nmap <leader>ac  <Plug>(coc-codeaction)
+    " Fix autofix problem of current line
+    nmap <leader>qf  <Plug>(coc-fix-current)
 
     " Use <C-l> for trigger snippet expand.
     imap <C-l> <Plug>(coc-snippets-expand)

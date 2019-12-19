@@ -66,6 +66,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # load/unload ktext
   alias ftx_load='sudo kextload -b com.apple.driver.AppleUSBFTDI'
   alias ftx_unload='sudo kextunload -b com.apple.driver.AppleUSBFTDI'
+  alias nosleep='pmset noidle'
 fi
 
 # ESP32

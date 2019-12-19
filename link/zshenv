@@ -1,6 +1,7 @@
 # Python
 export PYTHONSTARTUP=~/.pystartup
 export PYENV_ROOT="$HOME/.pyenv"
+export PYTHONPATH="$PYTHONPATH:~/Dropbox/Projects/Python"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   # Use homebrew python : homebrew bin : ruby : Visual Code : go
