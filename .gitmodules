@@ -7,3 +7,6 @@
 [submodule "support/kicad/scripting/plugins/InteractiveHtmlBom"]
 	path = support/kicad/scripting/plugins/InteractiveHtmlBom
 	url = https://github.com/openscopeproject/InteractiveHtmlBom.git
+[submodule "support/kicad/scripting/plugins/KiBoM"]
+	path = support/kicad/scripting/plugins/KiBoM
+	url = https://github.com/SchrodingersGat/KiBoM.git
