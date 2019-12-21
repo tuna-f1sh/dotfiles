@@ -1,0 +1,25 @@
+UseIconsInMenus=0
+IconScale=-1
+MousewheelPAN=0
+ZoomNoCenter=0
+AutoPAN=1
+OpenGLAntialiasingMode=0
+CairoAntialiasingMode=0
+WorkingDir=/Applications/KiCad
+ShowEnvVarWarningDialog=1
+Editor=/usr/bin/open
+AutoSaveInterval=600
+FileHistorySize=9
+CanvasScale=0
+PdfBrowserName=
+UseSystemBrowser=1
+kicad_3Dlib_url=https://github.com/KiCad/kicad-packages3d
+kicad_3Dlib_last_download_dir=/Library/Application Support/kicad/modules/packages3d/
+[EnvironmentVariables]
+KICAD_SYMBOL_DIR=/Library/Application Support/kicad/library
+KICAD_TEMPLATE_DIR=/Library/Application Support/kicad/template
+KICAD_USER_TEMPLATE_DIR=/Users/john/kicad/template
+KIGITHUB=https://github.com/KiCad
+KISYS3DMOD=/Library/Application Support/kicad/modules/packages3d/
+KISYSMOD=/Library/Application Support/kicad/modules
+USRMOD=/Users/john/KiCad/kicad_footprints
