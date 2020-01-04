@@ -16,7 +16,6 @@ alias glg='git log --date-order --all --graph --format="%C(green)%h%Creset %C(ye
 # Default to human readable figures
 alias df='df -h'
 alias du='du -h'
-alias ls=$ls_bin
 alias grep='grep --color'                     # show differences in colour
 
 # Make file transfers verbose

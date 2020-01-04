@@ -102,7 +102,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   " Plug 'ivanov/vim-ipython', { 'for' : 'python' }
   Plug 'jpalardy/vim-slime', { 'for': 'python' }
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
-  Plug 'mtth/scratch.vim'
+  Plug 'hauleth/vim-backscratch'
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
