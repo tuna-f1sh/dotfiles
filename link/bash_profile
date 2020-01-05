@@ -101,22 +101,6 @@ alias cd=cd_func
 # Set vi mode
 set -o vi
 
-if [[ $OSTYPE =~ "darwin" ]]; then
-  HOMEBREW_PREFIX=$(brew --prefix)
-  if type brew &>/dev/null; then
-    for COMPLETION in "$HOMEBREW_PREFIX"/etc/bash_completion.d/*
-    do
-      [[ -f $COMPLETION ]] && source "$COMPLETION"
-    done
-    if [[ -f ${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh ]];
-    then
-      source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-    fi
-  fi
-
-  test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-fi
-
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
 
