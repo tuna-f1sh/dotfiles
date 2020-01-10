@@ -170,7 +170,7 @@ if has("patch-8.1.0360")
 endif
 
 " Use base16 theme if set in shell and not over SSH
-if !($SSH_TTY || $SSH_CONNECTION || $SSH_CLIENT)
+if (empty($SSH_CONNECTION))
   if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'Waffer')
     if filereadable(expand("~/.vimrc_background"))
       let base16colorspace=256
