@@ -10,6 +10,3 @@
 [submodule "support/kicad/scripting/plugins/KiBoM"]
 	path = support/kicad/scripting/plugins/KiBoM
 	url = https://github.com/SchrodingersGat/KiBoM.git
-[submodule "support/kicad/kicad-color-schemes"]
-	path = support/kicad/kicad-color-schemes
-	url = https://github.com/pointhi/kicad-color-schemes.git

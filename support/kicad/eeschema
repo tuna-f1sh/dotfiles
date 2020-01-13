@@ -1,8 +1,8 @@
-SchematicFramePos_x=-1154
-SchematicFramePos_y=-364
-SchematicFrameSize_x=1154
-SchematicFrameSize_y=1897
-SchematicFrameMaximized=1
+SchematicFramePos_x=46
+SchematicFramePos_y=23
+SchematicFrameSize_x=1634
+SchematicFrameSize_y=987
+SchematicFrameMaximized=0
 SchematicFrameAutoSaveInterval=600
 SchematicFramePerspective=layout2|name=MainToolbar;caption=;state=139644;dir=1;layer=6;row=0;pos=0;prop=100000;bestw=1016;besth=36;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=OptToolbar;caption=;state=139596;dir=4;layer=3;row=0;pos=0;prop=100000;bestw=36;besth=212;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=ToolsToolbar;caption=;state=139596;dir=2;layer=1;row=0;pos=0;prop=100000;bestw=36;besth=688;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=DrawFrame;caption=;state=1020;dir=5;layer=0;row=0;pos=0;prop=100000;bestw=400;besth=184;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=MsgPanel;caption=;state=131452;dir=3;layer=6;row=0;pos=0;prop=100000;bestw=400;besth=26;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|dock_size(1,6,0)=36|dock_size(4,3,0)=36|dock_size(2,1,0)=36|dock_size(5,0,0)=402|dock_size(3,6,0)=26|
 SchematicFrameMostRecentlyUsedPath=/Users/john/Documents
@@ -37,46 +37,46 @@ SimCmdLine=
 LastFindReplaceFlags=1
 LastFindString=
 LastReplaceString=
-FieldNames=(templatefields (field (name MFN)) (field (name MFP)) (field (name Description)) (field (name Notes)) (field (name "DNF (BLANK == FALSE)")))
+FieldNames=(templatefields (field (name MFN)) (field (name MFP)) (field (name Description)) (field (name Notes)) (field (name Config)) (field (name Vendor)) (field (name SKU)))
 canvas_type=1
-Color4DWireEx=rgb(0, 132, 0)
-Color4DBusEx=rgb(0, 0, 132)
-Color4DConnEx=rgb(0, 132, 0)
-Color4DLLabelEx=rgb(0, 0, 0)
-Color4DHLabelEx=rgb(132, 132, 0)
-Color4DGLabelEx=rgb(132, 0, 0)
-Color4DPinNumEx=rgb(132, 0, 0)
-Color4DPinNameEx=rgb(0, 132, 132)
-Color4DFieldEx=rgb(132, 0, 132)
-Color4DReferenceEx=rgb(0, 132, 132)
-Color4DValueEx=rgb(0, 132, 132)
-Color4DNoteEx=rgb(0, 0, 194)
-Color4DBodyEx=rgb(132, 0, 0)
-Color4DBodyBgEx=rgb(255, 255, 194)
-Color4DNetNameEx=rgb(132, 132, 132)
-Color4DPinEx=rgb(132, 0, 0)
-Color4DSheetEx=rgb(132, 0, 132)
-Color4DSheetFileNameEx=rgb(132, 132, 0)
-Color4DSheetNameEx=rgb(0, 132, 132)
-Color4DSheetLabelEx=rgb(132, 132, 0)
-Color4DNoConnectEx=rgb(0, 0, 132)
-Color4DErcWEx=rgba(0, 132, 0, 0.800)
-Color4DErcEEx=rgba(132, 0, 0, 0.800)
+Color4DWireEx=rgb(141, 210, 114)
+Color4DBusEx=rgb(68, 135, 170)
+Color4DConnEx=rgb(141, 210, 114)
+Color4DLLabelEx=rgb(68, 135, 170)
+Color4DHLabelEx=rgb(195, 174, 114)
+Color4DGLabelEx=rgb(196, 108, 45)
+Color4DPinNumEx=rgb(196, 98, 107)
+Color4DPinNameEx=rgb(102, 150, 150)
+Color4DFieldEx=rgb(120, 101, 150)
+Color4DReferenceEx=rgb(166, 131, 225)
+Color4DValueEx=rgb(102, 150, 150)
+Color4DNoteEx=rgb(68, 135, 170)
+Color4DBodyEx=rgb(196, 98, 107)
+Color4DBodyBgEx=rgb(81, 60, 86)
+Color4DNetNameEx=rgb(202, 202, 202)
+Color4DPinEx=rgb(196, 98, 107)
+Color4DSheetEx=rgb(133, 111, 165)
+Color4DSheetFileNameEx=rgb(133, 111, 165)
+Color4DSheetNameEx=rgb(102, 150, 150)
+Color4DSheetLabelEx=rgb(196, 122, 79)
+Color4DNoConnectEx=rgb(149, 219, 223)
+Color4DErcWEx=rgb(226, 163, 52)
+Color4DErcEEx=rgb(200, 68, 85)
 Color4DGridEx=rgb(132, 132, 132)
-Color4DBgCanvasEx=rgb(255, 255, 255)
+Color4DBgCanvasEx=rgb(35, 41, 50)
 Color4DCursorEx=rgb(0, 0, 0)
 Color4DBrightenedEx=rgb(255, 0, 255)
 Color4DHiddenEx=rgb(194, 194, 194)
 Color4DWorksheetEx=rgb(132, 0, 0)
-file1=/Users/john/Dropbox/Projects/sbc-can-teensy/sbc-can-teensy.sch
-file2=/Users/john/Dropbox/Projects/sbc-micro-logger/sbc.micro-logger.sch
-file3=/Users/john/Dropbox/Projects/sbc-toolbox-hat/sbc-toolbox-hat.sch
-file4=/Users/john/Dropbox/Projects/sbc-toolbox-hat/sbc-toolbox-usb-bridge/sbc-toolbox-usb-bridge.sch
-file5=/Users/john/Dropbox/Projects/scratch/canable-5632f7ff799a/canable/canable.sch
-file6=/Users/john/Dropbox/Projects/scratch/whitterm-wt220/whitterm-hat/whitterm-hat.sch
-file7=/Users/john/Dropbox/Projects/sbc-toolbox-hat/sbc-toolbox-hat/sbc-toolbox-hat.sch
-file8=/Users/john/Downloads/canable-5632f7ff799a/canable/canable.sch
-file9=/Users/john/Downloads/canable-5632f7ff799a/canable.sch
+file1=/Users/john/Dropbox/Projects/scratch/Otter-Iron/KiCAD/TS100C.sch
+file2=/Users/john/Dropbox/specialized/di2-charger/di2-charger.sch
+file3=/Users/john/Dropbox/specialized/FeatherCAN/FeatherCAN.sch
+file4=/Users/john/Dropbox/Projects/sbc-can-teensy/sbc-can-teensy.sch
+file5=/Users/john/Dropbox/Projects/sbc-toolbox-hat/sbc-toolbox-hat.sch
+file6=/Users/john/Dropbox/Projects/FeatherCAN/FeatherCAN.sch
+file7=/Users/john/Dropbox/Projects/sbc-micro-logger/sbc.micro-logger.sch
+file8=/Users/john/Dropbox/Projects/sbc-toolbox-hat/sbc-toolbox-usb-bridge/sbc-toolbox-usb-bridge.sch
+file9=/Users/john/Dropbox/Projects/scratch/canable-5632f7ff799a/canable/canable.sch
 SymbolFieldsShownColumns=0 1 2 3 4 5 6 7
 DefaultWireWidth=6
 CustomNetlistTitle1=
@@ -131,19 +131,26 @@ LibeditRepeatStepX=0
 LibeditRepeatStepY=100
 LibeditShowPinElectricalType=1
 LibeditLibWidth=250
-bom_plugins=(plugins  (plugin /Users/john/Dropbox/Projects/sbc-toolbox-hat/sbc-toolbox-hat/KiBoM/KiBOM_CLI.py (cmd "python \\"/Users/john/Dropbox/Projects/sbc-toolbox-hat/sbc-toolbox-hat/KiBoM/KiBOM_CLI.py\\" \\"%I\\" \\"%O.\\" -d \\"BOM/\\"")  (opts nickname=KiBOM_CLI)))
-bom_plugin_selected=KiBOM_CLI
-[SymbolFieldEditor]
-[SymbolFieldEditor/Show]
+bom_plugins=(plugins  (plugin /Users/john/Library/Preferences/kicad/scripting/plugins/KiBoM-master/KiBOM_CLI.py (cmd "python \\"/Users/john/Library/Preferences/kicad/scripting/plugins/KiBoM-master/KiBOM_CLI.py\\" \\"%I\\" \\"%O\\"")  (opts nickname=KiBOM_CLI_CSV))  (plugin /Users/john/Library/Preferences/kicad/scripting/plugins/KiBoM-master/KiBOM_CLI.py (cmd "python \\"/Users/john/Library/Preferences/kicad/scripting/plugins/KiBoM-master/KiBOM_CLI.py\\" \\"%I\\" \\"%O.xlsx\\"")  (opts nickname=KiBOM_CLI_XLXS))  (plugin /Users/john/Library/Preferences/kicad/scripting/plugins/KiBoM-master/KiBOM_CLI.py (cmd "python \\"/Users/john/Library/Preferences/kicad/scripting/plugins/KiBoM-master/KiBOM_CLI.py\\" \\"%I\\" \\"%O.html\\"")  (opts nickname=KiBOM_CLI_HTML)))
+bom_plugin_selected=KiBOM_CLI_CSV
+ShowIllegalSymbolLibDialog=1
 Reference=1
-DNF\ (BLANK\ \=\=\ FALSE)=1
-VALUE=0
+DNF\ (BLANK\ \=\=\ FALSE)=0
+VALUE=1
 SPURL=0
 SPR=0
-Notes=0
+Notes=1
 MPN=0
 MFR=0
 MFP=1
 MFN=1
-[SymbolFieldEditor/GroupBy]
-DNF\ (BLANK\ \=\=\ FALSE)=0
+Footprint=0
+Datasheet=0
+Characteristics=0
+SchematicFrameGridColor=rgb(132, 132, 132)
+Color4DBrighenedEx=rgb(201, 169, 249)
+LibeditFrameGridColor=rgb(132, 132, 132)
+ViewlibFrameGridColor=rgb(132, 132, 132)
+[SymbolFieldEditor]
+[SymbolFieldEditor/Show]
+Reference=1
