@@ -203,7 +203,13 @@ set cursorline "highlight current line (slow in term)
 " always show signcolumns
 set signcolumn=yes
 
+" command complete settings
+set wildmenu " make command autocomplete easier
+set wildmode=longest,full
 set omnifunc=syntaxcomplete#Complete
+set complete-=i " remove path searching as tags should be populated
+" autocmd CompleteDone * pclose " auto close scratch window with info (not required with popup)
+set completeopt=longest,menuone,popup,noinsert
 
 " CTAGS location search
 set tags=./.git/tags,.tags,tags,./.tags;,./tags;
@@ -232,11 +238,6 @@ if has("persistent_undo")
 endif
 
 let g:scratch_persistence_file = '$NOTE_DIR/scratch.vim'
-
-" command complete settings
-set wildmenu " make command autocomplete easier
-set wildmode=longest,full
-set completeopt+=longest
 
 "Change buffers without saving
 set hidden
