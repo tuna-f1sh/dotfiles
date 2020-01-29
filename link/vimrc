@@ -209,7 +209,10 @@ set wildmode=longest,full
 set omnifunc=syntaxcomplete#Complete
 set complete-=i " remove path searching as tags should be populated
 " autocmd CompleteDone * pclose " auto close scratch window with info (not required with popup)
-set completeopt=longest,menuone,popup,noinsert
+set completeopt=longest,menuone,noinsert
+if v:version >= 810
+  set complete+=popup
+endif
 
 " CTAGS location search
 set tags=./.git/tags,.tags,tags,./.tags;,./tags;

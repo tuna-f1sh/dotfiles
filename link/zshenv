@@ -10,4 +10,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export XDG_CONFIG_HOME=~/Library/Preferences
   export XDG_DATA_HOME=~/Library
   export XDG_CACHE_HOME=~/Library/Caches
+else
+  export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=/home/${USER}/.config}
+  export XDG_DATA_HOME=${XDG_CONFIG_HOME:=/home/${USER}/.data}
+  export XDG_CACHE_HOME=${XDG_CONFIG_HOME:=/home/${USER}/.cache}
 fi
