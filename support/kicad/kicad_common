@@ -18,8 +18,8 @@ kicad_3Dlib_last_download_dir=/Library/Application Support/kicad/modules/package
 [EnvironmentVariables]
 KICAD_SYMBOL_DIR=/Library/Application Support/kicad/library
 KICAD_TEMPLATE_DIR=/Library/Application Support/kicad/template
-KICAD_USER_TEMPLATE_DIR=/Users/john/kicad/template
+KICAD_USER_TEMPLATE_DIR=/Users/John/kicad/kicad_footprints/templates
 KIGITHUB=https://github.com/KiCad
 KISYS3DMOD=/Library/Application Support/kicad/modules/packages3d/
 KISYSMOD=/Library/Application Support/kicad/modules
-USRMOD=/Users/john/KiCad/kicad_footprints
+USRMOD=/Users/John/kicad/kicad_footprints
