@@ -5,6 +5,7 @@ setlocal include=^\\s*[^\/]\\+\\(from\\\|require(['\"]\\)
 setlocal define=^\\s*\\(function\\\|var\\\|define\\)[('\"]\\{-\\}
 
 setlocal path+=$PWD/node_modules
+setlocal complete+=i
 
 " Fix files with prettier, and then ESLint.
 let b:ale_fixers = ['prettier', 'eslint']

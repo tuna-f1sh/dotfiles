@@ -281,14 +281,18 @@ note() {
         ${EDITOR:-vim} + "${NOTE_DIR}/w-$2.md"
         ;;
       "-wa")
-        local file="$(date +%Y-%m-%d)"
-        if [ -e "${NOTE_DIR}/w-$file.md" ]; then
-          echo "\n## $(date +%H:%M:%S)" >> "${NOTE_DIR}/w-${file}.md"
+        local file="w-$(date +%Y-%m-%d)"
+        if [ -e "${NOTE_DIR}/$file.md" ]; then
+          echo "\n## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
+        # else
+        #   echo "## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
         fi
-        if [ ! -z "$2" ]; then
-          echo "$2" >> "${NOTE_DIR}/w-${file}.md"
+        if [ -p "/dev/stdin" ]; then
+          >> "${NOTE_DIR}/${file}.md"
+        elif [ ! -z "$2" ]; then
+          echo "$2" >> "${NOTE_DIR}/${file}.md"
         else
-          ${EDITOR:-vim} + "${NOTE_DIR}/w-${file}.md"
+          ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
         fi
         ;;
       "-cd")
@@ -298,8 +302,12 @@ note() {
         local file="$(date +%Y-%m-%d)"
         if [ -e "${NOTE_DIR}/$file.md" ]; then
           echo "\n## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
+        # else
+        #   echo "## $(date +%H:%M:%S)" >> "${NOTE_DIR}/${file}.md"
         fi
-        if [ ! -z "$2" ]; then
+        if [ -p "/dev/stdin" ]; then
+          >> "${NOTE_DIR}/${file}.md"
+        elif [ ! -z "$2" ]; then
           echo "$2" >> "${NOTE_DIR}/${file}.md"
         else
           ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"

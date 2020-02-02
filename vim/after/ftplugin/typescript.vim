@@ -1,4 +1,5 @@
 setlocal path+=$PWD/node_modules
+setlocal complete+=i
 
 if exists(':CocStart')
   call CocSetup()

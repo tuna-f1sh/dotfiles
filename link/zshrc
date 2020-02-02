@@ -82,11 +82,6 @@ fi
 # PROMPT
 #========
 
-# PURE_PROMPT_SYMBOL='»'
-# PURE_VICMD_SYMBOL='«'
-# PURE_GIT_DOWN_ARROW='↓'
-# PURE_GIT_UP_ARROW='↑'
-# PROMPT='%F{white}%* '$PROMPT
 [[ $TERM == *256color || $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}
 # source machine prompt if there is one, otherwise use my default
 [ -f ~/.prompt.zsh ] && source ~/.prompt.zsh || source $HOME/dotfiles/support/prompt.zsh
