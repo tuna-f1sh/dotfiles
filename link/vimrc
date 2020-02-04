@@ -85,7 +85,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'w0rp/ale', { 'on':  'ALEEnable' }
   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
-  Plug 'neoclide/coc.nvim', {'do': './install.sh nightly', 'on': 'CocStart'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': 'CocStart'}
   Plug 'kkoomen/vim-doge'
   Plug 'mpjuers/showcontext'
   Plug 'itchyny/lightline.vim'
@@ -103,6 +103,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'jpalardy/vim-slime', { 'for': 'python' }
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
   Plug 'hauleth/vim-backscratch'
+  Plug 'metakirby5/codi.vim'
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'

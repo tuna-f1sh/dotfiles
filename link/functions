@@ -355,6 +355,28 @@ note() {
         if [ -z "$2" ]; then
           echo "no search string supplied"
         else
+          file=$(rg --files-with-matches --no-messages --type markdown --max-depth 1 --sortr modified "$2" $NOTE_DIR | \
+            sed -e "s|${NOTE_DIR}/||" | \
+            sed -e 's/\.md$//' | \
+            fzf \
+              -i \
+              --exact \
+              --multi \
+              --select-1 \
+              --exit-0 \
+              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' ${NOTE_DIR}/{}.md" \
+              --preview-window=right:80%:wrap | \
+              awk -F: '{print $1}')
+        fi
+        [[ -n $file ]] && \
+          ${EDITOR:-vim} "${NOTE_DIR}"/"${file}".md
+        ;;
+      "-sa")
+        local file
+        local files
+        if [ -z "$2" ]; then
+          echo "no search string supplied"
+        else
           file=$(rg --files-with-matches --no-messages --sortr modified "$2" $NOTE_DIR | \
             sed -e "s|${NOTE_DIR}/||" | \
             sed -e 's/\.md$//' | \
