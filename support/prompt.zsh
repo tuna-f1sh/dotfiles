@@ -803,6 +803,15 @@
 
   # When instant prompt is disabled, prompt won't appear until zsh is fully initialized.
   typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=true
+
+  # transient prompt
+  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=same-dir
+
+  # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
+  # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
+  # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
+  # really need it.
+  typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
 }
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
