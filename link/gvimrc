@@ -13,7 +13,7 @@ if has('win32') || has('win64')
 else
   try
     colorscheme vim-monokai-tasty
-    set guifont=Hack:h12
+    set guifont=JetBrains_Mono:h13
   endtry
 endif
 
