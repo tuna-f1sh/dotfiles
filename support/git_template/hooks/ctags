@@ -1,4 +1,5 @@
 #!/bin/sh
+echo 'Updating tags file'
 set -e
 PATH="/usr/local/bin:$PATH"
 dir="`git rev-parse --git-dir`"

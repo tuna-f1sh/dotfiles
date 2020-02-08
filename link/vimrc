@@ -215,10 +215,15 @@ if v:version >= 810
 endif
 
 " CTAGS location search
-set tags=./.git/tags,.tags,tags,./.tags;,./tags;
-
-" project path recursively
-set path+=**
+let g:gitdir=substitute(system("git rev-parse --show-toplevel 2>&1 | ag -v fatal:"),'\n','','g')
+set tags=.git/tags,.tags,tags,./tags;
+if  g:gitdir != '' && isdirectory(g:gitdir) && index(split(&path, ","),g:gitdir) < 0
+  exec "set tags^=".g:gitdir."/.git/tags"
+  exec "set path+=".g:gitdir."/**"
+else
+  " project path recursively from pwd
+  set path+=**
+endif
 
 "" Searching
 set hlsearch    " highlight matches
