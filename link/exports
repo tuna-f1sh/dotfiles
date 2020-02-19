@@ -27,6 +27,10 @@ fi
 
 export TERM='xterm-256color'
 
+if [ -x "$(command -v vimpager)" ]; then
+  export PAGER=vimpager
+fi
+
 # Toolchain patha
 export GOPATH="$HOME/go"
 export PYENV_ROOT="$HOME/.pyenv"
