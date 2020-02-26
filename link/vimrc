@@ -415,14 +415,14 @@ let g:tmux_navigator_save_on_switch = 1
 let g:tmux_navigator_no_mappings = 1
 let g:tmux_navigator_disable_when_zoomed = 1
 
-nnoremap <silent> <c-a><c-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <c-a><c-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <c-a><c-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <c-a><c-l> :TmuxNavigateRight<cr>
-" nnoremap <silent> <c-a>h :TmuxNavigateLeft<cr>
-" nnoremap <silent> <c-a>j :TmuxNavigateDown<cr>
-" nnoremap <silent> <c-a>k :TmuxNavigateUp<cr>
-" nnoremap <silent> <c-a>l :TmuxNavigateRight<cr>
+" nnoremap <silent> <c-a><c-h> :TmuxNavigateLeft<cr>
+" nnoremap <silent> <c-a><c-j> :TmuxNavigateDown<cr>
+" nnoremap <silent> <c-a><c-k> :TmuxNavigateUp<cr>
+" nnoremap <silent> <c-a><c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-w>h :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-w>j :TmuxNavigateDown<cr>
+nnoremap <silent> <c-w>k :TmuxNavigateUp<cr>
+nnoremap <silent> <c-w>l :TmuxNavigateRight<cr>
 
 " ---- GIT ----
 "==============
