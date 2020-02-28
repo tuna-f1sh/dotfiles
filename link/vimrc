@@ -81,7 +81,7 @@ endif
 call plug#begin(plug_path)
 
 " host specific allow lightweight deployment by default
-if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'Waffer')
+if (g:HOST =~# 'archjohn') || (g:HOST =~# 'JohnsEpcBookEvo') || (g:HOST =~# 'Waffer')
   Plug 'w0rp/ale', { 'on':  'ALEEnable' }
   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
