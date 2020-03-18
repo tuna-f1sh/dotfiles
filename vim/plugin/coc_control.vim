@@ -17,6 +17,9 @@ function! CocSetup()
       " if hidden is not set, TextEdit might fail.
     set hidden
 
+    " set tag func
+    set tagfunc=CocTagFunc
+
     " Some servers have issues with backup files, see #649
     set nobackup
     set nowritebackup

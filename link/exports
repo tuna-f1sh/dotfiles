@@ -5,6 +5,7 @@ export VISUAL=vim
 export EDITOR=vim
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export PIPENV_VENV_IN_PROJECT=1 
 
 # Language
 if [ -z $LANG ]; then
@@ -37,7 +38,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   export NOTE_DIR=~/Dropbox/Documents/notes
-  export WORK_NOTE_DIR=$NOTE_DIR
   export JOURNAL_DIR=~/Dropbox/Documents/blogs/memoirs-of-a-john/_posts
 
   # Arduino-mk
@@ -51,7 +51,6 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export IDF_PATH=~/esp/esp-idf
 else
   export NOTE_DIR=~/.notes
-  export WORK_NOTE_DIR=$NOTE_DIR
 
   # Arduino-mk
   export ARDUINO_DIR=/usr/share/arduino

@@ -81,7 +81,7 @@ endif
 call plug#begin(plug_path)
 
 " host specific allow lightweight deployment by default
-if (g:HOST =~# 'archjohn') || (g:HOST =~# 'JohnsEpcBookEvo') || (g:HOST =~# 'Waffer')
+if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'JohnsEpcBookEvo') || (g:HOST =~# 'Waffer')
   Plug 'w0rp/ale', { 'on':  'ALEEnable' }
   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
@@ -172,7 +172,7 @@ endif
 
 " Use base16 theme if set in shell and not over SSH
 if (empty($SSH_CONNECTION))
-  if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'Waffer')
+  if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'JohnsEpcBookEvo') || (g:HOST =~# 'Waffer')
     if filereadable(expand("~/.vimrc_background"))
       let base16colorspace=256
       source ~/.vimrc_background
@@ -216,7 +216,7 @@ if v:version >= 810
 endif
 
 " CTAGS location search
-let g:gitdir=substitute(system("git rev-parse --show-toplevel 2>&1 | ag -v fatal:"),'\n','','g')
+let g:gitdir=fnameescape(substitute(system("git rev-parse --show-toplevel 2>&1 | ag -v fatal:"),'\n','','g'))
 set tags=.git/tags,.tags,tags,./tags;
 if  g:gitdir != '' && isdirectory(g:gitdir) && index(split(&path, ","),g:gitdir) < 0
   exec "set tags^=".g:gitdir."/.git/tags"
