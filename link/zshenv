@@ -5,7 +5,7 @@ export PYTHONPATH="$PYTHONPATH:~/Dropbox/Projects/Python"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   # Use homebrew python : homebrew bin : ruby : Visual Code : go
-  export PATH="$HOME/.cargo/bin:/usr/local/opt/python/libexec/bin:/usr/local/bin:/usr/local/lib/ruby/gems/2.6.0/bin/:/usr/local/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$HOME/go/bin:$PATH"
+  export PATH="$HOME/.cargo/bin:/usr/local/opt/python/libexec/bin:$HOME/bin:/usr/local/bin:/usr/local/lib/ruby/gems/2.6.0/bin/:/usr/local/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$HOME/go/bin:$PATH"
   # macOS XDG paths
   export XDG_CONFIG_HOME=~/Library/Preferences
   export XDG_DATA_HOME=~/Library

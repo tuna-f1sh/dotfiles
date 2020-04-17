@@ -42,10 +42,6 @@ bindkey '^w' backward-kill-word
 bindkey '^e' forward-word
 bindkey '^l' forward-char
 
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
-
 # bash complete
 autoload bashcompinit
 bashcompinit
@@ -58,6 +54,12 @@ bashcompinit
 setopt HIST_SAVE_NO_DUPS
 # don't verify history expansions (can just do it with tab)
 setopt NO_HIST_VERIFY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
 
 #========
 # ALIASES

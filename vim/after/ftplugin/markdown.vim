@@ -39,3 +39,8 @@ function! PandocKultiad()
   setlocal makeprg=pandoc\ %\ --to=html5\ --template=${HOME}/dotfiles/support/pandoc/templates/html.template --css=${HOME}/dotfiles/support/pandoc/css/kultiad-serif.css\ --highlight-style=pygments\ --self-contained\ --quiet\ --output\ %<.html
   exec 'make'
 endfunction
+
+function! PandocPdf()
+  setlocal makeprg=pandoc\ %\ -f\ gfm\ -V\ linkcolor\:blue\ -V\ geometry\:a4paper\ -V\ geometry\:margin=2cm\ -V\ mainfont="Helvetica"\ -V\ monofont="Monaco"\ --pdf-engine=xelatex\ --output\ %<.pdf
+  exec 'make'
+endfunction

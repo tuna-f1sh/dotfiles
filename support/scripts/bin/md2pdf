@@ -1,0 +1,9 @@
+#!/bin/bash
+# requires xelatex installed http://www.texts.io/support/0001/
+
+pandoc "$1" -f gfm -V linkcolor:blue \
+    -V geometry:a4paper \
+    -V geometry:margin=2cm \
+    -V mainfont="Helvetica" \
+    --highlight-style pygments \
+    -V monofont="Monaco" --pdf-engine=xelatex -o "$2"

@@ -249,14 +249,14 @@ note() {
   : "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
   if [ $# -eq 0 ]; then
     local file
-    file=$(\ls -t $(fd . "${NOTE_DIR}" -e md --exclude 'archive') | \
-      sed -e "s|${NOTE_DIR}/||" | \
+    file=$(fd . "${NOTE_DIR}" -e md --exclude 'archive' --exec-batch \ls -t {} | \
+      sed -e "s|"${NOTE_DIR}"/||" | \
       sed -e 's/\.md$//' | \
       fzf \
         --multi \
         --select-1 \
         --exit-0 \
-        --preview="bat --color=always ${NOTE_DIR}/{}.md" \
+        --preview="bat --color=always "${NOTE_DIR}"/{}.md" \
         --preview-window=right:80%:wrap)
     [[ -n $file ]] && \
       ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
@@ -264,14 +264,14 @@ note() {
     case "$1" in 
       "-d")
         local file
-        file=$(\ls -t $(fd . "${NOTE_DIR}" -e md) | \
-          sed -e "s|${NOTE_DIR}/||" | \
+        file=$(fd . "${NOTE_DIR}" -e md --exec-batch \ls -t {} | \
+          sed -e "s|"${NOTE_DIR}"/||" | \
           sed -e 's/\.md$//' | \
           fzf \
             --multi \
             --select-1 \
             --exit-0 \
-            --preview="bat --color=always ${NOTE_DIR}/{}.md" \
+            --preview="bat --color=always "${NOTE_DIR}"/{}.md" \
             --preview-window=right:80%:wrap)
         [[ -n $file ]] && \
           echo "! Deleteing ${file}.md"
@@ -296,7 +296,7 @@ note() {
         fi
         ;;
       "-cd")
-        cd ${NOTE_DIR}
+        cd "${NOTE_DIR}"
         ;;
       "-a")
         local file="$(date +%Y-%m-%d)"
@@ -325,7 +325,7 @@ note() {
         ;;
       "-p")
         local file
-        file=$(fd . ${NOTE_DIR}/pocket | fzf  \
+        file=$(fd . "${NOTE_DIR}"/pocket | fzf  \
             --multi \
             --select-1 \
             --exit-0 \
@@ -337,14 +337,14 @@ note() {
         ;;
       "--archive")
         local file
-        file=$(\ls -t $(fd . "${NOTE_DIR}" -e md) | \
-          sed -e "s|${NOTE_DIR}/||" | \
+        file=$(fd . "${NOTE_DIR}" -e md --exec-batch \ls -t {} | \
+          sed -e "s|"${NOTE_DIR}"/||" | \
           sed -e 's/\.md$//' | \
           fzf \
             --multi \
             --select-1 \
             --exit-0 \
-            --preview="bat --color=always ${NOTE_DIR}/{}.md" \
+            --preview="bat --color=always "${NOTE_DIR}"/{}.md" \
             --preview-window=right:80%:wrap)
         [[ -n $file ]] && \
           ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
@@ -355,8 +355,8 @@ note() {
         if [ -z "$2" ]; then
           echo "no search string supplied"
         else
-          file=$(rg --files-with-matches --no-messages --type markdown --max-depth 1 --sortr modified "$2" $NOTE_DIR | \
-            sed -e "s|${NOTE_DIR}/||" | \
+          file=$(rg --files-with-matches --no-messages --type markdown --max-depth 1 --sortr modified "$2" "${NOTE_DIR}" | \
+            sed -e "s|"${NOTE_DIR}"/||" | \
             sed -e 's/\.md$//' | \
             fzf \
               -i \
@@ -364,7 +364,7 @@ note() {
               --multi \
               --select-1 \
               --exit-0 \
-              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' ${NOTE_DIR}/{}.md" \
+              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' "${NOTE_DIR}"/{}.md" \
               --preview-window=right:80%:wrap | \
               awk -F: '{print $1}')
         fi
@@ -377,8 +377,8 @@ note() {
         if [ -z "$2" ]; then
           echo "no search string supplied"
         else
-          file=$(rg --files-with-matches --no-messages --sortr modified "$2" $NOTE_DIR | \
-            sed -e "s|${NOTE_DIR}/||" | \
+          file=$(rg --files-with-matches --no-messages --sortr modified "$2" "${NOTE_DIR}" | \
+            sed -e "s|"${NOTE_DIR}"/||" | \
             sed -e 's/\.md$//' | \
             fzf \
               -i \
@@ -386,7 +386,7 @@ note() {
               --multi \
               --select-1 \
               --exit-0 \
-              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' ${NOTE_DIR}/{}.md" \
+              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' "${NOTE_DIR}"/{}.md" \
               --preview-window=right:80%:wrap | \
               awk -F: '{print $1}')
         fi

@@ -104,6 +104,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
   Plug 'hauleth/vim-backscratch'
   Plug 'metakirby5/codi.vim'
+  Plug 'mbbill/undotree'
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
@@ -471,7 +472,6 @@ nmap <leader>pg :GFiles<CR>
 nmap <leader>ag :Ag <cword><CR>
 vmap <leader>ag :Ag <C-R><CR>
 "make commands
-nmap <leader>mr :w<CR>:!clear;python %<CR>
 nmap <leader>mk :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
 nmap <leader>mu :w<CR>:make! upload\|redraw!\|<CR>
 nmap <leader>mi :w<CR>:make! ispload\|redraw!\|<CR>
