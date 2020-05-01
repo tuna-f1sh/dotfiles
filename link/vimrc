@@ -189,7 +189,7 @@ set encoding=utf-8    " Set default encoding to UTF-8
 set autoread          " autoload external file changes
 set history=100       " keep 100 lines of command line history
 set backspace=indent,eol,start    " backspace through everything in insert mode
-set autochdir         " autochange directory
+" set autochdir         " autochange directory
 set scrolloff=1000    " center the cursor in window
 set wildmenu          " make command autocomplete easier
 set shortmess +=Ic    " remove the start up message and short messages for complete
@@ -292,7 +292,7 @@ endif
 
 if has("autocmd")
   "Auto change to current directory on open
-  autocmd! BufEnter * silent! lcd %:p:h
+  " autocmd! BufEnter * silent! lcd %:p:h
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
