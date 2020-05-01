@@ -65,3 +65,7 @@ else
 fi
 
 export TODO=$NOTE_DIR/todo.md
+
+# nnn
+export NNN_PLUG='o:fzopen;c:fzcd;d:diffs;'
+export NNN_TRASH=1
