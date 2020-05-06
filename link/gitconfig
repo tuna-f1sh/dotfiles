@@ -7,6 +7,7 @@
 	excludesfile = ~/.gitignore_global
 	editor = vim
 	trustctime = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [diff]
 	tool = vimdiff
 [merge]

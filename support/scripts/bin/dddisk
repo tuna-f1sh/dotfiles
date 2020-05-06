@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# brew install pv
+# sudo sh -c 'dd bs=1m if=$1 | pv $1 | dd bs=1m of=$2'
+
+if [[ $OSTYPE =~ "darwin" ]]; then
+  sudo gdd bs=1m if=$1 of=$2 status=progress
+else
+  sudo dd bs=1m if=$1 of=$2 status=progress
+fi
