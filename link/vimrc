@@ -189,7 +189,7 @@ set encoding=utf-8    " Set default encoding to UTF-8
 set autoread          " autoload external file changes
 set history=100       " keep 100 lines of command line history
 set backspace=indent,eol,start    " backspace through everything in insert mode
-" set autochdir         " autochange directory
+set autochdir         " autochange directory
 set scrolloff=1000    " center the cursor in window
 set wildmenu          " make command autocomplete easier
 set shortmess +=Ic    " remove the start up message and short messages for complete
@@ -226,6 +226,8 @@ else
   " project path recursively from pwd
   set path+=**
 endif
+" makefile in current dir or up one TODO use g:gitdir
+let &makeprg = 'if [ -f Makefile ]; then make -C %:p:h $*; else make -C %:p:h/.. $*; fi'
 
 "" Searching
 set hlsearch    " highlight matches
@@ -273,7 +275,7 @@ set spelllang=en_gb
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.asv
 
 " Folding
-nmap <leader>fs :set foldmethod=syntax<CR>
+nmap <leader>zs :set foldmethod=syntax<CR>
 " set foldlevelstart=10 " start folding at > 10
 set foldnestmax=1 "only 1 fold per syntax
 
@@ -291,9 +293,6 @@ endif
 " ---- AUTOCMD ----
 
 if has("autocmd")
-  "Auto change to current directory on open
-  " autocmd! BufEnter * silent! lcd %:p:h
-
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
@@ -441,8 +440,7 @@ command! W w
 " Macros
 nmap \q :nohlsearch<CR>
 nmap \l :setlocal number!<CR>:setlocal number?<CR>
-nmap \z :w<CR>:!open %<CR><CR>
-nmap \g :Gstatus<CR>
+nmap \zo :w<CR>:!open %<CR><CR>
 
 " having Ex mode start or showing me the command history
 " is a complete pain in the ass if i mistype
@@ -465,10 +463,10 @@ nmap <leader>ww :w<CR>
 nmap <leader>; :Buffers<CR>
 nmap <leader>pb :BLines<CR>
 nmap <leader>pl :Marks<CR>
-nmap <leader>pm :History<CR>
-nmap <leader>pf :Files<CR>
-nmap <leader>pt :Tags<CR>
-nmap <leader>pg :GFiles<CR>
+nmap <leader>h :History<CR>
+nmap <leader>f :Files %:p:h<CR>
+nmap <leader>t :Tags<CR>
+nmap <leader>g :GFiles<CR>
 nmap <leader>ag :Ag <cword><CR>
 vmap <leader>ag :Ag <C-R><CR>
 "make commands
