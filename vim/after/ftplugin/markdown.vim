@@ -44,3 +44,5 @@ function! PandocPdf()
   setlocal makeprg=pandoc\ %\ -f\ gfm\ -V\ linkcolor\:blue\ -V\ geometry\:a4paper\ -V\ geometry\:margin=2cm\ -V\ mainfont="Helvetica"\ -V\ monofont="Monaco"\ --pdf-engine=xelatex\ --output\ %<.pdf
   exec 'make'
 endfunction
+
+map <silent> <leader>tt :call checkbox#ToggleCB()<cr>
