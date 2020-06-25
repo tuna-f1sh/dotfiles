@@ -32,10 +32,10 @@ export TERM='xterm-256color'
 #   export PAGER=vimpager
 # fi
 
-# Toolchain patha
+# Toolchain paths
 export GOPATH="$HOME/go"
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+# export PATH="$PYENV_ROOT/bin:$PATH"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   export NOTE_DIR=~/Dropbox/Documents/notes
