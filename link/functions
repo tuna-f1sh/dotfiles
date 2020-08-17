@@ -355,7 +355,7 @@ note() {
         if [ -z "$2" ]; then
           echo "no search string supplied"
         else
-          file=$(rg --files-with-matches --no-messages --type markdown --max-depth 1 --sortr modified "$2" "${NOTE_DIR}" | \
+          file=$(rg --files-with-matches --no-messages --ignore-case --type markdown --max-depth 1 --sortr modified "$2" "${NOTE_DIR}" | \
             sed -e "s|"${NOTE_DIR}"/||" | \
             sed -e 's/\.md$//' | \
             fzf \
@@ -377,7 +377,7 @@ note() {
         if [ -z "$2" ]; then
           echo "no search string supplied"
         else
-          file=$(rg --files-with-matches --no-messages --sortr modified "$2" "${NOTE_DIR}" | \
+          file=$(rg --files-with-matches --no-messages --sortr --ignore-case modified "$2" "${NOTE_DIR}" | \
             sed -e "s|"${NOTE_DIR}"/||" | \
             sed -e 's/\.md$//' | \
             fzf \

@@ -10,3 +10,6 @@
 [submodule "support/kicad/scripting/plugins/KiBoM"]
 	path = support/kicad/scripting/plugins/KiBoM
 	url = https://github.com/SchrodingersGat/KiBoM.git
+[submodule "support/kicad/scripting/plugins/kicad_actions_plugins"]
+	path = support/kicad/scripting/plugins/kicad_actions_plugins
+	url = https://github.com/MitjaNemec/Kicad_action_plugins

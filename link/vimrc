@@ -117,7 +117,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'reedes/vim-colors-pencil'
 
   " Syntax/Filetypes
-  Plug 'lervag/vimtex'
+  Plug 'lervag/vimtex', { 'for': 'tex' }
   Plug 'pangloss/vim-javascript'
   Plug 'leafgarland/typescript-vim'
   Plug 'mxw/vim-jsx'
@@ -228,7 +228,7 @@ else
   set path+=**
 endif
 " makefile in current dir or use g:gitdir
-let &makeprg = "if [ -f Makefile ]; then make -C %:p:h $*; else make -C ".g:gitdir." $*; fi"
+let &makeprg = "if [ -f Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".g:gitdir." $*; fi"
 
 "" Searching
 set hlsearch    " highlight matches

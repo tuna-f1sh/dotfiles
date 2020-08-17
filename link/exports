@@ -50,6 +50,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # ESP32
   export ESP_TOOLCHAIN_PATH=~/esp/xtensa-esp32-elf/bin
   export IDF_PATH=~/esp/esp-idf
+  export NNN_BMS='p:~/Dropbox/Dropbox (Specialized)/Projects/;P:~/Dropbox/Dropbox (Personal)/Projects;m:/Users/john/Library/Preferences/.config/nnn/mounts'
 else
   export NOTE_DIR=~/.notes
 
@@ -69,3 +70,4 @@ export TODO=$NOTE_DIR/todo.md
 # nnn
 export NNN_PLUG='o:fzopen;c:fzcd;d:diffs;'
 export NNN_TRASH=1
+export NNN_COLORS='4231'
