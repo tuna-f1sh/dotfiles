@@ -105,7 +105,8 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'hauleth/vim-backscratch'
   Plug 'metakirby5/codi.vim'
   Plug 'mbbill/undotree'
-  Plug 'rust-lang/rust.vim'
+  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+  Plug 'timonv/vim-cargo', { 'for' : 'rust' }
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
@@ -190,7 +191,7 @@ set encoding=utf-8    " Set default encoding to UTF-8
 set autoread          " autoload external file changes
 set history=100       " keep 100 lines of command line history
 set backspace=indent,eol,start    " backspace through everything in insert mode
-set autochdir         " autochange directory
+" set autochdir         " autochange directory
 set scrolloff=1000    " center the cursor in window
 set wildmenu          " make command autocomplete easier
 set shortmess +=Ic    " remove the start up message and short messages for complete
