@@ -191,7 +191,7 @@ set encoding=utf-8    " Set default encoding to UTF-8
 set autoread          " autoload external file changes
 set history=100       " keep 100 lines of command line history
 set backspace=indent,eol,start    " backspace through everything in insert mode
-" set autochdir         " autochange directory
+set autochdir         " autochange directory
 set scrolloff=1000    " center the cursor in window
 set wildmenu          " make command autocomplete easier
 set shortmess +=Ic    " remove the start up message and short messages for complete
@@ -330,6 +330,7 @@ let g:coc_global_extensions = [
 \   'coc-tag',
 \   'coc-emoji',
 \   'coc-css',
+\   'coc-rls',
 \   'coc-snippets']
 
 " ---- ALE ----
