@@ -86,7 +86,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': 'CocStart'}
-  Plug 'kkoomen/vim-doge'
+  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
   Plug 'mpjuers/showcontext'
   Plug 'itchyny/lightline.vim'
   Plug 'majutsushi/tagbar' " Function preview window
@@ -191,8 +191,8 @@ set encoding=utf-8    " Set default encoding to UTF-8
 set autoread          " autoload external file changes
 set history=100       " keep 100 lines of command line history
 set backspace=indent,eol,start    " backspace through everything in insert mode
-set autochdir         " autochange directory
-set scrolloff=1000    " center the cursor in window
+" set autochdir         " autochange directory
+set scrolloff=1000    " center the cursor in window (breaks FZF at the momnent)
 set wildmenu          " make command autocomplete easier
 set shortmess +=Ic    " remove the start up message and short messages for complete
 set splitbelow        " split below current buffer
@@ -316,6 +316,11 @@ elseif executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
 endif
+
+" bottom of the screen not pop-up for FZF
+let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
 
 " ---- COC ----
 "==============
