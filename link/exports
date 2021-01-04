@@ -50,7 +50,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # ESP32
   export ESP_TOOLCHAIN_PATH=~/esp/xtensa-esp32-elf/bin
   export IDF_PATH=~/esp/esp-idf
-  export NNN_BMS='p:~/Dropbox/Dropbox (Specialized)/Projects/;P:~/Dropbox/Dropbox (Personal)/Projects;m:/Users/john/Library/Preferences/.config/nnn/mounts'
+  export NNN_BMS='p:~/Dropbox/Dropbox (Specialized)/Projects/;P:~/Dropbox/Dropbox (Personal)/Projects;m:/Users/john/Library/Preferences/.config/nnn/mounts;n:~/Dropbox/Dropbox (Personal)/Documents/notes'
 else
   export NOTE_DIR=~/.notes
 

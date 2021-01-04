@@ -82,7 +82,7 @@ call plug#begin(plug_path)
 
 " host specific allow lightweight deployment by default
 if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'JohnsEpcBookEvo') || (g:HOST =~# 'Waffer')
-  Plug 'w0rp/ale', { 'on':  'ALEEnable' }
+  Plug 'dense-analysis/ale', { 'on':  'ALEEnable' }
   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': 'CocStart'}
@@ -99,7 +99,6 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
   Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
   Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
-  " Plug 'ivanov/vim-ipython', { 'for' : 'python' }
   Plug 'jpalardy/vim-slime', { 'for': 'python' }
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
   Plug 'hauleth/vim-backscratch'
@@ -107,6 +106,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'mbbill/undotree'
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'timonv/vim-cargo', { 'for' : 'rust' }
+  " Plug 'voldikss/vim-floaterm'
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
@@ -116,6 +116,8 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'yuttie/hydrangea-vim'
   Plug 'Lokaltog/vim-monotone'
   Plug 'reedes/vim-colors-pencil'
+  Plug 'jsit/toast.vim'
+  Plug 'aonemd/kuroi.vim'
 
   " Syntax/Filetypes
   Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -327,12 +329,13 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " coc disabled by default and will be loaded on ftdetect for file types I want
 " using my plugin/coc_control.vim
+" \   'coc-pyright',
 let g:coc_global_extensions = [
 \   'coc-json',
 \   'coc-tsserver',
 \   'coc-prettier',
-\   'coc-python',
 \   'coc-tag',
+\   'coc-python',
 \   'coc-emoji',
 \   'coc-css',
 \   'coc-rls',
@@ -342,14 +345,14 @@ let g:coc_global_extensions = [
 "==============
 
 let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_save = 1
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_save = 1
 " let g:ale_open_list = 0
 
 " " Disable linters for C/C++ and specify others
 let g:ale_linters = {
 \   'javascript': ['eslint', 'tsserver'],
-\   'python': ['pylint'],
+\   'python': ['pylint', 'flake8'],
 \   'cpp': ['cppcheck'],
 \   'c': ['cppcheck'],
 \}
@@ -363,11 +366,18 @@ let g:slime_python_ipython = 1
 
 " always send text to the top-right pane in the current tmux tab without asking
 " Use '##' to define cells instead of using marks
-let g:ipython_cell_delimit_cells_by = 'tags'
 let g:slime_default_config = {
             \ 'socket_name': get(split($TMUX, ','), 0),
             \ 'target_pane': '{top-right}' }
 let g:slime_dont_ask_default = 1
+
+" ---- FLOATERM ----
+"==============
+
+" let g:floaterm_keymap_new    = '<F7>'
+" let g:floaterm_keymap_prev   = '<F8>'
+" let g:floaterm_keymap_next   = '<F9>'
+" let g:floaterm_keymap_toggle = '<F10>'
 
 " ---- AIRLINE / LIGHTLINE ----
 " =================
