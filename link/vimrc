@@ -442,7 +442,6 @@ command! W w
 
 " Macros
 nmap \q :nohlsearch<CR>
-nmap \l :setlocal number!<CR>:setlocal number?<CR>
 nmap \zo :w<CR>:!open %<CR><CR>
 
 " having Ex mode start or showing me the command history
