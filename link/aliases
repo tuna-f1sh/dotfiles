@@ -46,6 +46,9 @@ alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
+# kicad hide references
+alias kicad_hide="sed -i -E g/(fp_text reference...*)...*...)$/ s/$/ hide/g"
+
 if [[ $OSTYPE =~ "darwin" ]]; then
   # Merge PDF files
   # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
@@ -67,6 +70,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias ftx_load='sudo kextload -b com.apple.driver.AppleUSBFTDI'
   alias ftx_unload='sudo kextunload -b com.apple.driver.AppleUSBFTDI'
   alias nosleep='pmset noidle'
+
+  alias update='brew upgrade && brew update'
 else
   alias reboot="sudo systemctl reboot"
   alias poweroff="sudo systemctl poweroff"

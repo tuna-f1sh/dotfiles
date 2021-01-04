@@ -516,3 +516,12 @@ else
   date -d @$1 +'%d-%m-%Y %H:%M:%S%z (%Z)'
 fi
 }
+
+# requires ffmpeg and gifsicle
+video2gif() {
+  input="$1"
+  frame_rate=${2:-10}
+  optimize_level=${3:-3}
+  fit=${4:-1280x720}
+  ffmpeg -i ${input} -pix_fmt rgb8 -r $frame_rate ${input%%.*}.gif && gifsicle -O$optimize_level --resize-fit $fit ${input%%.*}.gif --output ${input%%.*}.gif
+}
