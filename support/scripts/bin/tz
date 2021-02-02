@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+  TZ='America/Los_Angeles' gdate
+  TZ='US/Central' gdate
+  TZ='US/Eastern' gdate
+else
+  TZ='America/Los_Angeles' gdate -d "$1"
+  TZ='US/Central' gdate -d "$1"
+  TZ='US/Eastern' gdate -d "$1"
+fi
