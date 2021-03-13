@@ -220,18 +220,12 @@ if v:version >= 810
   set complete+=popup
 endif
 
-" CTAGS location search TODO change on buffer switch
-let g:gitdir=fnameescape(substitute(system("git rev-parse --show-toplevel 2>&1 | ag -v fatal:"),'\n','','g'))
+" custom git.vim plugin will attempt to setup git project on buffer read using Fugitive and add tags,path
 set tags=.git/tags,.tags,tags,./tags;
-if  g:gitdir != '' && isdirectory(g:gitdir) && index(split(&path, ","),g:gitdir) < 0
-  exec "set tags^=".g:gitdir."/.git/tags"
-  exec "set path+=".g:gitdir."/**"
-else
-  " project path recursively from pwd
-  set path+=**
-endif
-" makefile in current dir or use g:gitdir
-let &makeprg = "if [ -f Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".g:gitdir." $*; fi"
+" project path recursively from pwd
+set path+=**
+" makefile tries to find Makefile
+let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never; fi"
 
 "" Searching
 set hlsearch    " highlight matches

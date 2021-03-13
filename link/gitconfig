@@ -31,3 +31,5 @@
   cmd = vim -f -c "Gdiff" $LOCAL $REMOTE
 [mergetool "vimmerge-fugitive"]
   cmd = vim -f -c "Gdiff" "$MERGED"
+[mergetool]
+	keepBackup = false
