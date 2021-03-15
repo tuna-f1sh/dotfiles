@@ -16,7 +16,6 @@ endfunction
 function! SetupGitProject()
   " should get cached git directory
   if g:loaded_fugitive
-    let dir = ''
     let dir = FugitiveGitDir()
     if !empty(dir)
       exec "setlocal tags^=".dir."/tags"
@@ -30,8 +29,9 @@ endfunction
 command! -nargs=0 -complete=command SetGitDir :call SetupGitProject()
 
 function! SetupGitMakeprg()
-  if !empty(b:git_dir)
-    let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".b:git_dir."/../ $*; fi"
+  let dir = FugitiveGitDir()
+  if !empty(dir)
+    let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".dir."/../ $*; fi"
   endif
 endfunction
 
