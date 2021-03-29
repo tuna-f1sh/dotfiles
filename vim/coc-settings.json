@@ -1,5 +1,6 @@
 {
   "python.venvPath": "/Users/john/Library/virtualenvs",
   "python.formatting.provider": "black",
+  "python.linting.pylintEnabled": true,
   "python.jediEnabled": false
 }

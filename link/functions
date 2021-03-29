@@ -525,3 +525,10 @@ video2gif() {
   fit=${4:-1280x720}
   ffmpeg -i ${input} -pix_fmt rgb8 -r $frame_rate ${input%%.*}.gif && gifsicle -O$optimize_level --resize-fit $fit ${input%%.*}.gif --output ${input%%.*}.gif
 }
+
+# switch OpenJDK version: https://github.com/AdoptOpenJDK/homebrew-openjdk
+jdk() {
+  version=$1
+  export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
+  java -version
+ }

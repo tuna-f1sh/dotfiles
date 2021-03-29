@@ -20,6 +20,7 @@ function! SetupGitProject()
     if !empty(dir)
       exec "setlocal tags^=".dir."/tags"
       exec "setlocal path+=".dir."/../**"
+      exec "setlocal path-=**"
       " let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".dir."/../ $*; fi"
     endif
   endif

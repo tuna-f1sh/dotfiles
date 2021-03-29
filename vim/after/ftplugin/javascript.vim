@@ -4,8 +4,12 @@ let b:dispatch='node %'
 setlocal include=^\\s*[^\/]\\+\\(from\\\|require(['\"]\\)
 setlocal define=^\\s*\\(function\\\|var\\\|define\\)[('\"]\\{-\\}
 
-setlocal path+=$PWD/node_modules
-setlocal complete+=i
+" add node_mouldes in current path to search (now done by git dir)
+" setlocal path+=$PWD/node_modules
+" ignore node_modules from search but also drops support from gf
+" setlocal wildignore+=**/node_modules/**
+" remove path search for complete is better as can still gf to node_module
+setlocal complete-=i
 
 " Fix files with prettier, and then ESLint.
 let b:ale_fixers = ['prettier', 'eslint']

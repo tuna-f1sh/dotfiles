@@ -323,13 +323,12 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " coc disabled by default and will be loaded on ftdetect for file types I want
 " using my plugin/coc_control.vim
-" \   'coc-pyright',
 let g:coc_global_extensions = [
 \   'coc-json',
 \   'coc-tsserver',
 \   'coc-prettier',
 \   'coc-tag',
-\   'coc-python',
+\   'coc-pyright',
 \   'coc-emoji',
 \   'coc-css',
 \   'coc-rls',
@@ -372,6 +371,11 @@ let g:slime_dont_ask_default = 1
 " let g:floaterm_keymap_prev   = '<F8>'
 " let g:floaterm_keymap_next   = '<F9>'
 " let g:floaterm_keymap_toggle = '<F10>'
+
+" ---- DOGE ----
+"==============
+
+let g:doge_doc_standard_python = 'google'
 
 " ---- AIRLINE / LIGHTLINE ----
 " =================
