@@ -95,7 +95,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'junegunn/goyo.vim' " Frame window for writting
   Plug 'junegunn/limelight.vim' " Highlight only current paragraph for writting
   Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
-  Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
+  " Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
   Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
   Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
@@ -103,7 +103,8 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
   Plug 'hauleth/vim-backscratch'
   Plug 'metakirby5/codi.vim'
-  Plug 'mbbill/undotree'
+  " Plug 'mbbill/undotree'
+  Plug 'simnalamburt/vim-mundo'
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'timonv/vim-cargo', { 'for' : 'rust' }
   " Plug 'voldikss/vim-floaterm'
@@ -176,14 +177,14 @@ if has("patch-8.1.0360")
 endif
 
 " Use base16 theme if set in shell and not over SSH
-if (empty($SSH_CONNECTION))
-  if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'JohnsEpcBookEvo') || (g:HOST =~# 'Waffer')
-    if filereadable(expand("~/.vimrc_background"))
-      let base16colorspace=256
-      source ~/.vimrc_background
-    endif
-  endif
-endif
+" if (empty($SSH_CONNECTION))
+"   if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'JohnsEpcBookEvo') || (g:HOST =~# 'Waffer')
+"     if filereadable(expand("~/.vimrc_background"))
+"       let base16colorspace=256
+"       source ~/.vimrc_background
+"     endif
+"   endif
+" endif
 
 " --- GENERAL SETTINGS ---
 
@@ -375,7 +376,7 @@ let g:slime_dont_ask_default = 1
 " ---- DOGE ----
 "==============
 
-let g:doge_doc_standard_python = 'google'
+" let g:doge_doc_standard_python = 'google'
 
 " ---- AIRLINE / LIGHTLINE ----
 " =================
@@ -427,18 +428,18 @@ let g:tagbar_type_arduino = {
 "======================================
 
 " Write all buffers before navigating from Vim to tmux pane
-let g:tmux_navigator_save_on_switch = 1
-let g:tmux_navigator_no_mappings = 1
-let g:tmux_navigator_disable_when_zoomed = 1
+" let g:tmux_navigator_save_on_switch = 1
+" let g:tmux_navigator_no_mappings = 1
+" let g:tmux_navigator_disable_when_zoomed = 1
 
 " nnoremap <silent> <c-a><c-h> :TmuxNavigateLeft<cr>
 " nnoremap <silent> <c-a><c-j> :TmuxNavigateDown<cr>
 " nnoremap <silent> <c-a><c-k> :TmuxNavigateUp<cr>
 " nnoremap <silent> <c-a><c-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <c-w>h :TmuxNavigateLeft<cr>
-nnoremap <silent> <c-w>j :TmuxNavigateDown<cr>
-nnoremap <silent> <c-w>k :TmuxNavigateUp<cr>
-nnoremap <silent> <c-w>l :TmuxNavigateRight<cr>
+" nnoremap <silent> <c-w>h :TmuxNavigateLeft<cr>
+" nnoremap <silent> <c-w>j :TmuxNavigateDown<cr>
+" nnoremap <silent> <c-w>k :TmuxNavigateUp<cr>
+" nnoremap <silent> <c-w>l :TmuxNavigateRight<cr>
 
 " ---- GIT ----
 "==============
@@ -496,7 +497,7 @@ nnoremap <C-x> <C-x>
 vnoremap . :normal .<CR> " last command
 vnoremap ` :normal @a<CR> " last register
 " UndoTree
-nmap <leader>tt :UndotreeToggle<cr>
+nmap <leader>tt :MundoToggle<cr>
 
 " Window manipulation
 " swap to previous buffer, delete current
