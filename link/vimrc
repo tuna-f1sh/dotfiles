@@ -483,8 +483,9 @@ nmap <leader>h :History<CR>
 nmap <leader>f :Files %:p:h<CR>
 nmap <leader>t :Tags<CR>
 nmap <leader>g :GFiles<CR>
-nmap <leader>ag :Ag <cword><CR>
-vmap <leader>ag :Ag <C-R><CR>
+" search under cursor
+nnoremap <leader>// :Ag<space><C-r><C-w><CR>
+vnoremap // y:Ag<space><C-R>"<CR>
 "make commands
 nmap <leader>mk :w<CR>:silent make!<CR>:\|redraw!\|cw<CR>
 nmap <leader>mu :w<CR>:make! upload\|redraw!\|<CR>
