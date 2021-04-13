@@ -8,7 +8,6 @@ antigen bundle z
 antigen bundle vi-mode
 antigen bundle virtualenv
 antigen bundle emoji
-antigen bundle urbainvaes/fzf-marks
 
 antigen theme romkatv/powerlevel10k
 
