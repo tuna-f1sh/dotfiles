@@ -51,6 +51,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export ESP_TOOLCHAIN_PATH=~/esp/xtensa-esp32-elf/bin
   export IDF_PATH=~/esp/esp-idf
   export NNN_BMS='p:~/Dropbox/Dropbox (Specialized)/Projects/;P:~/Dropbox/Dropbox (Personal)/Projects;m:/Users/john/Library/Preferences/.config/nnn/mounts;n:~/Dropbox/Dropbox (Personal)/Documents/notes'
+
+  # ruby env
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 else
   export NOTE_DIR=~/.notes
 
@@ -63,9 +66,6 @@ else
   export ESP_TOOLCHAIN_PATH=/opt/esp/xtensa-esp32-elf/bin
   export IDF_PATH=/opt/esp/esp-idf
   # export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH" # set using get_esp32 alias
-
-  # ruby env
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 fi
 
 export TODO=$NOTE_DIR/todo.md
