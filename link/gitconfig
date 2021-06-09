@@ -1,35 +1,68 @@
 [user]
-	name = John Whittington
-	email = git@jbrengineering.co.uk
+  name = John Whittington
+  email = git@jbrengineering.co.uk
+
 [push]
-	default = simple
+  default = simple
+
 [core]
-	excludesfile = ~/.gitignore_global
-	editor = vim
-	trustctime = false
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  excludesfile = ~/.gitignore_global
+  editor = vim
+  trustctime = false
+
 [diff]
-	tool = vimdiff
+  tool = vimdiff
+
 [merge]
-	tool = vimdiff
+  tool = vimdiff
+
 [init]
-	templatedir = ~/dotfiles/support/git_template
+  templatedir = ~/dotfiles/support/git_template
+
 [alias]
-	ctags = !.git/hooks/ctags
-	root = rev-parse --show-toplevel
-	ignore = "!gi() { curl -sL https://www.gitignore.io/api/$@ ;}; gi"
-	s = status -sb
-	p = push
-	cam = commit -am
+  ctags = !.git/hooks/ctags
+  root = rev-parse --show-toplevel
+  ignore = "!gi() { curl -sL https://www.gitignore.io/api/$@ ;}; gi"
+  s = status -sb
+  p = push
+  cam = commit -am
   ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
   lg = log --date-order --all --graph --format="%C(green)%h%Creset\\ %C(yellow)%an%Creset\\%C(blue)%ar%Creset\\ %C(red)%d%Creset%s"
-	d = diff --patience --minimal
+  d = diff --patience --minimal
+
 [difftool "vimdiff-raw"]
   cmd = vim -d $LOCAL $REMOTE
+
 [difftool "vimdiff-fugitive"]
   cmd = vim -f -c "Gdiff" $LOCAL $REMOTE
+
 [mergetool "vimmerge-fugitive"]
   cmd = vim -f -c "Gdiff" "$MERGED"
+
 [mergetool]
-	keepBackup = false
+  keepBackup = false
+
+[pull]
+  rebase = false
+
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  diff-so-fancy = false
+  side-by-side = true
+  features = line-numbers decorations
+  whitespace-error-style = 22 reverse
+  syntax-theme = Monokai Extended
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none

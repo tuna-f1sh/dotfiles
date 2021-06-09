@@ -3,7 +3,37 @@ snippet fmatter "front matter"
 title: $1
 date: ${2:`date +%Y/%m/%d`}
 tags: $3
+layout: ${4:post}
 ---
 
 $0
+endsnippet
+
+snippet link "link now" i
+[${1:VISUAL Text}](${3:http://${2:www.url.com}} ${4:"$1"})$0
+endsnippet
+
+snippet link "link later" i
+[${1:VISUAL Text}][${2:$1}]$0
+[$2]:   "link address" ${3"$1"}
+endsnippet
+
+snippet eq "inline equation" i
+\\\\(${1:a^2 \\\\log}\\\\)$0
+endsnippet
+
+snippet eq "display Equation" i
+$$${1:a^2}$$
+endsnippet
+
+snippet bimg "html image"
+<div class="box">
+	<img src="${1:path}" alt="${2:AlterText}" width="${3:400}"/>
+</div>
+endsnippet
+
+snippet byoutube "youtube iframe"
+<div class="box">
+	<iframe width="${1:560}" height="${2:315}" src="https://www.youtube.com/embed/${3:id} frameborder="0" allowfullscreen"></iframe>
+</div>
 endsnippet

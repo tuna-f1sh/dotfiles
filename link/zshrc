@@ -40,6 +40,11 @@ bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^e' forward-word
 bindkey '^l' forward-char
+# edit line
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^x^e" edit-command-line
+bindkey -M vicmd " " edit-command-line
 
 # bash complete
 autoload bashcompinit
@@ -106,6 +111,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# ruby env
+eval "$(rbenv init -)"
 # if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 #   exec tmux new-session -A -s main
 # fi
