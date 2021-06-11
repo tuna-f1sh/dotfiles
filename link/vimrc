@@ -131,7 +131,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'darfink/vim-plist'
 endif
 
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF supporting functions install for vim
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF supporting functions install for vim
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
 Plug 'tpope/vim-commentary' " easy comment stuff
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
@@ -210,6 +210,8 @@ set cursorline "highlight current line (slow in term)
 " set cursorcolumn " slow performance
 " always show signcolumns
 set signcolumn=yes
+" set timeoutlen=1000 " 1 second for mapped combos
+set ttimeoutlen=50
 
 " command complete settings
 set wildmenu " make command autocomplete easier
