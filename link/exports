@@ -6,7 +6,9 @@ export EDITOR=vim
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export PIPENV_VENV_IN_PROJECT=1 
-export HISTCONTROL=ignoreboth:erasedups
+export HISTCONTROL=ignoreboth:erasedups:ignorespace
+export HISTIGNORE="pass*:bw*:subkey*:*password*"
+export HISTORY_IGNORE="(pass|bw|subkey)"
 
 # Language
 if [ -z $LANG ]; then
