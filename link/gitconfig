@@ -1,6 +1,7 @@
 [user]
   name = John Whittington
   email = git@jbrengineering.co.uk
+  signingkey = A272C63E513A33DD
 
 [push]
   default = simple
