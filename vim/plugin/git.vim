@@ -1,6 +1,8 @@
+" only load if fugitive plugin installed and script not already run
 if exists('g:loaded_git')
   finish
 endif
+
 let g:loaded_git = 1
 
 function! Gitdir()
@@ -15,13 +17,15 @@ endfunction
 
 function! SetupGitProject()
   " should get cached git directory
-  if g:loaded_fugitive
-    let dir = escape(FugitiveGitDir(), ' ')
-    if !empty(dir)
-      exec "setlocal tags^=".dir."/tags"
-      exec "setlocal path+=".dir."/../**"
-      exec "setlocal path-=**"
-      " let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".dir."/../ $*; fi"
+  if exists('g:loaded_fugitive')
+    if g:loaded_fugitive
+      let dir = escape(FugitiveGitDir(), ' ')
+      if !empty(dir)
+        exec "setlocal tags^=".dir."/tags"
+        exec "setlocal path+=".dir."/../**"
+        exec "setlocal path-=**"
+        " let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".dir."/../ $*; fi"
+      endif
     endif
   endif
 endfunction
@@ -30,14 +34,18 @@ endfunction
 command! -nargs=0 -complete=command SetGitDir :call SetupGitProject()
 
 function! SetupGitMakeprg()
-  let dir = FugitiveGitDir()
-  if !empty(dir)
-    let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".escape(dir, ' ')."/../ $*; fi"
+  if exists('g:loaded_fugitive')
+    if g:loaded_fugitive
+      let dir = FugitiveGitDir()
+      if !empty(dir)
+        let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".escape(dir, ' ')."/../ $*; fi"
+      endif
+    endif
   endif
 endfunction
 
 
 augroup git
-  autocmd BufNewFile,BufReadPost * if g:loaded_fugitive | call SetupGitProject() | endif
-  autocmd BufNewFile,BufReadPost *.c,*.h,*.cpp,*.ino if g:loaded_fugitive | call SetupGitMakeprg() | endif
+  autocmd BufNewFile,BufReadPost * if exists('g:loaded_fugitive') | call SetupGitProject() | endif
+  autocmd BufNewFile,BufReadPost *.c,*.h,*.cpp,*.ino if exists('g:loaded_fugitive') | call SetupGitMakeprg() | endif
 augroup END

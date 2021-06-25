@@ -1,11 +1,11 @@
-export LANG="en_GB.UTF-8"
-export LC_COLLATE="C"
-export LC_CTYPE="UTF-8"
-export LC_MESSAGES="C"
-export LC_MONETARY="C"
-export LC_NUMERIC="C"
-export LC_TIME="C"
-export LC_ALL=$LANG
+# export LANG="en_GB.UTF-8"
+# export LC_COLLATE="C"
+# export LC_CTYPE="UTF-8"
+# export LC_MESSAGES="C"
+# export LC_MONETARY="C"
+# export LC_NUMERIC="C"
+# export LC_TIME="C"
+# export LC_ALL=$LANG
 
 # p10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
