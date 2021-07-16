@@ -26,8 +26,7 @@ function! SetupGitProject()
   endif
 endfunction
 
-" command! -nargs=0 -complete=command GitDir :call Gitdir()
-command! -nargs=0 -complete=command SetGitDir :call SetupGitProject()
+command! -nargs=? -complete=command SetGitDir :call SetupGitProject()
 
 function! SetupGitMakeprg()
   let dir = FugitiveGitDir()

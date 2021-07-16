@@ -8,4 +8,4 @@ function! StripTrailingWhitespace()
   endif
 endfunction
 
-command! -nargs=0 -complete=command StripTrailingWhitespace :call StripTrailingWhitespace()
+command! -nargs=? -complete=command StripTrailingWhitespace :call StripTrailingWhitespace()

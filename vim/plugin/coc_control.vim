@@ -10,7 +10,7 @@ function! CocSetup()
   command! -nargs=0 Format :call CocAction('format')
 
   " Use `:Fold` to fold current buffer
-  command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+  command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
   if exists(':CocStart')
     CocStart
@@ -100,4 +100,4 @@ function! CocSetup()
   endif
 endfunction
 
-command! -nargs=0 -complete=command CocSetup :call CocSetup()
+command! -nargs=? -complete=command CocSetup :call CocSetup()
