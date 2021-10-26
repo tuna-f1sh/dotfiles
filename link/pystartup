@@ -16,3 +16,8 @@ if os.path.exists(historyPath):
 
 atexit.register(save_history)
 del os, atexit, readline, rlcompleter, save_history, historyPath
+
+import logging
+
+for lib in ("asyncio", "parso"):
+    logging.getLogger(lib).setLevel(logging.WARNING)
