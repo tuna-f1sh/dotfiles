@@ -13,6 +13,8 @@ alias l=$ls_bin' -lGF'                              #
 alias cdls='dirs -v'
 # git with global aliases in config
 alias g='git'
+# exit quick
+alias q='exit'
 
 # Default to human readable figures
 alias df='df -h'
