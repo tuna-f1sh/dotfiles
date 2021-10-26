@@ -1,5 +1,5 @@
-function! FormatJSON()
-  :%!python -m json.tool
-endfunction
+" function! FormatJSON()
+"   :%!python -m json.tool
+" endfunction
 
-command! -nargs=0 -complete=command FormatJSON :call FormatJSON()
+" command! -nargs=0 -complete=command FormatJSON :call FormatJSON()

@@ -174,7 +174,7 @@ if &t_Co > 2
 endif
 
 if has("patch-8.1.0360")
-    set diffopt+=internal,algorithm:patience
+    set diffopt+=iwhite,internal,algorithm:patience
 endif
 
 " Use base16 theme if set in shell and not over SSH
