@@ -1,5 +1,9 @@
 #!/bin/bash
-set -e
+
+if [[ $EUID -ne 0 ]]; then
+   echo "Must be run as root"
+   exit 1
+fi
 
 if [ "$#" -ne 2 ]; then
     echo "Usage: create_can LINK BIT_RATE"
@@ -9,25 +13,35 @@ fi
 link=$1
 bitrate=$2
 
+cmd=$(ip link show $link 2>&1)
+nexists=$(echo $cmd | grep -c 'does not exist')
+
 if [[ "$link" == vcan* ]]; then
-  if $(sudo ip link show dev $link | grep -q 'does not exist'); then
-    echo $link link already up
+  if [[ $nexists -gt 0 ]]; then
+    ip link add dev $link type vcan
+    ip link set up $link
+    echo $(ip link show $link)
   else
-    ip link add dev vcan0 type vcan
-    ip link set up vcan0
+    echo $link link already up
   fi
 else
-  if $(sudo ip link show dev $link | grep -q 'DOWN'); then
+  if [[ $nexists -gt 0 ]]; then
+    echo Abort as device for $link does not exist
+    exit 1
+  elif $(echo $cmd | grep -q 'DOWN'); then
     echo Creating "$link" link @ $bitrate b/s
     ip link set $link type can bitrate $bitrate restart-ms 100
     ip link set down $link
     ip link set up $link
-  elif $(sudo ip link show dev $link | grep -q 'UP'); then
+    exit 0
+  elif $(echo $cmd | grep -q 'UP'); then
     echo $link link already up
+    exit 0
+  # anything else bring it up and down
   else
     echo Restarting CAN link $link
-    # anything else bring it up and down
     ip link set down $link
     ip link set up $link
+    exit 0
   fi
 fi
