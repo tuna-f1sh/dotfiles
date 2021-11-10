@@ -33,22 +33,24 @@ plugins=(
   zsh-users/zsh-autosuggestions
   zsh-users/zsh-history-substring-search
   zsh-users/zsh-completions
+  zsh-users/zsh-syntax-highlighting
 
   # user plugins
   rupa/z
-  jeffreytse/zsh-vi-mode
+  # jeffreytse/zsh-vi-mode
   # zdharma-continuum/fast-syntax-highlighting
 
   # prompts
   romkatv/powerlevel10k
-
-  # load this one last
-  zsh-users/zsh-syntax-highlighting
 )
 
 # load complete defs
 autoload -Uz compinit
 compinit
+
+# bash complete
+autoload bashcompinit
+bashcompinit
 
 # clone, source, and add to fpath
 for repo in $plugins; do
@@ -76,24 +78,24 @@ zle -N edit-command-line
 bindkey "^x^e" edit-command-line
 bindkey -M vicmd " " edit-command-line
 
-# bash complete
-autoload bashcompinit
-bashcompinit
-
 #========
-# OPTS
+# ZSH OPTS
 #========
 
 # don't save duplicate commands
 setopt HIST_SAVE_NO_DUPS
+setopt HIST_FIND_NO_DUPS
 # don't verify history expansions (can just do it with tab)
 setopt NO_HIST_VERIFY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
-setopt HIST_FIND_NO_DUPS
-setopt HIST_SAVE_NO_DUPS
+#append into history file
+setopt INC_APPEND_HISTORY
+# timestamp
+setopt EXTENDED_HISTORY
+
 export ZVM_CURSOR_STYLE_ENABLED=false
 
 #========
