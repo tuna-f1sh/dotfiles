@@ -20,11 +20,41 @@ fi
 #         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 if [[ -z $RELOADING ]]; then
-  source $HOME/dotfiles/antigen/antigen.zsh
-  source ~/.antigenrc
-  antigen init ~/.antigenrc
-  export ANTIGENRC_LOADED=true
+  source $HOME/dotfiles/support/plugin-loader.zsh
+  export PLUGINS_LOADED=true
 fi
+
+# where should we store your Zsh plugins?
+ZPLUGINDIR=$HOME/.zsh/plugins
+
+# add your plugins to this list
+plugins=(
+  # core plugins
+  zsh-users/zsh-autosuggestions
+  zsh-users/zsh-history-substring-search
+  zsh-users/zsh-completions
+
+  # user plugins
+  rupa/z
+  jeffreytse/zsh-vi-mode
+  # zdharma-continuum/fast-syntax-highlighting
+
+  # prompts
+  romkatv/powerlevel10k
+
+  # load this one last
+  zsh-users/zsh-syntax-highlighting
+)
+
+# load complete defs
+autoload -Uz compinit
+compinit
+
+# clone, source, and add to fpath
+for repo in $plugins; do
+  plugin-load https://github.com/${repo}.git
+done
+unset repo
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
@@ -64,6 +94,7 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
+export ZVM_CURSOR_STYLE_ENABLED=false
 
 #========
 # ALIASES
@@ -84,7 +115,7 @@ if [[ $WSL ]]; then
   source ~/.wsl
 fi
 # disable man highlight https://github.com/zdharma/fast-syntax-highlighting/issues/135
-export FAST_HIGHLIGHT[whatis_chroma_type]=0
+# export FAST_HIGHLIGHT[whatis_chroma_type]=0
 
 #========
 # PROMPT
