@@ -118,3 +118,8 @@ fi
 # if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 #   exec tmux new-session -A -s main
 # fi
+
+# keychain for ssh agent on linux
+if type keychain &>/dev/null; then
+  eval $(keychain --noask --nogui --eval --quiet id_ed25519 id_rsa)
+fi

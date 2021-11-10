@@ -5,6 +5,18 @@ set history expansion on
 
 # enabled perf access
 set mem inaccessible-by-default off
+add-auto-load-safe-path /home/john/Projects/sbc/dayton-hmi/tcu2_st/.gdbinit
+# set auto-load safe-path .
+
+define xxd
+  dump binary memory /tmp/dump.bin $arg0 ((char *)$arg0)+$arg1
+  shell xxd /tmp/dump.bin
+end
+document xxd
+  Runs xxd on a memory ADDR and LENGTH
+
+  xxd ADDR LENTH
+end
 
 python
 # Update GDB's Python paths with the `sys.path` values of the local
@@ -17,4 +29,5 @@ import os,subprocess,sys
 paths = subprocess.check_output('python -c "import os,sys;print(os.linesep.join(sys.path).strip())"',shell=True).decode("utf-8").split()
 # Extend GDB's Python's search path
 sys.path.extend(paths)
+
 end
