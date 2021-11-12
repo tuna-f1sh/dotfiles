@@ -44,6 +44,19 @@ plugins=(
   romkatv/powerlevel10k
 )
 
+# https://thevaluable.dev/zsh-completion-guide-examples/
+zstyle ':completion:*' file-list all # list with all info
+zstyle ':completion:*' file-sort change # sort by time changed (last is first selected)
+zstyle ':completion:*' menu select=4 # show selection menu
+
+if [[ $OSTYPE =~ "darwin" ]]; then
+  zstyle ':completion:*' \
+         list-colors 'exfxcxdxbxegedabagacad'
+else
+  zstyle ':completion:*' \
+         list-colors ${(s.:.)LS_COLORS}
+fi
+
 # load complete defs
 autoload -Uz compinit
 compinit
@@ -77,6 +90,13 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^x^e" edit-command-line
 bindkey -M vicmd " " edit-command-line
+# menu settings for completion
+zmodload zsh/complist
+bindkey -M menuselect '^xi' vi-insert
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
 
 #========
 # ZSH OPTS
