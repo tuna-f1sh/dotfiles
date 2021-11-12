@@ -9,8 +9,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export XDG_CONFIG_HOME=~/Library/Preferences
   export XDG_DATA_HOME=~/Library
   export XDG_CACHE_HOME=~/Library/Caches
-  # fixes pipenv clang install error
-  export SYSTEM_VERSION_COMPAT=1
+  # fixes pipenv clang install error (but reports invalid os version; breaks xcode tools etc)
+  # export SYSTEM_VERSION_COMPAT=1
+  export SYSTEM_VERSION_COMPAT=0
 else
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=/home/${USER}/.config}
   export XDG_DATA_HOME=${XDG_CONFIG_HOME:=/home/${USER}/.data}
