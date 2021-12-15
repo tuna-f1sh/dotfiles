@@ -74,6 +74,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias nosleep='pmset noidle'
 
   alias update='brew upgrade && brew update'
+  alias speedtest-macos='networkQuality'
+  alias fit2csv='java -jar ~/FitSDKRelease/java/FitCSVTool.jar'
 else
   alias reboot="sudo systemctl reboot"
   alias poweroff="sudo systemctl poweroff"
@@ -81,4 +83,7 @@ else
 fi
 
 # ESP32
-alias get_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'
+alias env_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'
+
+# Flutter
+alias env_flutter='export PATH="$PATH:$HOME/flutter/flutter/bin"'
