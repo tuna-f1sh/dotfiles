@@ -174,5 +174,5 @@ fi
 
 # keychain for ssh agent on linux
 if type keychain &>/dev/null; then
-  eval $(keychain --noask --nogui --eval --quiet id_ed25519 id_rsa)
+  eval $(keychain --nogui --eval --quiet id_ed25519 id_rsa)
 fi
