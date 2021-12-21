@@ -85,6 +85,7 @@ bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^e' forward-word
 bindkey '^l' forward-char
+bindkey -v '^?' backward-delete-char
 # edit line
 autoload -z edit-command-line
 zle -N edit-command-line

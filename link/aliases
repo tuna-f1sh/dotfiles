@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 ls_bin=ls
-if [ -x "$(command -v exa)" ]; then
-  ls_bin=exa
+if [ -x "$(command -v lsd)" ]; then
+  ls_bin=lsd
 fi
 
 
 # Some shortcuts for different directory listings
-alias dir=$ls_bin' -lhcF'                 # classify files in colour
-alias ll=$ls_bin' -l'                              # long list
-alias la=$ls_bin' -la'                              # all but . and ..
-alias l=$ls_bin' -lGF'                              #
+alias dir=$ls_bin' -lhcF' # classify files in colour
+alias ls='lsd' # lsd is compatiable with ls
+alias ll=$ls_bin' -l' # long list
+alias la=$ls_bin' -la' # all but . and ..
+alias l=$ls_bin' -lt' # time sort list
+alias lt='ls --tree' # directory tree
+
 alias cdls='dirs -v'
 # git with global aliases in config
 alias g='git'
@@ -74,6 +77,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias nosleep='pmset noidle'
 
   alias update='brew upgrade && brew update'
+  alias speedtest-macos='networkQuality'
+  alias fit2csv='java -jar ~/FitSDKRelease/java/FitCSVTool.jar'
 else
   alias reboot="sudo systemctl reboot"
   alias poweroff="sudo systemctl poweroff"
@@ -81,4 +86,7 @@ else
 fi
 
 # ESP32
-alias get_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'
+alias env_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'
+
+# Flutter
+alias env_flutter='export PATH="$PATH:$HOME/flutter/flutter/bin"'
