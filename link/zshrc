@@ -8,9 +8,9 @@
 # export LC_ALL=$LANG
 
 # p10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # Base16 Shell
 # BASE16_SHELL="$HOME/.config/base16-shell/"
@@ -18,11 +18,6 @@ fi
 #     [ -z $SSH_CONNECTION ] && \
 #     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 #         eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-if [[ -z $RELOADING ]]; then
-  source $HOME/dotfiles/support/plugin-loader.zsh
-  export PLUGINS_LOADED=true
-fi
 
 # where should we store your Zsh plugins?
 ZPLUGINDIR=$HOME/.zsh/plugins
@@ -43,6 +38,17 @@ plugins=(
   # prompts
   romkatv/powerlevel10k
 )
+
+if [ -n $RELOADING ]; then
+  source $HOME/dotfiles/support/plugin-loader.zsh
+  export PLUGINS_LOADED=true
+fi
+
+# clone, source, and add to fpath
+for repo in $plugins; do
+  plugin-load https://github.com/${repo}.git
+done
+unset repo
 
 # https://thevaluable.dev/zsh-completion-guide-examples/
 zstyle ':completion:*' file-list all # list with all info
@@ -65,26 +71,20 @@ compinit
 autoload bashcompinit
 bashcompinit
 
-# clone, source, and add to fpath
-for repo in $plugins; do
-  plugin-load https://github.com/${repo}.git
-done
-unset repo
-
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 # use the vi navigation keys in menu completion
-bindkey '^n' expand-or-complete
-bindkey '^p' reverse-menu-complete
-bindkey '^k' history-substring-search-up
-bindkey '^j' history-substring-search-down
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
-bindkey '^e' forward-word
-bindkey '^l' forward-char
+bindkey -v '^n' expand-or-complete
+bindkey -v '^p' reverse-menu-complete
+bindkey -v '^k' history-substring-search-up
+bindkey -v '^j' history-substring-search-down
+bindkey -v '^h' backward-delete-char
+bindkey -v '^w' backward-kill-word
+bindkey -v '^e' forward-word
+bindkey -v '^l' forward-char
 bindkey -v '^?' backward-delete-char
 # edit line
 autoload -z edit-command-line
