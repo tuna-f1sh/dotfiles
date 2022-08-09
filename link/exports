@@ -59,6 +59,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 
   # ruby env
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+
+  # for fastlane
+  export FLUTTER_ROOT='/Users/john/flutter/flutter/'
 else
   export NOTE_DIR=~/.notes
 

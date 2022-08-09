@@ -1,6 +1,13 @@
 {
   "python.venvPath": "/Users/john/Library/virtualenvs",
   "python.formatting.provider": "black",
-  "python.linting.pylintEnabled": true,
-  "python.jediEnabled": false
+  "python.linting.pylintEnabled": false,
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  }
 }

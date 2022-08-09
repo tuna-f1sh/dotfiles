@@ -19,6 +19,7 @@
 
 [init]
   templatedir = ~/dotfiles/support/git_template
+	defaultBranch = main
 
 [alias]
   ctags = !.git/hooks/ctags

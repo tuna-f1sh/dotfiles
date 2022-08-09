@@ -116,6 +116,7 @@ setopt HIST_IGNORE_SPACE
 setopt INC_APPEND_HISTORY
 # timestamp
 setopt EXTENDED_HISTORY
+setopt interactivecomments # enable interactive comments like bash
 
 export ZVM_CURSOR_STYLE_ENABLED=false
 

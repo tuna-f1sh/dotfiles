@@ -379,6 +379,28 @@ note() {
         [[ -n $file ]] && \
           ${EDITOR:-vim} "${NOTE_DIR}"/"${file}".md
         ;;
+      "-sm")
+        local file
+        local files
+        if [ -z "$2" ]; then
+          echo "no search string supplied"
+        else
+          file=$(agpatterns $NOTE_DIR ${@:2} | \
+            sed -e "s|"${NOTE_DIR}"/||" | \
+            sed -e 's/\.md$//' | \
+            fzf \
+              -i \
+              --exact \
+              --multi \
+              --select-1 \
+              --exit-0 \
+              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' "${NOTE_DIR}"/{}.md" \
+              --preview-window=right:80%:wrap | \
+              awk -F: '{print $1}')
+        fi
+        [[ -n $file ]] && \
+          ${EDITOR:-vim} "${NOTE_DIR}"/"${file}".md
+        ;;
       "-sa")
         local file
         local files
@@ -545,6 +567,21 @@ jdk() {
 agsed() {
   echo "Find '$1' and replace '$2'"
   ag -0 -l $1 | xargs -t -0 gsed -Ei -e "s/$1/$2/g"
+}
+
+# run ag recuresively with multiple patterns
+agpatterns() {
+  # a--sortr modified g -li $1 ${3:-$NOTE_DIR} | xargs ag -i $2
+  flags="--sortr modified --ignore-case --no-messages --files-with-matches"
+  files="rg $flags -l '$2' '$1'"
+
+  # recuresively call xargs with words, escaping path
+  for word in ${@:3}
+  do
+    files="$files | sed -e 's/\"/\"\\\"\"/g' -e 's/.*/\"&\"/' | xargs rg $flags -l '$word'"
+  done
+
+  eval $files
 }
 
 yubissh() {

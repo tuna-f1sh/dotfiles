@@ -106,18 +106,17 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'metakirby5/codi.vim'
   " Plug 'mbbill/undotree'
   Plug 'simnalamburt/vim-mundo'
-  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-  Plug 'timonv/vim-cargo', { 'for' : 'rust' }
+  " Plug 'rust-lang/rust.vim', { 'for': 'rust' } " error on startup
   Plug 'ferrine/md-img-paste.vim', { 'for' : 'markdown' }
   Plug 'dart-lang/dart-vim-plugin'
   Plug 'chrisbra/Colorizer'
+  Plug 'itspriddle/vim-shellcheck'
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'altercation/vim-colors-solarized'
   Plug 'endel/vim-github-colorscheme'
   Plug 'romainl/flattened'
-  Plug 'yuttie/hydrangea-vim'
   Plug 'Lokaltog/vim-monotone'
   Plug 'reedes/vim-colors-pencil'
   Plug 'jsit/toast.vim'
@@ -227,9 +226,9 @@ set omnifunc=syntaxcomplete#Complete
 set complete-=i " remove path searching as tags should be populated
 " autocmd CompleteDone * pclose " auto close scratch window with info (not required with popup)
 set completeopt=longest,menuone,noinsert
-if v:version >= 810
-  set complete+=popup
-endif
+" if v:version >= 810
+"   set complete+=popup
+" endif
 
 " custom git.vim plugin will attempt to setup git project on buffer read using Fugitive and add tags,path
 set tags=.git/tags,.tags,tags,./tags;
@@ -344,7 +343,7 @@ let g:coc_global_extensions = [
 \   'coc-pyright',
 \   'coc-emoji',
 \   'coc-css',
-\   'coc-rls',
+\   'coc-rust-analyzer',
 \   'coc-snippets']
 
 " ---- ALE ----
