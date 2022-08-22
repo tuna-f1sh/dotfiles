@@ -111,6 +111,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'dart-lang/dart-vim-plugin'
   Plug 'chrisbra/Colorizer'
   Plug 'itspriddle/vim-shellcheck'
+  Plug 'vivien/vim-linux-coding-style'
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
