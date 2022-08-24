@@ -18,6 +18,11 @@ document xxd
   xxd ADDR LENTH
 end
 
+# define skip
+#     tbreak +1
+#     jump +1
+# end
+
 python
 # Update GDB's Python paths with the `sys.path` values of the local
 #  Python installation, whether that is brew'ed Python, a virtualenv,
