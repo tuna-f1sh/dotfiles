@@ -330,6 +330,7 @@ endif
 let g:fzf_layout = { 'down': '~30%' }
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
+let g:linuxsty_patterns = [ "/linux/", "/kernel/" ]
 
 " ---- COC ----
 "==============
