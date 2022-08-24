@@ -68,3 +68,9 @@
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
   file-decoration-style = none
+
+[sendemail]
+  smtpServer = 127.0.0.1
+  smtpServerPort = 1025
+  smtpEncryption = ssl
+  smtpsslcertpath =  # null value disables but ok since localhost
