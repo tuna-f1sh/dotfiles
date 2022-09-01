@@ -69,6 +69,9 @@ function! CocSetup()
     nmap <leader>ac  <Plug>(coc-codeaction)
     " Fix autofix problem of current line
     nmap <leader>qf  <Plug>(coc-fix-current)
+    " Format selected
+    nmap <leader>cf  <Plug>(coc-fix-current)
+    xmap <leader>cf  <Plug>(coc-fix-current)
 
     " Run the Code Lens action on the current line.
     nmap <leader>cl  <Plug>(coc-codelens-action)
@@ -115,10 +118,6 @@ function! CocSetup()
     " inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
     "       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-    " Formatting selected code.
-    xmap <leader>f  <Plug>(coc-format-selected)
-    nmap <leader>f  <Plug>(coc-format-selected)
-
     augroup mygroup
       autocmd!
       " Setup formatexpr specified filetype(s).
@@ -126,11 +125,6 @@ function! CocSetup()
       " Update signature help on jump placeholder.
       autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     augroup end
-
-    " Applying codeAction to the selected region.
-    " Example: `<leader>aap` for current paragraph
-    xmap <leader>a  <Plug>(coc-codeaction-selected)
-    nmap <leader>a  <Plug>(coc-codeaction-selected)
 
     " Remap <C-f> and <C-b> for scroll float windows/popups.
     if has('nvim-0.4.0') || has('patch-8.2.0750')
