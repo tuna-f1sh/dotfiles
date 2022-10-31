@@ -7,17 +7,10 @@
 # export LC_TIME="C"
 # export LC_ALL=$LANG
 
-# p10k instant prompt
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-# Base16 Shell
-# BASE16_SHELL="$HOME/.config/base16-shell/"
-# [ -n "$PS1" ] && \
-#     [ -z $SSH_CONNECTION ] && \
-#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-#         eval "$("$BASE16_SHELL/profile_helper.sh")"
+# # p10k instant prompt
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # where should we store your Zsh plugins?
 ZPLUGINDIR=$HOME/.zsh/plugins
@@ -33,7 +26,7 @@ plugins=(
   # user plugins
   rupa/z
   # jeffreytse/zsh-vi-mode
-  # zdharma-continuum/fast-syntax-highlighting
+  zdharma-continuum/fast-syntax-highlighting
 
   # prompts
   romkatv/powerlevel10k
@@ -62,6 +55,9 @@ else
   zstyle ':completion:*' \
          list-colors ${(s.:.)LS_COLORS}
 fi
+
+# seems to fix neonutt shortcuts
+stty flush undef
 
 # load complete defs
 autoload -Uz compinit
@@ -138,8 +134,6 @@ export KEYTIMEOUT=1
 if [[ $WSL ]]; then
   source ~/.wsl
 fi
-# disable man highlight https://github.com/zdharma/fast-syntax-highlighting/issues/135
-# export FAST_HIGHLIGHT[whatis_chroma_type]=0
 
 #========
 # PROMPT
@@ -162,17 +156,52 @@ if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# ruby env
-if [ -x "$(command -v rbenv)" ]; then
-  eval "$(rbenv init -)"
+NVM_DIR="$HOME/.nvm"
+if [[ -d "$NVM_DIR" ]]; then
+  nvm () {
+    unfunction nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    nvm "$@"
+  }
+else
+  unset NVM_DIR
 fi
+
+# lazy load ruby env
+RBENV_ROOT="${HOME}/.rbenv"
+if [[ -d "$RBENV_ROOT}" ]]; then
+  rbenv () {
+    # if ! (($path[(Ie)${RBENV_ROOT}/bin])); then
+    #   path[1,0]="${RBENV_ROOT}/bin"
+    # fi
+    eval "$(command rbenv init -)"
+    rbenv "$@"
+    unfunction rbenv
+  }
+else
+  unset RBENV_ROOT
+fi
+
+# make tmux session
 # if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 #   exec tmux new-session -A -s main
 # fi
+
+# lazy load pyenv
+PYENV_ROOT="${HOME}/.pyenv"
+if [[ -d "$PYENV_ROOT}" ]]; then
+  pyenv () {
+    if ! (($path[(Ie)${PYENV_ROOT}/bin])); then
+      path[1,0]="${PYENV_ROOT}/bin"
+    fi
+    eval "$(command pyenv init -)"
+    pyenv "$@"
+    unfunction pyenv
+  }
+else
+  unset PYENV_ROOT
+fi
 
 # keychain for ssh agent on linux
 if type keychain &>/dev/null; then
