@@ -15,12 +15,17 @@ set $mod Mod1
 # is used in the bar {} block below.
 font pango:Hack 9
 exec "setxkbmap -layout us"
-exec "/usr/bin/VBoxClient --clipboard"
-exec "/usr/bin/VBoxClient --checkhostversion"
-exec "/usr/bin/VBoxClient --display"
-exec "/usr/bin/VBoxClient --seamless"
-exec "/usr/bin/VBoxClient --draganddrop"
-exec "/usr/bin/VBoxClient --vmsvga-x11"
+
+# VirtualBox helpers
+# exec "/usr/bin/VBoxClient --clipboard"
+# exec "/usr/bin/VBoxClient --checkhostversion"
+# exec "/usr/bin/VBoxClient --display"
+# exec "/usr/bin/VBoxClient --seamless"
+# exec "/usr/bin/VBoxClient --draganddrop"
+# exec "/usr/bin/VBoxClient --vmsvga-x11"
+# Parallels helpers
+exec prlcc &
+exec prlcp &
 
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left

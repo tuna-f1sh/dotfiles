@@ -70,7 +70,7 @@
   file-decoration-style = none
 
 [sendemail]
-  smtpServer = 127.0.0.1
+  smtpServer = 10.0.2.2
   smtpServerPort = 1025
   smtpEncryption = ssl
   smtpsslcertpath =  # null value disables but ok since localhost
