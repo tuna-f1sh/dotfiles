@@ -51,13 +51,12 @@ zstyle ':completion:*' menu select=4 # show selection menu
 if [[ $OSTYPE =~ "darwin" ]]; then
   zstyle ':completion:*' \
          list-colors 'exfxcxdxbxegedabagacad'
+  # seems to fix neonutt shortcuts
+  stty flush undef
 else
   zstyle ':completion:*' \
          list-colors ${(s.:.)LS_COLORS}
 fi
-
-# seems to fix neonutt shortcuts
-stty flush undef
 
 # load complete defs
 autoload -Uz compinit
