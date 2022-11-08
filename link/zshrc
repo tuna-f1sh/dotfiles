@@ -52,7 +52,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   zstyle ':completion:*' \
          list-colors 'exfxcxdxbxegedabagacad'
   # seems to fix neonutt shortcuts
-  stty flush undef
+  # stty flush undef
 else
   zstyle ':completion:*' \
          list-colors ${(s.:.)LS_COLORS}
@@ -174,7 +174,7 @@ if [[ -d "$RBENV_ROOT}" ]]; then
     # if ! (($path[(Ie)${RBENV_ROOT}/bin])); then
     #   path[1,0]="${RBENV_ROOT}/bin"
     # fi
-    eval "$(command rbenv init -)"
+    eval "$(command rbenv init - zsh)"
     rbenv "$@"
     unfunction rbenv
   }

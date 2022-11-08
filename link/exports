@@ -85,3 +85,6 @@ export TODO=$NOTE_DIR/todo.md
 export NNN_PLUG='o:fzopen;c:fzcd;d:diffs;'
 export NNN_TRASH=1
 export NNN_COLORS='4231'
+
+# tmuxinator
+export TMUXINATOR_CONFIG="$HOME/.config/tmuxinator"
