@@ -82,6 +82,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias update='brew upgrade && brew update'
   alias speedtest-macos='networkQuality'
   alias fit2csv='java -jar ~/FitSDKRelease/java/FitCSVTool.jar'
+  # lsusb compat mode
+  alias lsusb='cyme --lsusb'
 else
   alias reboot="sudo systemctl reboot"
   alias poweroff="sudo systemctl poweroff"

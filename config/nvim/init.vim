@@ -1,1 +1,1 @@
-link/vimrc
+/Users/john/dotfiles/config/nvim/init.vim

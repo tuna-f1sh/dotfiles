@@ -1,6 +1,6 @@
-# /Users/john/Library/Preferences/tmuxinator/flutter.yml
+# /Users/john/.config/tmuxinator/pydev.yml
 
-name: flutter
+name: pydev
 root: .
 
 # Optional tmux socket
@@ -15,8 +15,7 @@ root: .
 # on_project_start: command
 
 # Run on project start, the first time
-# https://github.com/tmuxinator/tmuxinator/issues/651
-# on_project_first_start: (sleep 1 && tmux list-windows -F "#{window_id}" | while read WINDOW_ID; do tmux select-layout -t "$WINDOW_ID"; done) &
+# on_project_first_start: command
 
 # Run on project start, after the first time
 # on_project_restart: command
@@ -28,7 +27,7 @@ root: .
 # on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-pre_window: env_flutter
+# pre_window: rbenv shell 2.0.0-p247
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -47,11 +46,10 @@ pre_window: env_flutter
 
 windows:
   - editor:
-      layout: main-horizontal
+      layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
         - vim
-        -
-        -
+        - ipython

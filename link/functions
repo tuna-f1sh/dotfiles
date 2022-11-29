@@ -257,14 +257,14 @@ note() {
   : "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
   if [ $# -eq 0 ]; then
     local file
-    file=$(fd . "${NOTE_DIR}" -e md --exclude 'archive' --exec-batch \ls -t {} | \
-      sed -e "s|"${NOTE_DIR}"/||" | \
+    file=$(fd . "${NOTE_DIR}" -e md --exclude 'archive' --exec-batch ls -t {} | \
+      sed -e "s|${NOTE_DIR}/||" | \
       sed -e 's/\.md$//' | \
       fzf \
         --multi \
         --select-1 \
         --exit-0 \
-        --preview="bat --color=always "${NOTE_DIR}"/{}.md" \
+        --preview="bat --color=always ${NOTE_DIR}/{}.md" \
         --preview-window=right:80%:wrap)
     [[ -n $file ]] && \
       ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
@@ -272,14 +272,14 @@ note() {
     case "$1" in 
       "-d")
         local file
-        file=$(fd . "${NOTE_DIR}" -e md --exec-batch \ls -t {} | \
-          sed -e "s|"${NOTE_DIR}"/||" | \
+        file=$(fd . "${NOTE_DIR}" -e md --exec-batch ls -t {} | \
+          sed -e "s|${NOTE_DIR}/||" | \
           sed -e 's/\.md$//' | \
           fzf \
             --multi \
             --select-1 \
             --exit-0 \
-            --preview="bat --color=always "${NOTE_DIR}"/{}.md" \
+            --preview="bat --color=always ${NOTE_DIR}/{}.md" \
             --preview-window=right:80%:wrap)
         [[ -n $file ]] && \
           echo "! Deleteing ${file}.md"
@@ -297,7 +297,7 @@ note() {
         fi
         if [ -p "/dev/stdin" ]; then
           >> "${NOTE_DIR}/${file}.md"
-        elif [ ! -z "$2" ]; then
+        elif [ -n "$2" ]; then
           echo "$2" >> "${NOTE_DIR}/${file}.md"
         else
           ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
@@ -315,7 +315,7 @@ note() {
         fi
         if [ -p "/dev/stdin" ]; then
           >> "${NOTE_DIR}/${file}.md"
-        elif [ ! -z "$2" ]; then
+        elif [ -n "$2" ]; then
           echo "$2" >> "${NOTE_DIR}/${file}.md"
         else
           ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
@@ -345,14 +345,14 @@ note() {
         ;;
       "--archive")
         local file
-        file=$(fd . "${NOTE_DIR}" -e md --exec-batch \ls -t {} | \
-          sed -e "s|"${NOTE_DIR}"/||" | \
+        file=$(fd . "${NOTE_DIR}" -e md --exec-batch ls -t {} | \
+          sed -e "s|${NOTE_DIR}/||" | \
           sed -e 's/\.md$//' | \
           fzf \
             --multi \
             --select-1 \
             --exit-0 \
-            --preview="bat --color=always "${NOTE_DIR}"/{}.md" \
+            --preview="bat --color=always ${NOTE_DIR}/{}.md" \
             --preview-window=right:80%:wrap)
         [[ -n $file ]] && \
           ${EDITOR:-vim} + "${NOTE_DIR}/${file}.md"
@@ -364,7 +364,7 @@ note() {
           echo "no search string supplied"
         else
           file=$(rg --files-with-matches --no-messages --ignore-case --type markdown --max-depth 1 --sortr modified "$2" "${NOTE_DIR}" | \
-            sed -e "s|"${NOTE_DIR}"/||" | \
+            sed -e "s|${NOTE_DIR}/||" | \
             sed -e 's/\.md$//' | \
             fzf \
               -i \
@@ -372,7 +372,7 @@ note() {
               --multi \
               --select-1 \
               --exit-0 \
-              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' "${NOTE_DIR}"/{}.md" \
+              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' ${NOTE_DIR}/{}.md" \
               --preview-window=right:80%:wrap | \
               awk -F: '{print $1}')
         fi
@@ -385,8 +385,8 @@ note() {
         if [ -z "$2" ]; then
           echo "no search string supplied"
         else
-          file=$(agpatterns $NOTE_DIR ${@:2} | \
-            sed -e "s|"${NOTE_DIR}"/||" | \
+          file=$(agpatterns "${NOTE_DIR}" "${@:2}" | \
+            sed -e "s|${NOTE_DIR}/||" | \
             sed -e 's/\.md$//' | \
             fzf \
               -i \
@@ -394,7 +394,7 @@ note() {
               --multi \
               --select-1 \
               --exit-0 \
-              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' "${NOTE_DIR}"/{}.md" \
+              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' ${NOTE_DIR}/{}.md" \
               --preview-window=right:80%:wrap | \
               awk -F: '{print $1}')
         fi
@@ -408,7 +408,7 @@ note() {
           echo "no search string supplied"
         else
           file=$(rg --files-with-matches --no-messages --sortr --ignore-case modified "$2" "${NOTE_DIR}" | \
-            sed -e "s|"${NOTE_DIR}"/||" | \
+            sed -e "s|${NOTE_DIR}/||" | \
             sed -e 's/\.md$//' | \
             fzf \
               -i \
@@ -416,7 +416,7 @@ note() {
               --multi \
               --select-1 \
               --exit-0 \
-              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' "${NOTE_DIR}"/{}.md" \
+              --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$2' || rg --ignore-case --pretty --context 10 '$2' ${NOTE_DIR}/{}.md" \
               --preview-window=right:80%:wrap | \
               awk -F: '{print $1}')
         fi
@@ -456,7 +456,7 @@ _todo() {
 todo() {
   : "${TODO:?'TODO ENV Var not set. Please set to path of default todo file.'}"
   TODOFILE=$TODO
-  TODOARCHIVEFILE=${TODO%.*}.archive.md
+  TODOARCHIVEFILE=${TODO%.*}.$(date +%y).archive.md
 
   if [ $# -eq 0 ]; then
     if [ -f "$TODOFILE" ] ; then
@@ -471,12 +471,19 @@ todo() {
         echo " "
         echo "usage: todo                                 # display todo list"
         echo "usage: todo (--help or -h)                  # show this help"
+        echo "usage: todo (--open or -o)                  # open todo file"
         echo "usage: todo (--add or -a) [activity name]   # add a new activity to list"
-        echo "usage: todo (--archive)                     # show completed tasks in archive list"
+        echo "usage: todo (--archive or -A)               # show completed tasks in archive list"
         echo "usage: todo (--done or -d) [name or #]      # complete and archive activity"
         ;;
       -a|--add)
         echo "${*:2}" >> "$TODOFILE"
+        ;;
+      -o|--open)
+        $EDITOR "$TODOFILE"
+        ;;
+      -A|--archive)
+        bat "$TODOARCHIVEFILE"
         ;;
       -d|--done)
         re='^[0-9]+$'
@@ -488,7 +495,12 @@ todo() {
           sed -i "" -e "$2d" "$TODOFILE" 2> /dev/null
         fi
         if [ ! -z "$match" ]; then
-          echo "$(date +"%Y-%m-%d %H:%M:%S") - $match" >> "$TODOARCHIVEFILE"
+          echo "☑️  $match"
+          echo "$(date +"%a %m-%dT%H:%M:%S") [x] $match" > "$TODOARCHIVEFILE.tmp"
+          cat "$TODOARCHIVEFILE" >> "$TODOARCHIVEFILE.tmp" 2> /dev/null
+          \mv "$TODOARCHIVEFILE.tmp" "$TODOARCHIVEFILE"
+        else
+          echo "Failed to find todo: $2"
         fi
         ;;
     esac

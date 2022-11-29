@@ -167,13 +167,14 @@ else
   unset NVM_DIR
 fi
 
+# eval "$(rbenv init - zsh)"
 # lazy load ruby env
 RBENV_ROOT="${HOME}/.rbenv"
 if [[ -d "$RBENV_ROOT}" ]]; then
   rbenv () {
-    # if ! (($path[(Ie)${RBENV_ROOT}/bin])); then
-    #   path[1,0]="${RBENV_ROOT}/bin"
-    # fi
+    if ! (($path[(Ie)${RBENV_ROOT}/bin])); then
+      path[1,0]="${RBENV_ROOT}/bin"
+    fi
     eval "$(command rbenv init - zsh)"
     rbenv "$@"
     unfunction rbenv
