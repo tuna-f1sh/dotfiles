@@ -83,9 +83,8 @@ call plug#begin(plug_path)
 " host specific allow lightweight deployment by default
 if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# 'JohnsEpcBookEvo') || (g:HOST =~# 'Waffer')
   Plug 'dense-analysis/ale', { 'on':  'ALEEnable' }
-  " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   let g:coc_start_at_startup = 0
-  Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': 'CocStart'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
   Plug 'mpjuers/showcontext'
   Plug 'itchyny/lightline.vim'
@@ -99,14 +98,14 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
   Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
   Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
-  Plug 'SirVer/ultisnips'
+  " Plug 'SirVer/ultisnips'
   Plug 'jpalardy/vim-slime', { 'for': 'python' }
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
   Plug 'hauleth/vim-backscratch'
   Plug 'metakirby5/codi.vim'
   " Plug 'mbbill/undotree'
   Plug 'simnalamburt/vim-mundo'
-  " Plug 'rust-lang/rust.vim', { 'for': 'rust' } " error on startup
+  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'ferrine/md-img-paste.vim', { 'for' : 'markdown' }
   Plug 'dart-lang/dart-vim-plugin'
   Plug 'chrisbra/Colorizer'
@@ -252,10 +251,11 @@ set undolevels=1000 " 1000 undos
 set noundofile " no persistent undo
 
 if has("persistent_undo")
-  " if !isdirectory('~/.vim/.vimundo')
-  "   call mkdir('~/.vim/.vimundo')
-  " endif
-  set undodir=~/.vim/.vimundo " where to keep it
+  if has('nvim')
+    set undodir=~/.config/nvim/.nvimundo " where to keep it
+  else
+    set undodir=~/.vim/.vimundo " where to keep it
+  endif
   set undofile " persistent undo
   set undoreload=100 " number of lines to save for undo
 endif
@@ -494,7 +494,7 @@ nmap <leader>pb :BLines<CR>
 nmap <leader>pl :Marks<CR>
 nmap <leader>h :History<CR>
 nmap <leader>f :Files %:p:h<CR>
-nmap <leader>t :Tags<CR>
+nmap <leader>tt :Tags<CR>
 nmap <leader>g :GFiles<CR>
 " search under cursor
 nnoremap <leader>// :Ag<space><C-r><C-w><CR>
@@ -511,7 +511,8 @@ nnoremap <C-x> <C-x>
 vnoremap . :normal .<CR> " last command
 vnoremap ` :normal @a<CR> " last register
 " UndoTree
-nmap <leader>tt :MundoToggle<cr>
+nmap <leader>ty :Tagbar<cr>
+nmap <leader>tu :MundoToggle<cr>
 
 " Window manipulation
 " swap to previous buffer, delete current
