@@ -106,7 +106,7 @@ class Todo:
                     if item_match:
                         line = item_match.groupdict()['item'].strip()
                         if line: 
-                            self.items[title].append((number, i, line))
+                            self.items[title].append((number, i, title, line))
                             number += 1
 
         self.items = dict(self.items)
@@ -116,13 +116,13 @@ class Todo:
             fh.write(f"{line}\n")
         self.read()
 
-    def done(self, item: Tuple[int, int, str]):
+    def done(self, item: Tuple[int, int, str, str]):
         # delete from file
         if not delete_file_line(self.filename, item[1], True):
             raise RuntimeError("Failed to find item in {self.filenmae}")
         # put in archive
         archive_dt = datetime.datetime.now().strftime("%a %m-%dT%H:%M:%S")
-        archive_line = f"{archive_dt} [x] {item[2]}"
+        archive_line = f"{archive_dt} [x] {item[3]}"
         preappend_file(self.archive_filename, archive_line)
 
         # read updated file
@@ -133,7 +133,7 @@ class Todo:
             if day and key != day:
                 continue
             print(f"{bcolors.HEADER}{bcolors.UNDERLINE}# {key}{bcolors.ENDC}")
-            for i, _, item in self.items[key]:
+            for i, line, title, item in self.items[key]:
                 print(f"{bcolors.OKGREEN}[{i}] {bcolors.ENDC}{item}")
 
     @property
@@ -144,13 +144,18 @@ class Todo:
 
         return todos
 
+    def find_item(self, linestart: str) -> Optional[Tuple[int, int, str, str]]:
+        for item in self.todos:
+            if item[3].startswith(linestart):
+                return item
+
 def main():
     parser = argparse.ArgumentParser(prog = 'todo', description = 'Manages text based TODOs')
 
     parser.add_argument('-t', '--today', action='store_true')
     parser.add_argument('-o', '--open', action='store_true')
     parser.add_argument('-a', '--add', type=str)
-    parser.add_argument('-d', '--done', type=int)
+    parser.add_argument('-d', '--done', type=str)
     parser.add_argument('-A', '--archive', action='store_true')
     args = parser.parse_args()
 
@@ -162,10 +167,19 @@ def main():
         todo.add(args.add)
     elif args.done is not None:
         todos = todo.todos
-        if args.done <= len(todos) and args.done != 0:
-            todo.done(todo.todos[args.done - 1])
-        else:
-            print(f"No TODO number {args.done}")
+        try:
+            int(args.done)
+            if args.done <= len(todos) and args.done != 0:
+                todo.done(todo.todos[args.done - 1])
+            else:
+                print(f"No TODO number {args.done}")
+        except ValueError:
+            item = todo.find_item(args.done)
+            if item is not None:
+                todo.done(item)
+            else:
+                print(f"No TODO starting with {args.done}")
+
     elif args.today:
         day = datetime.datetime.now().strftime("%A")
         todo.print_numbered(day)
