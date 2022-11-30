@@ -1,0 +1,178 @@
+#!/usr/bin/env python
+import argparse
+import os
+import datetime
+import re
+import subprocess 
+import tempfile
+from collections import defaultdict
+from typing import Union, Tuple, Optional
+
+TITLE_RE = re.compile(r"^#\s(?P<title>\w+)$")
+ITEM_RE = re.compile(r"(?P<box>\[ \]|-)?(?P<item>.*)")
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+def delete_file_line(fn: str, delete: Union[int, str], skip_headings=True) -> bool:
+    did_delete = False
+    tmpfn = os.path.join(tempfile.gettempdir(), os.path.basename(fn))
+    # get lines from current file
+    with open(fn, mode='r') as fh:
+        lines = fh.readlines()
+
+    # write into temp in case fails
+    with open(tmpfn, mode="w") as fh:
+        for i, line in enumerate(lines):
+            # skip headings or if already deleted
+            if line.startswith("# ") and skip_headings or did_delete:
+                fh.write(line)
+            # skip delete line number
+            elif isinstance(delete, int):
+                if i != delete:
+                    fh.write(line)
+                else:
+                    did_delete = True
+            # skip delete line string
+            elif isinstance(line, str):
+                item_match = ITEM_RE.match(line)
+                if item_match:
+                    line = item_match.groupdict()['item'].strip()
+                    if not line == delete or did_delete:
+                        fh.write(line)
+                    else:
+                        did_delete = True
+                else:
+                    fh.write(line)
+
+    # replace old with tmp
+    os.replace(tmpfn, fn)
+
+    return did_delete
+
+def preappend_file(fn: str, preappend: str):
+    tmpfn = os.path.join(tempfile.gettempdir(), os.path.basename(fn))
+    # get lines from current file
+    if os.path.exists(fn):
+        with open(fn, mode='r') as fh:
+            lines = fh.readlines()
+    else:
+        lines = []
+
+    # write new line and then lines in tmp
+    with open(tmpfn, mode='w') as fh:
+        fh.write(f"{preappend}\n")
+        fh.writelines(lines)
+
+    # replace old with tmp
+    os.replace(tmpfn, fn)
+
+
+class Todo:
+    def __init__(self, file: Optional[str] = os.environ.get("TODO")) -> None:
+        if not file:
+            raise RuntimeError("Passed file or os env $TODO is None")
+        self.filename = file
+        self.items = defaultdict(lambda: [])
+
+        self.read()
+
+    @property
+    def archive_filename(self):
+        year = datetime.datetime.now().strftime("%y")
+        fn, _ = self.filename.split('.')
+        return f"{fn}.{year}.archive.md"
+
+    def read(self):
+        self.items = defaultdict(lambda: [])
+
+        with open(self.filename, mode='r') as fh:
+            title = 'Someday'
+            number = 1
+            for i, line in enumerate(fh):
+                if line.startswith('# '):
+                    title = line.lstrip('# ').strip()
+                else:
+                    item_match = ITEM_RE.match(line)
+                    if item_match:
+                        line = item_match.groupdict()['item'].strip()
+                        if line: 
+                            self.items[title].append((number, i, line))
+                            number += 1
+
+        self.items = dict(self.items)
+
+    def add(self, line: str):
+        with open(self.filename, mode='a') as fh:
+            fh.write(f"{line}\n")
+        self.read()
+
+    def done(self, item: Tuple[int, int, str]):
+        # delete from file
+        if not delete_file_line(self.filename, item[1], True):
+            raise RuntimeError("Failed to find item in {self.filenmae}")
+        # put in archive
+        archive_dt = datetime.datetime.now().strftime("%a %m-%dT%H:%M:%S")
+        archive_line = f"{archive_dt} [x] {item[2]}"
+        preappend_file(self.archive_filename, archive_line)
+
+        # read updated file
+        self.read()
+
+    def print_numbered(self, day=None):
+        for key in self.items.keys():
+            if day and key != day:
+                continue
+            print(f"{bcolors.HEADER}{bcolors.UNDERLINE}# {key}{bcolors.ENDC}")
+            for i, _, item in self.items[key]:
+                print(f"{bcolors.OKGREEN}[{i}] {bcolors.ENDC}{item}")
+
+    @property
+    def todos(self):
+        todos = []
+        for items in self.items.values():
+            todos += items
+
+        return todos
+
+def main():
+    parser = argparse.ArgumentParser(prog = 'todo', description = 'Manages text based TODOs')
+
+    parser.add_argument('-t', '--today', action='store_true')
+    parser.add_argument('-o', '--open', action='store_true')
+    parser.add_argument('-a', '--add', type=str)
+    parser.add_argument('-d', '--done', type=int)
+    parser.add_argument('-A', '--archive', action='store_true')
+    args = parser.parse_args()
+
+    todo = Todo()
+
+    if args.open:
+        subprocess.call([os.environ.get("EDITOR", "vim"), todo.filename if not args.archive else todo.archive_filename])
+    elif args.add is not None:
+        todo.add(args.add)
+    elif args.done is not None:
+        todos = todo.todos
+        if args.done <= len(todos) and args.done != 0:
+            todo.done(todo.todos[args.done - 1])
+        else:
+            print(f"No TODO number {args.done}")
+    elif args.today:
+        day = datetime.datetime.now().strftime("%A")
+        todo.print_numbered(day)
+    elif args.archive:
+        subprocess.call(["bat", todo.archive_filename])
+    else:
+        todo.print_numbered()
+
+if __name__ == "__main__":
+    main()
