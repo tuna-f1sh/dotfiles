@@ -4,12 +4,28 @@
   "python.linting.enabled": false,
   "python.linting.pylintEnabled": true,
   "inlayHint.enable": false,
+  "rust-analyzer.procMacro.enable": true,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
+    },
+    "clangd": {
+      "command": "clangd",
+      "filetypes": [],
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json"]
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+      "initializationOptions": {
+          "cache": {
+            "directory": "/tmp/ccls"
+          }
+        }
     }
   }
 }

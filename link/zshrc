@@ -160,6 +160,8 @@ bindkey "^Z" Resume
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/dotfiles/support/bindings.zsh ] && source ~/dotfiles/support/bindings.zsh
+# Meta-c to Alt-c because kitty I have macos_option_as_alt   no to allow symbol shortcuts
+bindkey "ç" fzf-cd-widget
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
@@ -213,7 +215,13 @@ else
   unset PYENV_ROOT
 fi
 
-# keychain for ssh agent on linux
-if type keychain &>/dev/null; then
-  eval $(keychain --nogui --eval --quiet id_ed25519 id_rsa)
+# keychain for ssh agent if one not running - on macOS this will normally be the keychain integrated agent
+if [ -z "${SSH_AUTH_SOCK}" ]; then
+  if type keychain &>/dev/null; then
+    if [[ $OSTYPE =~ "darwin" ]]; then
+      eval $(keychain --nogui --eval --quiet --agents ssh --inherit any id_rsa id_ed25519)
+    else
+      eval $(keychain --nogui --eval --quiet id_rsa id_ed25519)
+    fi
+  fi
 fi

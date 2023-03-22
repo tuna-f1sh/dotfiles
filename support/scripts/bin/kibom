@@ -1,0 +1,4 @@
+#!/bin/zsh
+# requires Pipfile with kibom installed
+export PIPENV_PIPFILE=/Users/john/KiCad/Pipfile 
+exec pipenv run python -m kibom "${@:1}"

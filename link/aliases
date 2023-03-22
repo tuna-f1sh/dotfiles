@@ -4,7 +4,6 @@ if [ -x "$(command -v lsd)" ]; then
   ls_bin=lsd
 fi
 
-
 # Some shortcuts for different directory listings
 alias dir=$ls_bin' -lhcF' # classify files in colour
 alias ls='$ls_bin' # lsd is compatiable with ls
@@ -55,7 +54,7 @@ alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET
 alias path='echo -e ${PATH//:/\\n}'
 
 # kicad hide references
-alias kicad_hide="sed -i -E g/(fp_text reference...*)...*...)$/ s/$/ hide/g"
+alias kicad_hide="sed -i -E '/(fp_text reference...*)...*...)$/ s/$/ hide/g'"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   # Merge PDF files
@@ -84,7 +83,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias fit2csv='java -jar ~/FitSDKRelease/java/FitCSVTool.jar'
   # lsusb compat mode
   alias lsusb='cyme --lsusb'
-else
+  # kicad
+  alias kicad-cli="/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
+else;
   alias reboot="sudo systemctl reboot"
   alias poweroff="sudo systemctl poweroff"
   alias halt="sudo systemctl halt"
@@ -95,3 +96,9 @@ alias env_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'
 
 # Flutter
 alias env_flutter='export PATH="$PATH:$HOME/flutter/flutter/bin"'
+
+if [ -d "$HOME/.bookmarks" ]; then
+    export CDPATH=".:$HOME/.bookmarks:/"
+    alias goto="cd -P"
+    function mark { ln -s "$(pwd)" ~/.bookmarks/"$1"; }
+fi

@@ -43,8 +43,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
-  export NOTE_DIR=~/Dropbox/Documents/notes
-  export JOURNAL_DIR=~/Dropbox/Documents/blogs/memoirs-of-a-john/_posts
+  export DROPBOX_ROOT=/Users/john/Library/CloudStorage/Dropbox
+  export NOTE_DIR=$DROPBOX_ROOT/Files/notes
+  export JOURNAL_DIR=~/Dropbox/Files/blogs/memoirs-of-a-john/_posts
 
   # Arduino-mk
   export ARDUINO_DIR=/Applications/Arduino.app/Contents/Java 
@@ -55,13 +56,16 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # ESP32
   export ESP_TOOLCHAIN_PATH=~/esp/xtensa-esp32-elf/bin
   export IDF_PATH=~/esp/esp-idf
-  export NNN_BMS='p:~/Dropbox/Dropbox (Specialized)/Projects/;P:~/Dropbox/Dropbox (Personal)/Projects;m:/Users/john/Library/Preferences/.config/nnn/mounts;n:~/Dropbox/Dropbox (Personal)/Documents/notes'
+  export NNN_BMS='p:~/Dropbox/Projects/;m:/Users/john/Library/Preferences/.config/nnn/mounts;n:~/Dropbox/Files/notes'
 
   # ruby env
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
   # for fastlane
   export FLUTTER_ROOT='/Users/john/flutter/flutter/'
+
+  # kicad makefile
+  export KICADMK_DIR=/Users/john/git/kicad-makefile
 else
   export NOTE_DIR=~/.notes
 

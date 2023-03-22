@@ -557,3 +557,17 @@ bwsession() {
     esac
     bw sync
 }
+
+# Opens web browser with URL of git remote repository
+gremote ()
+{
+    local remote=`git remote -v | head -n 1`
+    if [[ $remote =~ 'https' ]];
+    then
+        local repoUrl=`echo $remote | awk -F " " '{print $2}' | sed 's/\\.git//g'`
+    else
+        local repoUrl=`echo $remote | awk -F "@" '{print $2}' | awk -F " " '{print $1}' | sed 's/:/\\//g' | sed 's/.git//g' | awk '{print "https://"$1}'`
+    fi
+    echo "Opening $repoUrl"
+    open $repoUrl
+}
