@@ -4,3 +4,4 @@ attach 1
 load
 compare-sections
 kill
+monitor reset

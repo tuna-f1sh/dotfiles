@@ -23,8 +23,9 @@ end
 #     jump +1
 # end
 
-define 
-  lines list 
+# lines makes more sense to me...
+define lines 
+  list
 end
 
 python
