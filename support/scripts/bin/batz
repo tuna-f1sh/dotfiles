@@ -13,6 +13,7 @@ TIME_ZONES=(
   ["Colorado"]="MST"
   ["HongKong"]="Asia/Hong_Kong"
   ["Bristol"]="Europe/London"
+  ["Tokyo"]="Asia/Tokyo"
 )
 
 # Not sure why some emojis need a space and the other doesnt 🤷🏼‍♂️
@@ -25,6 +26,7 @@ TIME_ZONES_EMOJI=(
   ["HongKong"]="🇭🇰"
   ["UTC"]="🌍"
   ["Bristol"]="🏠"
+  ["Tokyo"]="🇯🇵"
 )
 
 [[ -e ~/.config/batz.sh ]] && source ~/.config/batz.sh

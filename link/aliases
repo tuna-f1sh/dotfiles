@@ -12,6 +12,9 @@ alias la=$ls_bin' -la' # all but . and ..
 alias l=$ls_bin' -lt' # time sort list
 alias lt='$ls_bin --tree' # directory tree
 
+# 👻
+alias vim='nvim'
+
 alias cdls='dirs -v'
 # git with global aliases in config
 alias g='git'
@@ -95,7 +98,7 @@ fi
 alias env_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'
 
 # Flutter
-alias env_flutter='export PATH="$PATH:$HOME/flutter/flutter/bin"'
+alias env_flutter='export PATH="$PATH:$HOME/flutter/flutter/bin:$HOME/.pub-cache/bin"'
 
 if [ -d "$HOME/.bookmarks" ]; then
     export CDPATH=".:$HOME/.bookmarks:/"

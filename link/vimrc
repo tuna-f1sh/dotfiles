@@ -61,8 +61,8 @@ filetype off
 
 " Neovim and Vim have different base installs to prevent conflict
 if has("nvim")
-  let plug_install='~/.local/share/nvim/site/autoload/plug.vim'
-  let plug_path='~/.config/nvim/plugged'
+  let plug_install='$XDG_DATA_HOME/nvim/site/autoload/plug.vim'
+  let plug_path='$XDG_CONFIG_HOME/nvim/plugged'
 elseif (g:ENV =~# 'WINDOWS')
   " Enable Windows specific settings/plugins
   let plug_install='$USERPROFILE/vimfiles/autoload/plug.vim'
@@ -97,13 +97,10 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   " Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
   Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
-  Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
-  Plug 'SirVer/ultisnips'
   Plug 'jpalardy/vim-slime', { 'for': 'python' }
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
   Plug 'hauleth/vim-backscratch'
   Plug 'metakirby5/codi.vim'
-  " Plug 'mbbill/undotree'
   Plug 'simnalamburt/vim-mundo'
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'ferrine/md-img-paste.vim', { 'for' : 'markdown' }
@@ -111,6 +108,12 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'chrisbra/Colorizer'
   Plug 'itspriddle/vim-shellcheck'
   Plug 'vivien/vim-linux-coding-style'
+  if has("nvim")
+    Plug 'github/copilot.vim'
+  else
+    Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
+    Plug 'SirVer/ultisnips'
+  endif
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'

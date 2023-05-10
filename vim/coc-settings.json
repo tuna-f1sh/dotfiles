@@ -4,6 +4,7 @@
   "python.linting.enabled": false,
   "python.linting.pylintEnabled": true,
   "inlayHint.enable": false,
+  "suggest.noselect": true,
   "rust-analyzer.procMacro.enable": true,
   "languageserver": {
     "bash": {
@@ -27,5 +28,6 @@
           }
         }
     }
-  }
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }
