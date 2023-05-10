@@ -111,8 +111,8 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   if has("nvim")
     Plug 'github/copilot.vim'
   else
-    Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
-    Plug 'SirVer/ultisnips'
+    " Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
+    " Plug 'SirVer/ultisnips'
   endif
 
   " Colours
