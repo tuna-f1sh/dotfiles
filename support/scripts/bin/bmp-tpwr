@@ -1,0 +1,3 @@
+#!/bin/bash
+
+arm-none-eabi-gdb -ex "target extended-remote /dev/ttyBmpGdb" -ex "monitor tpwr $1" -ex "quit"
