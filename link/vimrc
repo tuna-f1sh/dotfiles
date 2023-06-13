@@ -98,6 +98,7 @@ if (g:HOST =~# 'archjohn') || (g:HOST =~# 'Johns-EpicBook-Evo') || (g:HOST =~# '
   Plug 'itchyny/lightline.vim'
   Plug 'majutsushi/tagbar' " Function preview window
   Plug 'tpope/vim-fugitive' " Git plugin
+  Plug 'tpope/vim-rhubarb' " GBrowse to github urls
   Plug 'junegunn/vim-peekaboo' " Register viewer
   Plug 'junegunn/goyo.vim', { 'for': 'markdown' } " Frame window for writting
   Plug 'junegunn/limelight.vim', { 'for': 'markdown' } " Highlight only current paragraph for writting

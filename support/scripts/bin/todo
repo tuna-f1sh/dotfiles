@@ -117,13 +117,14 @@ class Todo:
             fh.write(f"{line}\n")
         self.read()
 
-    def done(self, item: Tuple[int, int, str, str]):
+    def done(self, item: Tuple[int, int, str, str], note: Optional[str] = None):
         # delete from file
         if not delete_file_line(self.filename, item[1], True):
             raise RuntimeError("Failed to find item in {self.filenmae}")
         # put in archive
         archive_dt = datetime.datetime.now().strftime("%a %m-%dT%H:%M:%S")
-        archive_line = f"{archive_dt} [x] {item[3]}"
+        note = f" - _{note}_" if note else ""
+        archive_line = f"{archive_dt} [x] {item[3]}{note}"
         preappend_file(self.archive_filename, archive_line)
 
         # read updated file
@@ -167,17 +168,23 @@ def main():
     elif args.add is not None:
         todo.add(args.add)
     elif args.done is not None:
+        # add completed note
+        if len(unknown) == 1:
+            note = unknown[0]
+        else:
+            note = None
         todos = todo.todos
         try:
             item_no = int(args.done)
             if item_no <= len(todos) and item_no != 0:
-                todo.done(todo.todos[item_no - 1])
+                item = todo.todos[item_no - 1]
+                todo.done(item, note)
             else:
                 print(f"No TODO number {args.done}")
         except ValueError:
             item = todo.find_item(args.done)
             if item is not None:
-                todo.done(item)
+                todo.done(item, note)
             else:
                 print(f"No TODO starting with {args.done}")
 

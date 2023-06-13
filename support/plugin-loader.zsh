@@ -46,3 +46,22 @@ function plugin-compile () {
   done
 }
 
+
+function plugin-update () {
+  local giturl="$1"
+  local plugin_name=${${1##*/}%.git}
+  local plugindir="${ZPLUGINDIR:-$HOME/.zsh/plugins}/$plugin_name"
+
+  # clone if the plugin isn't there already
+  if [[ -d $plugindir ]]; then
+    command git -C $plugindir pull
+    [[ $? -eq 0 ]] || { >&2 echo "plugin-load: git pull failed; $plugindir" && return 1 }
+  fi
+}
+
+function plugin-updateall () {
+  for repo in $plugins; do
+    plugin-update https://github.com/${repo}.git
+  done
+  unset repo
+}
