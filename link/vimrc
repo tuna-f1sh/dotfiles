@@ -61,8 +61,16 @@ filetype off
 
 " Neovim and Vim have different base installs to prevent conflict
 if has("nvim")
-  let plug_install='$XDG_DATA_HOME/nvim/site/autoload/plug.vim'
-  let plug_path='$XDG_CONFIG_HOME/nvim/plugged'
+  if empty($XDG_DATA_HOME)
+    let plug_install='~/.config/nvim/site/autoload/plug.vim'
+  else
+    let plug_install='$XDG_DATA_HOME/nvim/site/autoload/plug.vim'
+  endif
+  if empty($XDG_CONFIG_HOME)
+    let plug_path='~/.config/nvim/plugged'
+  else
+    let plug_path='$XDG_CONFIG_HOME/nvim/plugged'
+  endif
 elseif (g:ENV =~# 'WINDOWS')
   " Enable Windows specific settings/plugins
   let plug_install='$USERPROFILE/vimfiles/autoload/plug.vim'
@@ -348,8 +356,8 @@ let g:coc_global_extensions = [
 \   'coc-pyright',
 \   'coc-emoji',
 \   'coc-css',
-\   'coc-rust-analyzer',
-\   'coc-snippets']
+\   'coc-rust-analyzer']
+" \   'coc-snippets']
 
 " ---- ALE ----
 "==============
