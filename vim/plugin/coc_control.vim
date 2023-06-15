@@ -74,19 +74,19 @@ function! CocSetup()
     nmap <leader>cl  <Plug>(coc-codelens-action)
 
     " Use <C-l> for trigger snippet expand.
-    imap <C-l> <Plug>(coc-snippets-expand)
+    " imap <C-l> <Plug>(coc-snippets-expand)
 
     " Use <C-s> for select text for visual placeholder of snippet.
-    vmap <C-s> <Plug>(coc-snippets-select)
+    " vmap <C-s> <Plug>(coc-snippets-select)
 
     " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-    let g:coc_snippet_next = '<c-j>'
+    " let g:coc_snippet_next = '<c-j>'
 
     " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-    let g:coc_snippet_prev = '<c-k>'
+    " let g:coc_snippet_prev = '<c-k>'
 
     " Use <C-j> for both expand and jump (make expand higher priority.)
-    imap <C-j> <Plug>(coc-snippets-expand-jump)
+    " imap <C-j> <Plug>(coc-snippets-expand-jump)
 
     " disable copilot default
     let g:copilot_no_tab_map = v:true
@@ -100,7 +100,6 @@ function! CocSetup()
     inoremap <silent><expr> <TAB>
           \ coc#pum#visible() ? coc#_select_confirm() :
           \ exists('b:_copilot.suggestions') ? copilot#Accept("\<CR>") :
-          \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
           \ CheckBackspace() ? "\<Tab>" :
           \ coc#refresh()
     " inoremap <silent><expr> <TAB>
