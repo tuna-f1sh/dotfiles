@@ -511,7 +511,12 @@ jdk() {
 # ag find and replace **in place**
 agsed() {
   echo "Find '$1' and replace '$2'"
-  ag -0 -l $1 | xargs -t -0 gsed -Ei -e "s/$1/$2/g"
+  arg="s|${1}|${2}|g"
+if [[ $OSTYPE =~ "darwin" ]]; then
+  ag -0 -l $1 | xargs -t -0 gsed -Ei -e $arg
+else
+  ag -0 -l $1 | xargs -t -0 sed -Ei -e $arg
+fi
 }
 
 # run ag recuresively with multiple patterns
