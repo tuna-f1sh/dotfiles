@@ -1,0 +1,17 @@
+# put this in /etc/udev/rules.d/
+# Atmel Ice sudo udevadm trigger to reload
+SUBSYSTEM=="usb", ATTRS{idVendor}== "03eb", ATTRS{idProduct}== "2141", GROUP="uucp"
+# Set Group for USBasp
+SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05dc", GROUP="uucp"
+# Set Group for Arduino Zero
+ACTION!="add|change", GOTO="openocd_rules_end"
+SUBSYSTEM!="usb|tty|hidraw", GOTO="openocd_rules_end"
+#CMSIS-DAP compatible adapters
+ATTRS{product}=="*CMSIS-DAP*", MODE="664", GROUP="uucp"
+LABEL="openocd_rules_end"
+
+# Black Magic Probe
+# there are two connections, one for GDB and one for uart debugging
+SUBSYSTEM=="tty", ATTRS{interface}=="Black Magic GDB Server", SYMLINK+="ttyBmpGdb"
+SUBSYSTEM=="tty", ATTRS{interface}=="Black Magic UART Port", SYMLINK+="ttyBmpTarg"
+

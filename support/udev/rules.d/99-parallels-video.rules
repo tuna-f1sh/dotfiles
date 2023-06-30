@@ -1,0 +1,13 @@
+# Parallels Tools for Linux
+#
+# Copyright (c) 1999-2019 Parallels International GmbH.
+# All rights reserved.
+# http://www.parallels.com
+
+# unbind virtio-pci and bind prl_vid
+KERNEL=="0000:01:00.0", DRIVER=="virtio-pci",\
+	PROGRAM="/bin/sh -c ' \
+		[ -e /sys/module/prl_vid ] || exit 0; \
+		echo -n %k > /sys/bus/pci/drivers/virtio-pci/unbind && \
+		[ ! -e /sys/bus/pci/device/%k/driver ] && \
+			echo -n %k > /sys/bus/pci/drivers/prl_vid/bind'"
