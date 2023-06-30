@@ -46,6 +46,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export DROPBOX_ROOT=/Users/john/Library/CloudStorage/Dropbox
   export NOTE_DIR=$DROPBOX_ROOT/Files/notes
   export JOURNAL_DIR=~/Dropbox/Files/blogs/memoirs-of-a-john/_posts
+  # match Linux path so it works with normal tools and kopia
+  export RCLONE_CONFIG=/Users/john/.config/rclone/rclone.conf
 
   # Arduino-mk
   export ARDUINO_DIR=/Applications/Arduino.app/Contents/Java 

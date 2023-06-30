@@ -59,6 +59,8 @@ alias path='echo -e ${PATH//:/\\n}'
 # kicad hide references
 alias kicad_hide="sed -i -E '/(fp_text reference...*)...*...)$/ s/$/ hide/g'"
 
+alias jsonpaste="pbpaste | python -m json.tool | pbcopy"
+
 if [[ $OSTYPE =~ "darwin" ]]; then
   # Merge PDF files
   # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
