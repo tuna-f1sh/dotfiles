@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="520c", MODE="0660", GROUP="uucp", TAG+="uaccess"

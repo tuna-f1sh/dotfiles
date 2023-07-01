@@ -1,0 +1,2 @@
+# logger dfu
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0463", ATTRS{idProduct}=="df11", GROUP="plugdev", MODE="0666"
