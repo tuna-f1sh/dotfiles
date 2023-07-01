@@ -1,0 +1,217 @@
+# Common recent settings file for Wireshark 4.0.6.
+#
+# This file is regenerated each time Wireshark is quit
+# and when changing configuration profile.
+# So be careful, if you want to make manual changes here.
+
+######## Recent capture files (latest last), cannot be altered through command line ########
+
+recent.capture_file: /Users/john/Desktop/btsnoop_hci.log
+recent.capture_file: /Users/john/Desktop/hubble-cap.pcapng
+recent.capture_file: /Users/john/Desktop/bugreport-heroltexx-RQ3A.210605.005-2022-02-23-11-18-13/FS/data/misc/bluetooth/logs/btsnoop_hci.log
+recent.capture_file: /Users/john/Desktop/btsnoop_hci_bugfix.log
+recent.capture_file: /Users/john/Desktop/test-bugfix.log
+recent.capture_file: /Users/john/Desktop/test-bugfix.pcapng
+recent.capture_file: /Users/john/Desktop/androind-hubble-mc.pcapng
+recent.capture_file: /Users/john/Dropbox/Dropbox (Specialized)/Projects/hubble/anewbugreportfolder/FS/data/misc/bluetooth/logs/btsnooz_hci.log
+recent.capture_file: /Users/john/Downloads/btsnoop_hci.log
+recent.capture_file: /Users/john/Downloads/unexpected_response.pcapng
+
+######## Recent capture filters (latest last), cannot be altered through command line ########
+
+
+######## Recent display filters (latest last), cannot be altered through command line ########
+
+recent.display_filter: btatt.value != 0 && frame.number >= 50000
+recent.display_filter: (bthci_acl.src.name == "WSBC1337" || bthci_acl.dst.name == "WSBC1337") && btatt.value != 0 && frame.number >= 1911
+recent.display_filter: eth.addr eq 58:c5:cb:34:25:84 and eth.addr eq eb:7d:ab:09:46:64
+recent.display_filter: (bthci_acl.src.name == "WSBC1337" || bthci_acl.dst.name == "WSBC1337") && btatt.value != 0
+recent.display_filter: bthci_acl.src.name == "WSBC1337" && btatt.value != 0
+recent.display_filter: bthci_acl.src.name == "WSBC1337" && btatt.value != 9
+recent.display_filter: bthci_acl.src.name == "WSBC1337"
+recent.display_filter: btatt.value != 0
+recent.display_filter: usb.src == "host" || usb.src == "1.2.1"
+recent.display_filter: usb.src == "host" || usb.src == "1.3.1"
+
+# Main window geometry.
+# Decimal numbers.
+gui.geometry_main_x: 50
+gui.geometry_main_y: 38
+gui.geometry_main_width: 1462
+gui.geometry_main_height: 916
+
+# Main window maximized.
+# TRUE or FALSE (case-insensitive).
+gui.geometry_main_maximized: TRUE
+
+# Leftalign Action Buttons.
+# TRUE or FALSE (case-insensitive).
+gui.geometry_leftalign_actions: FALSE
+
+# Statusbar left pane size.
+# Decimal number.
+gui.geometry_status_pane: 250
+
+# Statusbar middle pane size.
+# Decimal number.
+gui.geometry_status_pane_right: 250
+
+# Last used Configuration Profile.
+gui.last_used_profile: Default
+
+# WLAN statistics upper pane size.
+# Decimal number.
+gui.geometry_status_wlan_stats_pane: 200
+
+# Warn if running with elevated permissions (e.g. as root).
+# TRUE or FALSE (case-insensitive).
+privs.warn_if_elevated: TRUE
+
+# Warn if Wireshark is unable to capture.
+# TRUE or FALSE (case-insensitive).
+sys.warn_if_no_capture: TRUE
+
+# Find packet search in.
+# One of: PACKET_LIST, PACKET_DETAILS, PACKET_BYTES
+gui.search_in: PACKET_LIST
+
+# Find packet character set.
+# One of: NARROW_AND_WIDE, NARROW, WIDE
+gui.search_char_set: NARROW_AND_WIDE
+
+# Find packet case sensitive search.
+# TRUE or FALSE (case-insensitive).
+gui.search_case_sensitive: FALSE
+
+# Find packet search type.
+# One of: DISPLAY_FILTER, HEX_VALUE, STRING, REGEX
+gui.search_type: DISPLAY_FILTER
+
+# Geometry and maximized state of ShowPacketBytesDialog window.
+# Decimal integers.
+gui.geom.ShowPacketBytesDialog.x: 763
+gui.geom.ShowPacketBytesDialog.y: 204
+gui.geom.ShowPacketBytesDialog.width: 1248
+gui.geom.ShowPacketBytesDialog.height: 934
+# TRUE or FALSE (case-insensitive).
+gui.geom.ShowPacketBytesDialog.maximized: FALSE
+
+# Geometry and maximized state of ManageInterfacesDialog window.
+# Decimal integers.
+gui.geom.ManageInterfacesDialog.x: 546
+gui.geom.ManageInterfacesDialog.y: 420
+gui.geom.ManageInterfacesDialog.width: 750
+gui.geom.ManageInterfacesDialog.height: 425
+# TRUE or FALSE (case-insensitive).
+gui.geom.ManageInterfacesDialog.maximized: FALSE
+
+# Geometry and maximized state of DisplayFilterExpressionDialog window.
+# Decimal integers.
+gui.geom.DisplayFilterExpressionDialog.x: 604
+gui.geom.DisplayFilterExpressionDialog.y: 166
+gui.geom.DisplayFilterExpressionDialog.width: 1089
+gui.geom.DisplayFilterExpressionDialog.height: 855
+# TRUE or FALSE (case-insensitive).
+gui.geom.DisplayFilterExpressionDialog.maximized: FALSE
+
+# Geometry and maximized state of ProfileDialog window.
+# Decimal integers.
+gui.geom.ProfileDialog.x: 738
+gui.geom.ProfileDialog.y: 421
+gui.geom.ProfileDialog.width: 470
+gui.geom.ProfileDialog.height: 300
+# TRUE or FALSE (case-insensitive).
+gui.geom.ProfileDialog.maximized: FALSE
+
+# Geometry and maximized state of PreferencesDialog window.
+# Decimal integers.
+gui.geom.PreferencesDialog.x: 656
+gui.geom.PreferencesDialog.y: 412
+gui.geom.PreferencesDialog.width: 955
+gui.geom.PreferencesDialog.height: 521
+# TRUE or FALSE (case-insensitive).
+gui.geom.PreferencesDialog.maximized: FALSE
+
+# Geometry and maximized state of DecodeAsDialog window.
+# Decimal integers.
+gui.geom.DecodeAsDialog.x: 1012
+gui.geom.DecodeAsDialog.y: 441
+gui.geom.DecodeAsDialog.width: 750
+gui.geom.DecodeAsDialog.height: 460
+# TRUE or FALSE (case-insensitive).
+gui.geom.DecodeAsDialog.maximized: FALSE
+
+# Geometry and maximized state of PacketDialog window.
+# Decimal integers.
+gui.geom.PacketDialog.x: 430
+gui.geom.PacketDialog.y: 267
+gui.geom.PacketDialog.width: 1113
+gui.geom.PacketDialog.height: 728
+# TRUE or FALSE (case-insensitive).
+gui.geom.PacketDialog.maximized: FALSE
+
+# Geometry and maximized state of PacketCommentDialog window.
+# Decimal integers.
+gui.geom.PacketCommentDialog.x: 1187
+gui.geom.PacketCommentDialog.y: 521
+gui.geom.PacketCommentDialog.width: 400
+gui.geom.PacketCommentDialog.height: 300
+# TRUE or FALSE (case-insensitive).
+gui.geom.PacketCommentDialog.maximized: FALSE
+
+# Geometry and maximized state of FilterDialog window.
+# Decimal integers.
+gui.geom.FilterDialog.x: 309
+gui.geom.FilterDialog.y: 172
+gui.geom.FilterDialog.width: 1089
+gui.geom.FilterDialog.height: 670
+# TRUE or FALSE (case-insensitive).
+gui.geom.FilterDialog.maximized: FALSE
+
+# Geometry and maximized state of BluetoothHciSummaryDialog window.
+# Decimal integers.
+gui.geom.BluetoothHciSummaryDialog.x: 638
+gui.geom.BluetoothHciSummaryDialog.y: 256
+gui.geom.BluetoothHciSummaryDialog.width: 1498
+gui.geom.BluetoothHciSummaryDialog.height: 830
+# TRUE or FALSE (case-insensitive).
+gui.geom.BluetoothHciSummaryDialog.maximized: FALSE
+
+# Geometry and maximized state of BluetoothDevicesDialog window.
+# Decimal integers.
+gui.geom.BluetoothDevicesDialog.x: 430
+gui.geom.BluetoothDevicesDialog.y: 328
+gui.geom.BluetoothDevicesDialog.width: 1113
+gui.geom.BluetoothDevicesDialog.height: 607
+# TRUE or FALSE (case-insensitive).
+gui.geom.BluetoothDevicesDialog.maximized: FALSE
+
+# Geometry and maximized state of ColoringRulesDialog window.
+# Decimal integers.
+gui.geom.ColoringRulesDialog.x: 534
+gui.geom.ColoringRulesDialog.y: 380
+gui.geom.ColoringRulesDialog.width: 1089
+gui.geom.ColoringRulesDialog.height: 684
+# TRUE or FALSE (case-insensitive).
+gui.geom.ColoringRulesDialog.maximized: FALSE
+
+# Geometry and maximized state of BluetoothAttServerAttributesDialog window.
+# Decimal integers.
+gui.geom.BluetoothAttServerAttributesDialog.x: 638
+gui.geom.BluetoothAttServerAttributesDialog.y: 256
+gui.geom.BluetoothAttServerAttributesDialog.width: 1498
+gui.geom.BluetoothAttServerAttributesDialog.height: 830
+# TRUE or FALSE (case-insensitive).
+gui.geom.BluetoothAttServerAttributesDialog.maximized: FALSE
+
+# Custom colors.
+# List of custom colors selected in Qt color picker.
+gui.custom_colors: 
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff"

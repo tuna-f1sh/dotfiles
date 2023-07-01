@@ -160,7 +160,7 @@ bindkey "^Z" Resume
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/dotfiles/support/bindings.zsh ] && source ~/dotfiles/support/bindings.zsh
-# Meta-c to Alt-c because kitty I have macos_option_as_alt   no to allow symbol shortcuts
+# Meta-c to Alt-c because kitty I have macos_option_as_alt no to allow symbol shortcuts
 bindkey "ç" fzf-cd-widget
 
 if type brew &>/dev/null; then
