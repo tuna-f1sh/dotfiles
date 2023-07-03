@@ -3,6 +3,10 @@ ls_bin=ls
 if [ -x "$(command -v lsd)" ]; then
   ls_bin=lsd
 fi
+# 👻
+if [ -x "$(command -v nvim)" ]; then
+  alias vim='nvim'
+fi
 
 # Some shortcuts for different directory listings
 alias dir=$ls_bin' -lhcF' # classify files in colour
@@ -11,9 +15,6 @@ alias ll=$ls_bin' -l' # long list
 alias la=$ls_bin' -la' # all but . and ..
 alias l=$ls_bin' -lt' # time sort list
 alias lt='$ls_bin --tree' # directory tree
-
-# 👻
-alias vim='nvim'
 
 alias cdls='dirs -v'
 # git with global aliases in config
