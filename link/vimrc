@@ -220,6 +220,7 @@ set cursorline "highlight current line (slow in term)
 set signcolumn=yes
 " set timeoutlen=1000 " 1 second for mapped combos
 set ttimeoutlen=50
+set mouse=r           " mouse only for prompts
 
 " command complete settings
 set wildmenu " make command autocomplete easier
