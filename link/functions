@@ -431,6 +431,12 @@ note() {
 }
 complete -F _n note
 
+# gets note for date
+daynote() {
+  dprog=$(which gdate || which date)
+  vim ${NOTE_DIR}/$($dprog +%Y-%m-%d -d "$*").md
+}
+
 # Override Z for use with fzf
 unalias z 2> /dev/null
 z() {
