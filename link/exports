@@ -10,8 +10,8 @@ export HISTFILE=~/.zsh_history
 export HISTCONTROL=ignoreboth:erasedups:ignorespace
 export HISTIGNORE="pass*:bw*:subkey*:*password*"
 export HISTORY_IGNORE="(pass|bw|subkey)"
-export HISTSIZE=10000
-export SAVEHIST=10000
+export HISTSIZE=20000
+export SAVEHIST=$HISTSIZE
 
 # Language
 if [ -z $LANG ]; then
