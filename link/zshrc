@@ -114,11 +114,11 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
-#append into history file
-setopt INC_APPEND_HISTORY
-# timestamp
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+# timestamp;time;command
 setopt EXTENDED_HISTORY
-setopt interactivecomments # enable interactive comments like bash
+setopt interactivecomments       # Allow comments even in interactive shells.
 
 export ZVM_CURSOR_STYLE_ENABLED=false
 
