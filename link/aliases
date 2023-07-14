@@ -60,6 +60,10 @@ alias path='echo -e ${PATH//:/\\n}'
 alias jsonpaste="pbpaste | python -m json.tool | pbcopy"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
+  # x86_64 Homebrew on Apple Silicon
+  if [[ $(uname -m) == "arm64" ]]; then
+    alias brow='arch --x86_64 /usr/local/Homebrew/bin/brew'
+  fi
   # Merge PDF files
   # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
   alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'

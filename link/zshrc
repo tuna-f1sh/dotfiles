@@ -7,6 +7,13 @@
 # export LC_TIME="C"
 # export LC_ALL=$LANG
 
+# if [ "$(arch)" = "arm64" ]; then
+#     eval "$(/opt/homebrew/bin/brew shellenv)"
+# else
+#     eval "$(/usr/local/bin/brew shellenv)"
+# fi
+# export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$PATH"
+
 # # p10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"

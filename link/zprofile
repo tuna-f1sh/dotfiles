@@ -1,3 +1,12 @@
 # Setup $PATH https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
 # Use homebrew python (arm64/x86) : homebrew bin (arm64/x86) : rust : ruby : : go
-export PATH="/opt/homebrew/opt/python/libexec/bin:/usr/local/opt/python/libexec/bin:$HOME/bin:/opt/homebrew/bin:/usr/local/bin:$HOME/.cargo/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$HOME/go/bin:$HOME/.local/bin:$PATH"
+if [[ $OSTYPE =~ "darwin" ]]; then
+  if [ "$(arch)" = "arm64" ]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+  else
+      eval "$(/usr/local/bin/brew shellenv)"
+  fi
+  export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$HOME/go/bin:$HOME/.local/bin:$PATH"
+else
+  export PATH="$HOME/bin:$HOMEBREW_PREFIX/bin:$HOME/.cargo/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$HOME/go/bin:$HOME/.local/bin:$PATH"
+fi
