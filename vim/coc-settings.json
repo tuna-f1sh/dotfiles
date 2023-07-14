@@ -6,6 +6,11 @@
   "inlayHint.enable": false,
   "suggest.noselect": true,
   "rust-analyzer.procMacro.enable": true,
+  "workspace.ignoredFolders": [
+    "$HOME",
+    "$HOME/.cargo/**",
+    "$HOME/.rustup/**"
+  ],
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
