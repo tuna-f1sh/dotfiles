@@ -4,7 +4,6 @@ bcm20702a1-firmware
 cyme-bin
 git-delta-bin
 hfsprogs
-icestorm-git
 libftd2xx
 nrf-connect-sdk-installer
 nrf5x-command-line-tools
