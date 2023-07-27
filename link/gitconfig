@@ -1,7 +1,7 @@
 [user]
   name = John Whittington
   email = git@jbrengineering.co.uk
-  signingkey = A272C63E513A33DD
+  signingkey = 1F115C61777E8275
 
 [push]
   default = simple
@@ -76,3 +76,5 @@
   smtpServerPort = 1025
   smtpEncryption = ssl
   smtpsslcertpath =  # null value disables but ok since localhost
+[gpg]
+	program = gpg

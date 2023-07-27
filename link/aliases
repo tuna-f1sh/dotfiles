@@ -57,33 +57,23 @@ alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
-# kicad hide references
-alias kicad_hide="sed -i -E '/(fp_text reference...*)...*...)$/ s/$/ hide/g'"
-
 alias jsonpaste="pbpaste | python -m json.tool | pbcopy"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
+  # x86_64 Homebrew on Apple Silicon
+  if [[ $(uname -m) == "arm64" ]]; then
+    alias brow='arch --x86_64 /usr/local/Homebrew/bin/brew'
+  fi
   # Merge PDF files
   # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
   alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
-
   # Airport CLI alias
   alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
-
   # Lock the screen (when going AFK)
   alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-
   # Open Finder window of current path
   alias finder='open .'
-
-  # Open gvim from term
-  alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
-
-  # load/unload ktext
-  alias ftx_load='sudo kextload -b com.apple.driver.AppleUSBFTDI'
-  alias ftx_unload='sudo kextunload -b com.apple.driver.AppleUSBFTDI'
   alias nosleep='pmset noidle'
-
   alias update='brew upgrade && brew update'
   alias speedtest-macos='networkQuality'
   alias fit2csv='java -jar ~/FitSDKRelease/java/FitCSVTool.jar'
@@ -103,7 +93,7 @@ fi
 alias env_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'
 
 # Flutter
-alias env_flutter='export PATH="$PATH:$HOME/flutter/flutter/bin:$HOME/.pub-cache/bin"'
+alias env_flutter='export PATH="$PATH:$HOME/flutter/bin:$HOME/.pub-cache/bin"'
 
 if [ -d "$HOME/.bookmarks" ]; then
     export CDPATH=".:$HOME/.bookmarks:/"

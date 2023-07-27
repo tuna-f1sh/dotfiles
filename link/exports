@@ -10,8 +10,8 @@ export HISTFILE=~/.zsh_history
 export HISTCONTROL=ignoreboth:erasedups:ignorespace
 export HISTIGNORE="pass*:bw*:subkey*:*password*"
 export HISTORY_IGNORE="(pass|bw|subkey)"
-export HISTSIZE=10000
-export SAVEHIST=10000
+export HISTSIZE=20000
+export SAVEHIST=$HISTSIZE
 
 # Language
 if [ -z $LANG ]; then
@@ -33,16 +33,18 @@ fi
 
 export TERM='xterm-256color'
 
-# if [ -x "$(command -v vimpager)" ]; then
-#   export PAGER=vimpager
-# fi
-
 # Toolchain paths
 export GOPATH="$HOME/go"
 export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
+
+# Cargo targets in global folder outside of project
+export CARGO_TARGET_DIR="$HOME/.cargo/target"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
+  # homebrew
+  export HOMEBREW_NO_ENV_HINTS=1
+  export HOMEBREW_NO_ANALYTICS=1
+
   export DROPBOX_ROOT=/Users/john/Library/CloudStorage/Dropbox
   export NOTE_DIR=$DROPBOX_ROOT/Files/notes
   export JOURNAL_DIR=~/Dropbox/Files/blogs/memoirs-of-a-john/_posts
@@ -64,7 +66,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
   # for fastlane
-  export FLUTTER_ROOT='/Users/john/flutter/flutter/'
+  export FLUTTER_ROOT='/Users/john/flutter/'
 
   # kicad makefile
   export KICADMK_DIR=/Users/john/git/kicad-makefile
