@@ -237,7 +237,6 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 yarn
-yosys
 yubikey-manager
 yubikey-manager-qt
 zip

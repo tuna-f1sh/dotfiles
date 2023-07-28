@@ -85,6 +85,8 @@ else;
   alias reboot="sudo systemctl reboot"
   alias poweroff="sudo systemctl poweroff"
   alias halt="sudo systemctl halt"
+  # I made this name change myself
+  alias create_can="cancan"
 fi
 
 # ESP32
