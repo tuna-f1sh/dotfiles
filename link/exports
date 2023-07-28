@@ -60,13 +60,16 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export NNN_BMS='p:~/Dropbox/Projects/;m:/Users/john/Library/Preferences/.config/nnn/mounts;n:~/Dropbox/Files/notes'
 
   # ruby env
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$HOMEBREW_PREFIX"
 
   # for fastlane
   export FLUTTER_ROOT='/Users/john/flutter/'
 
   # kicad makefile
   export KICADMK_DIR=/Users/john/git/kicad-makefile
+
+  # homebrew libs for Cargo
+  export LIBRARY_PATH="$LIBRARY_PATH:$HOMEBREW_PREFIX/lib"
 else
   export NOTE_DIR=~/.notes
 
