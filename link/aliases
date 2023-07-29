@@ -45,11 +45,6 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 # Generate terminal utf-8 qrcode
 alias qrcode='qrencode -t UTF8 -o -'
 
-# IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
-alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
-
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
@@ -82,6 +77,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # kicad
   alias kicad-cli="/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
 else;
+  alias ips="ip a s primary | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
   alias reboot="sudo systemctl reboot"
   alias poweroff="sudo systemctl poweroff"
   alias halt="sudo systemctl halt"

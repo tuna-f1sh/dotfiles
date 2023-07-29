@@ -52,7 +52,7 @@ Generally migrated macOS without migration assistant. Summary of places of impor
 
 ## Arch
 
-* './pkglist.txt' and './pkglist_aur.txt' (AUR) refering to https://wiki.archlinux.org/title/migrate_installation_to_new_hardware.
+* './pkglist.txt' and './pkglist_aur.txt' (AUR) refering to https://wiki.archlinux.org/title/migrate_installation_to_new_hardware: `pacman -S --needed - < pkglist.txt`
 * `usermod -a -G uucp _reguser_` - add user to USB serial devices
 * Add ./support/udev/rules.d as required.
 
