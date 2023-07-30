@@ -198,6 +198,27 @@ endif
 
 " --- GENERAL SETTINGS ---
 
+" set clipboard provider on nvim if remote
+" must install my ~/dotfiles/support/scripts/bin/
+if has('nvim') && !empty($SSH_TTY)
+  if executable('clipboard-provider')
+    let g:clipboard = {
+          \ 'name': 'clipboard-provider',
+          \     'copy': {
+          \         '+': 'clipboard-provider copy',
+          \         '*': 'env COPY_PROVIDERS=osc52 clipboard-provider copy',
+          \     },
+          \     'paste': {
+          \         '+': 'clipboard-provider paste',
+          \         '*': 'env COPY_PROVIDERS=osc52 clipboard-provider paste',
+          \     },
+          \ }
+
+    " yank to tmux normally
+    " set clipboard=unnamed
+  endif
+endif
+
 set ruler             " Show line and column number
 set encoding=utf-8    " Set default encoding to UTF-8
 set autoread          " autoload external file changes
@@ -465,6 +486,11 @@ command! -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%a
 "======================================
 " ---------- MAPPING -----------"
 "======================================
+
+" Yank to system clipboard with Y
+nmap YY "+yy
+nmap Y "+y
+vmap Y "+y
 
 " i always, ALWAYS hit ":W" instead of ":w"
 command! Q q

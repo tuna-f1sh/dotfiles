@@ -1,0 +1,91 @@
+#!/bin/bash
+#
+# clipboard provider for neovim
+#
+# trys everything to copy to a system clipboard!
+#
+# :help provider-clipboard
+
+#exec 2>> ~/clipboard-provider.out
+#set -x
+
+: ${COPY_PROVIDERS:=tmux kitty desktop}
+: ${PASTE_PROVIDERS:=tmux kitty desktop}
+# nvim doesn't have /dev/tty for some reason so grab PID
+: ${TTY:=`(tty || tty </proc/$PPID/fd/0) 2>/dev/null | grep /dev/`}
+
+main() {
+  declare p status=99
+
+  case $1 in
+    copy)
+      slurp
+      for p in $COPY_PROVIDERS; do
+        $p-provider copy && status=0 && break
+      done ;;
+
+    paste)
+      for p in $PASTE_PROVIDERS; do
+        $p-provider paste && status=0 && break
+      done ;;
+  esac
+
+  exit $status
+}
+
+# N.B. buffer is global for simplicity
+slurp() { buffer=$(base64); }
+spit() { base64 --decode <<<"$buffer"; }
+
+tmux-provider() {
+  [[ -n $TMUX ]] || return
+  case $1 in
+    copy) spit | tmux load-buffer - ;;
+    paste) tmux save-buffer - ;;
+  esac
+}
+
+desktop-provider() {
+  pasteboard-provider "$@" || wayland-provider "$@" || xclip-provider "$@" || osc52-provider "$@"
+}
+
+pasteboard-provider() {
+  case $1 in
+    copy) type pbcopy &>/dev/null && spit | pbcopy ;;
+    paste) type pbpaste &>/dev/null && pbpaste ;;
+  esac
+}
+
+kitty-provider() {
+  case $1 in
+    copy) type kitty &>/dev/null && spit | kitty +kitten clipboard ;;
+    paste) type kitty &>/dev/null && kitty +kitten clipboard --get-clipboard ;;
+  esac
+}
+
+
+wayland-provider() {
+  [[ -n $WAYLAND_DISPLAY ]] || return
+  case $1 in
+    copy) type wl-copy &>/dev/null && spit | wl-copy --trim-newline --type=text/plain ;;
+    paste) type wl-paste &>/dev/null && wl-paste ;;
+  esac
+}
+
+xclip-provider() {
+  [[ -n $DISPLAY ]] && type xclip &>/dev/null && ! xdpyinfo | grep -q Apple || return
+  case $1 in
+    copy) spit | xclip -i -selection clipboard ;;
+    paste) xclip -o -selection clipboard ;;
+  esac
+}
+
+osc52-provider() {
+  [[ -n "$TTY" ]] || return
+  case $1 in
+    copy) printf $'\e]52;c;%s\a' "$buffer" > "$TTY" ;;
+    paste) return 1 ;;
+  esac
+}
+
+main "$@"
