@@ -200,17 +200,18 @@ endif
 
 " set clipboard provider on nvim if remote
 " must install my ~/dotfiles/support/scripts/bin/
+" don't use desktop providers since over SSH
 if has('nvim') && !empty($SSH_TTY)
   if executable('clipboard-provider')
     let g:clipboard = {
           \ 'name': 'clipboard-provider',
           \     'copy': {
-          \         '+': 'clipboard-provider copy',
-          \         '*': 'env COPY_PROVIDERS=osc52 clipboard-provider copy',
+          \         '+': 'env COPY_PROVIDERS="tmux kitty osc52" clipboard-provider copy',
+          \         '*': 'env COPY_PROVIDERS="tmux kitty" clipboard-provider copy',
           \     },
           \     'paste': {
           \         '+': 'clipboard-provider paste',
-          \         '*': 'env COPY_PROVIDERS=osc52 clipboard-provider paste',
+          \         '*': 'clipboard-provider paste',
           \     },
           \ }
 
