@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
 # User settings
-export VISUAL=vim
-export EDITOR=vim
+if [ -x "$(command -v nvim)" ]; then
+  export VISUAL=nvim
+  export EDITOR=nvim
+else
+  export VISUAL=vim
+  export EDITOR=vim
+fi
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export PIPENV_VENV_IN_PROJECT=1 
