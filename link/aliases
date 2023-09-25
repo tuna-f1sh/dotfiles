@@ -19,6 +19,10 @@ alias lt='$ls_bin --tree' # directory tree
 alias cdls='dirs -v'
 # git with global aliases in config
 alias g='git'
+alias gs='git s'
+alias ga='git cam'
+alias gl='git cam'
+alias gd='git d'
 # exit quick
 alias q='exit'
 

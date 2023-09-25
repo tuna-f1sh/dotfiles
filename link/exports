@@ -2,12 +2,12 @@
 
 # User settings
 if [ -x "$(command -v nvim)" ]; then
-  export VISUAL=nvim
   export EDITOR=nvim
 else
-  export VISUAL=vim
   export EDITOR=vim
 fi
+export VISUAL="$EDITOR"
+
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export PIPENV_VENV_IN_PROJECT=1 
@@ -32,11 +32,9 @@ if [ -z $LANG ]; then
 fi
 
 # Colourful vim
-if [[ $TERM == xterm-kitty ]]; then
-  export TERM=xterm-256color
-fi
-
-export TERM='xterm-256color'
+# if [[ $TERM == xterm-kitty ]]; then
+#   export TERM=xterm-256color
+# fi
 
 # Toolchain paths
 export GOPATH="$HOME/go"

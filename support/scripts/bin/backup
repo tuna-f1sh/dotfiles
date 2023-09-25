@@ -1,0 +1,79 @@
+#!/bin/bash
+force=${1:-0}
+
+# check has internet and not on battery
+if [ "$force" -eq 0 ]; then
+  if [ "$(uname)" == "Darwin" ]; then
+    if pmset -g batt | grep discharging; then
+      echo 'On battery: skipping backup'
+      exit 0
+    fi
+  fi
+  if ! nc -zw1 google.com 443; then
+    echo 'No internet: skipping backup'
+    exit 0
+  fi
+fi
+
+source "$HOME/.config/restic/env"
+
+# capture installed if darwin
+if [ "$(uname)" == "Darwin" ]; then
+  rm -f "$HOME/.local/state/Brewfile"
+  brew autoremove --quiet
+  brew bundle dump --file="$HOME/.local/state/Brewfile" --cleanup --quiet
+fi
+
+# backup
+restic backup \
+  --one-file-system \
+  --cleanup-cache \
+  --exclude-caches \
+  --exclude=$HOME/.bundle \
+  --exclude=$HOME/.cache \
+  --exclude=$HOME/.dbus \
+  --exclude=$HOME/.dropbox \
+  --exclude=$HOME/.dropbox-dist \
+  --exclude=$HOME/.local/pipx \
+  --exclude=$HOME/.local/share/Trash \
+  --exclude=$HOME/.npm \
+  --exclude=$HOME/.pyenv \
+  --exclude=$HOME/.thumbnails \
+  --exclude=$HOME/.virtualenvs \
+  --exclude=$HOME/.rustup \
+  --exclude=$HOME/.cargo \
+  --exclude=$HOME/.colima \
+  --exclude=$HOME/.lima \
+  --exclude=node_modules \
+  --exclude=$HOME/flutter \
+  --exclude=$HOME/Dropbox \
+  --exclude=$HOME/go \
+  --exclude=$HOME/STM32Cube* \
+  --exclude=$HOME/Applications \
+  --exclude=$HOME/Pictures \
+  --exclude=$HOME/Music \
+  --exclude=$HOME/Movies \
+  --exclude=$HOME/Parallels \
+  --exclude="$HOME/VirtualBox VMs" \
+  --exclude=$HOME/Library/Containers \
+  --exclude=$HOME/Library/Caches \
+  --exclude=$HOME/Library/Developer \
+  --exclude=$HOME/Library/CloudStorage \
+  --exclude=$HOME/Library/virtualenvs \
+  --exclude=$HOME/Library/Arduino15 \
+  --exclude=$HOME/Library/Messages \
+  --exclude=$HOME/Library/**/Autodesk \
+  "$RESTIC_PATH"
+
+# Delete old backups, only untagged
+# If what you want is to keep daily snapshots for the last week, weekly for the last month, monthly for the last year and yearly for the last 7 years, you can instead specify
+restic forget \
+  --keep-within-daily 7d \
+  --keep-within-weekly 1m \
+  --keep-within-monthly 1y \
+  --keep-within-yearly 7y \
+  --prune \
+  --host "$RESTIC_HOST" \
+  --path "$RESTIC_PATH" \
+  --tag '' \
+  --compact

@@ -1,10 +1,14 @@
 #!/bin/bash
 
 if [ $# -eq 0 ]; then
+  TZ='Europe/Zurich' gdate
+  TZ='Europe/London' gdate
   TZ='America/Los_Angeles' gdate
   TZ='US/Central' gdate
   TZ='US/Eastern' gdate
 else
+  TZ='Europe/Zurich' gdate -d "$1"
+  TZ='Europe/London' gdate -d "$1"
   TZ='America/Los_Angeles' gdate -d "$1"
   TZ='US/Central' gdate -d "$1"
   TZ='US/Eastern' gdate -d "$1"
