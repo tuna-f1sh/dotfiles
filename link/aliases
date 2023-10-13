@@ -80,7 +80,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias lsusb='cyme --lsusb'
   # kicad
   alias kicad-cli="/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
-else;
+else
   alias ips="ip a s primary | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
   alias reboot="sudo systemctl reboot"
   alias poweroff="sudo systemctl poweroff"
