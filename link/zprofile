@@ -1,3 +1,14 @@
+function path_remove {
+  # ref: https://unix.stackexchange.com/a/291611
+  # Delete path by parts so we can never accidentally remove sub paths
+  if [ "$PATH" == "$1" ] ; then PATH="" ; fi
+  PATH=${PATH//":$1:"/":"} # delete any instances in the middle
+  PATH=${PATH/#"$1:"/} # delete any instance at the beginning
+  PATH=${PATH/%":$1"/} # delete any instance in the at the end
+}
+path_append ()  { path_remove $1; export PATH="$PATH:$1"; }
+path_prepend () { export PATH="$1:$PATH"; }
+
 # Setup $PATH https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
 # Use homebrew python (arm64/x86) : homebrew bin (arm64/x86) : rust : ruby : : go
 if [[ $OSTYPE =~ "darwin" ]]; then
@@ -6,7 +17,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   else
       eval "$(/usr/local/bin/brew shellenv)"
   fi
-  export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$HOME/go/bin:$HOME/.local/bin:$PATH"
+  export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$HOME/bin:$HOME/.cargo/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$HOME/go/bin:$HOME/.local/bin:$PATH"
 else
   export PATH="$HOME/bin:$HOMEBREW_PREFIX/bin:$HOME/.cargo/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$HOME/go/bin:$HOME/.local/bin:$PATH"
 fi

@@ -5,14 +5,21 @@
 # trys everything to copy to a system clipboard!
 #
 # :help provider-clipboard
+#
+# Usage:
+# echo 'clip me' | clipboard-provider copy
+# clipboard-provider paste
 
+# uncomment to debug
 #exec 2>> ~/clipboard-provider.out
 #set -x
 
 : ${COPY_PROVIDERS:=tmux kitty desktop}
 : ${PASTE_PROVIDERS:=tmux kitty desktop}
-# nvim doesn't have /dev/tty for some reason so grab PID
-: ${TTY:=`(tty || tty </proc/$PPID/fd/0) 2>/dev/null | grep /dev/`}
+# NVIM doesn't have /dev/tty for some reason so grab PID
+# Won't work on macOS permission denied. I don't use that often so solution is just `pbpaste | clipboard-provider copy` afterwards
+# `tmux display-message -p '#{pane_tty}'` will work in a tmux env but that won't forward to host
+: ${TTY:=`(tty || tty </proc/$PPID/fd/0 || $SSH_TTY) 2>/dev/null | grep /dev/`}
 
 main() {
   declare p status=99
@@ -22,11 +29,6 @@ main() {
       slurp
       for p in $COPY_PROVIDERS; do
         $p-provider copy && status=0 && break
-      done ;;
-
-    paste)
-      for p in $PASTE_PROVIDERS; do
-        $p-provider paste && status=0 && break
       done ;;
   esac
 
