@@ -206,7 +206,7 @@ if has('nvim') && !empty($SSH_TTY)
     let g:clipboard = {
           \ 'name': 'clipboard-provider',
           \     'copy': {
-          \         '+': 'clipboard-provider copy',
+          \         '+': 'env COPY_PROVIDERS=osc52 clipboard-provider copy',
           \         '*': 'clipboard-provider copy',
           \     },
           \     'paste': {
