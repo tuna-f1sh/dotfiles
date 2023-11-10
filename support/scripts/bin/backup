@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 force=${1:-0}
 
 # check has internet and not on battery
@@ -23,6 +24,8 @@ if [ "$(uname)" == "Darwin" ]; then
   brew autoremove --quiet
   brew bundle dump --file="$HOME/.local/state/Brewfile" --cleanup --quiet
 fi
+
+set +e
 
 # backup
 restic backup \
@@ -63,6 +66,7 @@ restic backup \
   --exclude=$HOME/Library/Arduino15 \
   --exclude=$HOME/Library/Messages \
   --exclude=$HOME/Library/**/Autodesk \
+  --exclude=$HOME/Library/**/FileProvider \
   "$RESTIC_PATH"
 
 # Delete old backups, only untagged
