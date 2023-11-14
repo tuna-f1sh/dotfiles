@@ -18,6 +18,7 @@
 
 [merge]
   tool = vimdiff
+  conflictstyle = diff3
 
 [init]
   templatedir = ~/dotfiles/support/git_template
@@ -52,9 +53,6 @@
 
 [pager]
   diff = delta
-  ; log = delta
-  ; reflog = delta
-  ; show = delta
 
 [interactive]
   diffFilter = delta --color-only
@@ -78,5 +76,6 @@
   smtpServerPort = 1025
   smtpEncryption = ssl
   smtpsslcertpath =  # null value disables but ok since localhost
+
 [gpg]
-	program = gpg
+  program = gpg
