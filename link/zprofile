@@ -17,7 +17,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   else
       eval "$(/usr/local/bin/brew shellenv)"
   fi
-  export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$HOME/bin:$HOME/.cargo/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$HOME/go/bin:$HOME/.local/bin:$PATH"
+  export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$HOMEBREW_PREFIX/opt/openjdk/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$HOME/go/bin:$HOME/.local/bin:$PATH"
 else
   export PATH="$HOME/bin:$HOMEBREW_PREFIX/bin:$HOME/.cargo/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$HOME/go/bin:$HOME/.local/bin:$PATH"
 fi
