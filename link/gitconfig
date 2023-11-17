@@ -33,8 +33,8 @@
   cam = commit -am
   ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
   ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-  lg = log --date-order --all --graph --format="%C(green)%h%Creset\\ %C(yellow)%an%Creset\\ %C(blue)%ar%Creset\\ %C(red)%d%Creset%s"
-  d = diff --patience --minimal
+  lg = log --date-order --all --graph --format="%C(green)%h%Creset\\ %C(yellow)%an%Creset\\ %C(blue)%ar%Creset\\%C(red)%d%Creset\\ %s"
+  d = diff
 
 [difftool "vimdiff-raw"]
   cmd = vim -d $LOCAL $REMOTE

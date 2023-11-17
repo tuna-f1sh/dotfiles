@@ -154,11 +154,12 @@ class Todo:
 def main():
     parser = argparse.ArgumentParser(prog = 'todo', description = 'Manages text based TODOs')
 
-    parser.add_argument('-t', '--today', action='store_true')
-    parser.add_argument('-o', '--open', action='store_true')
-    parser.add_argument('-a', '--add', type=str)
-    parser.add_argument('-d', '--done', type=str)
-    parser.add_argument('-A', '--archive', action='store_true')
+    parser.add_argument('-t', '--today', action='store_true', help='Print today\'s todos')
+    parser.add_argument('-o', '--open', action='store_true', help='open the todo file')
+    parser.add_argument('-a', '--add', type=str, help='add a todo')
+    parser.add_argument('-d', '--done', type=str, help='mark a todo as done')
+    parser.add_argument('-l', '--log', type=str, help='add a todo directly to the completed item archive')
+    parser.add_argument('-A', '--archive', action='store_true', help='open the archive file')
     args, unknown = parser.parse_known_args()
 
     todo = Todo()
@@ -167,7 +168,9 @@ def main():
         subprocess.call([os.environ.get("EDITOR", "vim"), todo.filename if not args.archive else todo.archive_filename])
     elif args.add is not None:
         todo.add(args.add)
-    elif args.done is not None:
+    elif args.done is not None or args.log is not None:
+        if args.log:
+            todo.add(args.log)
         # add completed note
         if len(unknown) == 1:
             note = unknown[0]
@@ -175,7 +178,7 @@ def main():
             note = None
         todos = todo.todos
         try:
-            item_no = int(args.done)
+            item_no = int(args.done) if args.done else len(todo.todos)
             if item_no <= len(todos) and item_no != 0:
                 item = todo.todos[item_no - 1]
                 todo.done(item, note)
