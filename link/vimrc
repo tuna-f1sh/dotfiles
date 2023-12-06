@@ -119,10 +119,9 @@ if !empty($DOTFILES_VIM_FULL_FAT)
   Plug 'vivien/vim-linux-coding-style'
   if has("nvim")
     Plug 'github/copilot.vim'
-  else
-    " Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
-    " Plug 'SirVer/ultisnips'
   endif
+  Plug 'honza/vim-snippets', { 'for': 'markdown' } " Snippets are separated from the engine. Add this if you want them:
+  Plug 'SirVer/ultisnips', { 'for': 'markdown' } " Snippets engine
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
@@ -342,13 +341,9 @@ end
 " ---- PLUGINS ----
 "===================
 
-" The Silver Searcher
+" Use rg for grep
 if executable('rg')
-  " Use rg over ag
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-elseif executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
 endif
 
 " bottom of the screen not pop-up for FZF

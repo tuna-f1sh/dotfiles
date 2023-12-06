@@ -17,6 +17,12 @@ else
   endtry
 endif
 
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' } " Frame window for writting
+Plug 'junegunn/limelight.vim', { 'for': 'markdown' } " Highlight only current paragraph for writting
+Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
+" Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
+
 "" Cursor Stuff
 function! MyCursor()
   hi! Cursor guibg=lightgreen
