@@ -35,14 +35,14 @@ recent.display_filter: bthci_acl.src.name == "WSBC1337" && btatt.value != 9
 
 # Main window geometry.
 # Decimal numbers.
-gui.geometry_main_x: 50
-gui.geometry_main_y: 25
-gui.geometry_main_width: 2510
-gui.geometry_main_height: 1387
+gui.geometry_main_x: 827
+gui.geometry_main_y: 321
+gui.geometry_main_width: 960
+gui.geometry_main_height: 768
 
 # Main window maximized.
 # TRUE or FALSE (case-insensitive).
-gui.geometry_main_maximized: TRUE
+gui.geometry_main_maximized: FALSE
 
 # Leftalign Action Buttons.
 # TRUE or FALSE (case-insensitive).

@@ -3,30 +3,42 @@ if exists('g:loaded_notes') && &fd
 endif
 let g:loaded_notes = 1
 
+if exists('$DROPBOX_ROOT')
+  let g:dropbox_root="$DROPBOX_ROOT"
+else
+  let g:dropbox_root="$HOME/Library/CloudStorage/Dropbox"
+endif
+
+if exists('$NOTE_DIR')
+  let g:note_dir="$NOTE_DIR"
+else
+  let g:note_dir=g:dropbox_root.'/Files/notes'
+endif
+
 function! Note(...)
   if (a:0)
-    let s:file = $NOTE_DIR.'/'.a:1.'.md'
+    let s:file = g:note_dir.'/'.a:1.'.md'
     exec 'edit '.s:file
   else
     let l:fzf_opts = {}
     let l:fzf_opts.sink = 'e'
-    let l:fzf_opts.dir = $NOTE_DIR
+    let l:fzf_opts.dir = g:note_dir
     let l:fzf_opts.source = 'ls -t $(fd . -e md)'
-    let l:fzf_opts.options = '--delimiter ":" --preview="cat $NOTE_DIR/{1}" --preview-window=right:80'
+    let l:fzf_opts.options = '--delimiter ":" --preview="cat '.g:note_dir.'/{1}" --preview-window=right:80'
     call fzf#run(fzf#wrap(l:fzf_opts))
   endif
 endfunction
 
 function! NoteSplit(...)
   if (a:0)
-    let s:file = $NOTE_DIR.'/'.a:1.'.md'
+    let s:file = g:note_dir.'/'.a:1.'.md'
     exec 'vsplit '.s:file
   else
     let l:fzf_opts = {}
     let l:fzf_opts.sink = 'vsplit'
-    let l:fzf_opts.dir = $NOTE_DIR
+    let l:fzf_opts.dir = g:note_dir
     let l:fzf_opts.source = 'ls -t $(fd . -e md)'
-    let l:fzf_opts.options = '--delimiter ":" --preview="cat $NOTE_DIR/{1}" --preview-window=right:80'
+    let l:fzf_opts.options = '--delimiter ":" --preview="cat '.g:note_dir.'/{1}" --preview-window=right:80'
     call fzf#run(fzf#wrap(l:fzf_opts))
   endif
 endfunction
@@ -34,9 +46,9 @@ endfunction
 function! AgNote(search)
   let l:fzf_opts = {}
   let l:fzf_opts.sink = 'e'
-  let l:fzf_opts.dir = $NOTE_DIR
-  let l:fzf_opts.source = 'ls -t $(ag --nobreak --nonumbers --noheading --markdown -l "'.a:search.'" $NOTE_DIR)'
-  let l:fzf_opts.options = '--delimiter ":" --preview="cat $NOTE_DIR/{1}" --preview-window=right:80'
+  let l:fzf_opts.dir = g:note_dir
+  let l:fzf_opts.source = 'ls -t $(ag --nobreak --nonumbers --noheading --markdown -l "'.a:search.'" .'g:note_dir.')'
+  let l:fzf_opts.options = '--delimiter ":" --preview="cat '.g:note_dir.'/{1}" --preview-window=right:80'
   call fzf#run(fzf#wrap(l:fzf_opts))
 endfunction
 
