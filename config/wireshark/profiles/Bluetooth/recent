@@ -1,4 +1,4 @@
-# Recent settings file for Wireshark 3.6.2.
+# Recent settings file for Wireshark 4.2.0.
 #
 # This file is regenerated each time Wireshark is quit
 # and when changing configuration profile.
@@ -41,12 +41,16 @@ gui.statusbar_show: TRUE
 # TRUE or FALSE (case-insensitive).
 gui.packet_list_colorize: TRUE
 
+# Auto scroll packet list when capturing.
+# TRUE or FALSE (case-insensitive).
+capture.auto_scroll: TRUE
+
 # Timestamp display format.
 # One of: RELATIVE, ABSOLUTE, ABSOLUTE_WITH_YMD, ABSOLUTE_WITH_YDOY, ABSOLUTE_WITH_DATE, DELTA, DELTA_DIS, EPOCH, UTC, UTC_WITH_YMD, UTC_WITH_YDOY, UTC_WITH_DATE
 gui.time_format: RELATIVE
 
 # Timestamp display precision.
-# One of: AUTO, SEC, DSEC, CSEC, MSEC, USEC, NSEC
+# One of: AUTO, SEC, DSEC, CSEC, MSEC, USEC, NSEC, or a number between 0 and 9
 gui.time_precision: AUTO
 
 # Seconds display format.
@@ -58,7 +62,7 @@ gui.seconds_format: SECONDS
 gui.zoom_level: 0
 
 # Bytes view display type.
-# One of: HEX, BITS
+# One of: HEX, BITS, DEC, OCT
 gui.bytes_view: HEX
 
 # Bytes view text encoding.
@@ -73,6 +77,18 @@ gui.packet_diagram_field_values: FALSE
 # TRUE or FALSE (case-insensitive).
 gui.allow_hover_selection: TRUE
 
+# Follow stream show as.
+# One of: ASCII, ASCII_CONTROL, C_ARRAYS, EBCDIC, HEX_DUMP, HTML, IMAGE, JSON, RAW, RUST_ARRAY, UTF-8, YAML
+gui.follow_show: ASCII
+
+# Show packet bytes decode as.
+# One of: NONE, BASE64, COMPRESSED, HEX_DIGITS, PERCENT_ENCODING, QUOTED_PRINTABLE, ROT13
+gui.show_bytes_decode: NONE
+
+# Show packet bytes show as.
+# One of: ASCII, ASCII_CONTROL, C_ARRAYS, EBCDIC, HEX_DUMP, HTML, IMAGE, JSON, RAW, RUST_ARRAY, UTF-8, YAML
+gui.show_bytes_show: ASCII
+
 # Main window upper (or leftmost) pane size.
 # Decimal number.
 gui.geometry_main_upper_pane: 720
@@ -84,22 +100,30 @@ gui.geometry_main_lower_pane: 1000
 # Packet list column pixel widths.
 # Each pair of strings consists of a column format and its pixel width.
 column.width:
-        %m, -1,
-        %Yt, -1,
-        %Gt, -1,
-        %s, -1,
-        %d, -1,
-        %p, -1,
-        %L, -1,
-        %i, 506
+        %m, 96,
+        %Yt, 227,
+        %Gt, 109,
+        %s, 164,
+        %d, 164,
+        %p, 63,
+        %L, 47,
+        %i, 128
 
 # Open conversation dialog tabs.
 # List of conversation names, e.g. "TCP", "IPv6".
 gui.conversation_tabs: 
 
+# Conversation dialog tabs columns.
+# List of conversation columns numbers.
+gui.conversation_tabs_columns: 
+
 # Open endpoint dialog tabs.
 # List of endpoint names, e.g. "TCP", "IPv6".
 gui.endpoint_tabs: 
+
+# Endpoint dialog tabs columns.
+# List of endpoint columns numbers.
+gui.endpoint_tabs_columns: 
 
 # For RLC stats, whether to use RLC PDUs found inside MAC frames.
 # TRUE or FALSE (case-insensitive).

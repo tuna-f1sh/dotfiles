@@ -207,19 +207,6 @@ cdf() {
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
-# Ag for term to edit in nvim with preview
-agvim() {
-  local file
-  local line
-
-  read -r file line <<<"$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
-
-  if [[ -n $file ]]
-  then
-     $EDITOR $file +$line
-  fi
-}
-
 # fkill - kill process
 fkill() {
   local pid
@@ -242,6 +229,22 @@ fzpdf () {
             echo -e {1}"\n"{2} | ggrep -E "^|$v" -i --color=always;
         ' \
     | gcut -z -f 1 -d $'\t' | gtr -d '\n' | gxargs -r --null $open > /dev/null 2> /dev/null
+}
+
+# start fzf with rg search term and open in vim
+# also see ~/bin/rfv
+function frg {
+  result=$(rg --ignore-case --color=always --line-number --no-heading "$@" |
+    fzf --ansi \
+    --color 'hl:-1:underline,hl+:-1:underline:reverse' \
+    --delimiter ':' \
+    --preview "bat --color=always {1} --highlight-line {2}" \
+    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3')
+      file=${result%%:*}
+      linenumber=$(echo "${result}" | cut -d: -f2)
+      if [[ -n "$file" ]]; then
+        $EDITOR +"${linenumber}" "$file"
+      fi
 }
 
 # Note taking function and command completion

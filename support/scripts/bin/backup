@@ -2,6 +2,17 @@
 set -euo pipefail
 force=${1:-0}
 
+# check RESTIC_PATH and RESTIC_REPOSITORY are set
+if [ -z "${RESTIC_PATH:-}" ]; then
+  echo 'RESTIC_PATH not set using host env'
+  source "$HOME/.config/restic/env"
+fi
+
+if [ -z "${RESTIC_REPOSITORY:-}" ]; then
+  echo 'RESTIC_REPOSITORY not set'
+  exit 1
+fi
+
 # check has internet and not on battery
 if [ "$force" -eq 0 ]; then
   if [ "$(uname)" == "Darwin" ]; then
@@ -15,8 +26,6 @@ if [ "$force" -eq 0 ]; then
     exit 0
   fi
 fi
-
-source "$HOME/.config/restic/env"
 
 # capture installed if darwin
 if [ "$(uname)" == "Darwin" ]; then
@@ -69,15 +78,23 @@ restic backup \
   --exclude=$HOME/Library/**/FileProvider \
   "$RESTIC_PATH"
 
-# Delete old backups, only untagged
+# Delete old backups, only untagged if env RESTIC_RUN_FORGET is 1
 # If what you want is to keep daily snapshots for the last week, weekly for the last month, monthly for the last year and yearly for the last 7 years, you can instead specify
-restic forget \
-  --keep-within-daily 7d \
-  --keep-within-weekly 1m \
-  --keep-within-monthly 1y \
-  --keep-within-yearly 7y \
-  --prune \
-  --host "$RESTIC_HOST" \
-  --path "$RESTIC_PATH" \
-  --tag '' \
-  --compact
+if [ "${RESTIC_RUN_FORGET:-1}" -eq 1 ]; then
+  # check RESTIC_HOST set
+  if [ -z "${RESTIC_HOST:-}" ]; then
+    echo 'RESTIC_HOST not set'
+    exit 1
+  fi
+
+  restic forget \
+    --keep-within-daily 7d \
+    --keep-within-weekly 1m \
+    --keep-within-monthly 1y \
+    --keep-within-yearly 7y \
+    --prune \
+    --host "$RESTIC_HOST" \
+    --path "$RESTIC_PATH" \
+    --tag '' \
+    --compact
+fi
