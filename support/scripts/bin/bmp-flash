@@ -9,7 +9,12 @@ if [ ! -e $device ]; then
 fi
 
 if [ ! -e $device ]; then
-  echo "Black Magic Probe not found"
+  echo "Black Magic Probe not found!"
+  exit 1
+fi
+
+if [ ! -e "${1}" ]; then
+  echo "${1} not found!"
   exit 1
 fi
 
