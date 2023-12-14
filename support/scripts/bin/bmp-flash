@@ -1,0 +1,16 @@
+#!/bin/bash
+# Flash a binary to the Black Magic Probe
+# Usage: bmp-flash <binary>
+
+device=/dev/ttyBmpGdb
+
+if [ ! -e $device ]; then
+  device=/dev/ttyACM0
+fi
+
+if [ ! -e $device ]; then
+  echo "Black Magic Probe not found"
+  exit 1
+fi
+
+arm-none-eabi-gdb -nx --batch -ex "target extended-remote $device" -x "${HOME}"/dotfiles/support/scripts/embedded/bmp_flash.scr "${1}"

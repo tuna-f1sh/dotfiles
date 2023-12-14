@@ -1,3 +1,18 @@
 #!/bin/bash
+# Enable or disable target power on the Black Magic Probe
+#
+# Usage: bmp-tpwr [enable|disable]
 
-arm-none-eabi-gdb -ex "target extended-remote /dev/ttyBmpGdb" -ex "monitor tpwr $1" -ex "quit"
+option=${1:-enable}
+device=/dev/ttyBmpGdb
+
+if [ ! -e $device ]; then
+  device=/dev/ttyACM0
+fi
+
+if [ ! -e $device ]; then
+  echo "Black Magic Probe not found"
+  exit 1
+fi
+
+arm-none-eabi-gdb -ex "target extended-remote $device" -ex "monitor tpwr $option" -ex "quit"
