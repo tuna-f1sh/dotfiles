@@ -5,7 +5,11 @@
 device=/dev/ttyBmpGdb
 
 if [ ! -e $device ]; then
-  device=/dev/ttyACM0
+  if [ "$(uname)" == "Darwin" ]; then
+    device=$(find /dev/cu.usbmodemB* | head -n 1)
+  else
+    device=/dev/ttyACM0
+  fi
 fi
 
 if [ ! -e $device ]; then
@@ -18,4 +22,5 @@ if [ ! -e "${1}" ]; then
   exit 1
 fi
 
+echo "Flashing ${1} to ${device}..."
 arm-none-eabi-gdb -nx --batch -ex "target extended-remote $device" -x "${HOME}"/dotfiles/support/scripts/embedded/bmp_flash.scr "${1}"

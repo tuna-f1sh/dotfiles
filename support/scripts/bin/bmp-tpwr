@@ -7,7 +7,11 @@ option=${1:-enable}
 device=/dev/ttyBmpGdb
 
 if [ ! -e $device ]; then
-  device=/dev/ttyACM0
+  if [ "$(uname)" == "Darwin" ]; then
+    device=$(find /dev/cu.usbmodem* | head -n 1)
+  else
+    device=/dev/ttyACM0
+  fi
 fi
 
 if [ ! -e $device ]; then
