@@ -91,11 +91,11 @@ gui.show_bytes_show: ASCII
 
 # Main window upper (or leftmost) pane size.
 # Decimal number.
-gui.geometry_main_upper_pane: 656
+gui.geometry_main_upper_pane: 855
 
 # Main window middle pane size.
 # Decimal number.
-gui.geometry_main_lower_pane: 937
+gui.geometry_main_lower_pane: 2457
 
 # Packet list column pixel widths.
 # Each pair of strings consists of a column format and its pixel width.
