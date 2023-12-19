@@ -19,7 +19,7 @@ get_probe() {
   if [ "$(uname)" == "Darwin" ]; then
     probe="$(find /dev/cu.usbmodem"$serial"* | head -n 1)"
   else
-    probe="$(find /dev/tty"$serial"* | head -n 1)"
+    probe=/dev/ttyACM0
   fi
 }
 
