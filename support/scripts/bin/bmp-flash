@@ -1,25 +1,9 @@
 #!/bin/bash
 # Flash a binary to the Black Magic Probe
 # Usage: bmp-flash <binary>
-set -e
+source ~/.functions
 
 probe=/dev/ttyBmpGdb
-
-get_probe() {
-  serial=$(cyme --vidpid=0x1d50:0x6018 --blocks serial --no-color)
-
-  echo "Found BMP $serial"
-  if [ -z "$serial" ]; then
-    echo "Could not find Black Magic Probe 0x1d50:0x6018!"
-    exit 1
-  fi
-
-  if [ "$(uname)" == "Darwin" ]; then
-    probe="$(find /dev/cu.usbmodem"$serial"* | head -n 1)"
-  else
-    probe=/dev/ttyACM0
-  fi
-}
 
 if [ ! -e "$probe" ]; then
   get_probe

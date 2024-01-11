@@ -2,26 +2,11 @@
 # Enable or disable target power on the Black Magic Probe
 #
 # Usage: bmp-tpwr [enable|disable]
+source ~/.functions
 
 option=${1:-enable}
 
 probe=/dev/ttyBmpGdb
-
-get_probe() {
-  serial=$(cyme --vidpid=0x1d50:0x6018 --blocks serial --no-color)
-
-  echo "Found BMP $serial"
-  if [ -z "$serial" ]; then
-    echo "Could not find Black Magic Probe 0x1d50:0x6018!"
-    exit 1
-  fi
-
-  if [ "$(uname)" == "Darwin" ]; then
-    probe="$(find /dev/cu.usbmodem"$serial"* | head -n 1)"
-  else
-    probe=/dev/ttyACM0
-  fi
-}
 
 if [ ! -e "$probe" ]; then
   get_probe
