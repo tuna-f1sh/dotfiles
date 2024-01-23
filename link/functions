@@ -586,6 +586,21 @@ gremote ()
     open $repoUrl
 }
 
+get_probe() {
+  serial=$(cyme --vidpid=0x1d50:0x6018 --blocks serial --no-color)
+
+  if [ -z "$serial" ]; then
+    echo "Could not find Black Magic Probe on USB"
+    exit 1
+  fi
+
+  if [ "$(uname)" == "Darwin" ]; then
+    probe="$(find /dev/cu.usbmodem"$serial"* | head -n 1)"
+  else
+    probe=/dev/ttyACM0
+  fi
+}
+
 adder () {
   local venv_path=${1:-${VENV_DIR}/$(basename "${PWD}")-$(echo "${PWD}" | sha256sum | head -c 6)}
   local env_file="${PWD}/.env"

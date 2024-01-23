@@ -1,26 +1,23 @@
 #!/bin/bash
 # Flash a binary to the Black Magic Probe
 # Usage: bmp-flash <binary>
+source ~/.functions
 
-device=/dev/ttyBmpGdb
+probe=/dev/ttyBmpGdb
 
-if [ ! -e $device ]; then
-  if [ "$(uname)" == "Darwin" ]; then
-    device=$(find /dev/cu.usbmodemB* | head -n 1)
-  else
-    device=/dev/ttyACM0
-  fi
+if [ ! -e "$probe" ]; then
+  get_probe
 fi
 
-if [ ! -e $device ]; then
+if [ ! -e "$probe" ]; then
   echo "Black Magic Probe not found!"
   exit 1
 fi
 
 if [ ! -e "${1}" ]; then
-  echo "${1} not found!"
+  echo "File ${1} not found!"
   exit 1
 fi
 
-echo "Flashing ${1} to ${device}..."
-arm-none-eabi-gdb -nx --batch -ex "target extended-remote $device" -x "${HOME}"/dotfiles/support/scripts/embedded/bmp_flash.scr "${1}"
+echo "Flashing ${1} to ${probe}..."
+arm-none-eabi-gdb -nx --batch -ex "target extended-remote $probe" -x "${HOME}"/dotfiles/support/scripts/embedded/bmp_flash.scr "${1}"
