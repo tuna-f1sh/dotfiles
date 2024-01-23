@@ -585,3 +585,76 @@ gremote ()
     echo "Opening $repoUrl"
     open $repoUrl
 }
+
+adder () {
+  local venv_path=${1:-${VENV_DIR}/$(basename "${PWD}")-$(echo "${PWD}" | sha256sum | head -c 6)}
+  local env_file="${PWD}/.env"
+
+  # if already in venv abort
+  if [[ -n $VIRTUAL_ENV ]]; then
+    echo "Already in venv@$VIRTUAL_ENV"
+    return 1
+  fi
+
+  # if does not exist create venv
+  if [[ ! -d "$venv_path" ]]; then
+    echo "Creating venv@$venv_path"
+    python -m venv "$venv_path"
+  fi
+
+  source "$venv_path/bin/activate"
+
+  if [[ -f $env_file ]]; then
+    source $env_file 
+    echo "🐍 Entered venv@$venv_path and $env_file"
+  else
+    echo "🐍 Entered venv@$venv_path"
+  fi
+}
+
+env_zephyr() {
+  local ncs_install_dir=${NCS_INSTALL_DIR:-/opt/nordic/ncs}
+  local sdk_install_dir=${ZEPHYR_SDKS_DIR:-$ncs_install_dir}
+  sdk_version=$1
+  if [[ -z $sdk_version ]]; then
+    sdk_version=$(ls "$sdk_install_dir" | rg 'v*' | sort -r | head -n 1)
+  fi
+
+  local shell_name=$(basename "$SHELL")
+  echo "🪁 Setting up Zephyr SDK $sdk_version for $shell_name"
+
+  source "$sdk_install_dir/$sdk_version/zephyr/zephyr-env.sh"
+  # if has .venv folder
+  if [[ -d $sdk_install_dir/$sdk_version/.venv ]]; then
+    adder "$sdk_install_dir/$sdk_version/.venv"
+  fi
+  # west zephyr-export
+}
+
+nordzep() {
+  local ncs_install_dir=${NCS_INSTALL_DIR:-/opt/nordic/ncs}
+  local ncs_sdk_version=${1:-v2.3.0}
+  if [[ -z $ncs_bin_version ]]; then
+    ncs_bin_version=$(ls "$ncs_install_dir/toolchains" | rg 'v*' | sort -r | head -n 1)
+    if [[ -z $ncs_bin_version ]]; then
+      echo "No NCS SDK toolchain found"
+      return 1
+    fi
+  fi
+  local shell_name=$(basename "$SHELL")
+  echo "🪁 Setting up NCS SDK toolchain $ncs_bin_version for $shell_name"
+
+  local paths=(
+    "$ncs_install_dir/toolchains/$ncs_bin_version/bin"
+    "$ncs_install_dir/toolchains/$ncs_bin_version/opt/nanopb/generator-bin"
+  )
+
+  for entry in "${paths[@]}"; do
+    export PATH=$PATH:$entry
+  done
+
+  export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
+  export ZEPHYR_SDK_INSTALL_DIR=$ncs_install_dir/toolchains/$ncs_bin_version/opt/zephyr-sdk
+
+  env_zephyr "$ncs_sdk_version"
+}

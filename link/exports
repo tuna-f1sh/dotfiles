@@ -10,7 +10,6 @@ export VISUAL="$EDITOR"
 
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# export PIPENV_VENV_IN_PROJECT=1 
 export HISTFILE=~/.zsh_history
 export HISTCONTROL=ignoreboth:erasedups:ignorespace
 export HISTIGNORE="pass*:bw*:subkey*:*password*"
@@ -39,6 +38,8 @@ fi
 # Toolchain paths
 export GOPATH="$HOME/go"
 export PYENV_ROOT="$HOME/.pyenv"
+# export PIPENV_VENV_IN_PROJECT=1 
+export VENV_DIR="$XDG_DATA_HOME/virtualenvs"
 
 # Cargo targets in global folder outside of project
 export CARGO_TARGET_DIR="$HOME/.cargo/target"

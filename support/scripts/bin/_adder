@@ -1,0 +1,212 @@
+#!/usr/bin/env python
+import argparse
+import os
+import subprocess 
+import hashlib
+import json
+import sys
+from typing import Optional, Generator, Iterable
+from urllib.request import urlopen
+import importlib.resources
+import importlib.metadata
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+class Requirement:
+    """Represents a single package requirement."""
+
+    def __init__(self, requirement):
+        self.name = requirement.project_name
+        self.version = requirement.version
+
+    def __str__(self) -> str:
+        """
+        A string representatation suitable for printing into a
+        requirements file
+        """
+        return " \\\n    ".join([f"{self.name}=={self.version}", *self.hashes()])
+
+    def __eq__(self, other) -> bool:
+        """Equality check used for deduping"""
+        return hash(self) == hash(other)
+
+    def __hash__(self) -> int:
+        """Make hashable so it can deduped using a set"""
+        return hash((self.name, self.version))
+
+    def hashes(self) -> Generator[str, None, None]:
+        """
+        Fetch sha256 hashes for this version of this package
+
+        Returns them in a format suitable for printing into a
+        requirements file.
+        """
+        with urlopen(f"https://pypi.org/pypi/{self.name}/{self.version}/json") as f:
+            data = json.load(f)
+        for release in data["urls"]:
+            sha = release["digests"]["sha256"]
+            yield f"--hash=sha256:{sha}"
+
+def resolve_requirements(
+    requirements: Iterable[str],
+) -> Generator[Requirement, None, None]:
+    """Use pkg_resources to parse and resolve requirements"""
+    for requirement in pkg_resources.working_set.resolve(
+        importlib.metadata.requires(requirements)
+    ):
+        yield Requirement(requirement)
+
+def get_project_root() -> str:
+    """Returns root of project based on location of .git directory"""
+    if os.path.exists('.git'):
+        return os.getcwd()
+    else:
+        try:
+            return subprocess.check_output(['git', 'rev-parse', '--show-toplevel']).decode().strip()
+        except subprocess.CalledProcessError:
+            return os.getcwd()
+
+def get_sys_venv_name() -> str:
+    bn = os.path.basename(get_project_root())
+    hash_six = hashlib.sha256(os.path.basename(get_project_root()).encode()).hexdigest()[:6]
+    # sha256 hash of basename
+    return f"{bn}-{hash_six}"
+
+def get_venv_path() -> str:
+    """Returns path to venv"""
+    project_root = get_project_root()
+
+    if os.path.exists(os.path.join(project_root, '.venv')):
+        return os.path.join(project_root, '.venv')
+    else:
+        venv_dir = os.environ.get('VENV_DIR', get_project_root())
+        return os.path.join(venv_dir, get_sys_venv_name())
+
+def get_venv_bin_path() -> str:
+    """Returns path to venv bin"""
+    return os.path.join(get_venv_path(), 'bin')
+
+def assert_venv_exists(args, unknown) -> str:
+    if os.path.exists(get_venv_path()):
+        return get_venv_path()
+    else:
+        print(f"{bcolors.FAIL}No venv found{bcolors.ENDC}")
+        sys.exit(1)
+
+def generate_requirements_txt(args, unknown) -> None:
+    """Generates requirements.txt"""
+    assert_venv_exists(args, unknown)
+
+    print(f"{bcolors.OKGREEN}Generating {args.filename}{bcolors.ENDC}")
+    with open(args.filename, 'w') as f:
+        subprocess.run([os.path.join(get_venv_bin_path(), 'pip'), 'freeze', *unknown], stdout=f)
+    if args.hash:
+        hashed_requirements_txt(args.filename)
+
+def hashed_requirements_txt(filepath: str) -> None:
+    # read requirements.txt
+    with open(filepath, 'r') as f:
+        requirements = f.readlines()
+    with open(filepath, 'w') as f:
+        for requirement in sorted(
+            set(resolve_requirements(requirements)), key=lambda req: req.name.lower()
+        ):
+            print(f"{bcolors.OKGREEN}Getting hash for {requirement.name}=={requirement.version}{bcolors.ENDC}")
+            f.write(str(requirement))
+            f.write('\n')
+
+def make_venv(args, unknown) -> str:
+    """Makes venv"""
+    venv_path = get_venv_path()
+    print(f"{bcolors.OKGREEN}Making venv@{venv_path}{bcolors.ENDC}")
+    subprocess.run(['python3', '-m', 'venv', venv_path])
+
+    requirements_txt = os.path.join(get_project_root(), 'requirements.txt')
+    if os.path.exists(requirements_txt):
+        subprocess.run([os.path.join(get_venv_bin_path(), 'pip'), 'install', '-r', requirements_txt])
+
+    return venv_path
+
+def fork_venv_shell(args, unknown) -> None:
+    if os.path.exists('VIRTUAL_ENV'):
+        return
+
+    venv_path = get_venv_path()
+    if not os.path.exists(venv_path):
+        make_venv(args, unknown)
+
+    print(f"{bcolors.OKGREEN}Entering venv@{venv_path}{bcolors.ENDC}")
+
+    # fork shell
+    os.execvp(os.environ.get('SHELL', 'zsh'), [os.path.join(venv_path, 'bin/activate')])
+
+def run_venv(args, unknown) -> None:
+    """Runs command in venv"""
+    subprocess.run([os.path.join(get_venv_bin_path(), unknown[0]), *unknown[1:]])
+
+def where_venv(args, unknown) -> None:
+    if path := assert_venv_exists(args, unknown):
+        print(path)
+
+def rm_venv(args, unknown) -> None:
+    """Removes venv"""
+    if path := assert_venv_exists(args, unknown):
+        subprocess.run(['rm', '-rf', path])
+
+def main():
+    parser = argparse.ArgumentParser(prog = '_adder', description = 'venv helper script like pipenv but simplier')
+
+    # shell sub-command
+    subparsers = parser.add_subparsers(
+        title="command", dest="command", help="sub-command to run"
+    )
+    shell_parser = subparsers.add_parser(
+        "shell", help="Enters venv",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    shell_parser.set_defaults(func=fork_venv_shell)
+
+    shell_parser = subparsers.add_parser(
+        "run", help="Run in venv",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    shell_parser.set_defaults(func=run_venv)
+
+    shell_parser = subparsers.add_parser(
+        "where", help="Return path to venv",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    shell_parser.set_defaults(func=where_venv)
+
+    shell_parser = subparsers.add_parser(
+        "rm", help="Remove venv",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    shell_parser.set_defaults(func=rm_venv)
+
+    shell_parser = subparsers.add_parser(
+        "freeze", help="Generate requirements.txt",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    shell_parser.add_argument('--filename', default=os.path.join(get_project_root(), 'requirements.txt'), help='Filename to write requirements to')
+    shell_parser.add_argument('--hash', action='store_true', help='Generate with hashes')
+    shell_parser.set_defaults(func=generate_requirements_txt)
+
+    args, unknown = parser.parse_known_args()
+
+    if args.command:
+        args.func(args, unknown)
+    else:
+        fork_venv_shell(args, unknown)
+
+if __name__ == "__main__":
+    main()

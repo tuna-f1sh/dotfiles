@@ -20,18 +20,18 @@
     },
     "clangd": {
       "command": "clangd",
-      "filetypes": [],
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
       "rootPatterns": ["compile_flags.txt", "compile_commands.json"]
     },
     "ccls": {
       "command": "ccls",
-      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+      "filetypes": [],
       "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
       "initializationOptions": {
-          "cache": {
-            "directory": "/tmp/ccls"
-          }
+        "cache": {
+          "directory": "/tmp/ccls"
         }
+      }
     }
   }
 }

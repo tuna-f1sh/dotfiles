@@ -76,6 +76,8 @@ restic backup \
   --exclude=$HOME/Library/Messages \
   --exclude=$HOME/Library/**/Autodesk \
   --exclude=$HOME/Library/**/FileProvider \
+  --exclude="$HOME/Library/Group Containers" \
+  --exclude="$HOME/Library/Metadata/" \
   "$RESTIC_PATH"
 
 # Delete old backups, only untagged if env RESTIC_RUN_FORGET is 1
