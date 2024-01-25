@@ -77,26 +77,12 @@ restic backup \
   --exclude=$HOME/Library/**/Autodesk \
   --exclude=$HOME/Library/**/FileProvider \
   --exclude="$HOME/Library/Group Containers" \
-  --exclude="$HOME/Library/Metadata/" \
+  --exclude="$HOME/Library/Metadata" \
+  --exclude="$HOME/Library/Mobile Documents" \
   "$RESTIC_PATH"
 
 # Delete old backups, only untagged if env RESTIC_RUN_FORGET is 1
 # If what you want is to keep daily snapshots for the last week, weekly for the last month, monthly for the last year and yearly for the last 7 years, you can instead specify
 if [ "${RESTIC_RUN_FORGET:-1}" -eq 1 ]; then
-  # check RESTIC_HOST set
-  if [ -z "${RESTIC_HOST:-}" ]; then
-    echo 'RESTIC_HOST not set'
-    exit 1
-  fi
-
-  restic forget \
-    --keep-within-daily 7d \
-    --keep-within-weekly 1m \
-    --keep-within-monthly 1y \
-    --keep-within-yearly 7y \
-    --prune \
-    --host "$RESTIC_HOST" \
-    --path "$RESTIC_PATH" \
-    --tag '' \
-    --compact
+  backupforget
 fi
