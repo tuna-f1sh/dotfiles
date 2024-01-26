@@ -84,5 +84,5 @@ restic backup \
 # Delete old backups, only untagged if env RESTIC_RUN_FORGET is 1
 # If what you want is to keep daily snapshots for the last week, weekly for the last month, monthly for the last year and yearly for the last 7 years, you can instead specify
 if [ "${RESTIC_RUN_FORGET:-1}" -eq 1 ]; then
-  backupforget
+  $HOME/bin/backupforget
 fi
