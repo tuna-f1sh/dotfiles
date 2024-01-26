@@ -143,7 +143,6 @@ if !empty($DOTFILES_VIM_FULL_FAT)
   Plug 'mxw/vim-jsx'
   Plug 'torrancew/vim-openscad'
   Plug 'chrisbra/csv.vim'
-  Plug 'darfink/vim-plist'
 endif
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF supporting functions install for vim
