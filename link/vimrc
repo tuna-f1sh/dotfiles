@@ -116,7 +116,7 @@ if !empty($DOTFILES_VIM_FULL_FAT)
   Plug 'dart-lang/dart-vim-plugin'
   Plug 'chrisbra/Colorizer'
   Plug 'itspriddle/vim-shellcheck'
-  Plug 'vivien/vim-linux-coding-style'
+  Plug 'gregkh/kernel-coding-style'
   if has("nvim")
     Plug 'github/copilot.vim'
   endif
@@ -143,7 +143,6 @@ if !empty($DOTFILES_VIM_FULL_FAT)
   Plug 'mxw/vim-jsx'
   Plug 'torrancew/vim-openscad'
   Plug 'chrisbra/csv.vim'
-  Plug 'darfink/vim-plist'
 endif
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF supporting functions install for vim
@@ -350,7 +349,7 @@ endif
 let g:fzf_layout = { 'down': '~30%' }
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-let g:linuxsty_patterns = [ "/linux/", "/kernel/" ]
+let g:linuxsty_patterns = ["/linux/", "/kernel/", "/usr/src/", "/tcu-3/", "/zephyr/"]
 
 " ---- COC ----
 "==============
