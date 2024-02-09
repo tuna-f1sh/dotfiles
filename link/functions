@@ -640,13 +640,28 @@ env_zephyr() {
 
   source "$sdk_install_dir/$sdk_version/zephyr/zephyr-env.sh"
   # if has .venv folder
-  if [[ -d $sdk_install_dir/$sdk_version/.venv ]]; then
+  if [[ -d $sdk_install_dir/$sdk_version/.venv && -n $VIRTUAL_ENV ]]; then
     adder "$sdk_install_dir/$sdk_version/.venv"
   fi
   # west zephyr-export
 }
 
-nordzep() {
+env_ncs() {
+  local ncs_install_dir=${NCS_INSTALL_DIR:-/opt/nordic/ncs}
+  local ncs_sdk_version=$1
+  if [[ -z $ncs_sdk_version ]]; then
+    sdk_version=$(ls "$ncs_install_dir" | rg 'v*' | sort -r | head -n 1)
+  fi
+
+  # if has .venv folder
+  if [[ -d $ncs_install_dir/.venv && -n $VIRTUAL_ENV ]]; then
+    adder "$ncs_install_dir/.venv"
+  fi
+
+  env_zephyr "$ncs_sdk_version"
+}
+
+ncszep() {
   local ncs_install_dir=${NCS_INSTALL_DIR:-/opt/nordic/ncs}
   local ncs_sdk_version=${1:-v2.3.0}
   if [[ -z $ncs_bin_version ]]; then
@@ -671,5 +686,5 @@ nordzep() {
   export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
   export ZEPHYR_SDK_INSTALL_DIR=$ncs_install_dir/toolchains/$ncs_bin_version/opt/zephyr-sdk
 
-  env_zephyr "$ncs_sdk_version"
+  env_ncs "$ncs_sdk_version"
 }
