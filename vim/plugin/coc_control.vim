@@ -90,7 +90,7 @@ function! CocSetup()
 
     " disable copilot default
     let g:copilot_no_tab_map = v:true
-    " imap <silent><script><expr> <C-e> coc#pum#visible() ? coc#pum#cancel() : copilot#Accept("\<C-e>")
+    imap <silent><script><expr> <C-e> coc#pum#visible() ? coc#pum#cancel() : copilot#Accept("\<C-e>")
 
     " new for tab but I actually prefer C-j, k to scroll and C-l to confirm
     " Use tab for trigger completion with characters ahead and navigate
