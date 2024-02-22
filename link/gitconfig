@@ -1,29 +1,3 @@
-[user]
-  name = John Whittington
-  email = git@jbrengineering.co.uk
-  signingkey = 1F115C61777E8275
-
-[push]
-  default = simple
-	autoSetupRemote = true
-	followTags = true
-
-[core]
-  excludesfile = ~/.gitignore_global
-  editor = vim
-  trustctime = false
-
-[diff]
-  tool = vimdiff
-
-[merge]
-  tool = vimdiff
-  conflictstyle = diff3
-
-[init]
-  templatedir = ~/dotfiles/support/git_template
-	defaultBranch = main
-
 [alias]
   ctags = !.git/hooks/ctags
   root = rev-parse --show-toplevel
@@ -36,26 +10,57 @@
   lg = log --date-order --all --graph --format="%C(green)%h%Creset\\ %C(yellow)%an%Creset\\ %C(blue)%ar%Creset\\%C(red)%d%Creset\\ %s"
   d = diff
 
+[user]
+  name = John Whittington
+  email = git@jbrengineering.co.uk
+  signingkey = 1F115C61777E8275
+
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = vim
+  trustctime = false
+
+[init]
+  templatedir = ~/dotfiles/support/git_template
+  defaultBranch = main
+
+[push]
+  default = simple
+  # push to the current branch's upstream branch
+  autoSetupRemote = true
+  # push all branches to their upstream branch
+  followTags = true
+
+[rebase]
+  # adds --autosquash to rebase by default so fixup commits are squashed
+  autosquash = true
+
+[commit]
+  # adds -v to commit by default so you can see the diff in the editor
+  verbose = true
+
+[diff]
+  tool = vimdiff
+
 [difftool "vimdiff-raw"]
   cmd = vim -d $LOCAL $REMOTE
 
 [difftool "vimdiff-fugitive"]
   cmd = vim -f -c "Gdiff" $LOCAL $REMOTE
 
-[mergetool "vimmerge-fugitive"]
-  cmd = vim -f -c "Gdiff" "$MERGED"
+[merge]
+  tool = vimdiff
+  # adds original to center of diff3 conflict
+  conflictstyle = diff3
 
 [mergetool]
   keepBackup = false
 
-[pull]
-  rebase = false
+[mergetool "vimmerge-fugitive"]
+  cmd = vim -f -c "Gdiff" "$MERGED"
 
 [pager]
   diff = delta
-
-[interactive]
-  diffFilter = delta --color-only
 
 [delta]
   diff-so-fancy = false
@@ -65,11 +70,13 @@
   syntax-theme = Monokai Extended
   navigate = true    # use n and N to move between diff sections
 
-
 [delta "decorations"]
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
   file-decoration-style = none
+
+[interactive]
+  diffFilter = delta --color-only
 
 [sendemail]
   smtpServer = 10.0.2.2
@@ -79,3 +86,7 @@
 
 [gpg]
   program = gpg
+
+# Use SSH for GitHub instead of HTTPS
+[url "git@github.com:"]
+  insteadOf = "https://github.com/"

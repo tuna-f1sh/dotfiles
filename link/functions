@@ -602,28 +602,45 @@ get_probe() {
 }
 
 adder () {
-  local venv_path=${1:-${VENV_DIR}/$(basename "${PWD}")-$(echo "${PWD}" | sha256sum | head -c 6)}
-  local env_file="${PWD}/.env"
+  # only if arg does not start with -- flag
+  if [[ ! $1 =~ ^-- ]]; then
+    local venv_path=${1:-${VENV_DIR}/$(basename "${PWD}")-$(echo "${PWD}" | sha256sum | head -c 6)}
 
-  # if already in venv abort
-  if [[ -n $VIRTUAL_ENV ]]; then
-    echo "Already in venv@$VIRTUAL_ENV"
-    return 1
-  fi
+    if [[ $venv_path =~ 'venv' ]]; then
+      venv_path="${PWD}/.venv"
+    fi
+    local env_file="${PWD}/.env"
 
-  # if does not exist create venv
-  if [[ ! -d "$venv_path" ]]; then
-    echo "Creating venv@$venv_path"
-    python -m venv "$venv_path"
-  fi
+    # if already in venv abort
+    if [[ -n $VIRTUAL_ENV ]]; then
+      echo "Already in venv@$VIRTUAL_ENV"
+      return 1
+    fi
 
-  source "$venv_path/bin/activate"
+    # if does not exist create venv
+    if [[ ! -d "$venv_path" ]]; then
+      echo "Creating venv@$venv_path"
+      if [[ -n uv ]]; then
+        uv venv "$venv_path"
+      else
+        python -m venv "$venv_path"
+      fi
+    fi
 
-  if [[ -f $env_file ]]; then
-    source $env_file 
-    echo "🐍 Entered venv@$venv_path and $env_file"
+    source "$venv_path/bin/activate"
+
+    if [[ -f $env_file ]]; then
+      source $env_file 
+      echo "🐍 Entered venv@$venv_path and $env_file"
+    else
+      echo "🐍 Entered venv@$venv_path"
+    fi
   else
-    echo "🐍 Entered venv@$venv_path"
+    if [[ -n uv ]]; then
+      uv $1
+    else
+      python -m venv $1
+    fi
   fi
 }
 
