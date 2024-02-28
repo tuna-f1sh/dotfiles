@@ -77,6 +77,10 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 
   # homebrew libs for Cargo
   export LIBRARY_PATH="$LIBRARY_PATH:$HOMEBREW_PREFIX/lib"
+
+  # Zephyr
+  export NCS_INSTALL_DIR=$HOME/.local/opt/ncs
+  export ZEPHYR_INSTALL_DIR=$HOME/git/zephyrproject
 else
   export NOTE_DIR=~/.notes
 
@@ -92,7 +96,7 @@ else
 
   # Zephyr
   export NCS_INSTALL_DIR=$HOME/git/ncs
-  export ZEPHYR_SDKS_DIR=$HOME/git/ncs
+  export ZEPHYR_INSTALL_DIR=$HOME/git/zephyrproject
 
   # ssh-agent started by systemd service on arch - replaced with `keychain`
   # export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"

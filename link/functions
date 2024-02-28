@@ -606,7 +606,7 @@ adder () {
   if [[ ! $1 =~ ^-- ]]; then
     local venv_path=${1:-${VENV_DIR}/$(basename "${PWD}")-$(echo "${PWD}" | sha256sum | head -c 6)}
 
-    if [[ $venv_path =~ 'venv' ]]; then
+    if [[ $venv_path =~ '^venv*' ]]; then
       venv_path="${PWD}/.venv"
     fi
     local env_file="${PWD}/.env"
@@ -645,22 +645,16 @@ adder () {
 }
 
 env_zephyr() {
-  local ncs_install_dir=${NCS_INSTALL_DIR:-/opt/nordic/ncs}
-  local sdk_install_dir=${ZEPHYR_SDKS_DIR:-$ncs_install_dir}
-  sdk_version=$1
-  if [[ -z $sdk_version ]]; then
-    sdk_version=$(ls "$sdk_install_dir" | rg 'v*' | sort -r | head -n 1)
-  fi
-
+  local zephyr_install_dir=${1:-$ZEPHYR_INSTALL_DIR}
   local shell_name=$(basename "$SHELL")
-  echo "🪁 Setting up Zephyr SDK $sdk_version for $shell_name"
 
-  source "$sdk_install_dir/$sdk_version/zephyr/zephyr-env.sh"
+  echo "🪁 Setting up Zephyr @ $zephyr_install_dir for $shell_name"
+
+  source "$zephyr_install_dir/zephyr/zephyr-env.sh"
   # if has .venv folder
-  if [[ -d $sdk_install_dir/$sdk_version/.venv && -n $VIRTUAL_ENV ]]; then
-    adder "$sdk_install_dir/$sdk_version/.venv"
+  if [[ -d "$zephyr_install_dir/.venv" ]]; then
+    adder "$zephyr_install_dir/.venv"
   fi
-  # west zephyr-export
 }
 
 env_ncs() {
@@ -670,17 +664,23 @@ env_ncs() {
     sdk_version=$(ls "$ncs_install_dir" | rg 'v*' | sort -r | head -n 1)
   fi
 
+  echo "🪁 Using NCS SDK $ncs_install_dir/$sdk_version"
+
   # if has .venv folder
-  if [[ -d $ncs_install_dir/.venv && -n $VIRTUAL_ENV ]]; then
+  if [[ -d "$ncs_install_dir/.venv" ]]; then
     adder "$ncs_install_dir/.venv"
+  else
+    echo "🪁 No .venv found or already active $VIRTUAL_ENV"
   fi
 
-  env_zephyr "$ncs_sdk_version"
+  env_zephyr "$ncs_install_dir"/"$sdk_version"
 }
 
-ncszep() {
+toolchain_ncs() {
   local ncs_install_dir=${NCS_INSTALL_DIR:-/opt/nordic/ncs}
-  local ncs_sdk_version=${1:-v2.3.0}
+  local ncs_sdk_version=${1:-v2.3.0} # zephyr version
+  local ncs_bin_version=$2 # toolchain version
+
   if [[ -z $ncs_bin_version ]]; then
     ncs_bin_version=$(ls "$ncs_install_dir/toolchains" | rg 'v*' | sort -r | head -n 1)
     if [[ -z $ncs_bin_version ]]; then
