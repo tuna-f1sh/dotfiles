@@ -1,11 +1,11 @@
 set history file ~/.gdbhist
 set history save on
-set history remove-duplicates 0
+set history remove-duplicates 1
 set history expansion on
 
 # enabled perf access
 set mem inaccessible-by-default off
-add-auto-load-safe-path /home/john/Projects/sbc/dayton-hmi/tcu2_st/.gdbinit
+# add-auto-load-safe-path /home/john/Projects/sbc/dayton-hmi/tcu2_st/.gdbinit
 # set auto-load safe-path .
 
 define xxd
@@ -18,10 +18,10 @@ document xxd
   xxd ADDR LENTH
 end
 
-# define skip
-#     tbreak +1
-#     jump +1
-# end
+define skip
+    tbreak +1
+    jump +1
+end
 
 # lines makes more sense to me...
 define lines 

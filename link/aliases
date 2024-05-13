@@ -93,7 +93,7 @@ fi
 alias env_esp32='export PATH="$ESP_TOOLCHAIN_PATH:$PATH"'
 
 # Flutter
-alias env_flutter='export PATH="$PATH:$HOME/flutter/bin:$HOME/.pub-cache/bin"'
+alias env_flutter='export PATH="$PATH:$HOME/.local/opt/flutter/bin:$HOME/.pub-cache/bin"'
 
 if [ -d "$HOME/.bookmarks" ]; then
     export CDPATH=".:$HOME/.bookmarks:/"

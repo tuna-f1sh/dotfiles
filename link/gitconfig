@@ -88,5 +88,5 @@
   program = gpg
 
 # Use SSH for GitHub instead of HTTPS
-[url "git@github.com:"]
-  insteadOf = "https://github.com/"
+; [url "git@github.com:"]
+;   insteadOf = "https://github.com/"

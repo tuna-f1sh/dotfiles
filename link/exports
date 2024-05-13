@@ -69,8 +69,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # ruby env
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$HOMEBREW_PREFIX"
 
-  # for fastlane
-  export FLUTTER_ROOT='/Users/john/flutter/'
+  export FLUTTER_ROOT='/Users/john/.local/opt/flutter'
 
   # kicad makefile
   export KICADMK_DIR=/Users/john/git/kicad-makefile
