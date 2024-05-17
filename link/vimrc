@@ -93,8 +93,6 @@ if !empty($DOTFILES_VIM_FULL_FAT)
   Plug 'dense-analysis/ale', { 'on':  'ALEEnable' }
   let g:coc_start_at_startup = 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-  Plug 'mpjuers/showcontext'
   Plug 'itchyny/lightline.vim'
   Plug 'majutsushi/tagbar' " Function preview window
   Plug 'tpope/vim-fugitive' " Git plugin
@@ -105,23 +103,20 @@ if !empty($DOTFILES_VIM_FULL_FAT)
   Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
   " Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
+  Plug 'ferrine/md-img-paste.vim', { 'for' : 'markdown' }
   Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
   Plug 'jpalardy/vim-slime', { 'for': 'python' }
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
   Plug 'hauleth/vim-backscratch'
-  Plug 'metakirby5/codi.vim'
-  Plug 'simnalamburt/vim-mundo'
-  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-  Plug 'ferrine/md-img-paste.vim', { 'for' : 'markdown' }
-  Plug 'dart-lang/dart-vim-plugin'
+  "Plug 'metakirby5/codi.vim'
+  Plug 'mbbill/undotree' " Show undo as tree
   Plug 'chrisbra/Colorizer'
   Plug 'itspriddle/vim-shellcheck'
-  Plug 'gregkh/kernel-coding-style'
+  Plug 'honza/vim-snippets', { 'for': 'markdown' } " Snippets are separated from the engine. Add this if you want them:
+  Plug 'SirVer/ultisnips', { 'for': 'markdown' } " Snippets engine
   if has("nvim")
     Plug 'github/copilot.vim'
   endif
-  Plug 'honza/vim-snippets', { 'for': 'markdown' } " Snippets are separated from the engine. Add this if you want them:
-  Plug 'SirVer/ultisnips', { 'for': 'markdown' } " Snippets engine
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
@@ -137,6 +132,9 @@ if !empty($DOTFILES_VIM_FULL_FAT)
   Plug '~/dotfiles/vim/colors/flat.vim', { 'as': 'flat' }
 
   " Syntax/Filetypes
+  Plug 'gregkh/kernel-coding-style' " Kernel coding style (auto loaded)
+  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+  Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
   Plug 'lervag/vimtex', { 'for': 'tex' }
   Plug 'pangloss/vim-javascript'
   Plug 'leafgarland/typescript-vim'
@@ -147,14 +145,15 @@ endif
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF supporting functions install for vim
 Plug 'junegunn/fzf.vim' " FZF plugin - better than Ctrl-P
-Plug 'tpope/vim-commentary' " easy comment stuff
+if !has("nvim")
+  Plug 'tpope/vim-commentary' " easy comment stuff (nvim has this built in)
+endif
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'tpope/vim-surround' " Surround stuff
 
 " Colours
 Plug 'tomasr/molokai'
 Plug 'patstockwell/vim-monokai-tasty'
-" Plug 'danielwe/base16-vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required

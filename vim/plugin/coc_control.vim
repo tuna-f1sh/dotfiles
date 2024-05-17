@@ -46,14 +46,14 @@ function! CocSetup()
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
 
-    " Use K to show documentation in preview window
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
+    " " Use K to show documentation in preview window
+    nnoremap <silent> K :call ShowDocumentation()<CR>
 
-    function! s:show_documentation()
-      if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
+    function! ShowDocumentation()
+      if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
       else
-        call CocAction('doHover')
+        call feedkeys('K', 'in')
       endif
     endfunction
 
