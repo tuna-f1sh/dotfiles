@@ -3,7 +3,7 @@
   "python.formatting.provider": "black",
   "python.linting.enabled": false,
   "python.linting.pylintEnabled": true,
-  "inlayHint.enable": true,
+  "inlayHint.enable": false,
   "suggest.noselect": true,
   "rust-analyzer.procMacro.enable": true,
   "workspace.ignoredFolders": [

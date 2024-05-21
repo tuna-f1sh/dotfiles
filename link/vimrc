@@ -199,6 +199,7 @@ endif
 " must install my ~/dotfiles/support/scripts/bin/
 " don't use desktop providers since over SSH
 if has('nvim') && !empty($SSH_TTY)
+  " nvim 0.1 > actually has OSC52 support and SSH detection so not required...https://neovim.io/doc/user/provider.html#clipboard-osc52
   if executable('clipboard-provider')
     let g:clipboard = {
           \ 'name': 'clipboard-provider',
