@@ -21,7 +21,7 @@
     "clangd": {
       "command": "clangd",
       "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json", "build/compile_commands.json"]
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json", "build/compile_commands.json", ".git/", ".hg/"]
     },
     "ccls": {
       "command": "ccls",

@@ -1,0 +1,86 @@
+#!/bin/bash
+# Script to start a UTM guest and connect USB devices
+# Usage: ./start-utm.sh guest
+#
+# Args:
+#  guest: UUID of the guest to start or name of the guest
+#  file [~/.config/utm/usb_passthrough.json]: path to comma separated file of USB devices to connect in format VID:PID,VID:PID
+set -euo pipefail
+ubin=/opt/homebrew/bin
+
+if [[ $# -ne 1 ]]; then
+  echo "Not enough args: guest file"
+  exit 1
+elif ! command -v jq &> /dev/null; then
+  echo "jq could not be found"
+  exit 1
+elif ! command -v $ubin/utmctl &> /dev/null; then
+  echo "utmctl could not be found"
+  exit 1
+fi
+
+if [[ $# -ne 2 ]]; then
+  file=~/.config/utm/usb_passthrough.json
+else
+  file=$2
+fi
+
+guest=$1
+
+if [[ "$guest" =~ ^[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12}$ ]]; then
+  uuid="\"$guest\""
+else
+  uuid=$($ubin/utmctl list | grep 'ArchLinux' | awk '{print $1}')
+  echo "guest UUID $uuid"
+fi
+
+if [[ -z $uuid ]]; then
+  echo "Failed to get UUID of guest or not running"
+  exit 0
+fi
+
+# use jq to read json file guest devices of format:
+# [
+#   {
+#     "guest": "ArchLinux",
+#     "devices": ["1d50:606f"]
+#   }
+# ]
+if [[ ! -f "$file" ]]; then
+  echo "File usb_passthrough file not found: $file"
+else
+  guest_exists=$(jq --arg guest "$guest" "any(.[]; .guest == \"$guest\")" "$file")
+  uuid_exists=$(jq --arg uuid "$uuid" "any(.[]; .uuid == \"$uuid\")" "$file")
+  if [[ "$guest_exists" == "true" ]]; then
+    usb_devices=$(jq -r ".[] | select(.guest == \"$guest\") | .devices | .[]" "$file")
+    echo "Found USB devices for $uuid: $usb_devices"
+  elif [[ "$uuid_exists" == "true" ]]; then
+    usb_devices=$(jq -r ".[] | select(.uuid == \"$uuid\") | .devices | .[]" "$file")
+    echo "Found USB devices for $uuid: $usb_devices"
+  fi
+fi
+
+status=$($ubin/utmctl status "$uuid")
+if [[ "$status" != "started" ]]; then
+  $ubin/utmctl start "$uuid"
+
+  if command -v tte &> /dev/null; then
+    figlet "Starting $guest..." | tte --frame-rate 300 blackhole
+  fi
+
+  while [[ "$status" != "started" ]]; do
+    sleep 1
+    status=$($ubin/utmctl status "$uuid")
+  done
+fi
+
+# check if usb_devivces is set
+if [[ -z $usb_devices ]]; then
+  echo "No USB devices to connect"
+  exit 0
+else
+  for vidpid in "${usb_devices[@]}"; do
+    echo "Connecting USB device $vidpid"
+    $ubin/utmctl usb connect "$uuid" "$vidpid"
+  done
+fi
