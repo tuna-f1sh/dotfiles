@@ -601,15 +601,24 @@ get_probe() {
   fi
 }
 
+_adder_venv_path() {
+  venv_path=${1:-${VENV_DIR}/$(basename "${PWD}")-$(echo "${PWD}" | sha256sum | head -c 6)}
+  # if .venv exists in current folder and not passed
+  if [[ -d .venv && ! $1 ]]; then
+    venv_path=".venv"
+  fi
+
+  if [[ $venv_path =~ ^venv* ]]; then
+    venv_path="${PWD}/.venv"
+  fi
+}
+
 adder () {
   # only if arg does not start with -- flag
   if [[ ! $1 =~ ^-- ]]; then
-    local venv_path=${1:-${VENV_DIR}/$(basename "${PWD}")-$(echo "${PWD}" | sha256sum | head -c 6)}
-
-    if [[ $venv_path =~ '^venv*' ]]; then
-      venv_path="${PWD}/.venv"
-    fi
+    _adder_venv_path "$1"
     local env_file="${PWD}/.env"
+
 
     # if already in venv abort
     if [[ -n $VIRTUAL_ENV ]]; then
@@ -636,11 +645,39 @@ adder () {
       echo "🐍 Entered venv@$venv_path"
     fi
   else
-    if [[ -n uv ]]; then
-      uv $1
-    else
-      python -m venv $1
-    fi
+    _adder_venv_path
+    case $1 in
+      --rm)
+        rm -rf "$venv_path"
+        ;;
+      --path)
+        echo "$venv_path"
+        ;;
+      --install)
+        if [[ -n uv ]]; then
+          # all args after 1
+          uv pip install "${@:2}"
+        else
+          pip install "${@:2}"
+        fi
+        ;;
+      --)
+        if [[ -n uv ]]; then
+          # all args after 1
+          uv "${@:2}"
+        else
+          pip "${@:2}"
+        fi
+        ;;
+      *)
+        # if uv installed
+        if [[ -n uv ]]; then
+          uv "$1"
+        else
+          python -m venv "$1"
+        fi
+        ;;
+    esac
   fi
 }
 
