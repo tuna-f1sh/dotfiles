@@ -5,7 +5,6 @@ set history expansion on
 
 # enabled perf access
 set mem inaccessible-by-default off
-# add-auto-load-safe-path /home/john/Projects/sbc/dayton-hmi/tcu2_st/.gdbinit
 # set auto-load safe-path .
 
 define xxd
@@ -14,7 +13,6 @@ define xxd
 end
 document xxd
   Runs xxd on a memory ADDR and LENGTH
-
   xxd ADDR LENTH
 end
 
@@ -26,6 +24,17 @@ end
 # lines makes more sense to me...
 define lines 
   list
+end
+
+# resets a multi-image target by jump beyond MCUboot, which will fail to validate debug image
+define app_reset
+    # Reset the device
+    monitor reset
+    # Find the start address
+    set $start_address = &__start
+    # Set the program counter to the App start address
+    set $pc = $start_address
+    continue
 end
 
 python

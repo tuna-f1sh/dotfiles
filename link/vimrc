@@ -198,25 +198,25 @@ endif
 " set clipboard provider on nvim if remote
 " must install my ~/dotfiles/support/scripts/bin/
 " don't use desktop providers since over SSH
-if has('nvim') && !empty($SSH_TTY)
-  " nvim 0.1 > actually has OSC52 support and SSH detection so not required...https://neovim.io/doc/user/provider.html#clipboard-osc52
-  if executable('clipboard-provider')
-    let g:clipboard = {
-          \ 'name': 'clipboard-provider',
-          \     'copy': {
-          \         '+': 'env COPY_PROVIDERS=osc52 clipboard-provider copy',
-          \         '*': 'clipboard-provider copy',
-          \     },
-          \     'paste': {
-          \         '+': 'clipboard-provider paste',
-          \         '*': 'clipboard-provider paste',
-          \     },
-          \ }
-
-    " yank to tmux normally
-    " set clipboard=unnamed
-  endif
-endif
+"if has('nvim') && !empty($SSH_TTY)
+"  " nvim 0.1 > actually has OSC52 support and SSH detection so not required...https://neovim.io/doc/user/provider.html#clipboard-osc52
+"  if executable('clipboard-provider')
+"    let g:clipboard = {
+"          \ 'name': 'clipboard-provider',
+"          \     'copy': {
+"          \         '+': 'env COPY_PROVIDERS=osc52 clipboard-provider copy',
+"          \         '*': 'clipboard-provider copy',
+"          \     },
+"          \     'paste': {
+"          \         '+': 'clipboard-provider paste',
+"          \         '*': 'clipboard-provider paste',
+"          \     },
+"          \ }
+"
+"    " yank to tmux normally
+"    " set clipboard=unnamed
+"  endif
+"endif
 
 set ruler             " Show line and column number
 set encoding=utf-8    " Set default encoding to UTF-8
@@ -348,7 +348,6 @@ endif
 " bottom of the screen not pop-up for FZF
 let g:fzf_layout = { 'down': '~30%' }
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-
 let g:linuxsty_patterns = ["/linux/", "/kernel/", "/usr/src/", "/tcu-3/", "/zephyr/"]
 
 " ---- COC ----
@@ -364,6 +363,7 @@ let g:coc_global_extensions = [
 \   'coc-pyright',
 \   'coc-emoji',
 \   'coc-css',
+\   'coc-flutter',
 \   'coc-rust-analyzer']
 " \   'coc-snippets']
 
