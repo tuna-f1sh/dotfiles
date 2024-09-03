@@ -747,3 +747,8 @@ toolchain_ncs() {
 
   env_ncs "$ncs_sdk_version"
 }
+
+cargo-clean() {
+  local path=${1:-"$HOME/git"}
+  for f in $path/**/Cargo.toml; do $HOME/.cargo/bin/cargo clean --manifest-path $f; done
+}
