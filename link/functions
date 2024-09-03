@@ -440,6 +440,11 @@ daynote() {
   vim ${NOTE_DIR}/$($dprog +%Y-%m-%d -d "$*").md
 }
 
+wdaynote() {
+  dprog=$(which gdate || which date)
+  vim ${NOTE_DIR}/w-$($dprog +%Y-%m-%d -d "$*").md
+}
+
 # Override Z for use with fzf
 unalias z 2> /dev/null
 z() {
