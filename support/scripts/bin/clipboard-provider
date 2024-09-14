@@ -11,8 +11,8 @@
 # clipboard-provider paste
 
 # uncomment to debug
-#exec 2>> ~/clipboard-provider.out
-#set -x
+# exec 2>> ~/clipboard-provider.out
+# set -x
 
 : ${COPY_PROVIDERS:=tmux kitty desktop}
 : ${PASTE_PROVIDERS:=tmux kitty desktop}
