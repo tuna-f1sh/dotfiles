@@ -46,6 +46,7 @@ fi
 #     "devices": ["1d50:606f"]
 #   }
 # ]
+usb_devices=""
 if [[ ! -f "$file" ]]; then
   echo "File usb_passthrough file not found: $file"
 else
@@ -81,6 +82,6 @@ if [[ -z $usb_devices ]]; then
 else
   for vidpid in "${usb_devices[@]}"; do
     echo "Connecting USB device $vidpid"
-    $ubin/utmctl usb connect "$uuid" "$vidpid"
+    $ubin/utmctl usb connect "$uuid" "$vidpid" 2>/dev/null
   done
 fi
