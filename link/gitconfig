@@ -19,6 +19,7 @@
   excludesfile = ~/.gitignore_global
   editor = vim
   trustctime = false
+  pager = delta
 
 [init]
   templatedir = ~/dotfiles/support/git_template
@@ -50,8 +51,8 @@
 
 [merge]
   tool = vimdiff
-  # adds original to center of diff3 conflict
-  conflictstyle = diff3
+  # https://github.com/dandavison/delta/pull/1260
+  conflictstyle = vdiff3
 
 [mergetool]
   keepBackup = false
