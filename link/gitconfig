@@ -52,7 +52,7 @@
 [merge]
   tool = vimdiff
   # https://github.com/dandavison/delta/pull/1260
-  conflictstyle = vdiff3
+  conflictstyle = zdiff3
 
 [mergetool]
   keepBackup = false
