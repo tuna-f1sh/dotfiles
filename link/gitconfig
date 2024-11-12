@@ -47,7 +47,7 @@
   cmd = vim -d $LOCAL $REMOTE
 
 [difftool "vimdiff-fugitive"]
-  cmd = vim -f -c "Gdiff" $LOCAL $REMOTE
+  cmd = vim -f -c "Gvdiffsplit!" $LOCAL $REMOTE
 
 [merge]
   tool = vimdiff
@@ -58,7 +58,7 @@
   keepBackup = false
 
 [mergetool "vimmerge-fugitive"]
-  cmd = vim -f -c "Gdiff" "$MERGED"
+  cmd = vim -f -c "Gvdiffsplit!" "$MERGED"
 
 [pager]
   diff = delta

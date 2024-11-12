@@ -644,7 +644,7 @@ adder () {
     source "$venv_path/bin/activate"
 
     if [[ -f $env_file ]]; then
-      source $env_file 
+      dotenv $env_file 
       echo "🐍 Entered venv@$venv_path and $env_file"
     else
       echo "🐍 Entered venv@$venv_path"
@@ -751,4 +751,13 @@ toolchain_ncs() {
 cargo-clean() {
   local path=${1:-"$HOME/git"}
   for f in $path/**/Cargo.toml; do $HOME/.cargo/bin/cargo clean --manifest-path $f; done
+}
+
+# https://stackoverflow.com/questions/19331497/set-environment-variables-from-file-of-key-value-pairs
+# allows sourcing .env in project which doesn't have export ..
+dotenv () {
+  env=${1:-"$(pwd)/.env"}
+  set -a
+  source "${env}"
+  set +a
 }
