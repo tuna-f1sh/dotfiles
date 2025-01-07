@@ -8,6 +8,7 @@ local servers = {
     "clangd",
     "ts_ls",
     "jsonls",
+    "dartls",
 }
 
 local lspconfig = require('lspconfig')

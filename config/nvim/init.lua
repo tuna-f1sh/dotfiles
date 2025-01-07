@@ -2,14 +2,31 @@
 local FULL_FAT = os.getenv('DOTFILES_VIM_FULL_FAT')
 
 -- Paq installation
-local install_path = vim.fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.system { 'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', install_path }
+local function clone_paq()
+  local path = vim.fn.stdpath("data") .. "/site/pack/paqs/start/paq-nvim"
+  local is_installed = vim.fn.empty(vim.fn.glob(path)) == 0
+  if not is_installed then
+    vim.fn.system { "git", "clone", "--depth=1", "https://github.com/savq/paq-nvim.git", path }
+    return true
+  end
 end
 
-require 'paq' {
+local function bootstrap_paq(packages)
+  local first_install = clone_paq()
+  vim.cmd.packadd("paq-nvim")
+  local paq = require("paq")
+  if first_install then
+    vim.notify("Installing plugins... If prompted, hit Enter to continue.")
+  end
+
+  -- Read and install packages
+  paq(packages)
+  paq.install()
+end
+
+bootstrap_paq {
   { 'neovim/nvim-lspconfig' }, -- LSP
-  { 'saghen/blink.cmp', version = "*", build = "CARGO_TARGET_DIR=target cargo build --release" },
+  { 'saghen/blink.cmp', version = "*", build = "cargo build --locked --release --target-dir target" },
 
   -- Treesitter
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
@@ -24,7 +41,7 @@ require 'paq' {
   { 'tpope/vim-fugitive' }, -- Git integration
   { 'tpope/vim-rhubarb' }, -- GBrowse
   { 'tpope/vim-unimpaired' }, -- Maps to help navigation with ]
-  -- { 'echasnovski/mini.bracketed' },
+  { 'echasnovski/mini.bracketed' },
   { 'echasnovski/mini.surround' }, -- Surround helpers, sa, sr, sd, s?
   { 'echasnovski/mini.icons' }, -- Icons for fzf
   { 'mbbill/undotree' },
@@ -48,12 +65,22 @@ vim.opt.runtimepath:append { '~/dotfiles/config/nvim', '~/dotfiles/vim/', '~/dot
 
 if FULL_FAT then
   require('treesitter')
-  require('completion')
-  -- require('lualine').setup({})
-  require('mini.surround').setup({})
-  require('mini.icons').setup({})
+  if pcall(require, 'blink.cmp') then
+    require('completion')
+  end
+  if pcall(require, 'lualine') then
+    require('lualine').setup({})
+  end
+  if pcall(require, 'mini.surround') then
+    require('mini.surround').setup({})
+  end
+  if pcall(require, 'mini.icons') then
+    require('mini.icons').setup({})
+  end
 end
--- require('mini.bracketed').setup({})
+if pcall(require, 'mini.bracketed') then
+  require('mini.bracketed').setup({})
+end
 
 -- Interface settings
 vim.o.title = true
