@@ -599,11 +599,13 @@ get_probe() {
     exit 1
   fi
 
-  if [ "$(uname)" == "Darwin" ]; then
+  if [[ "$(uname)" == "Darwin" ]]; then
     probe="$(find /dev/cu.usbmodem"$serial"* | head -n 1)"
   else
     probe=/dev/ttyACM0
   fi
+
+  echo $probe
 }
 
 _adder_venv_path() {
