@@ -5,7 +5,10 @@ if [ -x "$(command -v lsd)" ]; then
 fi
 # 👻
 if [ -x "$(command -v nvim)" ]; then
+  alias vi='nvim'
   alias vim='nvim'
+  # git accepts nvimdiff as arg difftool
+  # alias vimdiff='nvim -d'
 fi
 
 # Some shortcuts for different directory listings

@@ -121,15 +121,8 @@ if !empty($DOTFILES_VIM_FULL_FAT)
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'altercation/vim-colors-solarized'
-  Plug 'endel/vim-github-colorscheme'
-  Plug 'romainl/flattened'
   Plug 'Lokaltog/vim-monotone'
   Plug 'reedes/vim-colors-pencil'
-  Plug 'jsit/toast.vim'
-  Plug 'aonemd/kuroi.vim'
-  Plug 'wojciechkepka/bogster'
-  Plug 'dracula/vim', { 'as': 'dracula' }
-  Plug '~/dotfiles/vim/colors/flat.vim', { 'as': 'flat' }
 
   " Syntax/Filetypes
   Plug 'gregkh/kernel-coding-style' " Kernel coding style (auto loaded)
@@ -152,7 +145,6 @@ Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'tpope/vim-surround' " Surround stuff
 
 " Colours
-Plug 'tomasr/molokai'
 Plug 'patstockwell/vim-monokai-tasty'
 
 " All of your Plugins must be added before the following line
@@ -366,6 +358,7 @@ let g:coc_global_extensions = [
 \   'coc-emoji',
 \   'coc-css',
 \   'coc-lua',
+\   'coc-clangd',
 \   'coc-rust-analyzer']
 " \   'coc-snippets']
 

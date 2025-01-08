@@ -7,7 +7,6 @@ let g:loaded_git = 1
 
 function! Gitdir()
   let g:gitdir=fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
-  set tags=.git/tags,.tags,tags,./tags;
   if g:gitdir != '' && isdirectory(g:gitdir) && index(split(&path, ","),g:gitdir) < 0
     exec "setlocal tags^=".g:gitdir."/.git/tags"
     exec "setlocal path+=".g:gitdir."/**"

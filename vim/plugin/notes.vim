@@ -57,7 +57,10 @@ function! Journal(name)
   exec 'edit '.s:file
 endfunction
 
-command! -nargs=? -complete=command Note :call Note(<f-args>)
-command! -nargs=? -complete=command SNote :call NoteSplit(<f-args>)
-command! -nargs=1 -complete=command AgNote :call AgNote(<f-args>)
-command! -nargs=1 -complete=command Journal :call Journal(<f-args>)
+" check does not already exist as my fzf.lua for nvim has this
+if !exists(':Note')
+  command -nargs=? -complete=command Note :call Note(<f-args>)
+  command -nargs=? -complete=command SNote :call NoteSplit(<f-args>)
+  command -nargs=1 -complete=command AgNote :call AgNote(<f-args>)
+  command -nargs=1 -complete=command Journal :call Journal(<f-args>)
+endif

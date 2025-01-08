@@ -12,10 +12,19 @@ map('n', '<C-j>', 'gj', { desc = 'Move down' })
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search' })
+-- typos W is w
+vim.api.nvim_create_user_command('W', 'w', { nargs = 0 })
+vim.api.nvim_create_user_command('Q', 'q', { nargs = 0 })
+
 -- better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
-map('n', '<leader>tt', '<cmd>UndotreeToggle<cr>', { desc = 'Toggle undotree' })
+
+-- Utility split toggles
+map('n', '<leader>tu', '<cmd>UndotreeToggle<cr>', { desc = 'Toggle undotree' })
+map('n', '<leader>tx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Toggle trouble diagnostics' })
+map('n', '<leader>tX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Toggle trouble diagnostics (buffer)' })
+map('n', '<leader>tl', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Toggle trouble symbols' })
 
 -- Move Lines
 map("n", "]e", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
@@ -31,27 +40,32 @@ map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+map("n", "<C-;>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
--- Telescope
+-- Fuzzy finder
 map('n', '<leader><leader>', '<cmd>FzfLua files<cr>')
-map('n', '<leader>g', '<cmd>FzfLua git_files<cr>')
+map('n', '<leader>g', '<cmd>FzfLua git_files<cr>') -- cd %:p:h to change git root being used
 map('n', '<leader>h', '<cmd>FzfLua oldfiles<cr>')
 map('n', '<leader>;', '<cmd>FzfLua buffers<cr>')
-map('n', '<leader>so', '<cmd>FzfLua lsp_document_symbols<cr>')
-map('n', '<leader>sO', '<cmd>FzfLua lsp_workspace_symbols<cr>')
-map('n', '<leader>ss', '<cmd>FzfLua grep<cr>')
-map('v', '<leader>ss', '<cmd>FzfLua grep_visual<cr>')
-map('n', '<leader>sc', '<cmd>FzfLua commands<cr>')
-map('n', '<leader>sC', '<cmd>FzfLua command_history<cr>')
-map('n', '<leader>sx', '<cmd>FzfLua<cr>')
+map('n', '<leader>ff', '<cmd>FzfLua files cwd=%:p:h<cr>')
+map('n', '<leader>fo', '<cmd>FzfLua lsp_document_symbols<cr>')
+map('n', '<leader>fO', '<cmd>FzfLua lsp_workspace_symbols<cr>')
+map('n', '<leader>fs', '<cmd>FzfLua grep<cr>')
+map('v', '<leader>fs', '<cmd>FzfLua grep_visual<cr>')
+map('n', '<leader>fS', '<cmd>FzfLua grep cwd=%:p:h<cr>')
+map('v', '<leader>fS', '<cmd>FzfLua grep_visual cwd=%:p:h<cr>')
+map('n', '<leader>fc', '<cmd>FzfLua commands<cr>')
+map('n', '<leader>fC', '<cmd>FzfLua command_history<cr>')
+map('n', '<leader>fr', '<cmd>FzfLua resume<cr>')
+map('n', '<leader>fx', '<cmd>FzfLua<cr>')
 
 -- LSP - could be done on attach in completion.lua but relies on FzfLua so here for now
-map('n', 'grn', '<cmd>vim.lsp.buf.rename()<cr>', { noremap = true })
-map('n', 'gO', '<cmd>FzfLua lsp_document_symbols<cr>', { noremap = true })
-map('n', 'gra', '<cmd>FzfLua lsp_code_actions<cr>', { noremap = true })
-map('n', 'grr', '<cmd>FzfLua lsp_references<cr>', { noremap = true })
-map('n', 'gri', '<cmd>FzfLua lsp_implementations<cr>', { noremap = true })
+map('n', 'grn', vim.lsp.buf.rename, { desc = "LSP Rename" })
+map('n', 'gO', vim.lsp.buf.document_symbol, { desc = "LSP Document Symbols" })
+map('n', 'gra', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+map('n', 'grr', vim.lsp.buf.references, { desc = "LSP References" })
+map('n', 'gri', vim.lsp.buf.implementation, { desc = "LSP Implementation" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
@@ -61,7 +75,9 @@ local diagnostic_goto = function(next, severity)
     go({ severity = severity })
   end
 end
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+map("n", "<leader>cd", vim.diagnostic.setqflist, { desc = "Add all diagnostic to quickfix list" })
+map("n", "<leader>cD", vim.diagnostic.setloclist, { desc = "Add buffer diagnostic to locatoin list" })
+map("n", "<leader>ca", "<cmd>FzfLua lsp_code_actions<cr>", { desc = "Code Actions" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 -- map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })

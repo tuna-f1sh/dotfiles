@@ -1,14 +1,14 @@
 -- Set up lspconfig.
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 local servers = {
-    "lua_ls",
-    "rust_analyzer",
-    "bashls",
-    "pyright",
+    "lua_ls", -- lua_language_server
+    "rust_analyzer", -- rustup component add rust-analyzer
+    "bashls", -- bash_language_server
+    "pyright", -- pyright
     "clangd",
     "ts_ls",
     "jsonls",
-    "dartls",
+    "dartls", -- flutter env
 }
 
 local lspconfig = require('lspconfig')

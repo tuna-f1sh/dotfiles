@@ -41,24 +41,21 @@
   verbose = true
 
 [diff]
-  tool = vimdiff
+  tool = nvimdiff
 
-[difftool "vimdiff-raw"]
-  cmd = vim -d $LOCAL $REMOTE
-
-[difftool "vimdiff-fugitive"]
-  cmd = vim -f -c "Gvdiffsplit!" $LOCAL $REMOTE
+[difftool "fugitive"]
+  cmd = nvim -f -c "Gvdiff" "$MERGED"
 
 [merge]
-  tool = vimdiff
+  tool = nvimdiff
   # https://github.com/dandavison/delta/pull/1260
   conflictstyle = zdiff3
 
 [mergetool]
   keepBackup = false
 
-[mergetool "vimmerge-fugitive"]
-  cmd = vim -f -c "Gvdiffsplit!" "$MERGED"
+[mergetool "fugitive"]
+  cmd = nvim -f -c "Gvdiff" "$MERGED"
 
 [pager]
   diff = delta
