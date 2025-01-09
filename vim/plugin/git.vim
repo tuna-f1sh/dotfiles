@@ -5,45 +5,86 @@ endif
 
 let g:loaded_git = 1
 
+" sets b:git_dir to the git directory of the current file
+"
+" uses fugitive if available, otherwise searches for .git directory
 function! Gitdir()
-  let g:gitdir=fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
-  if g:gitdir != '' && isdirectory(g:gitdir) && index(split(&path, ","),g:gitdir) < 0
-    exec "setlocal tags^=".g:gitdir."/.git/tags"
-    exec "setlocal path+=".g:gitdir."/**"
-    " let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".g:gitdir." $*; fi"
+  if !exists('b:git_dir')
+    if exists('g:loaded_fugitivedfgdfg')
+      call FugitiveGitDir()
+      let b:project_root = fnamemodify(b:git_dir, ':h')
+    elseif exists('g:loaded_fzf_lua')
+      let b:project_root = luaeval('require("fzf-lua").path.git_root({})')
+      let b:git_dir = b:project_root.'/.git'
+    else
+      let git_folder=fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
+      " if in root, use current directory
+      if index(split(&path, ","),git_folder) > 0 || git_folder == '.'
+        let b:project_root = escape(expand('%:p:h'), ' ')
+        let b:git_dir = b:project_root.'/.git'
+      elseif isdirectory(git_folder)
+        let b:project_root = git_folder
+        let b:git_dir = b:project_root.'/.git'
+      endif
+    endif
+  endif
+
+  if exists('b:git_dir')
+    return b:git_dir
+  endif
+
+  return ''
+endfunction
+
+" cd to b:git_dir/../
+function! Cdproject()
+  if !exists('b:git_dir')
+    call Gitdir()
+  endif
+  if !exists('b:git_dir')
+    return
+  endif
+  if isdirectory(b:git_dir)
+    exec "cd ".b:git_dir.'/../'
   endif
 endfunction
 
 function! SetupGitProject()
   " should get cached git directory
-  if exists('g:loaded_fugitive')
-    if g:loaded_fugitive
-      let dir = escape(FugitiveGitDir(), ' ')
-      if !empty(dir)
-        exec "setlocal tags^=".dir."/tags"
-        exec "setlocal path+=".dir."/../**"
-        exec "setlocal path-=**"
-        " let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".dir."/../ $*; fi"
-      endif
+  if !exists('b:git_dir')
+    call Gitdir()
+  endif
+  if !exists('b:git_dir')
+    return
+  endif
+  if !empty(b:git_dir)
+    if !exists('b:project_root')
+      let b:project_root = fnamemodify(b:git_dir, ':h')
     endif
+    exec "setlocal tags-=.git/tags"
+    exec "setlocal tags^=".b:git_dir."/tags,".b:project_root."/tags"
+    exec "setlocal path+=".b:project_root."/**"
+    exec "setlocal path-=**"
   endif
 endfunction
-
-command! -nargs=? -complete=command SetGitDir :call SetupGitProject()
 
 function! SetupGitMakeprg()
-  if exists('g:loaded_fugitive')
-    if g:loaded_fugitive
-      let dir = FugitiveGitDir()
-      if !empty(dir)
-        let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".escape(dir, ' ')."/../ $*; fi"
-      endif
-    endif
+  if !exists('b:git_dir')
+    call Gitdir()
+  endif
+  if !exists('b:git_dir')
+    return
+  endif
+  if !empty(b:git_dir)
+    let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".escape(b:git_dir, ' ')."/ $*; fi"
   endif
 endfunction
 
 
+command! -nargs=? -complete=command SetGitDir :call SetupGitProject()
+command! -nargs=? -complete=command Cdroot :call Cdproject()
+
 augroup git
-  autocmd BufNewFile,BufReadPost * if exists('g:loaded_fugitive') | call SetupGitProject() | endif
-  autocmd BufNewFile,BufReadPost *.c,*.h,*.cpp,*.ino if exists('g:loaded_fugitive') | call SetupGitMakeprg() | endif
+  autocmd BufNewFile,BufReadPost * call SetupGitProject()
+  autocmd BufNewFile,BufReadPost *.c,*.h,*.cpp,*.ino call SetupGitMakeprg()
 augroup END

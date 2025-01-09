@@ -57,13 +57,18 @@ bootstrap_paq {
   { 'jpalardy/vim-slime' }, -- Send code to tmux
   { 'hanschen/vim-ipython-cell' }, -- Send code to IPython
 
+  -- UI
+  { 'nvim-lualine/lualine.nvim' }, -- Status line
+
   -- Themes
   { 'patstockwell/vim-monokai-tasty' },
   { 'loctvl842/monokai-pro.nvim' },
-  { 'sainnhe/sonokai' },
   { 'rebelot/kanagawa.nvim' },
   { 'folke/tokyonight.nvim' },
-  { 'nvim-lualine/lualine.nvim' }, -- Status line
+  { 'NLKNguyen/papercolor-theme' },
+  { 'altercation/vim-colors-solarized' },
+  { 'Lokaltog/vim-monotone' },
+  { 'reedes/vim-colors-pencil' },
 }
 
 -- General settings
@@ -90,9 +95,13 @@ vim.opt.wildignore = { '*.o', '*.a', '__pycache__', '*.class', '*.swp', '*.swo',
 vim.o.wildmode = 'longest:full,full'
 vim.o.completeopt = "menu,menuone,noselect"
 -- custom git hook templete generates tags to .git/tags
-vim.o.tags = ".git/tags,.tags,tags,./tags;"
+vim.o.tags = ".git/tags,.tags,./tags;"
 vim.o.path = vim.o.path .. '**'
 vim.g.linuxsty_patterns = {"/linux/", "/kernel/", "/usr/src/", "/tcu-3/", "/zephyr/"}
+
+-- Folding indent levels 1 deep so functions are folded
+-- vim.o.foldmethod = 'indent'
+-- vim.o.foldnestmax = 1
 
 -- General settings (commented out are redundant defaults from legacy vim)
 vim.o.hlsearch = true

@@ -12,6 +12,7 @@ map('n', '<C-j>', 'gj', { desc = 'Move down' })
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search' })
+map('n', '<leader>zs', '<cmd>set foldmethod=syntax<CR>', { desc = 'Set syntax folding' })
 -- typos W is w
 vim.api.nvim_create_user_command('W', 'w', { nargs = 0 })
 vim.api.nvim_create_user_command('Q', 'q', { nargs = 0 })
@@ -44,21 +45,21 @@ map("n", "<C-;>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
 -- Fuzzy finder
-map('n', '<leader><leader>', '<cmd>FzfLua files<cr>')
-map('n', '<leader>g', '<cmd>FzfLua git_files<cr>') -- cd %:p:h to change git root being used
-map('n', '<leader>h', '<cmd>FzfLua oldfiles<cr>')
-map('n', '<leader>;', '<cmd>FzfLua buffers<cr>')
-map('n', '<leader>ff', '<cmd>FzfLua files cwd=%:p:h<cr>')
-map('n', '<leader>fo', '<cmd>FzfLua lsp_document_symbols<cr>')
-map('n', '<leader>fO', '<cmd>FzfLua lsp_workspace_symbols<cr>')
-map('n', '<leader>fs', '<cmd>FzfLua grep<cr>')
-map('v', '<leader>fs', '<cmd>FzfLua grep_visual<cr>')
-map('n', '<leader>fS', '<cmd>FzfLua grep cwd=%:p:h<cr>')
-map('v', '<leader>fS', '<cmd>FzfLua grep_visual cwd=%:p:h<cr>')
-map('n', '<leader>fc', '<cmd>FzfLua commands<cr>')
-map('n', '<leader>fC', '<cmd>FzfLua command_history<cr>')
-map('n', '<leader>fr', '<cmd>FzfLua resume<cr>')
-map('n', '<leader>fx', '<cmd>FzfLua<cr>')
+map('n', '<leader><leader>', '<cmd>FzfLua files<cr>', { desc = "Fzf Files" })
+map('n', '<leader>g', '<cmd>FzfLua git_files<cr>', { desc = "Fzf Git Files" } ) -- cd %:p:h to change git root being used
+map('n', '<leader>h', '<cmd>FzfLua oldfiles<cr>', { desc = "Fzf History" })
+map('n', '<leader>;', '<cmd>FzfLua buffers<cr>', { desc = "Fzf Buffers" })
+map('n', '<leader>ff', '<cmd>FzfLua files cwd=%:p:h<cr>', { desc = "Fzf Files CWD" })
+map('n', '<leader>fo', '<cmd>FzfLua lsp_document_symbols<cr>', { desc = "Fzf LSP Document Symbols" })
+map('n', '<leader>fO', '<cmd>FzfLua lsp_workspace_symbols<cr>', { desc = "Fzf LSP Workspace Symbols" })
+map('n', '<leader>fs', '<cmd>FzfLua grep<cr>', { desc = "Fzf Grep" })
+map('v', '<leader>fs', '<cmd>FzfLua grep_visual<cr>', { desc = "Fzf Grep Visual" })
+map('n', '<leader>fS', '<cmd>FzfLua grep cwd=%:p:h<cr>', { desc = "Fzf Grep CWD" })
+map('v', '<leader>fS', '<cmd>FzfLua grep_visual cwd=%:p:h<cr>', { desc = "Fzf Grep Visual CWD" })
+map('n', '<leader>fc', '<cmd>FzfLua commands<cr>', { desc = "Fzf Commands" })
+map('n', '<leader>fC', '<cmd>FzfLua command_history<cr>', { desc = "Fzf Command History" })
+map('n', '<leader>fr', '<cmd>FzfLua resume<cr>', { desc = "Fzf Resume" })
+map('n', '<leader>fx', '<cmd>FzfLua<cr>', { desc = "Fzf" })
 
 -- LSP - could be done on attach in completion.lua but relies on FzfLua so here for now
 map('n', 'grn', vim.lsp.buf.rename, { desc = "LSP Rename" })
@@ -88,9 +89,9 @@ map("n", "[w", diagnostic_goto(false, {"WARN", "ERROR"}), { desc = "Prev Warning
 -- Clear search and stop snippet on escape
 map({ "i", "n", "s" }, "<esc>", function()
   vim.cmd("noh")
-  if vim.fn.pumvisible() == 1 then
-    return vim.fn["compe#close"]()
-  end
+  -- if vim.fn.pumvisible() == 1 then
+  --   return vim.fn["compe#close"]()
+  -- end
   return "<esc>"
 end, { expr = true, desc = "Escape and Clear hlsearch" })
 

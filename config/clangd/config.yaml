@@ -1,0 +1,4 @@
+CompileFlags:
+  Add: -Wno-unknown-warning-option
+  # Zephyr projects..
+  Remove: [-fno-printf-return-value, -mfp16-format=ieee, -fno-reorder-functions]
