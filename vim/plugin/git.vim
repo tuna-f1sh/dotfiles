@@ -13,9 +13,9 @@ function! Gitdir()
     if exists('g:loaded_fugitivedfgdfg')
       call FugitiveGitDir()
       let b:project_root = fnamemodify(b:git_dir, ':h')
-    elseif exists('g:loaded_fzf_lua')
-      let b:project_root = luaeval('require("fzf-lua").path.git_root({})')
-      let b:git_dir = b:project_root.'/.git'
+    "elseif exists('g:loaded_fzf_lua') this is the pwd git root
+    "  let b:project_root = luaeval('require("fzf-lua").path.git_root({})')
+    "  let b:git_dir = b:project_root.'/.git'
     else
       let git_folder=fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
       " if in root, use current directory
@@ -76,7 +76,7 @@ function! SetupGitMakeprg()
     return
   endif
   if !empty(b:git_dir)
-    let &makeprg = "if [ -f '%:p:h'/Makefile ]; then make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else make DIAGNOSTICS_COLOR_WHEN=never -C ".escape(b:git_dir, ' ')."/ $*; fi"
+    let &makeprg = "if [ -f '%:p:h'/Makefile ]; then NO_COLOR=1 make DIAGNOSTICS_COLOR_WHEN=never -C '%:p:h' $*; else NO_COLOR=1 make DIAGNOSTICS_COLOR_WHEN=never -C ".escape(b:git_dir, ' ')."/ $*; fi"
   endif
 endfunction
 
