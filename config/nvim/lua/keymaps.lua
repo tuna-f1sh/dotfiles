@@ -9,8 +9,9 @@ map('n', '<leader>qq', '<cmd>qa!<cr>', { desc = 'Quit all' })
 map('n', '<leader>ww', '<cmd>w<cr>', { desc = 'Write' })
 map('n', '<C-k>', 'gk', { desc = 'Move up' })
 map('n', '<C-j>', 'gj', { desc = 'Move down' })
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+-- move over split lines
+-- map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+-- map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search' })
 map('n', '<leader>zs', '<cmd>set foldmethod=syntax<CR>', { desc = 'Set syntax folding' })
 -- typos W is w

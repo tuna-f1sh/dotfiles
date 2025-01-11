@@ -19,10 +19,10 @@ function! Gitdir()
     else
       let git_folder=fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
       " if in root, use current directory
-      if index(split(&path, ","),git_folder) > 0 || git_folder == '.'
-        let b:project_root = escape(expand('%:p:h'), ' ')
-        let b:git_dir = b:project_root.'/.git'
-      elseif isdirectory(git_folder)
+      "if index(split(&path, ","),git_folder) > 0 || git_folder == '.'
+      "  let b:project_root = escape(expand('%:p:h'), ' ')
+      "  let b:git_dir = b:project_root.'/.git'
+      if isdirectory(git_folder)
         let b:project_root = git_folder
         let b:git_dir = b:project_root.'/.git'
       endif

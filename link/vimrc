@@ -90,33 +90,33 @@ call plug#begin(plug_path)
 
 " host specific allow lightweight deployment by default
 if !empty($DOTFILES_VIM_FULL_FAT)
-  Plug 'dense-analysis/ale', { 'on':  'ALEEnable' }
   let g:coc_start_at_startup = 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'itchyny/lightline.vim'
-  Plug 'majutsushi/tagbar' " Function preview window
+
+  " Git
   Plug 'tpope/vim-fugitive' " Git plugin
   Plug 'tpope/vim-rhubarb' " GBrowse to github urls
-  Plug 'junegunn/vim-peekaboo' " Register viewer
-  Plug 'junegunn/goyo.vim', { 'for': 'markdown' } " Frame window for writting
-  Plug 'junegunn/limelight.vim', { 'for': 'markdown' } " Highlight only current paragraph for writting
-  Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
-  " Plug 'christoomey/vim-tmux-navigator' " Tmux pane swap shortcuts and save on loose focus
-  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
-  Plug 'ferrine/md-img-paste.vim', { 'for' : 'markdown' }
-  Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
+
+  " Python
   Plug 'jpalardy/vim-slime', { 'for': 'python' }
   Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
-  Plug 'hauleth/vim-backscratch'
-  "Plug 'metakirby5/codi.vim'
+
   Plug 'mbbill/undotree' " Show undo as tree
-  Plug 'chrisbra/Colorizer'
+  "Plug 'chrisbra/Colorizer'
   Plug 'itspriddle/vim-shellcheck'
-  Plug 'honza/vim-snippets', { 'for': 'markdown' } " Snippets are separated from the engine. Add this if you want them:
-  Plug 'SirVer/ultisnips', { 'for': 'markdown' } " Snippets engine
   if has("nvim")
     Plug 'github/copilot.vim'
   endif
+
+  " UI
+  Plug 'majutsushi/tagbar' " Function preview window
+  Plug 'junegunn/vim-peekaboo' " Register viewer
+  Plug 'junegunn/goyo.vim', { 'for': 'markdown' } " Frame window for writting
+  Plug 'junegunn/limelight.vim', { 'for': 'markdown' } " Highlight only current paragraph for writting
+  " Markdown
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " live preview markdown in browser
+  Plug 'ferrine/md-img-paste.vim', { 'for' : 'markdown' }
 
   " Colours
   Plug 'NLKNguyen/papercolor-theme'
@@ -143,6 +143,8 @@ if !has("nvim")
 endif
 Plug 'tpope/vim-unimpaired' " Shortcuts etc.
 Plug 'tpope/vim-surround' " Surround stuff
+Plug 'qpkorr/vim-bufkill' " Kill buffers whilst keeping splits
+Plug 'michaeljsmith/vim-indent-object' " define 'indent' object eg `ai` 'An Identation level and live above'
 
 " Colours
 Plug 'patstockwell/vim-monokai-tasty'

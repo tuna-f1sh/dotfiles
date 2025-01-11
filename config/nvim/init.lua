@@ -2,12 +2,12 @@
 local FULL_FAT = os.getenv('DOTFILES_VIM_FULL_FAT')
 
 -- Paq installation
-local path = vim.fn.stdpath("data") .. "/site/pack/paqs/start/paq-nvim"
-local is_installed = vim.fn.empty(vim.fn.glob(path)) == 0
+local paq_path = vim.fn.stdpath("data") .. "/site/pack/paqs/start/paq-nvim"
+local paq_installed = vim.fn.empty(vim.fn.glob(paq_path)) == 0
 
 local function clone_paq()
-  if not is_installed then
-    vim.fn.system { "git", "clone", "--depth=1", "https://github.com/savq/paq-nvim.git", path }
+  if not paq_installed then
+    vim.fn.system { "git", "clone", "--depth=1", "https://github.com/savq/paq-nvim.git", paq_path }
     return true
   end
 end
@@ -26,9 +26,14 @@ local function bootstrap_paq(packages)
   end
 end
 
-bootstrap_paq {
+local base_packages = {
+  { 'ibhagwan/fzf-lua' }, -- Fzf popup
+  { 'patstockwell/vim-monokai-tasty' }, -- Theme
+}
+
+local full_packages = {
   { 'neovim/nvim-lspconfig' }, -- LSP
-  { 'saghen/blink.cmp', version = "*", build = "cargo build --locked --release --target-dir target" },
+  { 'saghen/blink.cmp', version = '*', build = 'cargo build --locked --release --target-dir target' },
 
   -- Treesitter
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
@@ -49,7 +54,6 @@ bootstrap_paq {
   { 'tpope/vim-unimpaired' }, -- Maps to help navigation with ]
   -- { 'echasnovski/mini.bracketed' },
   { 'echasnovski/mini.surround' }, -- Surround helpers, sa, sr, sd, s?
-  -- { 'echasnovski/mini.icons' }, -- Icons for fzf
   { 'mbbill/undotree' },
   { 'famiu/bufdelete.nvim' },
 
@@ -71,15 +75,20 @@ bootstrap_paq {
   { 'reedes/vim-colors-pencil' },
 }
 
+if FULL_FAT then
+  bootstrap_paq(full_packages)
+else
+  bootstrap_paq(base_packages)
+end
+
 -- General settings
 
-vim.opt.runtimepath:append { '~/dotfiles/vim/', '~/dotfiles/vim/after' }
+-- my runtimes are in ~/dotfiles/vim so managed by git
+vim.opt.runtimepath:append { '~/dotfiles/vim', '~/dotfiles/vim/after' }
 
 -- Interface settings
 vim.o.title = true
 vim.o.background = 'dark'
-vim.g.vim_monokai_tasty_italic = 1
-vim.cmd.colorscheme('vim-monokai-tasty')
 vim.o.shortmess = vim.o.shortmess .. 'I' -- no intro
 vim.o.number = true
 vim.o.relativenumber = true
@@ -127,7 +136,7 @@ vim.o.spelllang = 'en_gb'
 
 require('keymaps')
 
--- Resume last place
+-- Resume last place in file
 vim.cmd([[
   au! BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
   \| exe "normal! g`\"" | endif
@@ -146,7 +155,11 @@ let g:slime_default_config = {
 
 -- Plugin config
 
-if FULL_FAT and is_installed then
+vim.g.vim_monokai_tasty_italic = 1
+-- pcall to fall back to default if not installed
+pcall(vim.cmd.colorscheme, 'vim-monokai-tasty')
+
+if FULL_FAT and paq_installed then
   require('fzf')
   require('treesitter')
   require('completion')
@@ -177,7 +190,6 @@ if FULL_FAT and is_installed then
   require('trouble').setup()
   require('lualine').setup({})
   require('mini.surround').setup({})
-  -- require('mini.icons').setup({})
-elseif not is_installed then
+elseif not paq_installed then
   vim.notify("Reload to load plugin configurations.")
 end
