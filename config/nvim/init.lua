@@ -27,13 +27,13 @@ local function bootstrap_paq(packages)
 end
 
 local base_packages = {
-  { 'ibhagwan/fzf-lua' }, -- Fzf popup
+  { 'ibhagwan/fzf-lua' },               -- Fzf popup
   { 'patstockwell/vim-monokai-tasty' }, -- Theme
 }
 
 local full_packages = {
   { 'neovim/nvim-lspconfig' }, -- LSP
-  { 'saghen/blink.cmp', version = '*', build = 'cargo build --locked --release --target-dir target' },
+  { 'saghen/blink.cmp',                version = '*',      build = 'cargo build --locked --release --target-dir target' },
 
   -- Treesitter
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
@@ -46,19 +46,19 @@ local full_packages = {
 
   -- Git
   { 'tpope/vim-fugitive' }, -- Git integration
-  { 'tpope/vim-rhubarb' }, -- GBrowse
+  { 'tpope/vim-rhubarb' },  -- GBrowse
   { 'lewis6991/gitsigns.nvim' },
   { 'folke/trouble.nvim' },
 
   -- Helpers
-  { 'tpope/vim-unimpaired' }, -- Maps to help navigation with ]
+  { 'tpope/vim-unimpaired' },      -- Maps to help navigation with ]
   -- { 'echasnovski/mini.bracketed' },
   { 'echasnovski/mini.surround' }, -- Surround helpers, sa, sr, sd, s?
   { 'mbbill/undotree' },
   { 'famiu/bufdelete.nvim' },
 
   -- Python
-  { 'jpalardy/vim-slime' }, -- Send code to tmux
+  { 'jpalardy/vim-slime' },        -- Send code to tmux
   { 'hanschen/vim-ipython-cell' }, -- Send code to IPython
 
   -- UI
@@ -97,7 +97,7 @@ vim.o.cursorline = true
 vim.o.scrolloff = 8
 vim.o.splitright = true -- Split right of current window
 vim.o.splitbelow = true -- Split below current window
-vim.o.mouse = 'n' -- only normal mode
+vim.o.mouse = 'n'       -- only normal mode
 vim.o.list = true
 vim.o.listchars = 'tab:▸ ,trail:·,extends:»,precedes:«,nbsp:␣'
 vim.opt.wildignore = { '*.o', '*.a', '__pycache__', '*.class', '*.swp', '*.swo', '*.DS_Store' }
@@ -106,7 +106,7 @@ vim.o.completeopt = "menu,menuone,noselect"
 -- custom git hook templete generates tags to .git/tags
 vim.o.tags = ".git/tags,.tags,./tags;"
 vim.o.path = vim.o.path .. '**'
-vim.g.linuxsty_patterns = {"/linux/", "/kernel/", "/usr/src/", "/tcu-3/", "/zephyr/"}
+vim.g.linuxsty_patterns = { "/linux/", "/kernel/", "/usr/src/", "/tcu-3/", "/zephyr/" }
 
 -- Folding indent levels 1 deep so functions are folded
 -- vim.o.foldmethod = 'indent'
@@ -169,7 +169,7 @@ if FULL_FAT and paq_installed then
       -- Navigation
       vim.keymap.set('n', ']c', function()
         if vim.wo.diff then
-          vim.cmd.normal({']c', bang = true})
+          vim.cmd.normal({ ']c', bang = true })
         else
           gitsigns.nav_hunk('next')
         end
@@ -177,14 +177,29 @@ if FULL_FAT and paq_installed then
 
       vim.keymap.set('n', '[c', function()
         if vim.wo.diff then
-          vim.cmd.normal({'[c', bang = true})
+          vim.cmd.normal({ '[c', bang = true })
         else
           gitsigns.nav_hunk('prev')
         end
       end, { desc = 'Previous hunk' })
 
       -- Actions
-      vim.keymap.set('n', 'gdt', gitsigns.diffthis)
+      vim.keymap.set('n', '<leader>hs', gitsigns.stage_hunk)
+      vim.keymap.set('n', '<leader>hr', gitsigns.reset_hunk)
+      vim.keymap.set('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+      vim.keymap.set('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+      vim.keymap.set('n', '<leader>hS', gitsigns.stage_buffer)
+      vim.keymap.set('n', '<leader>hu', gitsigns.undo_stage_hunk)
+      vim.keymap.set('n', '<leader>hR', gitsigns.reset_buffer)
+      vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk)
+      vim.keymap.set('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
+      vim.keymap.set('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+      vim.keymap.set('n', '<leader>hd', gitsigns.diffthis)
+      vim.keymap.set('n', '<leader>hD', function() gitsigns.diffthis('~') end)
+      vim.keymap.set('n', '<leader>td', gitsigns.toggle_deleted)
+
+      -- Text object
+      vim.keymap.set({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
     end
   })
   require('trouble').setup()
