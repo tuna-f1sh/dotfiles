@@ -62,12 +62,13 @@ map('n', '<leader>fC', '<cmd>FzfLua command_history<cr>', { desc = "Fzf Command 
 map('n', '<leader>fr', '<cmd>FzfLua resume<cr>', { desc = "Fzf Resume" })
 map('n', '<leader>fx', '<cmd>FzfLua<cr>', { desc = "Fzf" })
 
--- LSP - could be done on attach in completion.lua but relies on FzfLua so here for now
-map('n', 'grn', vim.lsp.buf.rename, { desc = "LSP Rename" })
-map('n', 'gO', vim.lsp.buf.document_symbol, { desc = "LSP Document Symbols" })
-map('n', 'gra', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
-map('n', 'grr', vim.lsp.buf.references, { desc = "LSP References" })
-map('n', 'gri', vim.lsp.buf.implementation, { desc = "LSP Implementation" })
+-- LSP - done on attach in completion.lua but relies on FzfLua so here for now
+-- map('n', 'grn', vim.lsp.buf.rename, { desc = "LSP Rename" })
+-- map('n', 'gO', vim.lsp.buf.document_symbol, { desc = "LSP Document Symbols" })
+-- map('n', 'gra', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+-- map('n', 'grr', vim.lsp.buf.references, { desc = "LSP References" })
+-- map('n', 'gri', vim.lsp.buf.implementation, { desc = "LSP Implementation" })
+-- map('n', 'grf', "<cmd>Format<cr>", { desc = "LSP Format" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
