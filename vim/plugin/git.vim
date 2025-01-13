@@ -49,6 +49,18 @@ function! Cdproject()
   endif
 endfunction
 
+function! Lcdproject()
+  if !exists('b:git_dir')
+    call Gitdir()
+  endif
+  if !exists('b:git_dir')
+    return
+  endif
+  if isdirectory(b:git_dir)
+    exec "lcd ".b:git_dir.'/../'
+  endif
+endfunction
+
 function! SetupGitProject()
   " should get cached git directory
   if !exists('b:git_dir')
@@ -82,7 +94,8 @@ endfunction
 
 
 command! -nargs=? -complete=command SetGitDir :call SetupGitProject()
-command! -nargs=? -complete=command Cdroot :call Cdproject()
+command! -nargs=? -complete=command Cdp :call Cdproject()
+command! -nargs=? -complete=command Lcdp :call Lcdproject()
 
 augroup git
   autocmd BufNewFile,BufReadPost * call SetupGitProject()

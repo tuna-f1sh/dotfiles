@@ -1,6 +1,8 @@
 local fzf = require('fzf-lua')
-fzf.setup({{'fzf-native', 'max-perf'}})
+fzf.setup({{'fzf-native'}})
 fzf.setup_fzfvim_cmds() -- vim old school
+
+require('keymaps').fzf_keymaps()
 
 -- Custom commands
 local ok, tfzf = pcall(require, 'trouble.sources.fzf')

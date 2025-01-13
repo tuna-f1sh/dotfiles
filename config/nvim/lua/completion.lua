@@ -116,13 +116,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.api.nvim_create_user_command('Format',
       'lua vim.lsp.buf.format({async = true, filter = function(client) return client.name ~= "typescript-tools" end})',
       { nargs = 0 })
-    -- Create a keymap for vim.lsp.buf.implementation
-    vim.keymap.set('n', 'grn', vim.lsp.buf.rename, { desc = "LSP Rename" })
-    vim.keymap.set('n', 'gO', vim.lsp.buf.document_symbol, { desc = "LSP Document Symbols" })
-    vim.keymap.set('n', 'gra', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
-    vim.keymap.set('n', 'grr', vim.lsp.buf.references, { desc = "LSP References" })
-    vim.keymap.set('n', 'gri', vim.lsp.buf.implementation, { desc = "LSP Implementation" })
-    vim.keymap.set('n', 'grf', "<cmd>Format<cr>", { desc = "LSP Format" })
+    -- load my keymaps
+    require('keymaps').lsp_keymaps()
     -- in 0.11
     -- if client:supports_method('textDocument/completion') then
     --   -- Enable auto-completion

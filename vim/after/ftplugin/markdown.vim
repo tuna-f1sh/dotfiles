@@ -1,29 +1,32 @@
-setlocal wrap
-setlocal linebreak
-setlocal autoindent
-setlocal shiftwidth=4
-setlocal tabstop=4
-setlocal complete+=sk
-setlocal colorcolumn=78
-" setlocal textwidth=78
-" setlocal makeprg=markdown\ %\ >\ %<.html
 setlocal makeprg=pandoc\ %\ --to=html5\ --css=${HOME}/dotfiles/support/pandoc/css/github.css\ --highlight-style=haddock\ --metadata=title=%\ --self-contained\ --output\ %<.html
 let g:pencil#textwidth = 78
-" setlocal spell
-" let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html', 'c', 'python']
 let g:pencil#wrapModeDefault = 'soft' " will auto to hard if detected
-" call pencil#init()
 
+" jump over wrapped lines
 noremap <buffer> j gj
 noremap <buffer> k gk
 
-function! Grip()
-  :term grib -b %<cr>
+function! Glow()
+  :term glow %
 endfunction
 
-if exists(':CocStart')
-  call CocSetup()
-endif
+function! ZenMode()
+  if !exists("b:zen")
+    let b:zen = 0
+  endif
+  :lua require("zen-mode").toggle(require("zen"))
+  if !b:zen
+    colorscheme PaperColor
+    let b:zen = 1
+  else
+    colorscheme vim-monokai-tasty
+    let b:zen = 0
+  endif
+endfunction
+
+
+command! -buffer Render :call Glow()
+command! -buffer Zen :call ZenMode()
 
 function! PandocGithub()
   setlocal makeprg=pandoc\ %\ --to=html5\ --css=${HOME}/dotfiles/support/pandoc/css/github.css\ --css=${HOME}/dotfiles/support/pandoc/css/github-syntax.css\ --highlight-style=haddock\ --metadata=title=%\ --self-contained\ --output\ %<.html

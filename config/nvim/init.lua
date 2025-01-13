@@ -33,7 +33,7 @@ local base_packages = {
 
 local full_packages = {
   { 'neovim/nvim-lspconfig' }, -- LSP
-  { 'saghen/blink.cmp',                version = '*',      build = 'cargo build --locked --release --target-dir target' },
+  { 'saghen/blink.cmp', version = '*', build = 'cargo build --locked --release --target-dir target' },
 
   -- Treesitter
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
@@ -52,8 +52,8 @@ local full_packages = {
 
   -- Helpers
   { 'tpope/vim-unimpaired' },      -- Maps to help navigation with ]
-  -- { 'echasnovski/mini.bracketed' },
   { 'echasnovski/mini.surround' }, -- Surround helpers, sa, sr, sd, s?
+  { 'echasnovski/mini.hipatterns' }, -- Highlight colours and TODO etc
   { 'mbbill/undotree' },
   { 'famiu/bufdelete.nvim' },
 
@@ -63,16 +63,23 @@ local full_packages = {
 
   -- UI
   { 'nvim-lualine/lualine.nvim' }, -- Status line
+  { 'MeanderingProgrammer/render-markdown.nvim' },
+  { 'iamcco/markdown-preview.nvim', build = ':call mkdp#util#install()' },
+  { 'nvim-tree/nvim-web-devicons' },
+  { 'folke/zen-mode.nvim' },
+  -- { 'junegunn/goyo.vim' },
+  { 'junegunn/limelight.vim', opt=true },
+  { 'dhruvasagar/vim-marp', opt=true }, -- Deckset style slides
 
   -- Themes
   { 'patstockwell/vim-monokai-tasty' },
   { 'loctvl842/monokai-pro.nvim' },
-  { 'rebelot/kanagawa.nvim' },
   { 'folke/tokyonight.nvim' },
+  { 'sainnhe/sonokai' },
+  { 'rebelot/kanagawa.nvim' },
   { 'NLKNguyen/papercolor-theme' },
-  { 'altercation/vim-colors-solarized' },
-  { 'Lokaltog/vim-monotone' },
   { 'reedes/vim-colors-pencil' },
+  { 'Lokaltog/vim-monotone' },
 }
 
 if FULL_FAT then
@@ -159,52 +166,33 @@ vim.g.vim_monokai_tasty_italic = 1
 -- pcall to fall back to default if not installed
 pcall(vim.cmd.colorscheme, 'vim-monokai-tasty')
 
-if FULL_FAT and paq_installed then
+if paq_installed then
   require('fzf')
-  require('treesitter')
-  require('completion')
-  require('gitsigns').setup({
-    on_attach = function()
-      local gitsigns = require('gitsigns');
-      -- Navigation
-      vim.keymap.set('n', ']c', function()
-        if vim.wo.diff then
-          vim.cmd.normal({ ']c', bang = true })
-        else
-          gitsigns.nav_hunk('next')
-        end
-      end, { desc = 'Next hunk' })
+  if FULL_FAT then
+    require('treesitter')
+    require('completion')
+    require('gitsigns').setup({
+      on_attach = function()
+        require('keymaps').gitsigns_keymaps()
+      end
+    })
+    require('trouble').setup()
+    require('lualine').setup({})
+    require('mini.surround').setup({})
+    local hipatterns = require('mini.hipatterns');
+    hipatterns.setup({
+      highlighters = {
+        -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+        fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+        hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
+        todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
+        note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
 
-      vim.keymap.set('n', '[c', function()
-        if vim.wo.diff then
-          vim.cmd.normal({ '[c', bang = true })
-        else
-          gitsigns.nav_hunk('prev')
-        end
-      end, { desc = 'Previous hunk' })
-
-      -- Actions
-      vim.keymap.set('n', '<leader>hs', gitsigns.stage_hunk)
-      vim.keymap.set('n', '<leader>hr', gitsigns.reset_hunk)
-      vim.keymap.set('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-      vim.keymap.set('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-      vim.keymap.set('n', '<leader>hS', gitsigns.stage_buffer)
-      vim.keymap.set('n', '<leader>hu', gitsigns.undo_stage_hunk)
-      vim.keymap.set('n', '<leader>hR', gitsigns.reset_buffer)
-      vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk)
-      vim.keymap.set('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
-      vim.keymap.set('n', '<leader>tb', gitsigns.toggle_current_line_blame)
-      vim.keymap.set('n', '<leader>hd', gitsigns.diffthis)
-      vim.keymap.set('n', '<leader>hD', function() gitsigns.diffthis('~') end)
-      vim.keymap.set('n', '<leader>td', gitsigns.toggle_deleted)
-
-      -- Text object
-      vim.keymap.set({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-    end
-  })
-  require('trouble').setup()
-  require('lualine').setup({})
-  require('mini.surround').setup({})
-elseif not paq_installed then
+        -- Highlight hex color strings (`#rrggbb`) using that color
+        hex_color = hipatterns.gen_highlighter.hex_color(),
+      },
+    })
+  end
+else
   vim.notify("Reload to load plugin configurations.")
 end

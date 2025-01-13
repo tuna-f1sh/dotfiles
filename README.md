@@ -11,6 +11,16 @@ other folder)
 ./macos # Configure MacOS if using
 ```
 
+>! [NOTE]
+> blah
+
+```mermaid
+graph TD
+    A[dotfiles] --> B[mklink.sh]
+    B --> C[misc.sh]
+    C --> D[macos]
+```
+
 Edit ~/.secrets to add machine only stuff and API keys.
 
 # Notes
