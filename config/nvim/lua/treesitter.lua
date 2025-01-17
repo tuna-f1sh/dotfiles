@@ -25,3 +25,5 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
 }
+
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"

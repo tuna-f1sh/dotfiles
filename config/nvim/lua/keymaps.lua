@@ -15,7 +15,7 @@ map('n', '<C-j>', 'gj', { desc = 'Move down' })
 -- map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 -- map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search' })
-map('n', '<leader>zs', '<cmd>set foldmethod=syntax<CR>', { desc = 'Set syntax folding' })
+map('n', '<leader>zs', '<cmd>set foldmethod=expr<CR>', { desc = 'Set folding (treesitter)' }) -- assumes foldexpr is set in treesitter.lua
 -- typos W is w
 vim.api.nvim_create_user_command('W', 'w', { nargs = 0 })
 vim.api.nvim_create_user_command('Q', 'q', { nargs = 0 })
