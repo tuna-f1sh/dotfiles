@@ -158,7 +158,7 @@ if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
-NVM_DIR="$HOME/.nvm"
+NVM_DIR="$HOME/.config/nvm"
 if [[ -d "$NVM_DIR" ]]; then
   nvm () {
     unfunction nvm
