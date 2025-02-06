@@ -10,18 +10,11 @@ let g:loaded_git = 1
 " uses fugitive if available, otherwise searches for .git directory
 function! Gitdir()
   if !exists('b:git_dir')
-    if exists('g:loaded_fugitivedfgdfg')
+    if exists('g:loaded_fugitive')
       call FugitiveGitDir()
-      let b:project_root = fnamemodify(b:git_dir, ':h')
-    "elseif exists('g:loaded_fzf_lua') this is the pwd git root
-    "  let b:project_root = luaeval('require("fzf-lua").path.git_root({})')
-    "  let b:git_dir = b:project_root.'/.git'
+      let b:project_root = fnamemodify(b:git_dir.'/../', ':p:h')
     else
-      let git_folder=fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
-      " if in root, use current directory
-      "if index(split(&path, ","),git_folder) > 0 || git_folder == '.'
-      "  let b:project_root = escape(expand('%:p:h'), ' ')
-      "  let b:git_dir = b:project_root.'/.git'
+      let git_folder=fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':p:h'))
       if isdirectory(git_folder)
         let b:project_root = git_folder
         let b:git_dir = b:project_root.'/.git'
@@ -71,7 +64,7 @@ function! SetupGitProject()
   endif
   if !empty(b:git_dir)
     if !exists('b:project_root')
-      let b:project_root = fnamemodify(b:git_dir, ':h')
+      let b:project_root = fnamemodify(b:git_dir.'/../', ':p:h')
     endif
     exec "setlocal tags-=.git/tags"
     exec "setlocal tags^=".b:git_dir."/tags,".b:project_root."/tags"
