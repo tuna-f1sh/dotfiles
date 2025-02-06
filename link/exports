@@ -49,11 +49,11 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export HOMEBREW_NO_ENV_HINTS=1
   export HOMEBREW_NO_ANALYTICS=1
 
-  export DROPBOX_ROOT=/Users/john/Library/CloudStorage/Dropbox
+  export DROPBOX_ROOT=$HOME/Library/CloudStorage/Dropbox
   export NOTE_DIR=$DROPBOX_ROOT/Files/notes
   export JOURNAL_DIR=$DROPBOX_ROOT/Files/blogs/memoirs-of-a-john/_posts
   # match Linux path so it works with normal tools and kopia
-  export RCLONE_CONFIG=/Users/john/.config/rclone/rclone.conf
+  export RCLONE_CONFIG=$HOME/.config/rclone/rclone.conf
 
   # Arduino-mk
   export ARDUINO_DIR=/Applications/Arduino.app/Contents/Java 
@@ -69,10 +69,10 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # ruby env
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$HOMEBREW_PREFIX"
 
-  export FLUTTER_ROOT='/Users/john/.local/opt/flutter'
+  export FLUTTER_ROOT=$HOME/.local/opt/flutter
 
   # kicad makefile
-  export KICADMK_DIR=/Users/john/git/kicad-makefile
+  export KICADMK_DIR=$HOME/git/kicad-makefile
 
   # homebrew libs for Cargo
   export LIBRARY_PATH="$LIBRARY_PATH:$HOMEBREW_PREFIX/lib"
@@ -80,6 +80,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # Zephyr
   export NCS_INSTALL_DIR=$HOME/.local/opt/ncs
   export ZEPHYR_INSTALL_DIR=$HOME/git/zephyrproject
+
+  # uv tools dir - conflicts with ~/bin otherwise due to $XDG_DATA_HOME/../bin
+  export UV_TOOL_BIN_DIR=$HOME/.local/bin
 else
   export NOTE_DIR=~/.notes
 
