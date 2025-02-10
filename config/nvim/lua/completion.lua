@@ -109,6 +109,16 @@ lspconfig.clangd.setup {
   },
 }
 
+lspconfig.rust_analyzer.setup {
+  settings = {
+    ["rust-analyzer"] = {
+      checkOnSave = {
+        command = "clippy",
+      },
+    },
+  },
+}
+
 -- Vanilla LSP
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
