@@ -12,17 +12,16 @@ function! Gitdir()
   if !exists('b:git_dir')
     if exists('g:loaded_fugitive')
       call FugitiveGitDir()
-      let b:project_root = fnamemodify(b:git_dir.'/../', ':p:h')
     else
       let git_folder=fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':p:h'))
       if isdirectory(git_folder)
-        let b:project_root = git_folder
         let b:git_dir = b:project_root.'/.git'
       endif
     endif
   endif
 
   if exists('b:git_dir')
+    let b:project_root = fnamemodify(b:git_dir.'/../', ':p:h')
     return b:git_dir
   endif
 
