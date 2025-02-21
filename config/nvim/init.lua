@@ -115,8 +115,8 @@ vim.o.tags = ".git/tags,.tags,./tags;"
 vim.o.path = vim.o.path .. '**'
 vim.g.linuxsty_patterns = { "/linux/", "/kernel/", "/usr/src/", "/tcu-3/", "/zephyr/" }
 
--- Folding indent levels 1 deep so functions are folded
-vim.o.foldnestmax = 1
+-- Folding indent levels 2 deep so class functions are folded
+vim.o.foldnestmax = 2
 
 -- General settings (commented out are redundant defaults from legacy vim)
 vim.o.hlsearch = true

@@ -53,6 +53,15 @@ require('blink.cmp').setup(
       -- cmdline = {},
     },
 
+    cmdline = {
+      -- optionally, separate cmdline keymaps
+      keymap = {
+        preset = 'default',
+        ['<Tab>'] = {},
+        ['<S-Tab>'] = {},
+        ['<C-l>'] = { 'accept', 'fallback' },
+      }
+    },
 
     -- Tab gets in the way of autocomplete and copilot and I don't use snippets so disable
     keymap = {
@@ -60,15 +69,7 @@ require('blink.cmp').setup(
       preset = 'default',
       ['<Tab>'] = {},
       ['<S-Tab>'] = {},
-      ['<C-l>'] = { 'accept', 'fallback' },
-
-      -- optionally, separate cmdline keymaps
-      cmdline = {
-        preset = 'default',
-        ['<Tab>'] = {},
-        ['<S-Tab>'] = {},
-        ['<C-l>'] = { 'accept', 'fallback' },
-      }
+      ['<C-l>'] = { 'accept', 'fallback' }
     },
 
     -- Experimental signature help support
