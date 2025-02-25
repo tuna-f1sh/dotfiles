@@ -15,7 +15,7 @@ function! Gitdir()
     else
       let git_folder=fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':p:h'))
       if isdirectory(git_folder)
-        let b:git_dir = b:project_root.'/.git'
+        let b:git_dir = git_folder
       endif
     endif
   endif
