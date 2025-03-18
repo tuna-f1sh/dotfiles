@@ -763,3 +763,8 @@ dotenv () {
   source "${env}"
   set +a
 }
+
+# fix old agent on tmux: https://stackoverflow.com/questions/21378569/how-to-auto-update-ssh-agent-environment-variables-when-attaching-to-existing-tm
+fixssh() {
+  eval $(tmux show-env -s |grep '^SSH_')
+}
