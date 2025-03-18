@@ -47,8 +47,9 @@ local full_packages = {
   -- Git
   { 'tpope/vim-fugitive' }, -- Git integration
   { 'tpope/vim-rhubarb' },  -- GBrowse
-  { 'lewis6991/gitsigns.nvim' },
-  { 'folke/trouble.nvim' },
+  { 'lewis6991/gitsigns.nvim' }, -- Sidebar git status
+  { 'folke/trouble.nvim' }, -- Quickfix list
+  { 'sindrets/diffview.nvim' }, -- Diff view
 
   -- Helpers
   { 'tpope/vim-unimpaired' },      -- Maps to help navigation with ]
