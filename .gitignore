@@ -1,4 +1,6 @@
 config/wireshark/recent*
+config/nvim/blink
+config/nvim/site
 
 # Compiled Python files
 *.pyc
