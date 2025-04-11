@@ -44,8 +44,13 @@
 [diff]
   tool = nvimdiff
 
-[difftool "fugitive"]
-  cmd = nvim -f -c "Gvdiff" "$MERGED"
+# https://github.com/tpope/vim-fugitive/issues/2186
+[mergetool "fugitive"]
+  cmd = nvim -f -c \"set diffopt-=linematch:40\" -c \"Gvdiffsplit!\" \"$MERGED\"
+
+# https://github.com/neovim/neovim/issues/22696
+[mergetool "nvimdiff"]
+  cmd = nvim -d -c \"set diffopt-=linematch:40\" -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\" \"$MERGED\"
 
 [merge]
   tool = nvimdiff
@@ -54,9 +59,8 @@
 
 [mergetool]
   keepBackup = false
-
-[mergetool "fugitive"]
-  cmd = nvim -f -c "Gvdiff" "$MERGED"
+  keepTemporaries = false
+  prompt = false
 
 [pager]
   diff = delta
@@ -89,3 +93,8 @@
 # Use SSH for GitHub instead of HTTPS
 [url "git@github.com:SpecializedBikes"]
   insteadOf = "https://github.com/SpecializedBikes"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
