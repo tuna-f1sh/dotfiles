@@ -139,6 +139,11 @@ if vim.fn.has('macunix') then
 end
 vim.o.spelllang = 'en_gb'
 
+-- if ssh use osc52
+if os.getenv('SSH_TTY') then
+  vim.g.clipboard = 'osc52'
+end
+
 -- Keymaps
 
 require('keymaps')

@@ -29,7 +29,7 @@ Edit ~/.secrets to add machine only stuff and API keys.
 * [Powerline Fonts](https://github.com/powerline/fonts)
 * `.zshenv` is sourced as every spawn. Should include non-interactive exports.
   Not in the links dir - see note on this in notes dropbox.
-* `fzf` needs to generate .fzf.zsh by calling '/opt/homebrew/bin/fzf/install'.
+* `fzf` needs to generate .fzf.zsh by calling '/opt/homebrew/bin/fzf/install' or `fzf --zsh > ~/.fzf.zsh`.
 * make a new ~/.prompt.zsh for new machine `p10k configure`.
 * Edit '~/.secrets' with API keys but also:
     * `DOTFILES_VIM_FULL_FAT`: use all plugins.
