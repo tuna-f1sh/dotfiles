@@ -27,6 +27,7 @@ map("v", ">", ">gv")
 -- Utility split toggles
 map('n', '<leader>tu', '<cmd>UndotreeToggle<cr>', { desc = 'Toggle undotree' })
 map('n', '<leader>tx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Toggle trouble diagnostics' })
+map('n', '<leader>td', '<cmd>Trouble diagnostics toggle filter.severity=vim.diagnostic.severity.ERROR<cr>', { desc = 'Toggle trouble diagnostics (ERROR only)' })
 map('n', '<leader>tX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Toggle trouble diagnostics (buffer)' })
 map('n', '<leader>tl', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Toggle trouble symbols' })
 

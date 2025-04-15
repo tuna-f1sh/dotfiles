@@ -9,7 +9,8 @@ local servers = {
   "clangd",
   "ts_ls",
   "jsonls",
-  "dartls", -- flutter env
+  "dartls",        -- flutter env
+  "tinymist",      -- typst
 }
 
 local lspconfig = require('lspconfig')

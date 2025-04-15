@@ -52,15 +52,18 @@ local full_packages = {
   { 'sindrets/diffview.nvim' }, -- Diff view
 
   -- Helpers
-  { 'tpope/vim-unimpaired' },      -- Maps to help navigation with ]
+  -- { 'tpope/vim-unimpaired' },      -- Maps to help navigation with ]
   { 'echasnovski/mini.surround' }, -- Surround helpers, sa, sr, sd, s?
   { 'echasnovski/mini.hipatterns' }, -- Highlight colours and TODO etc
   { 'mbbill/undotree' },
-  { 'famiu/bufdelete.nvim' },
+  { 'ojroques/nvim-bufdel' },
 
   -- Python
   { 'jpalardy/vim-slime' },        -- Send code to tmux
   { 'hanschen/vim-ipython-cell' }, -- Send code to IPython
+
+  -- typst
+  { 'chomosuke/typst-preview.nvim' }, -- Typst preview
 
   -- UI
   { 'nvim-lualine/lualine.nvim' }, -- Status line
@@ -184,6 +187,9 @@ if paq_installed then
     require('trouble').setup()
     require('lualine').setup({})
     require('mini.surround').setup({})
+    require('typst-preview').setup({
+      dependencies_bin = { 'tinymist' }, -- installed locally
+    })
     local hipatterns = require('mini.hipatterns');
     hipatterns.setup({
       highlighters = {
