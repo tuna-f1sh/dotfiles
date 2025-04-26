@@ -30,11 +30,6 @@ if [ -z $LANG ]; then
   export ITRAN=true
 fi
 
-# Colourful vim
-# if [[ $TERM == xterm-kitty ]]; then
-#   export TERM=xterm-256color
-# fi
-
 # Toolchain paths
 export GOPATH="$HOME/go"
 export PYENV_ROOT="$HOME/.pyenv"
