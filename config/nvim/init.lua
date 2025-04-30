@@ -40,6 +40,8 @@ local full_packages = {
 
   -- Copilot
   { 'github/copilot.vim' }, -- GitHub Copilot
+  { 'nvim-lua/plenary.nvim', },
+  { 'olimorris/codecompanion.nvim' },
 
   -- Search
   { 'ibhagwan/fzf-lua' }, -- Fzf popup
@@ -143,8 +145,32 @@ end
 vim.o.spelllang = 'en_gb'
 
 -- if ssh use osc52
-if os.getenv('SSH_TTY') then
-  vim.g.clipboard = 'osc52'
+if vim.env.SSH_TTY then
+  if vim.fn.executable('clipboard-provider') then
+    vim.g.clipboard = {
+      name = "tmux",
+      copy = {
+          ["+"] = { "osc52", "copy" },
+          ["*"] = { "clipboard-provider", "copy" },
+      },
+      paste = {
+          ["+"] = { "osc52", "paste" },
+          ["*"] = { "osc52", "paste" },
+      },
+  }
+  else
+    vim.g.clipboard = {
+      name = "osc52",
+      copy = {
+          ["+"] = { "osc52", "copy" },
+          ["*"] = { "osc52", "copy" },
+      },
+      paste = {
+          ["+"] = { "clipboard-provider", "paste" },
+          ["*"] = { "clipboard-provider", "paste" },
+      },
+  }
+  end
 end
 
 -- Keymaps
@@ -190,6 +216,7 @@ if paq_installed then
     require('typst-preview').setup({
       dependencies_bin = { 'tinymist' }, -- installed locally
     })
+    require('codecompanion').setup({})
     local hipatterns = require('mini.hipatterns');
     hipatterns.setup({
       highlighters = {
