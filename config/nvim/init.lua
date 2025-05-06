@@ -148,28 +148,18 @@ vim.o.spelllang = 'en_gb'
 if vim.env.SSH_TTY then
   if vim.fn.executable('clipboard-provider') then
     vim.g.clipboard = {
-      name = "tmux",
+      name = 'clipboard-provider',
       copy = {
-          ["+"] = { "osc52", "copy" },
-          ["*"] = { "clipboard-provider", "copy" },
+        ['+'] = { "clipboard-provider", "copy" },
+        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
       },
       paste = {
-          ["+"] = { "osc52", "paste" },
-          ["*"] = { "osc52", "paste" },
+        ['+'] = { "clipboard-provider", "paste" },
+        ['*'] = { "clipboard-provider", "paste" },
       },
-  }
+    }
   else
-    vim.g.clipboard = {
-      name = "osc52",
-      copy = {
-          ["+"] = { "osc52", "copy" },
-          ["*"] = { "osc52", "copy" },
-      },
-      paste = {
-          ["+"] = { "clipboard-provider", "paste" },
-          ["*"] = { "clipboard-provider", "paste" },
-      },
-  }
+    vim.g.clipboard = "osc52"
   end
 end
 

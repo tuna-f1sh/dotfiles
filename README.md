@@ -11,9 +11,6 @@ other folder)
 ./macos # Configure MacOS if using
 ```
 
->! [NOTE]
-> blah
-
 ```mermaid
 graph TD
     A[dotfiles] --> B[mklink.sh]
