@@ -95,6 +95,9 @@ else
   export NCS_INSTALL_DIR=$HOME/git/ncs
   export ZEPHYR_INSTALL_DIR=$HOME/git/zephyrproject
 
+  # uv tools dir - conflicts with ~/bin otherwise due to $XDG_DATA_HOME/../bin
+  export UV_TOOL_BIN_DIR=$HOME/.local/bin
+
   # ssh-agent started by systemd service on arch - replaced with `keychain`
   # export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 fi
