@@ -33,7 +33,7 @@ local base_packages = {
 
 local full_packages = {
   { 'neovim/nvim-lspconfig' }, -- LSP
-  { 'saghen/blink.cmp', version = '*', build = 'cargo build --locked --release --target-dir target' },
+  { 'saghen/blink.cmp' },
 
   -- Treesitter
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
@@ -116,6 +116,7 @@ vim.o.listchars = 'tab:▸ ,trail:·,extends:»,precedes:«,nbsp:␣'
 vim.opt.wildignore = { '*.o', '*.a', '__pycache__', '*.class', '*.swp', '*.swo', '*.DS_Store' }
 vim.o.wildmode = 'longest:full,full'
 vim.o.completeopt = "menu,menuone,noselect"
+vim.o.winborder = 'rounded'
 -- custom git hook templete generates tags to .git/tags
 vim.o.tags = ".git/tags,.tags,./tags;"
 vim.o.path = vim.o.path .. '**'
@@ -146,21 +147,21 @@ vim.o.spelllang = 'en_gb'
 
 -- if ssh use osc52
 if vim.env.SSH_TTY then
-  if vim.fn.executable('clipboard-provider') then
-    vim.g.clipboard = {
-      name = 'clipboard-provider',
-      copy = {
-        ['+'] = { "clipboard-provider", "copy" },
-        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-      },
-      paste = {
-        ['+'] = { "clipboard-provider", "paste" },
-        ['*'] = { "clipboard-provider", "paste" },
-      },
-    }
-  else
-    vim.g.clipboard = "osc52"
+  -- Use osc52 as clipboard provider
+  local function paste()
+    return {vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('')}
   end
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = paste,
+      ['*'] = paste,
+    },
+  }
 end
 
 -- Keymaps
