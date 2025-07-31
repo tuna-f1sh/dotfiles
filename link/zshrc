@@ -12,11 +12,6 @@ plugins=(
   zsh-users/zsh-autosuggestions
   zsh-users/zsh-history-substring-search
   zsh-users/zsh-completions
-  # zsh-users/zsh-syntax-highlighting
-
-  # user plugins
-  rupa/z
-  # jeffreytse/zsh-vi-mode
   zdharma-continuum/fast-syntax-highlighting
 
   # prompts
@@ -153,6 +148,13 @@ bindkey "^Z" Resume
 [ -f ~/dotfiles/support/bindings.zsh ] && source ~/dotfiles/support/bindings.zsh
 # Meta-c to Alt-c because kitty I have macos_option_as_alt no to allow symbol shortcuts
 bindkey "ç" fzf-cd-widget
+
+# z zoxide fast cd tool
+if [ -x "$(command -v zoxide)" ]; then
+  eval "$(zoxide init zsh)"
+else
+  plugin-load https://github.com/rupa/z
+fi
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
