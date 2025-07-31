@@ -39,6 +39,9 @@ export VENV_DIR="$XDG_DATA_HOME/virtualenvs"
 # Cargo targets in global folder outside of project
 export CARGO_TARGET_DIR="$HOME/.cargo/target"
 
+# menuconfig selection default bold is hard to read
+export MENUCONFIG_STYLE="selection=standout,bold"
+
 if [[ $OSTYPE =~ "darwin" ]]; then
   # homebrew
   export HOMEBREW_NO_ENV_HINTS=1
@@ -73,7 +76,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   export LIBRARY_PATH="$LIBRARY_PATH:$HOMEBREW_PREFIX/lib"
 
   # Zephyr
-  export NCS_INSTALL_DIR=$HOME/.local/opt/ncs
+  export NCS_INSTALL_DIR=/opt/nordic/ncs
   export ZEPHYR_INSTALL_DIR=$HOME/git/zephyrproject
 
   # uv tools dir - conflicts with ~/bin otherwise due to $XDG_DATA_HOME/../bin

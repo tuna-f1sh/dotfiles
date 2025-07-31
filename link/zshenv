@@ -14,6 +14,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # fixes pipenv clang install error (but reports invalid os version; breaks xcode tools etc)
   # export SYSTEM_VERSION_COMPAT=1
   export SYSTEM_VERSION_COMPAT=0
+  export PKG_CONFIG_PATH="/opt/homebrew/pkgconfig:/opt/homebrew/opt/expat/lib/pkgconfig:/opt/homebrew/opt/zlib/lib/pkgconfig"
 else
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=/home/${USER}/.config}
   export XDG_DATA_HOME=${XDG_CONFIG_HOME:=/home/${USER}/.data}
