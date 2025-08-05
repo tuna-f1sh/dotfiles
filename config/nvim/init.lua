@@ -33,14 +33,14 @@ local base_packages = {
 
 local full_packages = {
   { 'neovim/nvim-lspconfig' }, -- LSP
-  { 'saghen/blink.cmp' },
+  { 'saghen/blink.cmp', version = '*', build = 'cargo build --locked --release --target-dir target' },
 
   -- Treesitter
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
   -- Copilot
   { 'github/copilot.vim' }, -- GitHub Copilot
-  { 'nvim-lua/plenary.nvim', },
+  { 'nvim-lua/plenary.nvim', }, -- Required by codecompanion
   { 'olimorris/codecompanion.nvim' },
 
   -- Search
