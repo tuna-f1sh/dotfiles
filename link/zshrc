@@ -13,6 +13,7 @@ plugins=(
   zsh-users/zsh-history-substring-search
   zsh-users/zsh-completions
   zdharma-continuum/fast-syntax-highlighting
+  rupa/z
 
   # prompts
   romkatv/powerlevel10k
@@ -150,11 +151,11 @@ bindkey "^Z" Resume
 bindkey "ç" fzf-cd-widget
 
 # z zoxide fast cd tool
-if [ -x "$(command -v zoxide)" ]; then
-  eval "$(zoxide init zsh)"
-else
-  plugin-load https://github.com/rupa/z
-fi
+# if [ -x "$(command -v zoxide)" ]; then
+#   eval "$(zoxide init zsh)"
+# else
+#   plugin-load https://github.com/rupa/z
+# fi
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
