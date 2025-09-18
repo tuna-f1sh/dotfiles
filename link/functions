@@ -645,6 +645,11 @@ adder () {
 
     source "$venv_path/bin/activate"
 
+    # set tmux if in tmux
+    if [[ -n $TMUX ]]; then
+      tmux set-env VIRTUAL_ENV "$VIRTUAL_ENV"
+    fi
+
     if [[ -f $env_file ]]; then
       dotenv $env_file 
       echo "🐍 Entered venv@$venv_path and $env_file"
@@ -656,6 +661,12 @@ adder () {
     case $1 in
       --rm)
         rm -rf "$venv_path"
+        ;;
+      --exit)
+        deactivate
+        if [[ -n $TMUX ]]; then
+          tmux set-env -r VIRTUAL_ENV
+        fi
         ;;
       --path)
         echo "$venv_path"
@@ -693,6 +704,11 @@ env_zephyr() {
   local shell_name=$(basename "$SHELL")
 
   echo "🪁 Setting up Zephyr @ $zephyr_install_dir for $shell_name"
+
+  # set tmux if in tmux
+  if [[ -n $TMUX ]]; then
+    tmux rename-window "zephyr"
+  fi
 
   source "$zephyr_install_dir/zephyr/zephyr-env.sh"
   # if has .venv folder

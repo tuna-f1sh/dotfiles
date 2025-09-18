@@ -212,6 +212,15 @@ else
   unset PYENV_ROOT
 fi
 
+# auto activate virtualenv if in project dir
+if [ -n "$VIRTUAL_ENV" ]; then
+  source $VIRTUAL_ENV/bin/activate;
+  if [[ -n "$TMUX" ]]; then
+      tmux set-environment VIRTUAL_ENV $VIRTUAL_ENV
+  fi
+fi
+
+
 # keychain for ssh agent if one not running - on macOS this will normally be the keychain integrated agent
 if [ -z "${SSH_AUTH_SOCK}" ]; then
   if type keychain &>/dev/null; then
