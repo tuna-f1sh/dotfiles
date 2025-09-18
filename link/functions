@@ -460,9 +460,9 @@ function todos {
   LOCAL_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
   LOCAL_DIR=${LOCAL_DIR:-.}
   if [ $# -eq 0 ]; then
-    ag '(\bTODO\b|\bFIX(ME)?\b|\bREFACTOR\b)' ${LOCAL_DIR}
+    rg '(\bTODO\b|\bFIX(ME)?\b|\bREFACTOR\b)' ${LOCAL_DIR}
   else
-    ag ${*:1} '(\bTODO\b|\bFIX(ME)?\b|\bREFACTOR\b)' ${LOCAL_DIR}
+    rg ${*:1} '(\bTODO\b|\bFIX(ME)?\b|\bREFACTOR\b)' ${LOCAL_DIR}
   fi
 }
 

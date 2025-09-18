@@ -95,8 +95,8 @@ else
   # export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH" # set using get_esp32 alias
 
   # Zephyr
-  export NCS_INSTALL_DIR=$HOME/git/ncs
-  export ZEPHYR_INSTALL_DIR=$HOME/git/zephyrproject
+  export NCS_INSTALL_DIR=/opt/nordic/ncs
+  export ZEPHYR_INSTALL_DIR=$HOME/zephyrproject
 
   # uv tools dir - conflicts with ~/bin otherwise due to $XDG_DATA_HOME/../bin
   export UV_TOOL_BIN_DIR=$HOME/.local/bin
