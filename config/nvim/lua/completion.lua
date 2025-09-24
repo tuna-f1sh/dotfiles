@@ -1,4 +1,4 @@
--- Set up lspconfig.
+-- Set up vim.lsp.config.
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 local servers = {
   "lua_ls",        -- lua_language_server
@@ -12,14 +12,6 @@ local servers = {
   "dartls",        -- flutter env
   "tinymist",      -- typst
 }
-
-local lspconfig = require('lspconfig')
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
 
 require('blink.cmp').setup(
   {
@@ -79,7 +71,7 @@ require('blink.cmp').setup(
 )
 
 -- Set up diagnostics for specifics
-lspconfig.lua_ls.setup {
+vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
       diagnostics = {
@@ -99,19 +91,19 @@ lspconfig.lua_ls.setup {
       },
     },
   },
-}
+})
 
 -- https://www.reddit.com/r/neovim/comments/12qbcua/multiple_different_client_offset_encodings/
-lspconfig.clangd.setup {
+vim.lsp.config('clangd', {
   -- arduino works if arduino-cli compile .. --build-path build
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'arduino' },
   cmd = {
     "clangd",
     "--offset-encoding=utf-16",
   },
-}
+})
 
-lspconfig.rust_analyzer.setup {
+vim.lsp.config('rust_analyzer', {
   settings = {
     ["rust-analyzer"] = {
       check = {
@@ -120,7 +112,7 @@ lspconfig.rust_analyzer.setup {
       checkOnSave = true,
     },
   },
-}
+})
 
 -- Vanilla LSP
 vim.api.nvim_create_autocmd('LspAttach', {
