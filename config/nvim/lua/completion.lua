@@ -13,6 +13,10 @@ local servers = {
   "tinymist",      -- typst
 }
 
+for _, lsp in ipairs(servers) do
+  vim.lsp.enable(lsp)
+end
+
 require('blink.cmp').setup(
   {
     -- Disable for some filetypes
