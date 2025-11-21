@@ -2,6 +2,8 @@ config/nvim/typst-preview
 config/wireshark/recent*
 config/nvim/blink
 config/nvim/site
+config/nvim/paq-lock.json
+config/nvim/.netrwhist
 
 # Compiled Python files
 *.pyc

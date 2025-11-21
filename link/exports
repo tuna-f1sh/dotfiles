@@ -42,6 +42,9 @@ export CARGO_TARGET_DIR="$HOME/.cargo/target"
 # menuconfig selection default bold is hard to read
 export MENUCONFIG_STYLE="selection=standout,bold"
 
+# biff locale
+export BIFF_LOCALE="en_GB"
+
 if [[ $OSTYPE =~ "darwin" ]]; then
   # homebrew
   export HOMEBREW_NO_ENV_HINTS=1
