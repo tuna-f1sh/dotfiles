@@ -2,14 +2,11 @@
 # Enable or disable target power on the Black Magic Probe
 #
 # Usage: bmp-tpwr [enable|disable]
-source ~/.functions
-
 option=${1:-enable}
-
-probe=/dev/ttyBmpGdb
+probe=${2:-/dev/ttyBmpGdb}
 
 if [ ! -e "$probe" ]; then
-  get_probe
+  probe=$(cyme --vidpid=0x1d50:0x6018 --json | jq '.[] | .extra.configurations[].interfaces[0].devpaths | select(. !=null)[0]' | tr -d '"')
 fi
 
 if [ ! -e "$probe" ]; then

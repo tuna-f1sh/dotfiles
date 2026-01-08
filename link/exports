@@ -43,7 +43,7 @@ export CARGO_TARGET_DIR="$HOME/.cargo/target"
 export MENUCONFIG_STYLE="selection=standout,bold"
 
 # biff locale
-export BIFF_LOCALE="en_GB"
+export BIFF_LOCALE="en-GB"
 
 if [[ $OSTYPE =~ "darwin" ]]; then
   # homebrew

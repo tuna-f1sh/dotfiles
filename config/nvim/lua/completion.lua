@@ -4,7 +4,7 @@ local servers = {
   "lua_ls",        -- lua_language_server
   "rust_analyzer", -- rustup component add rust-analyzer
   "bashls",        -- bash_language_server
-  "pyright",       -- pyright
+  "ty",            -- python type checker `uv tool install ty@latest`
   "ruff",          -- python linting and formatting
   "clangd",
   "ts_ls",
