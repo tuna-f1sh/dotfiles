@@ -586,17 +586,22 @@ gremote ()
 }
 
 get_probe() {
-  serial=$(cyme --vidpid=0x1d50:0x6018 --blocks serial --no-color)
-
-  if [ -z "$serial" ]; then
-    echo "Could not find Black Magic Probe on USB"
-    exit 1
-  fi
-
   if [[ "$(uname)" == "Darwin" ]]; then
+    serial=$(cyme --vidpid=0x1d50:0x6018 --blocks serial --no-color)
+
+    if [ -z "$serial" ]; then
+      echo "Could not find Black Magic Probe on USB"
+      exit 1
+    fi
+
     probe="$(find /dev/cu.usbmodem"$serial"* | head -n 1)"
   else
-    probe=/dev/ttyACM0
+    probe=$(cyme --vidpid=0x1d50:0x6018 --json --verbose | jq '.[] | .extra.configurations[].interfaces[0].devpaths | select(. !=null)[0]' | tr -d '"')
+  fi
+
+  if [ -z "$probe" ]; then
+    echo "Could not find Black Magic Probe on USB"
+    exit 1
   fi
 
   echo $probe
@@ -746,6 +751,7 @@ toolchain_ncs() {
   echo "🪁 Setting up NCS SDK toolchain $ncs_bin_version for $shell_name"
 
   local paths=(
+    "$ncs_install_dir/toolchains/$ncs_bin_version/usr/local/bin"
     "$ncs_install_dir/toolchains/$ncs_bin_version/bin"
     "$ncs_install_dir/toolchains/$ncs_bin_version/opt/nanopb/generator-bin"
   )

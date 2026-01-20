@@ -1,10 +1,11 @@
 #!/bin/bash
 # Flash a binary to the Black Magic Probe
 # Usage: bmp-flash <binary>
+source ~/.functions
 probe=${2:-/dev/ttyBmpGdb}
 
 if [ ! -e "$probe" ]; then
-  probe=$(cyme --vidpid=0x1d50:0x6018 --json | jq '.[] | .extra.configurations[].interfaces[0].devpaths | select(. !=null)[0]' | tr -d '"')
+  get_probe
 fi
 
 if [ ! -e "$probe" ]; then

@@ -14,7 +14,7 @@ export HISTFILE=~/.zsh_history
 export HISTCONTROL=ignoreboth:erasedups:ignorespace
 export HISTIGNORE="pass*:bw*:subkey*:*password*"
 export HISTORY_IGNORE="(pass|bw|subkey)"
-export HISTSIZE=20000
+export HISTSIZE=10000000
 export SAVEHIST=$HISTSIZE
 
 # Language
@@ -98,7 +98,7 @@ else
   # export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH" # set using get_esp32 alias
 
   # Zephyr
-  export NCS_INSTALL_DIR=/opt/nordic/ncs
+  export NCS_INSTALL_DIR=$HOME/ncs
   export ZEPHYR_INSTALL_DIR=$HOME/zephyrproject
 
   # uv tools dir - conflicts with ~/bin otherwise due to $XDG_DATA_HOME/../bin

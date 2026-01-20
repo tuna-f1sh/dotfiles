@@ -1,12 +1,5 @@
-# # p10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# where should we store your Zsh plugins?
 ZPLUGINDIR=$HOME/.zsh/plugins
 
-# add your plugins to this list
 plugins=(
   # core plugins
   zsh-users/zsh-autosuggestions
@@ -14,10 +7,19 @@ plugins=(
   zsh-users/zsh-completions
   zdharma-continuum/fast-syntax-highlighting
   rupa/z
-
-  # prompts
-  romkatv/powerlevel10k
 )
+
+# if starship installed use it
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+# else p10k instant prompt
+elif [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  # prompts
+  plugins+=(
+    romkatv/powerlevel10k
+  )
+fi
 
 if [ -n $RELOADING ]; then
   source $HOME/dotfiles/support/plugin-loader.zsh
