@@ -739,29 +739,48 @@ toolchain_ncs() {
   local ncs_install_dir=${NCS_INSTALL_DIR:-/opt/nordic/ncs}
   local ncs_sdk_version=${1:-v2.3.0} # zephyr version
   local ncs_bin_version=$2 # toolchain version
+  local bundle_id=""
+  local toolchains_json="$ncs_install_dir/toolchains/toolchains.json"
 
+  # Check if toolchains.json exists
+  if [[ ! -f "$toolchains_json" ]]; then
+    echo "toolchains.json not found at $toolchains_json"
+    return 1
+  fi
+
+  # If no version supplied, get the newest version from toolchains.json
   if [[ -z $ncs_bin_version ]]; then
-    ncs_bin_version=$(ls "$ncs_install_dir/toolchains" | rg 'v*' | sort -r | head -n 1)
+    ncs_bin_version=$(jq -r '.[0].toolchains[].ncs_versions[]' "$toolchains_json" | sort -V -r | head -n 1)
     if [[ -z $ncs_bin_version ]]; then
-      echo "No NCS SDK toolchain found"
+      echo "No NCS SDK toolchain found in toolchains.json"
       return 1
     fi
   fi
+
+  # Get bundle_id from toolchains.json for the specified version
+  bundle_id=$(jq -r --arg version "$ncs_bin_version" '.[0].toolchains[] | select(.ncs_versions[] == $version) | .identifier.bundle_id' "$toolchains_json")
+  if [[ -z $bundle_id ]]; then
+    echo "No bundle_id found for NCS version $ncs_bin_version in toolchains.json"
+    return 1
+  fi
+
   local shell_name=$(basename "$SHELL")
-  echo "🪁 Setting up NCS SDK toolchain $ncs_bin_version for $shell_name"
+  echo "🪁 Setting up NCS SDK toolchain $ncs_bin_version (bundle_id: $bundle_id) for $shell_name"
 
   local paths=(
-    "$ncs_install_dir/toolchains/$ncs_bin_version/usr/local/bin"
-    "$ncs_install_dir/toolchains/$ncs_bin_version/bin"
-    "$ncs_install_dir/toolchains/$ncs_bin_version/opt/nanopb/generator-bin"
+    "$ncs_install_dir/toolchains/$bundle_id/usr/local/bin"
+    # "$ncs_install_dir/toolchains/$bundle_id/bin" # breaks a lot of shell and seems to work without...
+    # "$ncs_install_dir/toolchains/$bundle_id/opt/nanopb/generator-bin"
   )
 
   for entry in "${paths[@]}"; do
-    export PATH=$PATH:$entry
+    export PATH=$entry:$PATH
   done
 
+  # Add LD_LIBRARY_PATH="/home/john/.config/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib:$LD_LIBRARY_PATH"
+  # if using old python!
   export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
-  export ZEPHYR_SDK_INSTALL_DIR=$ncs_install_dir/toolchains/$ncs_bin_version/opt/zephyr-sdk
+  export ZEPHYR_SDK_INSTALL_DIR=$ncs_install_dir/toolchains/$bundle_id/opt/zephyr-sdk
 
   env_ncs "$ncs_sdk_version"
 }
