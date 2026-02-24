@@ -596,7 +596,7 @@ get_probe() {
 
     probe="$(find /dev/cu.usbmodem"$serial"* | head -n 1)"
   else
-    probe=$(cyme --vidpid=0x1d50:0x6018 --json --verbose | jq '.[] | .extra.configurations[].interfaces[0].devpaths | select(. !=null)[0]' | tr -d '"')
+    probe=$(ttyvid 0x1d50:0x6018)
   fi
 
   if [ -z "$probe" ]; then
