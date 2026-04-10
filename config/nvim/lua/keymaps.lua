@@ -127,6 +127,15 @@ map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
+-- Conflicts
+map('n', ']x', function()
+  vim.fn.search('^<<<<<<<')
+end, { desc = 'Next conflict marker' })
+
+map('n', '[x', function()
+  vim.fn.search('^<<<<<<<', 'b')
+end, { desc = 'Previous conflict marker' })
+
 -- Gitsigns
 function M.gitsigns_keymaps()
   local gitsigns = require('gitsigns');
