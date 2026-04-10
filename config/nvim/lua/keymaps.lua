@@ -25,7 +25,11 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- Utility split toggles
-map('n', '<leader>tu', '<cmd>UndotreeToggle<cr>', { desc = 'Toggle undotree' })
+-- if version 0.12 load undotree
+if vim.fn.has('nvim-0.12') == 1 then
+  vim.cmd("packadd nvim.undotree")
+  map('n', '<leader>tu', require('undotree').open, { desc = 'Toggle undotree' })
+end
 map('n', '<leader>tx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Toggle trouble diagnostics' })
 map('n', '<leader>td', '<cmd>Trouble diagnostics toggle filter.severity=vim.diagnostic.severity.ERROR<cr>', { desc = 'Toggle trouble diagnostics (ERROR only)' })
 map('n', '<leader>tX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Toggle trouble diagnostics (buffer)' })
@@ -80,10 +84,13 @@ end
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   -- severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
-    go({ severity = severity })
+    if next then
+      return vim.diagnostic.jump({ count = 1, severity = severity, float = true })
+    else
+      return vim.diagnostic.jump({ count = -1, severity = severity, float = true })
+    end
   end
 end
 map("n", "<leader>cd", vim.diagnostic.setqflist, { desc = "Add all diagnostic to quickfix list" })
@@ -149,6 +156,7 @@ function M.gitsigns_keymaps()
   vim.keymap.set('n', '<leader>hu', gitsigns.stage_hunk)
   vim.keymap.set('n', '<leader>hR', gitsigns.reset_buffer)
   vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk)
+  vim.keymap.set('n', '<leader>hi', gitsigns.preview_hunk_inline)
   vim.keymap.set('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
   vim.keymap.set('n', '<leader>tb', gitsigns.toggle_current_line_blame)
   vim.keymap.set('n', '<leader>hd', gitsigns.diffthis)

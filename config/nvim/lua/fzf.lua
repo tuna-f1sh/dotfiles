@@ -1,6 +1,7 @@
 local fzf = require('fzf-lua')
 fzf.setup({{'fzf-native'}})
-fzf.setup_fzfvim_cmds() -- vim old school
+-- old vim style
+-- fzf.setup({{'fzf-vim'}})
 
 require('keymaps').fzf_keymaps()
 
