@@ -25,13 +25,14 @@ if [[ "$link" == vcan* ]]; then
     echo $link link already up
   fi
 else
-  current_bitrate=$(ip -details -statistics link show $interface | grep -Po '(?<=bitrate )[0-9]+')
+  # grep single number after "bitrate " in the output of ip link show
+  current_bitrate=$(ip -details -statistics link show $link | grep -Po '(?<=bitrate )[0-9]+' | head -1)
   if [[ $nexists -gt 0 ]]; then
     echo Abort as device for $link does not exist
     exit 1
   elif $(echo $cmd | grep -q 'DOWN'); then
     echo Creating "$link" link @ $bitrate b/s
-    ip link set $link type can bitrate $bitrate restart-ms 100
+    ip link set $link type can bitrate $bitrate
     # for high data rate send otherwise will error
     ip link set $link txqueuelen 10000
     ip link set down $link
@@ -39,10 +40,10 @@ else
     exit 0
   elif $(echo $cmd | grep -q 'UP'); then
     echo $link link already up
-    if [[ $current_bitrate != $bitrate ]]; then
+    if [[ "$current_bitrate" != "$bitrate" ]]; then
       echo Changing bitrate from $current_bitrate to $bitrate
       ip link set down $link
-      ip link set $link type can bitrate $bitrate restart-ms 100
+      ip link set $link type can bitrate $bitrate
       # for high data rate send otherwise will error
       ip link set $link txqueuelen 10000
       ip link set up $link
