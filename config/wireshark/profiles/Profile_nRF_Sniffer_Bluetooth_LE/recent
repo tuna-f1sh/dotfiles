@@ -1,4 +1,4 @@
-# Recent settings file for Wireshark 4.4.8.
+# Recent settings file for Wireshark 4.6.3.
 #
 # This file is regenerated each time Wireshark is quit
 # and when changing configuration profile.
@@ -95,11 +95,11 @@ gui.show_bytes_show: ASCII
 
 # Main window upper (or leftmost) pane size.
 # Decimal number.
-gui.geometry_main_upper_pane: 236
+gui.geometry_main_upper_pane: 628
 
 # Main window middle pane size.
 # Decimal number.
-gui.geometry_main_lower_pane: 316
+gui.geometry_main_lower_pane: 1250
 
 # Main window master splitter state.
 # Hex byte string.
@@ -120,18 +120,18 @@ gui.geom.PreferencesDialog.splitter: 000000ff0000000100000002000000970000021c01f
 # Packet list column pixel widths.
 # Each pair of strings consists of a column format and its pixel width.
 column.width:
-        %m, -1,
-        %t, -1,
-        %s, -1,
-        "%Cus:nordic_ble.phy", -1,
-        %p, -1,
-        "%Cus:btle.length", -1,
-        "%Cus:nordic_ble.delta_time", -1,
-        "%Cus:btle.data_header.sequence_number", -1,
-        "%Cus:btle.data_header.next_expected_sequence_number", -1,
-        "%Cus:btle.data_header.more_data", -1,
-        "%Cus:nordic_ble.event_counter", -1,
-        %i, 1435
+        %m, 130,
+        %t, 63,
+        %s, 164,
+        "%Cus:nordic_ble.phy", 78,
+        %p, 63,
+        "%Cus:btle.length", 78,
+        "%Cus:nordic_ble.delta_time", 219,
+        "%Cus:btle.data_header.sequence_number", 78,
+        "%Cus:btle.data_header.next_expected_sequence_number", 78,
+        "%Cus:btle.data_header.more_data", 78,
+        "%Cus:nordic_ble.event_counter", 102,
+        %i, 1328
 
 # Open conversation dialog tabs.
 # List of conversation names, e.g. "TCP", "IPv6".
@@ -154,7 +154,7 @@ gui.endpoint_tabs_columns:
 gui.rlc_pdus_from_mac_frames: false
 
 # Last directory navigated to in File Open dialog.
-gui.fileopen_remembered_dir: /Users/john/git/pysbccan/data/
+gui.fileopen_remembered_dir: /Users/john/Desktop/
 
 # Additional Toolbars shown
 # List of additional toolbars to show.
@@ -164,3 +164,14 @@ gui.additional_toolbar_show:
 # List of interface toolbars to show.
 gui.interface_toolbar_show: 
 	"nRF Sniffer for Bluetooth LE"
+
+# TCP Stream Graphs Moving Average Window Size.
+gui.tsd_ma_window_size: 1
+
+# TCP Stream Graphs Dialog Throughput show (hide).
+# true or false (case-insensitive).
+gui.tsd_throughput_show: true
+
+# TCP Stream Graphs Dialog Goodput show (hide).
+# true or false (case-insensitive).
+gui.tsd_goodput_show: false
