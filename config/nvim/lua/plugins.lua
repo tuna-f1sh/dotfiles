@@ -29,6 +29,7 @@ local full_packages = {
   gh('echasnovski/mini.surround'), -- Surround helpers, sa, sr, sd, s?
   gh('echasnovski/mini.hipatterns'), -- Highlight colours and TODO etc
   gh('ojroques/nvim-bufdel'),
+  gh('HakonHarnes/img-clip.nvim'),
   --
   -- -- Python
   gh('jpalardy/vim-slime'),        -- Send code to tmux
@@ -38,7 +39,7 @@ local full_packages = {
   gh('chomosuke/typst-preview.nvim'), -- Typst preview
   --
   -- -- UI
-  gh('nvim-lualine/lualine.nvim'), -- Status line
+  -- gh('nvim-lualine/lualine.nvim'), -- Status line
   gh('MeanderingProgrammer/render-markdown.nvim'),
   -- -- { gh('iamcco/markdown-preview.nvim'), build = ':call mkdp#util#install()' },
   gh('nvim-tree/nvim-web-devicons'),
@@ -78,6 +79,11 @@ vim.g.vim_monokai_tasty_italic = 1
 -- pcall to fall back to default if not installed
 pcall(vim.cmd.colorscheme, 'vim-monokai-tasty')
 
+-- status 2
+if vim.fn.has('nvim-0.12') == 1 then
+  require('vim._core.ui2').enable({})
+end
+
 require('fzf')
 if FULL_FAT then
   require('treesitter')
@@ -88,7 +94,7 @@ if FULL_FAT then
     end
   })
   require('trouble').setup()
-  require('lualine').setup({})
+  -- require('lualine').setup({})
   require('mini.surround').setup({})
   require('typst-preview').setup({
     dependencies_bin = { 'tinymist' }, -- installed locally

@@ -34,6 +34,7 @@ map('n', '<leader>tx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Toggle t
 map('n', '<leader>td', '<cmd>Trouble diagnostics toggle filter.severity=vim.diagnostic.severity.ERROR<cr>', { desc = 'Toggle trouble diagnostics (ERROR only)' })
 map('n', '<leader>tX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Toggle trouble diagnostics (buffer)' })
 map('n', '<leader>tl', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Toggle trouble symbols' })
+-- map('n', '<leader>p', require("img-clip").paste_image())
 
 -- Move Lines
 map("n", "]e", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
