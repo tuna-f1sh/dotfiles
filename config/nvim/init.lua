@@ -90,8 +90,8 @@ vim.cmd([[
   \| exe "normal! g`\"" | endif
 ]])
 
---- Plugins ---
-require('plugins')
-
 --- Keymaps ---
 require('keymaps')
+
+--- Plugins ---
+require('plugins')

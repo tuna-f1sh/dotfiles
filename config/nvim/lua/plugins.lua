@@ -39,7 +39,7 @@ local full_packages = {
   gh('chomosuke/typst-preview.nvim'), -- Typst preview
   --
   -- -- UI
-  -- gh('nvim-lualine/lualine.nvim'), -- Status line
+  gh('nvim-lualine/lualine.nvim'), -- Status line
   gh('MeanderingProgrammer/render-markdown.nvim'),
   -- -- { gh('iamcco/markdown-preview.nvim'), build = ':call mkdp#util#install()' },
   gh('nvim-tree/nvim-web-devicons'),
@@ -94,7 +94,7 @@ if FULL_FAT then
     end
   })
   require('trouble').setup()
-  -- require('lualine').setup({})
+  require('line')
   require('mini.surround').setup({})
   require('typst-preview').setup({
     dependencies_bin = { 'tinymist' }, -- installed locally
@@ -112,5 +112,19 @@ if FULL_FAT then
       -- Highlight hex color strings (`#rrggbb`) using that color
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
+  })
+  require('img-clip').setup({
+    default = { 
+      extension = "png", ---@type string | fun(): string
+      file_name = "%Y-%m-%d-%H-%M-%S", ---@type string | fun(): string
+      use_absolute_path = false, ---@type boolean | fun(): boolean
+      relative_to_current_file = true, ---@type boolean | fun(): boolean
+      prompt_for_file_name = true, ---@type boolean | fun(): boolean
+      show_dir_path_in_prompt = true, ---@type boolean | fun(): boolean
+
+      -- base64 options
+      max_base64_size = 10, ---@type number | fun(): number
+      embed_image_as_base64 = true, ---@type boolean | fun(): boolean
+    }
   })
 end
