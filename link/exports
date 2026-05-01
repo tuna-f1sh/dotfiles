@@ -17,6 +17,10 @@ export HISTORY_IGNORE="(pass|bw|subkey)"
 export HISTSIZE=10000000
 export SAVEHIST=$HISTSIZE
 
+# Privacy
+export GH_TELEMETRY=false
+export DO_NOT_TRACK=true
+
 # Language
 if [ -z $LANG ]; then
   export LANG="en_GB.UTF-8"
