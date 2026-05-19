@@ -1,0 +1,7 @@
+#!/bin/bash
+ID="0000:10:00.0"
+echo "Nuking XHCI at $ID..."
+echo 1 > /sys/bus/pci/devices/$ID/remove
+sleep 1
+echo 1 > /sys/bus/pci/rescan
+echo "Bus rescanned. Check dmesg."

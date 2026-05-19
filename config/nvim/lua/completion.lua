@@ -21,7 +21,6 @@ end
 -- Vanilla LSP completion setup
 if vim.fn.has('nvim-0.11') == 1 then
   -- Enable native LSP completion and configure it to trigger automatically
-  vim.o.autocomplete = true
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup("lsp_completion", { clear = true }),
     callback = function(args)
@@ -40,6 +39,9 @@ if vim.fn.has('nvim-0.11') == 1 then
         { nargs = 0 })
       -- load my keymaps
       require('keymaps').lsp_keymaps()
+
+      -- Set omni complete source only
+      vim.o.complete = ".,o"
 
       -- in 0.11
       if client:supports_method("textDocument/completion") then

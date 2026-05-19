@@ -76,6 +76,7 @@ let g:slime_default_config = {
 ]])
 
 vim.g.vim_monokai_tasty_italic = 1
+-- vim.g.vim_monokai_tasty_machine_tint = 1
 -- pcall to fall back to default if not installed
 pcall(vim.cmd.colorscheme, 'vim-monokai-tasty')
 

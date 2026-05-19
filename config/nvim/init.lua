@@ -31,9 +31,10 @@ vim.o.listchars = 'tab:▸ ,trail:·,extends:»,precedes:«,nbsp:␣'
 vim.opt.wildignore = { '*.o', '*.a', '__pycache__', '*.class', '*.swp', '*.swo', '*.DS_Store' }
 -- vim.o.wildmode = 'longest:full,full'
 vim.o.completeopt = "fuzzy,menu,menuone,noselect,popup"
+-- Show x items in completion menu, otherwise it gets too tall and covers the code
+vim.o.pumheight = 9
 -- Add 'o' to completeopt for omni completion, which is used by LSP and treesitter.
 vim.o.complete = vim.o.complete .. ',o'
-vim.o.winborder = 'rounded'
 -- custom git hook templete generates tags to .git/tags
 vim.o.tags = ".git/tags,.tags,./tags;"
 vim.o.path = vim.o.path .. '**'
