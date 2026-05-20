@@ -32,6 +32,10 @@
       "rev": "f5d2a8570f8b736ddb9bb4be504355bcd6e15ec8",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
+    "md-view.nvim": {
+      "rev": "25abd4826cdc8c8c2ab174e1ed83b0dd58df5f62",
+      "src": "https://github.com/kcayme/md-view.nvim"
+    },
     "mini.hipatterns": {
       "rev": "a3ffba45e4119917b254c372df82e79f7d8c4aad",
       "src": "https://github.com/echasnovski/mini.hipatterns"

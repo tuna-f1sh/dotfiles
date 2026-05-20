@@ -5,22 +5,19 @@ local base_packages = {
 
 local full_packages = {
   gh('neovim/nvim-lspconfig'), -- LSP
-  -- gh('saghen/blink.cmp'),
 
   -- Treesitter
   { src = gh('nvim-treesitter/nvim-treesitter'), version = 'main' },
 
   -- Copilot
   gh('github/copilot.vim'), -- GitHub Copilot
-  -- { gh('nvim-lua/plenary.nvim'), }, -- Required by codecompanion
-  -- { gh('olimorris/codecompanion.nvim') },
   --
   -- -- Search
   gh('ibhagwan/fzf-lua'), -- Fzf popup
   --
   -- -- Git
   gh('tpope/vim-fugitive'), -- Git integration
-  gh('tpope/vim-rhubarb'),  -- GBrowse
+  gh('tpope/vim-rhubarb'),  -- GBrowse support
   gh('lewis6991/gitsigns.nvim'), -- Sidebar git status
   gh('folke/trouble.nvim'), -- Quickfix list
   gh('sindrets/diffview.nvim'), -- Diff view
@@ -41,7 +38,7 @@ local full_packages = {
   -- -- UI
   gh('nvim-lualine/lualine.nvim'), -- Status line
   gh('MeanderingProgrammer/render-markdown.nvim'),
-  -- -- { gh('iamcco/markdown-preview.nvim'), build = ':call mkdp#util#install()' },
+  gh('kcayme/md-view.nvim'), -- Markdown preview in browser
   gh('nvim-tree/nvim-web-devicons'),
   gh('folke/zen-mode.nvim'),
   gh('junegunn/limelight.vim'),
@@ -49,10 +46,10 @@ local full_packages = {
   --
   -- -- Themes
   gh('patstockwell/vim-monokai-tasty'),
-  gh('loctvl842/monokai-pro.nvim'),
   gh('folke/tokyonight.nvim'),
-  gh('sainnhe/sonokai'),
-  gh('rebelot/kanagawa.nvim'),
+  -- gh('loctvl842/monokai-pro.nvim'),
+  -- gh('sainnhe/sonokai'),
+  -- gh('rebelot/kanagawa.nvim'),
   gh('NLKNguyen/papercolor-theme'),
   gh('Lokaltog/vim-monotone'),
 }
