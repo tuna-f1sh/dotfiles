@@ -610,7 +610,7 @@ gremote ()
 
 get_probe() {
   if [[ "$(uname)" == "Darwin" ]]; then
-    serial=$(cyme --vidpid=0x1d50:0x6018 --blocks serial --no-color)
+    serial=$(cyme --vidpid=0x1d50:0x6018 | jq '.[0] | (.serial)')
 
     if [ -z "$serial" ]; then
       echo "Could not find Black Magic Probe on USB"
